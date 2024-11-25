@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:tx_rkwcompetition/Resources/Private/Language/locallang_csh_tx_rkwcompetition_domain_model_register.xlf" date="2024-11-15T11:11:11Z" product-name="tx_rkwcompetition">
+		<header/>
+		<body>
+			<trans-unit id="saluation.description" resname="saluation.description">
+				<source>saluation</source>
+			</trans-unit>
+			<trans-unit id="title.description" resname="title.description">
+				<source>title</source>
+			</trans-unit>
+			<trans-unit id="first_name.description" resname="first_name.description">
+				<source>firstName</source>
+			</trans-unit>
+			<trans-unit id="last_name.description" resname="last_name.description">
+				<source>lastName</source>
+			</trans-unit>
+			<trans-unit id="institution.description" resname="institution.description">
+				<source>institution</source>
+			</trans-unit>
+			<trans-unit id="address.description" resname="address.description">
+				<source>address</source>
+			</trans-unit>
+			<trans-unit id="zip.description" resname="zip.description">
+				<source>zip</source>
+			</trans-unit>
+			<trans-unit id="city.description" resname="city.description">
+				<source>city</source>
+			</trans-unit>
+			<trans-unit id="contribution_title.description" resname="contribution_title.description">
+				<source>contributionTitle</source>
+			</trans-unit>
+			<trans-unit id="type_of_work.description" resname="type_of_work.description">
+				<source>typeOfWork</source>
+			</trans-unit>
+			<trans-unit id="competition_area.description" resname="competition_area.description">
+				<source>competitionArea</source>
+			</trans-unit>
+			<trans-unit id="remark.description" resname="remark.description">
+				<source>remark</source>
+			</trans-unit>
+			<trans-unit id="privacy.description" resname="privacy.description">
+				<source>privacy</source>
+			</trans-unit>
+			<trans-unit id="conditions_of_participation.description" resname="conditions_of_participation.description">
+				<source>conditionsOfParticipation</source>
+			</trans-unit>
+			<trans-unit id="is_group_work.description" resname="is_group_work.description">
+				<source>isGroupWork</source>
+			</trans-unit>
+			<trans-unit id="group_work_insurance.description" resname="group_work_insurance.description">
+				<source>groupWorkInsurance</source>
+			</trans-unit>
+			<trans-unit id="group_work_add_persons.description" resname="group_work_add_persons.description">
+				<source>groupWorkAddPersons</source>
+			</trans-unit>
+			<trans-unit id="upload.description" resname="upload.description">
+				<source>upload</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

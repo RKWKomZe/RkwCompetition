@@ -1,0 +1,55 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+This template is responsible for creating a table of domain objects.
+
+If you modify this template, do not forget to change the overwrite settings
+in /Configuration/ExtensionBuilder/settings.yaml:
+  Resources:
+    Private:
+      Backend:
+        Templates:
+          Upload:
+            List.html: keep
+
+Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+
+<f:section name="Buttons">
+    <be:moduleLayout.button.linkButton
+        icon="actions-add"
+        title="{f:translate(id: 'LLL:EXT:backend/Resources/Private/Language/locallang_layout.xlf:newRecordGeneral')}"
+        link="{f:uri.action(controller: 'Upload', action: 'new')}"
+    />
+</f:section>
+
+<f:section name="Content">
+    <h1>Listing for Upload</h1>
+
+    <f:flashMessages />
+
+    <table class="tx_rkwcompetition">
+        <tr>
+            <th><f:translate key="tx_rkwcompetition_domain_model_upload.abstract" /></th>
+            <th><f:translate key="tx_rkwcompetition_domain_model_upload.full" /></th>
+            <th><f:translate key="tx_rkwcompetition_domain_model_upload.remark" /></th>
+            <th></th>
+            <th></th>
+        </tr>
+        <f:for each="{uploads}" as="upload">
+            <tr>
+                <td><f:link.action action="show" arguments="{upload: upload}">{upload.abstract.originalResource.name}</f:link.action></td>
+                <td><f:link.action action="show" arguments="{upload: upload}">{upload.full.originalResource.name}</f:link.action></td>
+                <td><f:link.action action="show" arguments="{upload: upload}">{upload.remark}</f:link.action></td>
+                <td><f:link.action action="edit" arguments="{upload: upload}" class="btn btn-default">Edit</f:link.action></td>
+                <td><f:link.action action="delete" arguments="{upload: upload}" class="btn btn-danger">Delete</f:link.action></td>
+            </tr>
+        </f:for>
+    </table>
+
+    <f:link.action action="new" class="btn btn-default">New Upload</f:link.action>
+</f:section>
+</html>

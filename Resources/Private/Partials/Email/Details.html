@@ -1,0 +1,71 @@
+{namespace postmaster=Madj2k\Postmaster\ViewHelpers}
+{namespace rkw=RKW\RkwCompetition\ViewHelpers}
+
+<!-- PLAINTEXT -->
+<f:section name="Plaintext">
+
+	Plaintext-Area für RkwCompetition registrierung
+
+</f:section>
+
+
+<!-- HTML -->
+<f:section name="Html">
+
+	<h2><postmaster:email.translate key="partials_email_details.competitionDetails" languageKey="{language}" extensionName="rkwCompetition" /></h2>
+	<p>
+		<a href="<postmaster:email.uri.action absolute='true' pageUid='{competitionPid}' action='show' controller='Competition' extensionName='rkwCompetition' pluginName='competition' additionalParams='{tx_rkwcompetition_competition: {competition: register.competition.uid}}' />" target="_blank">
+			{register.competition.title}
+		</a>
+
+	</p>
+	<p>
+		<f:if condition="{register.institution}">{register.institution}<br/></f:if>
+		{register.firstName} {register.lastName} <f:if condition="{frontendUser}">({frontendUser.username})</f:if><br/>
+		{register.address}<br/>
+		{register.zip} {register.city}<br/>
+	</p>
+	<f:if condition="{register.telephone}">
+		<strong><postmaster:email.translate key="partials_email_details.telephone" languageKey="{language}" extensionName="rkwCompetition" /></strong>: {register.telephone}
+		<br/>
+	</f:if>
+	<f:if condition="{register.sector}">
+		<strong><postmaster:email.translate key="partials_email_details.sector" languageKey="{language}" extensionName="rkwCompetition" /></strong>: {register.sector.title}
+		<br/>
+	</f:if>
+	<f:if condition="{register.contributionTitle}">
+		<strong><postmaster:email.translate key="partials_email_details.contributionTitle" languageKey="{language}" extensionName="rkwCompetition" /></strong>: {register.contributionTitle}
+		<br/>
+	</f:if>
+
+	<f:if condition="{register.isGroupWork}">
+		<p>
+			<strong><postmaster:email.translate key="partials_email_details.isGroupWork" languageKey="{language}" extensionName="rkwCompetition" /></strong>: {register.isGroupWork}
+			<br/>
+			<f:if condition="{register.isGroupWork}">
+				<strong><postmaster:email.translate key="partials_email_details.groupWorkInsurance" languageKey="{language}" extensionName="rkwCompetition" /></strong>: {register.groupWorkInsurance}
+				<br/>
+			</f:if>
+			<f:if condition="{register.groupWorkAddPersons}">
+				<strong><postmaster:email.translate key="partials_email_details.groupWorkAddPersons" languageKey="{language}" extensionName="rkwCompetition" /></strong>: {register.groupWorkAddPersons}
+				<br/>
+			</f:if>
+		</p>
+	</f:if>
+	<f:if condition="{register.remark}">
+		<p>
+			<strong><postmaster:email.translate key="partials_email_details.registerRemarks" languageKey="{language}" extensionName="rkwCompetition" /></strong>:
+			<br>{register.remark}
+		</p>
+	</f:if>
+
+
+	<f:comment><!-- @toDo: server host is not part of the register record yet --></f:comment>
+	<f:if condition="{register.serverHost}">
+		<p>
+			<strong><postmaster:email.translate key="partials_email_details.registerVia" languageKey="{language}" extensionName="rkwCompetition" /></strong>:
+			<br/>{register.serverHost}
+		</p>
+	</f:if>
+
+</f:section>

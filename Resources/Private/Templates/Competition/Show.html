@@ -1,0 +1,46 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:postmaster="http://typo3.org/ns/Madj2k\Postmaster\ViewHelpers"
+      data-namespace-typo3-fluid="true"
+>
+<f:layout name="Default" />
+
+This template is responsible for displaying a single view for a domain object
+
+If you modify this template, do not forget to change the overwrite settings
+in /Configuration/ExtensionBuilder/settings.yaml:
+  Resources:
+    Private:
+      Templates:
+        Competition:
+          Show.html: keep
+
+Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+
+<f:section name="content">
+    <h1>Single View for Competition</h1>
+
+    <f:flashMessages queueIdentifier="extbase.flashmessages.tx_rkwcompetition_register" as="flashMessages">
+        <f:if condition="{flashMessages}">
+            <div class="system-message system-message--scroll" role="alert">
+                <f:for each="{flashMessages}" as="flashMessage">
+                    <div class="system-message__item system-message__item--severity{flashMessage.severity}">
+                        <f:format.raw>{flashMessage.message}</f:format.raw>
+                    </div>
+                </f:for>
+            </div>
+        </f:if>
+    </f:flashMessages>
+
+    <f:render partial="Competition/Properties" arguments="{competition:competition}" />
+
+    <f:link.action
+            action="new"
+            controller="Register"
+            pluginName="Register"
+            pageUid="{settings.registerPid}"
+            additionalParams='{tx_rkwcompetition_register: {competition: competition}}'
+    >
+        Register
+    </f:link.action>
+</f:section>
+</html>

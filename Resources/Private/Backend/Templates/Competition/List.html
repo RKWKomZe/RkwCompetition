@@ -1,0 +1,71 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+This template is responsible for creating a table of domain objects.
+
+If you modify this template, do not forget to change the overwrite settings
+in /Configuration/ExtensionBuilder/settings.yaml:
+  Resources:
+    Private:
+      Backend:
+        Templates:
+          Competition:
+            List.html: keep
+
+Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+
+<f:section name="Buttons">
+    <be:moduleLayout.button.linkButton
+        icon="actions-add"
+        title="{f:translate(id: 'LLL:EXT:backend/Resources/Private/Language/locallang_layout.xlf:newRecordGeneral')}"
+        link="{f:uri.action(controller: 'Competition', action: 'new')}"
+    />
+</f:section>
+
+<f:section name="Content">
+    <h1>Listing for Competition</h1>
+
+    <f:flashMessages />
+
+    <table class="tx_rkwcompetition">
+        <tr>
+            <th><f:translate key="tx_rkwcompetition_domain_model_competition.title" /></th>
+            <th><f:translate key="tx_rkwcompetition_domain_model_competition.register_start" /></th>
+            <th><f:translate key="tx_rkwcompetition_domain_model_competition.register_end" /></th>
+            <th><f:translate key="tx_rkwcompetition_domain_model_competition.jury_end" /></th>
+            <th><f:translate key="tx_rkwcompetition_domain_model_competition.file_removal_end" /></th>
+            <th><f:translate key="tx_rkwcompetition_domain_model_competition.jury_add_data" /></th>
+            <th><f:translate key="tx_rkwcompetition_domain_model_competition.link_jury_declaration_confident" /></th>
+            <th><f:translate key="tx_rkwcompetition_domain_model_competition.allow_team_participation" /></th>
+            <th><f:translate key="tx_rkwcompetition_domain_model_competition.reminder_interval" /></th>
+            <th><f:translate key="tx_rkwcompetition_domain_model_competition.link_cond_participation" /></th>
+            <th><f:translate key="tx_rkwcompetition_domain_model_competition.link_privacy" /></th>
+            <th></th>
+            <th></th>
+        </tr>
+        <f:for each="{competitions}" as="competition">
+            <tr>
+                <td><f:link.action action="show" arguments="{competition: competition}">{competition.title}</f:link.action></td>
+                <td><f:link.action action="show" arguments="{competition: competition}">{competition.registerStart -> f:format.date()}</f:link.action></td>
+                <td><f:link.action action="show" arguments="{competition: competition}">{competition.registerEnd -> f:format.date()}</f:link.action></td>
+                <td><f:link.action action="show" arguments="{competition: competition}">{competition.juryEnd}</f:link.action></td>
+                <td><f:link.action action="show" arguments="{competition: competition}">{competition.fileRemovalEnd}</f:link.action></td>
+                <td><f:link.action action="show" arguments="{competition: competition}">{competition.juryAddData}</f:link.action></td>
+                <td><f:link.action action="show" arguments="{competition: competition}">{competition.linkJuryDeclarationConfident}</f:link.action></td>
+                <td><f:link.action action="show" arguments="{competition: competition}">{competition.allowTeamParticipation}</f:link.action></td>
+                <td><f:link.action action="show" arguments="{competition: competition}">{competition.reminderInterval}</f:link.action></td>
+                <td><f:link.action action="show" arguments="{competition: competition}">{competition.linkCondParticipation}</f:link.action></td>
+                <td><f:link.action action="show" arguments="{competition: competition}">{competition.linkPrivacy}</f:link.action></td>
+                <td><f:link.action action="edit" arguments="{competition: competition}" class="btn btn-default">Edit</f:link.action></td>
+                <td><f:link.action action="delete" arguments="{competition: competition}" class="btn btn-danger">Delete</f:link.action></td>
+            </tr>
+        </f:for>
+    </table>
+
+    <f:link.action action="new" class="btn btn-default">New Competition</f:link.action>
+</f:section>
+</html>

@@ -1,0 +1,21 @@
+<f:comment>
+    <!--
+    @param $mandatoryFields
+    @param $field The field to check if is required or optional
+    @use arguments="{field: 'firstName', mandatoryFields: settings.mandatoryFields.eventReservationMainPerson}"
+    -->
+</f:comment>
+
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:rkw="http://typo3.org/ns/RKW/RkwCompetition/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+
+    <f:if condition="<rkw:isMandatoryField fieldName='{field}' mandatoryFields='{mandatoryFields}' />">
+        <f:then>
+            <span class="is-optional"><f:translate key="tx_rkwcompetition_fluid.label_optional" /></span>
+        </f:then>
+        <f:else>
+            <span class="is-required"><f:translate key="tx_rkwcompetition_fluid.label_required" /></span>
+        </f:else>
+    </f:if>
+</html>

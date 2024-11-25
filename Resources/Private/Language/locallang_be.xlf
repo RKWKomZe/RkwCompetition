@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2024-11-14T15:19:10Z" product-name="tx_rkwcompetition">
+		<header/>
+		<body>
+		    <trans-unit id="mlang_tabs_tab">
+                <source>RKW Competition</source>
+            </trans-unit>
+           
+			<trans-unit id="mlang_labels_tabdescr" resname="mlang_labels_tabdescr">
+				<source></source>
+			</trans-unit>
+			<trans-unit id="mlang_tabs_tab" resname="mlang_tabs_tab">
+				<source></source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

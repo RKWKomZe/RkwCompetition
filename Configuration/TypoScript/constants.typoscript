@@ -1,0 +1,25 @@
+plugin.tx_rkwcompetition {
+    view {
+        # cat=plugin.tx_rkwcompetition/file; type=string; label=Path to template root (FE)
+        templateRootPath = EXT:rkw_competition/Resources/Private/Templates/
+        # cat=plugin.tx_rkwcompetition/file; type=string; label=Path to template partials (FE)
+        partialRootPath = EXT:rkw_competition/Resources/Private/Partials/
+        # cat=plugin.tx_rkwcompetition/file; type=string; label=Path to template layouts (FE)
+        layoutRootPath = EXT:rkw_competition/Resources/Private/Layouts/
+    }
+    persistence {
+        # cat=plugin.tx_rkwcompetition//a; type=string; label=Default storage PID
+        storagePid =
+    }
+    settings {
+
+        loginPid = 10513
+        competitionPid =
+        registerPid =
+
+        mandatoryFields {
+            register =
+            registerGroupWork = groupWorkInsurance, groupWorkAddPersons
+        }
+    }
+}

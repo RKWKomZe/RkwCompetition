@@ -1,0 +1,69 @@
+plugin.tx_rkwcompetition {
+    view {
+        layoutRootPaths {
+            0 = EXT:rkw_competition/Resources/Private/Layouts/
+            1 = {$plugin.tx_rkwcompetition.view.layoutRootPath}
+        }
+        templateRootPaths {
+            0 = EXT:rkw_competition/Resources/Private/Templates/
+            1 = {$plugin.tx_rkwcompetition.view.templateRootPath}
+        }
+        partialRootPaths {
+            0 = EXT:rkw_competition/Resources/Private/Partials/
+            1 = {$plugin.tx_coreextended.view.partialRootPath}
+            # we need to overwrite FormErrors of CoreExtended but want to use CaptchaElement of CoreExtended
+            2 = {$plugin.tx_rkwcompetition.view.partialRootPath}
+        }
+    }
+    persistence {
+        storagePid = {$plugin.tx_rkwcompetition.persistence.storagePid}
+        #recursive = 1
+    }
+    features {
+        #skipDefaultArguments = 1
+        # if set to 1, the enable fields are ignored in BE context
+        ignoreAllEnableFieldsInBe = 0
+    }
+    mvc {
+        #callDefaultActionIfActionCantBeResolved = 1
+    }
+    settings {
+        loginPid = {$plugin.tx_rkwcompetition.settings.loginPid}
+        competitionPid = {$plugin.tx_rkwcompetition.settings.competitionPid}
+        registerPid = {$plugin.tx_rkwcompetition.settings.registerPid}
+        mandatoryFields {
+            # use propertyNames
+            register = {$plugin.tx_rkwcompetition.settings.mandatoryFields.register}
+            registerGroupWork = {$plugin.tx_rkwcompetition.settings.mandatoryFields.registerGroupWork}
+        }
+    }
+}
+
+
+
+plugin.tx_rkwcompetition_register < plugin.tx_competition
+plugin.tx_rkwcompetition_edit < plugin.tx_competition
+plugin.tx_rkwcompetition_jury < plugin.tx_competition
+
+
+// for cronjob
+module.tx_feregister < plugin.tx_feregister
+
+
+# Module configuration
+module.tx_rkwcompetition_web_rkwcompetitionlist {
+    persistence {
+        storagePid = {$module.tx_rkwcompetition_list.persistence.storagePid}
+    }
+    view {
+        templateRootPaths.0 = EXT:rkw_competition/Resources/Private/Backend/Templates/
+        templateRootPaths.1 = {$module.tx_rkwcompetition_list.view.templateRootPath}
+        partialRootPaths.0 = EXT:rkw_competition/Resources/Private/Backend/Partials/
+        partialRootPaths.1 = {$module.tx_rkwcompetition_list.view.partialRootPath}
+        layoutRootPaths.0 = EXT:rkw_competition/Resources/Private/Backend/Layouts/
+        layoutRootPaths.1 = {$module.tx_rkwcompetition_list.view.layoutRootPath}
+    }
+}
+
+
+

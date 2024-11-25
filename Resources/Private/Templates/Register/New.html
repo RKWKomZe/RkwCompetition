@@ -1,0 +1,55 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+
+This template displays a NEW form for the current domain object.
+
+If you modify this template, do not forget to change the overwrite settings
+in /Configuration/ExtensionBuilder/settings.yaml:
+  Resources:
+    Private:
+      Templates:
+        Register:
+          New.html: keep
+
+Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+
+<f:section name="content">
+
+    <f:link.action
+            action="show"
+            controller="Competition"
+            pluginName="Competition"
+            pageUid="{settings.competitionPid}"
+            additionalParams='{tx_rkwcompetition_competition: {competition: competition}}'
+    >
+        zurück
+    </f:link.action>
+
+    <h3 class="no-hide">
+        Anmeldung
+    </h3>
+
+    <f:flashMessages />
+
+    <f:render partial="FormErrors" />
+
+    <f:form action="create" name="newRegister" object="{newRegister}">
+        <div class="flex-container">
+            <div class="form flex flex-basis-8 full-width-medium space-between">
+
+                <f:form.hidden property="competition" value="{competition}" />
+
+                <f:render partial="Register/FormFields" arguments="{_all}" />
+
+                <f:render partial="CaptchaElement" />
+
+                <button type="submit" class="btn btn--primary">
+                    Create new
+                </button>
+
+            </div>
+        </div>
+    </f:form>
+
+</f:section>
+</html>
