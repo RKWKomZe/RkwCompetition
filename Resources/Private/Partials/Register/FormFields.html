@@ -4,7 +4,7 @@
 
 	<div class="form__field width25 break-after">
 		<label class="form-label" for="salutation">
-			<f:translate key="tx_rkwcompetition_domain_model_register.saluation" />
+			<f:translate key="tx_rkwcompetition_domain_model_register.salutation" />
 			<f:render partial="LabelSuffix" arguments="{field: 'salutation', mandatoryFields: settings.mandatoryFields.register}" />
 		</label>
 		<f:form.select
@@ -152,6 +152,16 @@
 			<f:render partial="LabelSuffix" arguments="{field: 'remark', mandatoryFields: settings.mandatoryFields.register}" />
 		</label>
 		<f:form.textarea property="remark" id="remark" cols="40" rows="15" />
+	</div>
+
+	<div class="form__field width100">
+		FileUpload Abstract
+		<f:form.upload property="upload.fileAbstract" />
+	</div>
+
+	<div class="form__field width100">
+		FileUpload Full version
+		<f:form.upload property="upload.fileFull" />
 	</div>
 
 	<f:comment><!-- terms = "conditionsOfParticipation" --></f:comment>

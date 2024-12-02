@@ -1,6 +1,11 @@
 <?php
 
 namespace RKW\RkwCompetition\ViewHelpers;
+
+use RKW\RkwCompetition\Utility\CompetitionUtility;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Exception;
+
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -14,18 +19,15 @@ namespace RKW\RkwCompetition\ViewHelpers;
  * The TYPO3 project - inspiring people to share!
  */
 
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Exception;
-
 /**
- * Class IsMandatoryFieldViewHelper
+ * Class IsDateWithinDeadlineViewHelper
  *
  * @author Maximilian Fäßler <maximilian@faesslerweb.de>
  * @copyright RKW Kompetenzzentrum
  * @package RKW_RkwCompetition
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class IsMandatoryFieldViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper
+class IsDateWithinDeadlineViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper
 {
     /**
      * Initialize arguments.
@@ -35,8 +37,7 @@ class IsMandatoryFieldViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\Abstr
     public function initializeArguments()
     {
         parent::initializeArguments();
-        $this->registerArgument('fieldName', 'string', 'The field name');
-        $this->registerArgument('mandatoryFields', 'string', 'List of mandatory fields from TypoScript');
+        $this->registerArgument('date', '\DateTime', 'The DateTime object to compare');
     }
 
     /**
@@ -49,17 +50,14 @@ class IsMandatoryFieldViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\Abstr
      */
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
-        $fieldName = $arguments['fieldName'];
-        $mandatoryFields = $arguments['mandatoryFields'];
+        $dateTime = $arguments['date'];
 
-        $mandatoryFieldsArray = array_map('trim', explode(',', $mandatoryFields));
+        // @toDo: Throw error if given date is not of type DateTime? Or let him die?
 
-        if (!in_array($fieldName, $mandatoryFieldsArray)) {
+        if ($dateTime->getTimestamp() > time()) {
             return true;
         }
 
         return false;
     }
-
-
 }

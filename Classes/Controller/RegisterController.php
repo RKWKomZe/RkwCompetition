@@ -5,12 +5,18 @@ declare(strict_types=1);
 namespace RKW\RkwCompetition\Controller;
 
 
+use Madj2k\FeRegister\DataProtection\ConsentHandler;
 use Madj2k\FeRegister\Domain\Model\FrontendUser;
 use Madj2k\FeRegister\Registration\FrontendUserRegistration;
+use Madj2k\FeRegister\Utility\FrontendUserUtility;
 use RKW\RkwCompetition\Domain\Model\Competition;
+use RKW\RkwCompetition\Domain\Model\FileReference;
 use RKW\RkwCompetition\Domain\Model\Register;
+use RKW\RkwCompetition\Persistence\FileUpload;
 use RKW\RkwCompetition\Utility\CompetitionUtility;
+use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\Log\Logger;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
@@ -28,7 +34,7 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 /**
  * RegisterController
  */
-class RegisterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class RegisterController extends \RKW\RkwCompetition\Controller\AbstractController
 {
     /**
      * Signal name for use in ext_localconf.php
@@ -76,66 +82,6 @@ class RegisterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @const string
      */
     const SIGNAL_AFTER_REGISTER_DELETE_USER = 'afterDeleteRegisterUser';
-
-    /**
-     * competitionRepository
-     *
-     * @var \RKW\RkwCompetition\Domain\Repository\CompetitionRepository
-     */
-    protected $competitionRepository = null;
-
-    /**
-     * registerRepository
-     *
-     * @var \RKW\RkwCompetition\Domain\Repository\RegisterRepository
-     */
-    protected $registerRepository = null;
-
-    /**
-     * sectorRepository
-     *
-     * @var \RKW\RkwCompetition\Domain\Repository\SectorRepository
-     */
-    protected $sectorRepository = null;
-
-    /**
-     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
-     * @TYPO3\CMS\Extbase\Annotation\Inject
-     */
-    protected ?PersistenceManager $persistenceManager = null;
-
-    /**
-     * @param \RKW\RkwCompetition\Domain\Repository\RegisterRepository $registerRepository
-     */
-    public function injectRegisterRepository(\RKW\RkwCompetition\Domain\Repository\RegisterRepository $registerRepository)
-    {
-        $this->registerRepository = $registerRepository;
-    }
-
-    /**
-     * @param \RKW\RkwCompetition\Domain\Repository\SectorRepository $sectorRepository
-     */
-    public function injectSectorRepository(\RKW\RkwCompetition\Domain\Repository\SectorRepository $sectorRepository)
-    {
-        $this->sectorRepository = $sectorRepository;
-    }
-
-    /**
-     * @param \RKW\RkwCompetition\Domain\Repository\CompetitionRepository $competitionRepository
-     */
-    public function injectCompetitionRepository(\RKW\RkwCompetition\Domain\Repository\CompetitionRepository $CompetitionRepository)
-    {
-        $this->competitionRepository = $CompetitionRepository;
-    }
-
-    /**
-     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
-     */
-    public function injectPersistenceManager(PersistenceManager $persistenceManager)
-    {
-        $this->persistenceManager = $persistenceManager;
-    }
-
 
 
     /**
@@ -185,7 +131,6 @@ class RegisterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     }
 
 
-
     /**
      * action create
      *
@@ -193,11 +138,43 @@ class RegisterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @TYPO3\CMS\Extbase\Annotation\Validate("RKW\RkwCompetition\Validation\Validator\RegisterValidator", param="newRegister")
      * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\FeRegister\Validation\Consent\TermsValidator", param="newRegister")
      * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\FeRegister\Validation\Consent\PrivacyValidator", param="newRegister")
-     * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\CoreExtended\Validation\CaptchaValidator", param="newRegister")
      * @return void
+     * @throws AspectNotFoundException
+     * @throws StopActionException
      */
     public function createAction(\RKW\RkwCompetition\Domain\Model\Register $newRegister)
     {
+
+    //    DebuggerUtility::var_dump($newRegister); exit;
+
+        // @toDo: FileUpload
+        // @toDo: create random unique hash (as sub-folder name)
+        // -> create an additional field inside the RegisterModel for it
+
+        /** @var \RKW\RkwCompetition\Persistence\FileUpload $fileUpload */
+        $fileUpload = GeneralUtility::makeInstance(FileUpload::class);
+
+
+        // @toDo: FileUpload try-catch
+
+
+        // Abstract PDF
+        if ($fileUpload->checkFileFormUpload($newRegister->getUpload()->getFileAbstract())) {
+            $newRegister->getUpload()->setAbstract($fileUpload->importUploadedResource($newRegister->getUpload()->getFileAbstract()));
+        }
+
+        // Full PDF
+        if ($fileUpload->checkFileFormUpload($newRegister->getUpload()->getFileFull())) {
+            $newRegister->getUpload()->setFull($fileUpload->importUploadedResource($newRegister->getUpload()->getFileFull()));
+        }
+
+
+        /*
+         All configuration settings of the \TYPO3\CMS\Extbase\Mvc\Controller\FileUploadConfiguration object can be
+         defined using the FileUpload attribute. It is however not possible to add custom validators using the FileUpload
+         attribute, which you can achieve with a manual configuration as shown below.
+         */
+
 
         // @toDo: Check register end time of competition
 
@@ -205,39 +182,58 @@ class RegisterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $newRegister->setPrivacy(time());
         $newRegister->setConditionsOfParticipation(time());
 
-        //$this->registerRepository->add($newRegister);
+        if (
+            ($this->getFrontendUser())
+            && (FrontendUserUtility::isEmailValid($this->getFrontendUser()->getEmail()))
+        ) {
 
-        // register new user or simply send opt-in to existing user
-        /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
-        $frontendUser = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(FrontendUser::class);
-        // @toDo: Check salutation typecast after CD feedback to using of Title-Model
-        $frontendUser->setTxFeregisterGender((int)$newRegister->getSalutation());
-        $frontendUser->setFirstName($newRegister->getFirstName());
-        $frontendUser->setLastName($newRegister->getLastName());
-        $frontendUser->setCompany($newRegister->getInstitution());
-        $frontendUser->setAddress($newRegister->getAddress());
-        $frontendUser->setZip($newRegister->getZip());
-        $frontendUser->setCity($newRegister->getCity());
-        $frontendUser->setEmail($newRegister->getEmail());
+            // @toDo: Try-catch registration
 
-        /** @var \Madj2k\FeRegister\Registration\FrontendUserRegistration $registration */
-        $registration = $this->objectManager->get(FrontendUserRegistration::class);
-        $registration->setFrontendUser($frontendUser)
-            ->setData($newRegister)
-            ->setDataParent($newRegister->getCompetition())
-            ->setCategory('rkwCompetition')
-            ->setRequest($this->request)
-            ->startRegistration();
+            $this->finalSaveRegistration($newRegister, $this->getFrontendUser());
 
-        $this->addFlashMessage(
-            LocalizationUtility::translate(
-                'registerController.message.registrationCreatedEmail',
-                'rkw_competition',
-            ),
-            '',
-            \TYPO3\CMS\Core\Messaging\AbstractMessage::OK
-        );
+            // add privacy info
+            ConsentHandler::add(
+                $this->request,
+                $this->getFrontendUser(),
+                $newRegister,
+                'new competition register'
+            );
 
+            $this->addFlashMessage(LocalizationUtility::translate('registerController.message.registrationCreated', 'rkw_events'));
+
+        } else {
+
+            // register new user or simply send opt-in to existing user
+            /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
+            $frontendUser = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(FrontendUser::class);
+            // @toDo: Check salutation typecast after CD feedback to using of Title-Model
+            $frontendUser->setTxFeregisterGender((int)$newRegister->getSalutation());
+            $frontendUser->setFirstName($newRegister->getFirstName());
+            $frontendUser->setLastName($newRegister->getLastName());
+            $frontendUser->setCompany($newRegister->getInstitution());
+            $frontendUser->setAddress($newRegister->getAddress());
+            $frontendUser->setZip($newRegister->getZip());
+            $frontendUser->setCity($newRegister->getCity());
+            $frontendUser->setEmail($newRegister->getEmail());
+
+            /** @var \Madj2k\FeRegister\Registration\FrontendUserRegistration $registration */
+            $registration = $this->objectManager->get(FrontendUserRegistration::class);
+            $registration->setFrontendUser($frontendUser)
+                ->setData($newRegister)
+                ->setDataParent($newRegister->getCompetition())
+                ->setCategory('rkwCompetition')
+                ->setRequest($this->request)
+                ->startRegistration();
+
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'registerController.message.registrationCreatedEmail',
+                    'rkw_competition',
+                ),
+                '',
+                \TYPO3\CMS\Core\Messaging\AbstractMessage::OK
+            );
+        }
 
 
         $this->redirect(
@@ -273,9 +269,9 @@ class RegisterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     public function updateAction(\RKW\RkwCompetition\Domain\Model\Register $register)
     {
-        $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/p/friendsoftypo3/extension-builder/master/en-us/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+        $this->addFlashMessage('The object was updated.');
         $this->registerRepository->update($register);
-        $this->redirect('list');
+        $this->redirect('list', 'Participant');
     }
 
 
@@ -288,9 +284,9 @@ class RegisterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     public function deleteAction(\RKW\RkwCompetition\Domain\Model\Register $register)
     {
-        $this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/p/friendsoftypo3/extension-builder/master/en-us/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+        $this->addFlashMessage('The object was deleted.');
         $this->registerRepository->remove($register);
-        $this->redirect('list');
+        $this->redirect('list', 'Participant');
     }
 
 
@@ -478,4 +474,6 @@ class RegisterController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             $this->signalSlotDispatcher->dispatch(__CLASS__, self::SIGNAL_AFTER_REGISTER_CREATED_ADMIN, [$adminMails, $newRegister]);
         }
     }
+
+
 }

@@ -6,8 +6,8 @@
 			<trans-unit id="tx_rkwcompetition_domain_model_register" resname="tx_rkwcompetition_domain_model_register">
 				<source>Register</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_register.saluation" resname="tx_rkwcompetition_domain_model_register.saluation">
-				<source>Saluation</source>
+			<trans-unit id="tx_rkwcompetition_domain_model_register.salutation" resname="tx_rkwcompetition_domain_model_register.salutation">
+				<source>Salutation</source>
 			</trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_register.salutation" approved="yes">
                 <source>Salutation</source>
@@ -96,6 +96,27 @@
 			<trans-unit id="tx_rkwcompetition_domain_model_register.competition">
                 <source>Competition</source>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.admin_approved">
+                <source>Admin approved</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.admin_approved_by">
+                <source>Admin approved by</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.admin_approved_at">
+                <source>Admin approved at</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.admin_refused">
+                <source>Admin refused</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.admin_refused_by">
+                <source>Admin refused by</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.admin_refused_at">
+                <source>Admin refused at</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.admin_refused_text">
+                <source>Admin refused text</source>
+            </trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_upload" resname="tx_rkwcompetition_domain_model_upload">
 				<source>Upload</source>
 			</trans-unit>
@@ -120,8 +141,8 @@
 			<trans-unit id="tx_rkwcompetition_domain_model_competition.register_end" resname="tx_rkwcompetition_domain_model_competition.register_end">
 				<source>Register End</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_competition.jury_end" resname="tx_rkwcompetition_domain_model_competition.jury_end">
-				<source>Jury End</source>
+			<trans-unit id="tx_rkwcompetition_domain_model_competition.jury_access_end" resname="tx_rkwcompetition_domain_model_competition.jury_access_end">
+				<source>Jury Access End</source>
 			</trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_competition.file_removal_end" resname="tx_rkwcompetition_domain_model_competition.file_removal_end">
 				<source>File Removal End</source>
@@ -254,10 +275,39 @@
             </trans-unit>
 
 
+            <!-- Partials/Participant/Listing.html -->
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.noCompetitionPlanned">
+                <source>No competition planned</source>
+                <target>Derzeit liegen keine Registrierungen für Wettbewerbe vor.</target>
+            </trans-unit>
+
+            <!-- Partials/Participant/Options.html -->
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.competitionShow">
+                <source>Show competition</source>
+                <target>Wettbewerb ansehen</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.registerShow">
+                <source>Show registration</source>
+                <target>Registrierung ansehen</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.registerEdit">
+                <source>Edit registration</source>
+                <target>Registrierung bearbeiten</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.registerDelete">
+                <source>Delete registration</source>
+                <target>Registrierung löschen</target>
+            </trans-unit>
+
+
             <!-- ==================================================================================== -->
 
 
             <!-- CONTROLLER -->
+            <trans-unit id="registerController.message.registrationCreated">
+                <source>Registration successfully created.</source>
+                <target>Woohoo! Sie sind nun für den Wettbewerb registriert. In Kürze erhalten Sie eine Bestätigung per E-Mail.</target>
+            </trans-unit>
             <trans-unit id="registerController.message.registrationCreatedEmail">
                 <source>An e-mail has been send to you. Please click the link in the e-mail to confirm your request.</source>
                 <target><![CDATA[Fast geschafft! Eine E-Mail mit einem Bestätigungslink ist auf dem Weg zu Ihnen. Sollten Sie innerhalb der nächsten 2-3 Minuten keine E-Mail von uns erhalten, prüfen Sie Ihren Spam-Filter. Selbstverständlich steht Ihnen aber auch unser <a href="mailto:service@rkw.de">Support</a> bei Problemen jederzeit gerne zur Verfügung.]]></target>
@@ -296,9 +346,29 @@
             </trans-unit>
 
 
+
+            <trans-unit id="participantController.message.noUserLoggedIn">
+                <source>No user logged in!</source>
+                <target>Sie sind nicht angemeldet. Bitte loggen Sie sich ein.</target>
+            </trans-unit>
+            <trans-unit id="participantController.message.error.notPermitted">
+                <source>Not permitted!</source>
+                <target><![CDATA[Zugriff verweigert. Bitte wenden Sie sich an den <a href="mailto:service@rkw.de">Support</a>.]]></target>
+            </trans-unit>
+            <trans-unit id="participantController.message.error.notAvailable">
+                <source>This event does not exist anymore.</source>
+                <target>Oops! Dieser Wettbewerb steht leider nicht mehr zur Verfügung.</target>
+            </trans-unit>
+            <trans-unit id="participantController.message.error.notAvailable2">
+                <source>This event does not exist anymore.</source>
+                <target>Der gewünschte Wettbewerb ist leider nicht mehr online.</target>
+            </trans-unit>
+
+
             <!-- ==================================================================================== -->
 
             <!-- E-Mail subjects -->
+            <!-- USER -->
             <trans-unit id="rkwMailService.optInRegisterUser.subject" approved="yes">
                 <source>Please confirm your registration</source>
                 <target>Bitte bestätigen Sie Ihre Teilnahme</target>
@@ -311,13 +381,24 @@
                 <source>Upload additional data</source>
                 <target>Upload Unterlagen</target>
             </trans-unit>
+            <trans-unit id="rkwMailService.approvedRegisterUser.subject" approved="yes">
+                <source>Registration approved</source>
+                <target>Wettbewerbsregistrierung genehmigt</target>
+            </trans-unit>
+            <trans-unit id="rkwMailService.refusedRegisterUser.subject" approved="yes">
+                <source>Registration refused</source>
+                <target>Wettbewerbsregistrierung abgelehnt</target>
+            </trans-unit>
+
+            <!-- ADMIN -->
             <trans-unit id="rkwMailService.confirmationRegisterAdmin.subject" approved="yes">
-                <source>New reservation</source>
+                <source>New registration</source>
                 <target>Neue Wettbewerbsregistrierung</target>
             </trans-unit>
+
             
             <!-- ==================================================================================== -->
-            <!-- Partials/Email/EventDetails.html -->
+            <!-- Partials/Email/Details.html -->
             <trans-unit id="partials_email_details.competitionDetails">
                 <source>Competition Details</source>
                 <target>Details zum Wettbewerb</target>
@@ -386,7 +467,7 @@
                 <target>Namen der anderen Gruppenmitglieder (Anrede, Titel, Vorname und Nachname)</target>
             </trans-unit>
 
-            
+
             <!-- ==================================================================================== -->
             
             <!-- Templates/Email/OptInReservationUser.html -->
@@ -423,43 +504,148 @@
                 <target>Bitte bestätigen Sie Ihre Anmeldung</target>
             </trans-unit>
 
-            <!-- Templates/Email/ConfirmationReservationUser.html -->
-            <trans-unit id="templates_email_confirmationRegistrationUser.headline">
+            <!-- Templates/Email/ConfirmationRegistrationUser.html -->
+            <trans-unit id="templates_email_confirmationRegisterUser.headline">
                 <source>Hello %s %s,</source>
                 <target>Hallo %s %s,</target>
             </trans-unit>
-            <trans-unit id="templates_email_confirmationRegistrationUser.text1">
-                <source>thank you for your reservation.</source>
+            <trans-unit id="templates_email_confirmationRegisterUser.text1">
+                <source>thank you for your registration.</source>
                 <target>vielen Dank für Ihre Anmeldung zu eines Wettbewerbs des RKW.</target>
             </trans-unit>
-            <trans-unit id="templates_email_confirmationRegistrationUser.text2">
-                <source>Please find below the details of your reservation.</source>
+            <trans-unit id="templates_email_confirmationRegisterUser.text2">
+                <source>Please find below the details of your registration.</source>
                 <target>Untenstehend finden Sie die Details Ihrer Anmeldung. Bei Rückfragen können Sie einfach direkt auf diese E-Mail antworten.</target>
             </trans-unit>
-            <trans-unit id="templates_email_confirmationRegistrationUser.changeDeleteHeadline">
+            <trans-unit id="templates_email_confirmationRegisterUser.changeDeleteHeadline">
                 <source>Change / Delete</source>
                 <target>Löschen / Ändern</target>
             </trans-unit>
-            <trans-unit id="templates_email_confirmationRegistrationUser.text3">
-                <source>Login here to change or delete your reservation.</source>
+            <trans-unit id="templates_email_confirmationRegisterUser.text3">
+                <source>Login here to change or delete your registration.</source>
                 <target>Loggen Sie sich hier ein, um Ihre Anmeldung zu löschen oder zu ändern.</target>
             </trans-unit>
             
 
 
-            <!-- Templates/Email/ConfirmationReservationAdmin.html -->
-            <trans-unit id="templates_email_confirmationRegistrationAdmin.headline">
+            <!-- Templates/Email/ConfirmationRegistrationAdmin.html -->
+            <trans-unit id="templates_email_confirmationRegisterAdmin.headline">
                 <source>Hello %s,</source>
                 <target>Hallo %s,</target>
             </trans-unit>
-            <trans-unit id="templates_email_confirmationRegistrationAdmin.text1" approved="no">
-                <source>a reservation has been placed.</source>
+            <trans-unit id="templates_email_confirmationRegisterAdmin.text1" approved="no">
+                <source>a registration has been placed.</source>
                 <target>jemand hat sich über die Website an einen Wettbewerbs angemeldet. Sie können dem oder der Nutzenden direkt auf diese E-Mail antworten, um etwaige Fragen zu klären.</target>
             </trans-unit>
-            <trans-unit id="templates_email_confirmationRegistrationAdmin.text2" approved="no">
+            <trans-unit id="templates_email_confirmationRegisterAdmin.text2" approved="no">
                 <source>IMPORTANT: The user has already received a confirmation for his reservation. He will also automatically receive a reminder-mail a few days before the event.</source>
                 <target>WICHTIG: Der oder die Nutzende haben bereits eine Bestätigungsemail für die Anmeldung erhalten.</target>
             </trans-unit>
+
+
+            <!-- Templates/Email/ApproveRegistrationUser.html -->
+            <trans-unit id="templates_email_approvedRegisterUser.headline">
+                <source>Hello %s %s,</source>
+                <target>Hallo %s %s,</target>
+            </trans-unit>
+            <trans-unit id="templates_email_approvedRegisterUser.text1">
+                <source>There is news about a competition organised by RKW.</source>
+                <target>es gibt Neuigkeiten zu einem Wettbewerbs des RKW.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_approvedRegisterUser.text2">
+                <source>Your registration has been approved:</source>
+                <target>Ihre Registrierung wurde akzeptiert und final genehmigt:</target>
+            </trans-unit>
+            <trans-unit id="templates_email_approvedRegisterUser.text3">
+                <source>Login here to take a look to your registration.</source>
+                <target>Loggen Sie sich hier ein, um Ihre Angaben im Detail anzusehen</target>
+            </trans-unit>
+            <trans-unit id="templates_email_approvedRegisterUser.showHeadline">
+                <source>Show registration</source>
+                <target>Wettbewerbsregistrierung ansehen</target>
+            </trans-unit>
+
+            <!-- Templates/Email/RefusedRegistrationUser.html -->
+            <trans-unit id="templates_email_refusedRegisterUser.headline">
+                <source>Hello %s %s,</source>
+                <target>Hallo %s %s,</target>
+            </trans-unit>
+            <trans-unit id="templates_email_refusedRegisterUser.text1">
+                <source>There is news about a competition organised by RKW.</source>
+                <target>es gibt Neuigkeiten zu einem Wettbewerbs des RKW.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_refusedRegisterUser.text2">
+                <source>Your registration has been refused:</source>
+                <target>Ihre Registrierung wurde vorläufig abgelehnt:</target>
+            </trans-unit>
+            <trans-unit id="templates_email_refusedRegisterUser.text3">
+                <source>Login here to take a look to your registration.</source>
+                <target>Loggen Sie sich hier ein, um Ihre Angaben im Detail anzusehen und Ihre Unterlagen zu aktualisieren.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_refusedRegisterUser.showHeadline">
+                <source>Show registration</source>
+                <target>Wettbewerbsregistrierung ansehen</target>
+            </trans-unit>
+            <trans-unit id="templates_email_refusedRegisterUser.reason">
+                <source>Reason:</source>
+                <target>Begründung:</target>
+            </trans-unit>
+
+
+           
+
+            <!--
+            =========================== Backend Module ============================================
+            -->
+
+
+            <!-- Backend/Layouts/Default.html -->
+            <trans-unit id="backend_layouts_default.backToStart">
+                <source>Back to Start</source>
+                <target>Zurück zum Anfang</target>
+            </trans-unit>
+
+
+            <!-- Templates/Backend/List.html -->
+            <trans-unit id="templates_backend_list.headline">
+                <source>Show results</source>
+                <target>Anzeigen der Wettbewerbe</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_list.intro1">
+                <source>Show results</source>
+                <target>Bitte wählen Sie den Wettbewerb aus, von dem Sie weitere Details betrachten wollen.</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_list.intro2">
+                <source>Existing competitions:</source>
+                <target>Vorhandene Wettbewerbe:</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_list.intro10">
+                <source>Show optional competition results.</source>
+                <target>Hier können Sie optional ein spezifisches Wettbewerbsergebnis betrachten.</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_list.no_competition">
+                <source>No competitions available.</source>
+                <target>Keine Wettbewerbe vorhanden.</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_list.proceed">
+                <source>Proceed</source>
+                <target>Fortfahren</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_list.total_data">
+                <source>Total data</source>
+                <target>Gesamtdaten</target>
+            </trans-unit>
+
+            <!-- Templates/Backend/List.html -->
+            <trans-unit id="templates_backend_show.no_competition_selected">
+                <source>No competition selected</source>
+                <target>Kein Wettbewerb ausgewählt</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.finished_registrations_total">
+                <source>Finished registrations total</source>
+                <target>Abgeschlossene Registrierungen Total</target>
+            </trans-unit>
+
 
 		</body>
 	</file>

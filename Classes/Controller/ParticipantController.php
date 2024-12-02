@@ -5,6 +5,12 @@ declare(strict_types=1);
 namespace RKW\RkwCompetition\Controller;
 
 
+use Madj2k\FeRegister\Domain\Model\FrontendUser;
+use Madj2k\FeRegister\Utility\FrontendUserSessionUtility;
+use Madj2k\FeRegister\Utility\FrontendUserUtility;
+use RKW\RkwCompetition\Utility\RegisterUtility;
+use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
+
 /**
  * This file is part of the "RKW Competition" Extension for TYPO3 CMS.
  *
@@ -17,18 +23,35 @@ namespace RKW\RkwCompetition\Controller;
 /**
  * ParticipantController
  */
-class ParticipantController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class ParticipantController extends \RKW\RkwCompetition\Controller\AbstractController
 {
+
+
 
     /**
      * action list
      *
-     * @return string|object|null|void
+     * @return void
+     * @throws AspectNotFoundException
      */
     public function listAction()
     {
-        $uploads = $this->uploadRepository->findAll();
-        $this->view->assign('uploads', $uploads);
+
+        if (!$this->getFrontendUser()) {
+
+            $this->addFlashMessage(
+                \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                    'participantController.message.error.notPermitted', 'rkw_competition'
+                ),
+                '',
+                \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+            );
+        } else {
+
+            $registerList = $this->registerRepository->findByFrontendUser($this->getFrontendUser());
+            $this->view->assign('registerList', $registerList);
+        }
+
     }
 
 
@@ -113,4 +136,7 @@ class ParticipantController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $this->uploadRepository->remove($upload);
         $this->redirect('list');
     }
+
+
+
 }

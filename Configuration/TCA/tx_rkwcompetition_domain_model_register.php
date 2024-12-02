@@ -3,7 +3,8 @@ return [
     'ctrl' => [
         'hideTable' => 1,
         'title' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register',
-        'label' => 'saluation',
+        'label' => 'last_name',
+        'label_alt' => 'first_name',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
@@ -17,11 +18,11 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'saluation,first_name,last_name,institution,address,city,telephone,email,contribution_title,remark,conditions_of_participation,group_work_insurance,group_work_add_persons,competition',
+        'searchFields' => 'salutation,first_name,last_name,institution,address,city,telephone,email,contribution_title,remark,conditions_of_participation,group_work_insurance,group_work_add_persons,competition,admin_approved,admin_approved_by,admin_approved,admin_refused,admin_refused_by,admin_refused_at,admin_refused_text',
         'iconfile' => 'EXT:rkw_competition/Resources/Public/Icons/tx_rkwcompetition_domain_model_register.gif'
     ],
     'types' => [
-        '1' => ['showitem' => 'saluation, title, first_name, last_name, institution, address, zip, city, telephone, email, contribution_title, type_of_work, sector, remark, privacy, conditions_of_participation, is_group_work, group_work_insurance, group_work_add_persons, upload, competition, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, sys_language_uid, l10n_parent, l10n_diffsource, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'],
+        '1' => ['showitem' => 'salutation, title, first_name, last_name, institution, address, zip, city, telephone, email, contribution_title, type_of_work, sector, remark, privacy, conditions_of_participation, is_group_work, group_work_insurance, group_work_add_persons, upload, competition, admin_approved_by, admin_approved, admin_refused_by, admin_refused_at, admin_refused_text, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, sys_language_uid, l10n_parent, l10n_diffsource, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -105,9 +106,9 @@ return [
             ],
         ],
 
-        'saluation' => [
+        'salutation' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register.saluation',
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register.salutation',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -306,13 +307,82 @@ return [
                 'default' => ''
             ],
         ],
+        'admin_approved' => [
+            'exclude' => 0,
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register.admin_approved',
+            'config' => [
+                'type' => 'check',
+                'default' => 0
+            ],
+        ],
+        'admin_approved_by' => [
+            'exclude' => 0,
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register.admin_approved_by',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'be_users',
+                'foreign_table_where' => 'AND be_users.deleted = 0 AND be_users.disable = 0 AND be_users.email != "" ORDER BY be_users.username',
+            ],
+        ],
+        'admin_approved_at' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register.admin_approved_at',
+            'config' => [
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'size' => 4,
+                'eval' => 'time',
+                'default' => time()
+            ]
+        ],
+        'admin_refused' => [
+            'exclude' => 0,
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register.admin_refused',
+            'config' => [
+                'type' => 'check',
+                'default' => 0
+            ],
+        ],
+        'admin_refused_by' => [
+            'exclude' => 0,
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register.admin_refused_by',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'be_users',
+                'foreign_table_where' => 'AND be_users.deleted = 0 AND be_users.disable = 0 AND be_users.email != "" ORDER BY be_users.username',
+            ],
+        ],
+        'admin_refused_at' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register.admin_refused_at',
+            'config' => [
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'size' => 4,
+                'eval' => 'time',
+                'default' => time()
+            ]
+        ],
+        'admin_refused_text' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register.admin_refused_text',
+            'config' => [
+                'type' => 'text',
+                'cols' => 40,
+                'rows' => 15,
+                'eval' => 'trim',
+                'default' => ''
+            ]
+        ],
         'upload' => [
             'exclude' => true,
             'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register.upload',
             'config' => [
                 'type' => 'inline',
                 'foreign_table' => 'tx_rkwcompetition_domain_model_upload',
-                'minitems' => 0,
+                'minitems' => 1,
                 'maxitems' => 1,
                 'appearance' => [
                     'collapseAll' => 0,

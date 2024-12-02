@@ -23,7 +23,7 @@ class Upload extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * abstract
      *
-     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+     * @var \RKW\RkwCompetition\Domain\Model\FileReference
      * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      */
     protected $abstract = null;
@@ -31,7 +31,7 @@ class Upload extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * full
      *
-     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+     * @var \RKW\RkwCompetition\Domain\Model\FileReference
      * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      */
     protected $full = null;
@@ -44,9 +44,23 @@ class Upload extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $remark = '';
 
     /**
+     * ### only for form upload ###
+     *
+     * @var array
+     */
+    protected array $fileAbstract = [];
+
+    /**
+     * ### only for form upload ###
+     *
+     * @var array
+     */
+    protected array $fileFull = [];
+
+    /**
      * Returns the abstract
      *
-     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference
+     * @return \RKW\RkwCompetition\Domain\Model\FileReference
      */
     public function getAbstract()
     {
@@ -56,10 +70,10 @@ class Upload extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the abstract
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $abstract
+     * @param \RKW\RkwCompetition\Domain\Model\FileReference $abstract
      * @return void
      */
-    public function setAbstract(\TYPO3\CMS\Extbase\Domain\Model\FileReference $abstract)
+    public function setAbstract(\RKW\RkwCompetition\Domain\Model\FileReference $abstract)
     {
         $this->abstract = $abstract;
     }
@@ -67,7 +81,7 @@ class Upload extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the full
      *
-     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference
+     * @return \RKW\RkwCompetition\Domain\Model\FileReference
      */
     public function getFull()
     {
@@ -77,10 +91,10 @@ class Upload extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the full
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $full
+     * @param \RKW\RkwCompetition\Domain\Model\FileReference $full
      * @return void
      */
-    public function setFull(\TYPO3\CMS\Extbase\Domain\Model\FileReference $full)
+    public function setFull(\RKW\RkwCompetition\Domain\Model\FileReference $full)
     {
         $this->full = $full;
     }
@@ -104,5 +118,53 @@ class Upload extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setRemark(string $remark)
     {
         $this->remark = $remark;
+    }
+
+    /**
+     * Returns the fileAbstract
+     * ### only for form upload ###
+     *
+     * @return array $fileAbstract
+     */
+    public function getFileAbstract(): array
+    {
+        return $this->fileAbstract;
+    }
+
+
+    /**
+     * Sets the fileAbstract
+     * ### only for form upload ###
+     *
+     * @param array $fileAbstract
+     * @return void
+     */
+    public function setFileAbstract(array $fileAbstract): void
+    {
+        $this->fileAbstract = $fileAbstract;
+    }
+
+    /**
+     * Returns the fileFull
+     * ### only for form upload ###
+     *
+     * @return array $fileFull
+     */
+    public function getFileFull(): array
+    {
+        return $this->fileFull;
+    }
+
+
+    /**
+     * Sets the fileFull
+     * ### only for form upload ###
+     *
+     * @param array $fileFull
+     * @return void
+     */
+    public function setFileFull(array $fileFull): void
+    {
+        $this->fileFull = $fileFull;
     }
 }

@@ -30,17 +30,46 @@ class CompetitionUtility
 {
 
     /**
-     * Returns true if reg time for event has ended
+     * Returns true if reg time for competition has ended
      *
      * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
      * @return boolean
      */
     public static function hasRegTimeEnded(Competition $competition) :bool
     {
-        // check if regEnd-time or start-time is in the past
-        $date = $competition->getRegisterEnd() ?: $competition->getRegisterEnd();
+        if ($competition->getRegisterEnd()->getTimestamp() < time()) {
+            return true;
+        }
 
-        if ($date->getTimestamp() < time()) {
+        return false;
+    }
+
+
+    /**
+     * Returns true if time for file removal has ended
+     *
+     * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
+     * @return boolean
+     */
+    public static function hasFileRemovalTimeEnded(Competition $competition) :bool
+    {
+        if ($competition->getFileRemovalEnd()->getTimestamp() < time()) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /**
+     * Returns true if access time for jury member has ended
+     *
+     * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
+     * @return boolean
+     */
+    public static function hasJuryAccessTimeEnded(Competition $competition) :bool
+    {
+        if ($competition->getJuryAccessEnd()->getTimestamp() < time()) {
             return true;
         }
 

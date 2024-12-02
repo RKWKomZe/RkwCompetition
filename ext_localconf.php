@@ -6,12 +6,10 @@ defined('TYPO3_MODE') || die();
         'RKW.RkwCompetition',
         'Competition',
         [
-            //Competition::class => 'list, show'
             Competition::class => 'show'
         ],
         // non-cacheable actions
         [
-            //Competition::class => 'list, show'
             Competition::class => 'show'
         ]
     );
@@ -28,15 +26,29 @@ defined('TYPO3_MODE') || die();
         ]
     );
 
+//    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+//        'RKW.RkwCompetition',
+//        'Edit',
+//        [
+//            Register::class => 'edit, update'
+//        ],
+//        // non-cacheable actions
+//        [
+//            Register::class => 'edit, update'
+//        ]
+//    );
+
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
         'RKW.RkwCompetition',
-        'Edit',
+        'Participant',
         [
-            Register::class => 'edit, update'
+            Participant::class => 'list, show',
+            Register::class => 'edit, update, delete'
         ],
         // non-cacheable actions
         [
-            Register::class => 'edit, update'
+            Participant::class => 'list, show',
+            Register::class => 'edit, update, delete'
         ]
     );
 
@@ -44,11 +56,11 @@ defined('TYPO3_MODE') || die();
         'RKW.RkwCompetition',
         'Jury',
         [
-            Register::class => 'list, show'
+            Jury::class => 'list, show'
         ],
         // non-cacheable actions
         [
-            Register::class => 'list, show'
+            Jury::class => 'list, show'
         ]
     );
 

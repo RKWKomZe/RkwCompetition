@@ -1,0 +1,37 @@
+<f:layout name="Default" />
+
+<f:section name="content">
+
+	<h1><f:translate key="templates_backend_list.headline" /></h1>
+	<f:if condition="{competitionList}">
+		<f:then>
+			<p>
+				<f:translate key="templates_backend_list.intro1" />
+				<br /><br />
+			</p>
+			<f:form action="show">
+				<label for="competition">
+					<f:translate key="templates_backend_list.intro2" />
+				</label>
+				<br />
+				<f:form.select
+						id="competition"
+						name="competition"
+						property="competition"
+						options="{competitionList}"
+						optionLabelField="title"
+						optionValueField="uid"
+				/>
+				<br /><br />
+				<f:form.submit value="{f:translate(key: 'templates_backend_list.proceed')}" />
+			</f:form>
+		</f:then>
+		<f:else>
+			<p>
+				<strong>
+					<f:translate key="templates_backend_list.no_competition" />
+				</strong>
+			</p>
+		</f:else>
+	</f:if>
+</f:section>

@@ -9,7 +9,7 @@ plugin.tx_rkwcompetition {
     }
     persistence {
         # cat=plugin.tx_rkwcompetition//a; type=string; label=Default storage PID
-        storagePid =
+        storagePid = 11923
     }
     settings {
 

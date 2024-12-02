@@ -139,7 +139,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
     ) :void
     {
         // send confirmation
-        $this->userMail($frontendUser, $register, 'confirmation', true);
+        $this->userMail($frontendUser, $register, 'confirmation');
     }
 
 
@@ -161,7 +161,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
     ) :void
     {
         // send confirmation
-        $this->userMail($frontendUser, $register, 'upload', true);
+        $this->userMail($frontendUser, $register, 'upload');
     }
 
 
@@ -199,38 +199,20 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
      */
-//    public function confirmRegisterUser(
-//        \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser,
-//        \RKW\RkwCompetition\Domain\Model\Register $register
-//    ) :void
-//    {
-//        // send confirmation
-//        $this->userMail($frontendUser, $register, 'confirmation');
-//    }
+    public function confirmRegisterUser(
+        \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser,
+        \RKW\RkwCompetition\Domain\Model\Register $register
+    ) :void
+    {
+        // send confirmation
+        $this->userMail($frontendUser, $register, 'confirmation');
+    }
 
-
-    /**
-     * Handles confirm mail for admin
-     *
-     * @param BackendUser|array $backendUser
-     * @param \RKW\RkwCompetition\Domain\Model\Register $register
-     * @return void
-     * @throws \Madj2k\Postmaster\Exception
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
-     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
-     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
-     */
-//    public function confirmRegisterAdmin(
-//        $backendUser,
-//        \RKW\RkwCompetition\Domain\Model\Register $register
-//    ) :void
-//    {
-//        $this->adminMail($backendUser, $register, 'confirmation');
-//    }
 
     /**
      * Handles update mail for user
+     *
+     * @todo Wird das genutzt?
      *
      * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
      * @param \RKW\RkwCompetition\Domain\Model\Register $register
@@ -253,6 +235,8 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
     /**
      * Handles update mail for admin
      *
+     * @todo Wird das genutzt?
+     *
      * @param BackendUser|array $backendUser
      * @param \RKW\RkwCompetition\Domain\Model\Register $register
      * @return void
@@ -273,6 +257,8 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
 
     /**
      * Handles delete mail for user
+     *
+     * @todo Wird das genutzt?
      *
      * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
      * @param \RKW\RkwCompetition\Domain\Model\Register $register
@@ -295,6 +281,8 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
     /**
      * Handles delete mail for admin
      *
+     * @todo Wird das genutzt?
+     *
      * @param BackendUser|array $backendUser
      * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
      * @param \RKW\RkwCompetition\Domain\Model\Register $register
@@ -312,6 +300,48 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
     ) :void
     {
         $this->adminMail($backendUser, $register, 'delete', $frontendUser);
+    }
+
+
+    /**
+     * Handles backendModule register approved user
+     *
+     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
+     * @param \RKW\RkwCompetition\Domain\Model\Register $register
+     * @return void
+     * @throws \Madj2k\Postmaster\Exception
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
+     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     */
+    public function registerApprovedUser(
+        \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser,
+        \RKW\RkwCompetition\Domain\Model\Register $register
+    ) :void
+    {
+        $this->userMail($frontendUser, $register, 'approved');
+    }
+
+
+    /**
+     * Handles backendModule register refused user
+     *
+     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
+     * @param \RKW\RkwCompetition\Domain\Model\Register $register
+     * @return void
+     * @throws \Madj2k\Postmaster\Exception
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
+     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     */
+    public function registerRefusedUser(
+        \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser,
+        \RKW\RkwCompetition\Domain\Model\Register $register
+    ) :void
+    {
+        $this->userMail($frontendUser, $register, 'refused');
     }
 
 
@@ -337,14 +367,6 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
         $settings = $this->getSettings(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
         $settingsDefault = $this->getSettings();
         $showPid = intval($settingsDefault['showPid']);
-
-        // if plugin is "standaloneregister" (and not "pi1") set flag to true. Needed in mail template
-        $request = GeneralUtility::_GP('tx_RkwCompetition_standaloneregister');
-        $isStandaloneRegisterPlugin = (bool)$request;
-        if ($isStandaloneRegisterPlugin) {
-            // if standalone Register form plugin: Override showPid!
-            $showPid = intval($GLOBALS['TSFE']->id);
-        }
 
         if ($settings['view']['templateRootPaths']) {
 

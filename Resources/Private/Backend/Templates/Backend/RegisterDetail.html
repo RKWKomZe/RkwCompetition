@@ -1,0 +1,344 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:rkwCheckup="http://typo3.org/ns/RKW/RkwCheckup/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+
+    <f:layout name="Default" />
+
+    <f:section name="content">
+
+        <f:link.action style="text-decoration: underline;" action="show" arguments="{competition: register.competition}">Zurück zum Wettbewerb</f:link.action>
+
+        <f:be.container
+            includeCssFiles="{0: '{f:uri.resource(path:\'Styles/Backend.css\')}'}"
+            includeJsFiles="{0: '{f:uri.resource(path:\'JavaScript/Backend.js\')}'}"
+        >
+
+            <h1>{register.contributionTitle}</h1>
+
+            <f:flashMessages />
+
+
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Titel der Arbeit
+                        </td>
+                        <td>
+                            {register.contributionTitle}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Institution
+                        </td>
+                        <td>
+                            {register.institution}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Wettbewerbsbereich
+                        </td>
+                        <td>
+                            {register.sector.title}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Name Bewerber
+                        </td>
+                        <td>
+                            {register.title}
+                            {register.salutation} {register.firstName} {register.lastName}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Kontakt Bewerber
+                        </td>
+                        <td>
+                            {register.email}
+                            {register.telephone}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Addresse Bewerber
+                        </td>
+                        <td>
+                            {register.address}; {register.zip} {register.city}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ist Gruppenarbeit
+                        </td>
+                        <td>
+                            {register.isGroupWork}
+                        </td>
+                    </tr>
+                    <f:if condition="{register.isGroupWork}">
+                        <tr>
+                            <td>
+                                Eidstattliche Versicherung
+                            </td>
+                            <td>
+                                {register.groupWorkInsurance}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Gruppenarbeit weitere Personen
+                            </td>
+                            <td>
+                                {register.groupWorkAddPersons}
+                            </td>
+                        </tr>
+                    </f:if>
+                    <tr>
+                        <td>
+                            Anmerkung
+                        </td>
+                        <td>
+                            {register.remark}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Nutzungsbedingungen akzeptiert
+                        </td>
+                        <td>
+                            <f:format.date format="d.m.Y H:i">
+                                {register.conditionsOfParticipation}
+                            </f:format.date>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Datenschutzbestimmungen akzeptiert
+                        </td>
+                        <td>
+                            <f:format.date format="d.m.Y H:i">
+                                {register.privacy}
+                            </f:format.date>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Kurzfassung PDF (+ Word File?)
+                        </td>
+                        <td>
+                            <f:if condition="{register.upload.abstract.originalResource.publicUrl}">
+                                <f:then>
+                                    <f:link.typolink
+                                            parameter="{register.upload.abstract.originalResource.publicUrl}"
+                                            class="btn btn--primary"
+                                            target="_blank"
+                                            title="Download"
+                                            absolute="true"
+                                    >
+
+                                        <svg class="icon icon--16">
+                                            <use xlink:href="#ic-download"/>
+                                        </svg>
+                                        Download
+                                    </f:link.typolink>
+                                </f:then>
+                                <f:else>
+                                    Keine Datei vorhanden
+                                </f:else>
+                            </f:if>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Langfassung PDF (+ Word File?)
+                        </td>
+                        <td>
+                            <f:if condition="{register.upload.full.originalResource.publicUrl}">
+                                <f:then>
+                                    <f:link.typolink
+                                            parameter="{register.upload.full.originalResource.publicUrl}"
+                                            class="btn btn--primary"
+                                            target="_blank"
+                                            title="Download"
+                                            absolute="true"
+                                    >
+
+                                        <svg class="icon icon--16">
+                                            <use xlink:href="#ic-download"/>
+                                        </svg>
+                                        Download
+                                    </f:link.typolink>
+                                </f:then>
+                                <f:else>
+                                    Keine Datei vorhanden
+                                </f:else>
+                            </f:if>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Zurückgewiesen am:</td>
+                        <td>
+                            <f:if condition="{register.adminRefusedAt}">
+                                <f:then>
+                                    <f:format.date format="d.m.Y">{register.adminRefusedAt}</f:format.date>
+                                </f:then>
+                                <f:else>
+                                    ---
+                                </f:else>
+                            </f:if>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Zurückgewiesen von:</td>
+                        <td>
+                            <f:if condition="{register.adminRefusedBy}">
+                                <f:then>
+                                    {register.adminRefusedBy.email}
+                                </f:then>
+                                <f:else>
+                                    ---
+                                </f:else>
+                            </f:if>
+                        </td>
+                    </tr>
+
+                    <f:if condition="{register.adminApproved}">
+                        <f:then>
+                            <tr>
+                                <td>Genehmigt am:</td>
+                                <td><f:format.date format="d.m.Y">{register.adminApprovedAt}</f:format.date></td>
+                            </tr>
+                            <tr>
+                                <td>Genehmigt von:</td>
+                                <td>{register.adminApprovedBy.email}</td>
+                            </tr>
+                        </f:then>
+                        <f:else>
+                            <f:render section="formArea" arguments="{register: register}" />
+                        </f:else>
+                    </f:if>
+
+                </tbody>
+            </table>
+
+            <f:if condition="{register.adminApproved}">
+                <strong>Aufgrund bereits erfolgter Genehmigung ist keine Aktion mehr möglich</strong>
+            </f:if>
+
+
+        </f:be.container>
+
+    </f:section>
+
+
+    <!-- FORM AREA -->
+    <f:section name="formArea">
+        <tr>
+            <td style="background-color: lightgrey;">
+                <f:form
+                        action="approve"
+                        name="register"
+                        object="{register}"
+                        id="form-odd"
+                        class="safety-submit"
+                >
+
+                    <div class="flex-container">
+                        <div class="flex-basis-8 full-width-medium">
+                            <div class="form flex space-between">
+
+                                <fieldset id="fieldset-odd" class="form-fieldset">
+
+                                    <div class="form__field">
+                                        <f:form.checkbox
+                                                class="checkbox toggle-form-button"
+                                                id="adminApproved"
+                                                name="adminApproved"
+                                                property="adminApproved"
+                                                value="1"
+                                        />
+                                        <label for="adminApproved" class="checkbox-label">
+                                            Daten korrekt<br/>
+                                            Hinweis: Mit absenden erhält der Nutzer eine E-Mail mit der Information, dass die Daten erfolgreich geprüft wurden.
+                                        </label>
+                                    </div>
+                                    <button
+                                            type="submit"
+                                            class="btn btn--primary"
+                                            disabled
+                                    >
+                                        Freischalten
+                                    </button>
+
+                                </fieldset>
+
+                            </div>
+                        </div>
+                    </div>
+                </f:form>
+            </td>
+            <td>
+                <f:form
+                        action="refuse"
+                        name="register"
+                        object="{register}"
+                        id="form-even"
+                        class="safety-submit"
+                >
+
+                    <div class="flex-container">
+                        <div class="flex-basis-8 full-width-medium">
+                            <div class="form flex space-between">
+
+                                <fieldset id="fieldset-even" class="form-fieldset">
+
+                                    <div class="form__field">
+                                        <f:form.checkbox
+                                                class="checkbox toggle-form-button"
+                                                id="adminRefused"
+                                                name="adminRefused"
+                                                property="adminRefused"
+                                                value="1"
+                                        />
+                                        <label for="adminRefused" class="checkbox-label">
+                                            Daten unvollständig<br/>
+                                            Hinweis: Mit absenden erhält der Nutzer eine E-Mail mit der Information aus dem ausgefüllten Textfeld.
+                                        </label>
+                                    </div>
+                                    <br/>
+                                    <div class="form__field width100">
+                                        <label class="form-label" for="remark">
+                                            <f:translate key="tx_rkwcompetition_domain_model_register.adminRefusedText" />
+                                        </label>
+                                        <br/>
+                                        <f:form.textarea
+                                                property="adminRefusedText"
+                                                id="adminRefusedText"
+                                                cols="40"
+                                                rows="15"
+                                                required="true"
+                                        />
+                                    </div>
+
+                                    <button
+                                            type="submit"
+                                            class="btn btn--primary"
+                                            disabled
+                                    >
+                                        Zurückweisen
+                                    </button>
+
+                                </fieldset>
+
+                            </div>
+                        </div>
+                    </div>
+                </f:form>
+            </td>
+        </tr>
+
+    </f:section>
+</html>

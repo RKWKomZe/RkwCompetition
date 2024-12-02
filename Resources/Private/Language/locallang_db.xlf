@@ -6,8 +6,8 @@
 			<trans-unit id="tx_rkwcompetition_domain_model_register" resname="tx_rkwcompetition_domain_model_register">
 				<source>Register</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_register.saluation" resname="tx_rkwcompetition_domain_model_register.saluation">
-				<source>Saluation</source>
+			<trans-unit id="tx_rkwcompetition_domain_model_register.salutation" resname="tx_rkwcompetition_domain_model_register.saluration">
+				<source>Salutation</source>
 			</trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_register.salutation.I.99" approved="yes">
                 <source>-- Please select --</source>
@@ -117,8 +117,8 @@
 			<trans-unit id="tx_rkwcompetition_domain_model_competition.register_end" resname="tx_rkwcompetition_domain_model_competition.register_end">
 				<source>Register End</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_competition.jury_end" resname="tx_rkwcompetition_domain_model_competition.jury_end">
-				<source>Jury End</source>
+			<trans-unit id="tx_rkwcompetition_domain_model_competition.jury_access_end" resname="tx_rkwcompetition_domain_model_competition.jury_access_end">
+				<source>Jury Access End</source>
 			</trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_competition.file_removal_end" resname="tx_rkwcompetition_domain_model_competition.file_removal_end">
 				<source>File Removal End</source>

@@ -42,11 +42,11 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $registerEnd = null;
 
     /**
-     * juryEnd
+     * juryAccessEnd
      *
      * @var \DateTime
      */
-    protected $juryEnd = '';
+    protected $juryAccessEnd = '';
 
     /**
      * fileRemovalEnd
@@ -232,24 +232,24 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Returns the juryEnd
+     * Returns the juryAccessEnd
      *
      * @return \DateTime
      */
-    public function getJuryEnd()
+    public function getJuryAccessEnd()
     {
-        return $this->juryEnd;
+        return $this->juryAccessEnd;
     }
 
     /**
-     * Sets the juryEnd
+     * Sets the juryAccessEnd
      *
-     * @param \DateTime $juryEnd
+     * @param \DateTime $juryAccessEnd
      * @return void
      */
-    public function setJuryEnd(\DateTime $juryEnd)
+    public function setJuryAccessEnd(\DateTime $juryAccessEnd)
     {
-        $this->juryEnd = $juryEnd;
+        $this->juryAccessEnd = $juryAccessEnd;
     }
 
     /**

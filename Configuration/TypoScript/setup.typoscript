@@ -46,24 +46,30 @@ plugin.tx_rkwcompetition_edit < plugin.tx_competition
 plugin.tx_rkwcompetition_jury < plugin.tx_competition
 
 
-// for cronjob
-module.tx_feregister < plugin.tx_feregister
+// for backend module
+#module.tx_rkwcompetition < plugin.tx_competition
 
 
 # Module configuration
 module.tx_rkwcompetition_web_rkwcompetitionlist {
     persistence {
-        storagePid = {$module.tx_rkwcompetition_list.persistence.storagePid}
+        // simply use storagePid of plugins
+        storagePid = {$plugin.tx_rkwcompetition.persistence.storagePid}
     }
     view {
         templateRootPaths.0 = EXT:rkw_competition/Resources/Private/Backend/Templates/
-        templateRootPaths.1 = {$module.tx_rkwcompetition_list.view.templateRootPath}
+        #templateRootPaths.1 = {$module.tx_rkwcompetition_list.view.templateRootPath}
         partialRootPaths.0 = EXT:rkw_competition/Resources/Private/Backend/Partials/
-        partialRootPaths.1 = {$module.tx_rkwcompetition_list.view.partialRootPath}
+        #partialRootPaths.1 = {$module.tx_rkwcompetition_list.view.partialRootPath}
         layoutRootPaths.0 = EXT:rkw_competition/Resources/Private/Backend/Layouts/
-        layoutRootPaths.1 = {$module.tx_rkwcompetition_list.view.layoutRootPath}
+        #layoutRootPaths.1 = {$module.tx_rkwcompetition_list.view.layoutRootPath}
+
+        # add frontend templates for E-Mail sending stuff from backendModule
+        templateRootPaths.1 = EXT:rkw_competition/Resources/Private/Templates/
+        partialRootPaths.1 = EXT:rkw_competition/Resources/Private/Partials/
     }
 }
 
-
+# we also need default FE settings for the email-stuff
+module.tx_rkwcompetition_web_rkwcompetitionlist.settings < plugin.tx_competition.settings
 

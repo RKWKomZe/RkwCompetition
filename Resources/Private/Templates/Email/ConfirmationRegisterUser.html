@@ -5,32 +5,32 @@
 
 <!-- PLAINTEXT -->
 <f:section name="Plaintext">
-<postmaster:email.translate key="templates_email_confirmationRegistrationUser.headline" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" arguments="{0 : frontendUser.firstName, 1: frontendUser.lastName}" />
+<postmaster:email.translate key="templates_email_confirmationRegisterUser.headline" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" arguments="{0 : frontendUser.firstName, 1: frontendUser.lastName}" />
 
-<postmaster:email.translate key="templates_email_confirmationRegistrationUser.text1" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
-<postmaster:email.translate key="templates_email_confirmationRegistrationUser.text2" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
+<postmaster:email.translate key="templates_email_confirmationRegisterUser.text1" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
+<postmaster:email.translate key="templates_email_confirmationRegisterUser.text2" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
 
 <f:render partial="Email/Details" section="Plaintext" arguments="{register: register, frontendUser: frontendUser, language:frontendUser.txFeregisterLanguageKey, showPid: showPid, competitionPid: competitionPid, isRegistered : 1}"/>
 
 =============================================================
-<postmaster:email.translate key="templates_email_confirmationRegistrationUser.changeDeleteHeadline" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
+<postmaster:email.translate key="templates_email_confirmationRegisterUser.changeDeleteHeadline" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
 =============================================================
-<postmaster:email.translate key="templates_email_confirmationRegistrationUser.text3" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
+<postmaster:email.translate key="templates_email_confirmationRegisterUser.text3" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
 <postmaster:email.uri.page absolute="true" pageUid="{loginPid}" />
 </f:section>
 
 <!-- HTML -->
 <f:section name="Html">
-	<h1><postmaster:email.translate key="templates_email_confirmationRegistrationUser.headline" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" arguments="{0 : frontendUser.firstName, 1: frontendUser.lastName}" /></h1>
+	<h1><postmaster:email.translate key="templates_email_confirmationRegisterUser.headline" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" arguments="{0 : frontendUser.firstName, 1: frontendUser.lastName}" /></h1>
 	<p>
-		<postmaster:email.translate key="templates_email_confirmationRegistrationUser.text1" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" /><br>
-		<postmaster:email.translate key="templates_email_confirmationRegistrationUser.text2" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
+		<postmaster:email.translate key="templates_email_confirmationRegisterUser.text1" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" /><br>
+		<postmaster:email.translate key="templates_email_confirmationRegisterUser.text2" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
 	</p>
 
 	<f:render partial="Email/Details" section="Html" arguments="{register:register, frontendUser: frontendUser, language:frontendUser.txFeregisterLanguageKey, showPid: showPid, competitionPid: competitionPid, isRegistered : 1}"/>
 
-	<h2><postmaster:email.translate key="templates_email_confirmationRegistrationUser.changeDeleteHeadline" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" /></h2>
+	<h2><postmaster:email.translate key="templates_email_confirmationRegisterUser.changeDeleteHeadline" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" /></h2>
 	<p>
-		<a href="<postmaster:email.uri.page absolute='true' pageUid='{loginPid}' />" target="_blank"><postmaster:email.translate key="templates_email_confirmationRegistrationUser.text3" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" /></a>
+		<a href="<postmaster:email.uri.page absolute='true' pageUid='{loginPid}' />" target="_blank"><postmaster:email.translate key="templates_email_confirmationRegisterUser.text3" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" /></a>
 	</p>
 </f:section>

@@ -17,7 +17,7 @@ namespace RKW\RkwCompetition\Controller;
 /**
  * JuryController
  */
-class JuryController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
 {
 
     /**

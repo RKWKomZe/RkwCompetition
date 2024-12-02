@@ -38,22 +38,22 @@ class RegisterTest extends UnitTestCase
     /**
      * @test
      */
-    public function getSaluationReturnsInitialValueForString(): void
+    public function getSalutationReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
-            $this->subject->getSaluation()
+            $this->subject->getSalutation()
         );
     }
 
     /**
      * @test
      */
-    public function setSaluationForStringSetsSaluation(): void
+    public function setSalutationForStringSetsSalutation(): void
     {
-        $this->subject->setSaluation('Conceived at T3CON10');
+        $this->subject->setSalutation('Conceived at T3CON10');
 
-        self::assertEquals('Conceived at T3CON10', $this->subject->_get('saluation'));
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('salutation'));
     }
 
     /**

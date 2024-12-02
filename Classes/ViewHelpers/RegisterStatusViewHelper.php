@@ -14,18 +14,19 @@ namespace RKW\RkwCompetition\ViewHelpers;
  * The TYPO3 project - inspiring people to share!
  */
 
+use RKW\RkwCompetition\Utility\RegisterUtility;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Exception;
 
 /**
- * Class IsMandatoryFieldViewHelper
+ * Class RegisterStatusViewHelper
  *
  * @author Maximilian Fäßler <maximilian@faesslerweb.de>
  * @copyright RKW Kompetenzzentrum
  * @package RKW_RkwCompetition
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class IsMandatoryFieldViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper
+class RegisterStatusViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper
 {
     /**
      * Initialize arguments.
@@ -35,8 +36,7 @@ class IsMandatoryFieldViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\Abstr
     public function initializeArguments()
     {
         parent::initializeArguments();
-        $this->registerArgument('fieldName', 'string', 'The field name');
-        $this->registerArgument('mandatoryFields', 'string', 'List of mandatory fields from TypoScript');
+        $this->registerArgument('register', '\RKW\RkwCompetition\Domain\Model\Register', 'The register object');
     }
 
     /**
@@ -44,21 +44,12 @@ class IsMandatoryFieldViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\Abstr
      * @param \Closure $renderChildrenClosure
      * @param RenderingContextInterface $renderingContext
      *
-     * @return string
+     * @return int
      * @throws Exception
      */
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
-        $fieldName = $arguments['fieldName'];
-        $mandatoryFields = $arguments['mandatoryFields'];
-
-        $mandatoryFieldsArray = array_map('trim', explode(',', $mandatoryFields));
-
-        if (!in_array($fieldName, $mandatoryFieldsArray)) {
-            return true;
-        }
-
-        return false;
+        return RegisterUtility::registerStatus($arguments['register']);
     }
 
 

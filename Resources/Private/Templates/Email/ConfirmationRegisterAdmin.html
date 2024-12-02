@@ -4,20 +4,20 @@
 
 <!-- PLAINTEXT -->
 <f:section name="Plaintext">
-<postmaster:email.translate key="templates_email_confirmationRegistrationAdmin.headline" languageKey="{language}" extensionName="rkwEvents" arguments="{0 : fullName}" />
+<postmaster:email.translate key="templates_email_confirmationRegisterAdmin.headline" languageKey="{language}" extensionName="rkwCompetition" arguments="{0 : fullName}" />
 
-<postmaster:email.translate key="templates_email_confirmationRegistrationAdmin.text1" languageKey="{language}" extensionName="rkwEvents" />
+<postmaster:email.translate key="templates_email_confirmationRegisterAdmin.text1" languageKey="{language}" extensionName="rkwCompetition" />
 
-<postmaster:email.translate key="templates_email_confirmationRegistrationAdmin.text2" languageKey="{language}" extensionName="rkwEvents" />
+<postmaster:email.translate key="templates_email_confirmationRegisterAdmin.text2" languageKey="{language}" extensionName="rkwCompetition" />
 
 <f:render partial="Email/Details" section="Plaintext" arguments="{register: register, frontendUser: register.frontendUser, language:language, showPid: showPid, competitionPid: competitionPid, admin:admin}"/>
 </f:section>
 
 <!-- HTML -->
 <f:section name="Html">
-	<h1><postmaster:email.translate key="templates_email_confirmationRegistrationAdmin.headline" languageKey="{language}" extensionName="rkwEvents" arguments="{0 : fullName}" /></h1>
-	<p><postmaster:email.translate key="templates_email_confirmationRegistrationAdmin.text1" languageKey="{language}" extensionName="rkwEvents" /></p>
-    <p class="important"><postmaster:email.translate key="templates_email_confirmationRegistrationAdmin.text2" languageKey="{language}" extensionName="rkwEvents" /></p>
+	<h1><postmaster:email.translate key="templates_email_confirmationRegisterAdmin.headline" languageKey="{language}" extensionName="rkwCompetition" arguments="{0 : fullName}" /></h1>
+	<p><postmaster:email.translate key="templates_email_confirmationRegisterAdmin.text1" languageKey="{language}" extensionName="rkwCompetition" /></p>
+    <p class="important"><postmaster:email.translate key="templates_email_confirmationRegisterAdmin.text2" languageKey="{language}" extensionName="rkwCompetition" /></p>
 	
 	<f:render partial="Email/Details" section="Html" arguments="{register: register, frontendUser: register.frontendUser, language:language, showPid: showPid, competitionPid: competitionPid, admin:admin}"/>
 

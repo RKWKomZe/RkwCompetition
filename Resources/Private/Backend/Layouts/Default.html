@@ -1,23 +1,25 @@
-<html
-    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-    xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
-    data-namespace-typo3-fluid="true">
 
-<be:moduleLayout>
-    <f:be.pageRenderer />
+<div class="typo3-fullDoc">
 
-    <be:moduleLayout.menu identifier="ModuleMenu">
-        <be:moduleLayout.menuItem label="Overview" uri="{f:uri.action(controller: 'Register', action: 'list')}" />
-        <be:moduleLayout.menuItem label="Create new Register" uri="{f:uri.action(controller: 'Register', action: 'new')}" />
-        <be:moduleLayout.menuItem label="Overview" uri="{f:uri.action(controller: 'Upload', action: 'list')}" />
-        <be:moduleLayout.menuItem label="Overview" uri="{f:uri.action(controller: 'Competition', action: 'list')}" />
-        <be:moduleLayout.menuItem label="Create new Competition" uri="{f:uri.action(controller: 'Competition', action: 'new')}" />
-        <be:moduleLayout.menuItem label="Overview" uri="{f:uri.action(controller: 'Sector', action: 'list')}" />
-    </be:moduleLayout.menu>
+    <div id="typo3-docheader">
+        <div class="typo3-docheader-functions">
+            <div class="left">
+                <f:be.buttons.csh />
+                <f:comment>
+                    <f:be.menus.actionMenu>
+                        <f:be.menus.actionMenuItem label="Overview" controller="" action="list" />
+                    </f:be.menus.actionMenu>
+                </f:comment>
+            </div>
+        </div>
+    </div>
 
-    <f:render section="Buttons" />
-    <be:moduleLayout.button.shortcutButton displayName="Shortcut" />
 
-    <f:render section="Content" />
-</be:moduleLayout>
-</html>
+    <div id="typo3-docbody">
+        <div id="typo3-inner-docbody">
+            <f:render partial="FlashMessages" arguments="{_all}" />
+            <f:render section="content" />
+        </div>
+    </div>
+</div>
+

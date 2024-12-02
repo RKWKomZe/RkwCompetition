@@ -14,10 +14,14 @@ namespace RKW\RkwCompetition\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
-use RKW\RkwCompetition\Domain\Repository\CompetitionRepository;
-use RKW\RkwCompetition\Domain\Repository\RegisterRepository;
-use RKW\RkwCheckup\Domain\Model\Checkup;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use Madj2k\CoreExtended\Utility\GeneralUtility;
+use RKW\RkwCompetition\Domain\Model\BackendUser;
+use RKW\RkwCompetition\Domain\Model\Competition;
+use RKW\RkwCompetition\Domain\Model\Register;
+use RKW\RkwCompetition\Domain\Repository\BackendUserRepository;
+use RKW\RkwCompetition\Service\RkwMailService;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
  * Class BackendController
@@ -27,52 +31,124 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  * @package RKW_RkwCompetition
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class BackendController extends ActionController
+class BackendController extends \RKW\RkwCompetition\Controller\AbstractController
 {
-    /**
-     * registerRepository
-     *
-     * @var \RKW\RkwCompetition\Domain\Repository\RegisterRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
-     */
-    protected RegisterRepository $registerRepository;
 
     /**
-     * competitionRepository
-     *
-     * @var \RKW\RkwCompetition\Domain\Repository\CompetitionRepository
+     * @var \RKW\RkwCompetition\Domain\Repository\BackendUserRepository
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected CompetitionRepository $competitionRepository;
+    protected ?BackendUserRepository $backendUserRepository = null;
+
+    /**
+     * @var \RKW\RkwCompetition\Domain\Repository\BackendUserRepository
+     */
+    public function injectBackendUserRepository(BackendUserRepository $backendUserRepository)
+    {
+        $this->backendUserRepository = $backendUserRepository;
+    }
 
 
     /**
      * action list
      *
-     * @param \RKW\RkwCompetition\Domain\Model\Register|null $register
      * @return void
      */
-    public function listAction(Checkup $checkup = null): void
+    public function listAction(): void
     {
-        if ($checkup) {
-            $this->view->assign('checkResultList', $this->resultRepository->getFinishedByCheck($checkup));
-            $this->view->assign('checkup', $checkup);
-        } else {
-            $this->view->assign('competitionList', $this->competitionRepository->findAllIgnorePid());
-        }
+        // @toDo: Es werden nur Wettbewerbe angezeigt, für die die Abgabefrist noch nicht abgelaufen ist (siehe #4198 ) UND für die der BE-User als Admin eingetragen ist
+
+        $this->view->assign('competitionList', $this->competitionRepository->findAll());
     }
 
 
     /**
      * action show
      *
-     * @param \RKW\RkwCheckup\Domain\Model\Checkup
+     * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
      * @return void
      */
-    public function showAction(Checkup $checkup): void
+    public function showAction(Competition $competition): void
     {
-        $this->view->assign('checkupResultCountTotal', $this->resultRepository->getFinishedByCheck($checkup)->count());
-        $this->view->assign('checkup', $checkup);
+        // @toDo: Liste der vollständigen und zu prüfenden Datensätze gruppiert nach Wettbewerb
+        // (via Fluid umsetzen? Einfach wettbewerbe iterieren und registrierungen dazu ausgeben)
+
+        // @toDo: Count FINISHED registrations by competition
+        $registerList = $this->registerRepository->findByCompetition($competition);
+        $this->view->assign('registerCountTotal', $registerList->count());
+        $this->view->assign('registerList', $registerList);
+        $this->view->assign('competition', $competition);
+    }
+
+
+    /**
+     * action registerDetail
+     *
+     * @param \RKW\RkwCompetition\Domain\Model\Register $register
+     * @return void
+     */
+    public function registerDetailAction(Register $register): void
+    {
+        //DebuggerUtility::var_dump($register->getUpload()->getAbstract()->getOriginalResource()->getOriginalFile()); exit;
+
+        $this->view->assign('register', $register);
+    }
+
+
+    /**
+     * action approve
+     *
+     * @param \RKW\RkwCompetition\Domain\Model\Register $register
+     * @return void
+     */
+    public function approveAction(Register $register): void
+    {
+        /** @var BackendUser $currentBackendUser */
+        $currentBackendUser = $this->backendUserRepository->findByUid(intval($GLOBALS['BE_USER']->user['uid']));
+
+        $register->setAdminApprovedBy($currentBackendUser);
+        $register->setAdminApprovedAt(time());
+
+        $this->registerRepository->update($register);
+
+        $emailService = GeneralUtility::makeInstance(RkwMailService::class);
+        $emailService->registerApprovedUser($register->getFrontendUser(), $register);
+
+        $this->addFlashMessage(
+            "Alles klar :-)"
+        );
+
+        $this->forward('registerDetail', null, null, ['register' => $register]);
+    }
+
+
+
+    /**
+     * action refuse
+     *
+     * @param \RKW\RkwCompetition\Domain\Model\Register $register
+     * @return void
+     */
+    public function refuseAction(Register $register): void
+    {
+
+        /** @var BackendUser $currentBackendUser */
+        $currentBackendUser = $this->backendUserRepository->findByUid(intval($GLOBALS['BE_USER']->user['uid']));
+
+        $register->setAdminRefusedBy($currentBackendUser);
+        $register->setAdminRefusedAt(time());
+
+        $this->registerRepository->update($register);
+        $this->persistenceManager->persistAll();
+
+        $emailService = GeneralUtility::makeInstance(RkwMailService::class);
+        $emailService->registerRefusedUser($register->getFrontendUser(), $register);
+
+        $this->addFlashMessage(
+            "Abgelehnt!"
+        );
+
+        $this->forward('registerDetail', null, null, ['register' => $register]);
     }
 
 }

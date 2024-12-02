@@ -22,7 +22,7 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 /**
  * CompetitionController
  */
-class CompetitionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class CompetitionController extends \RKW\RkwCompetition\Controller\AbstractController
 {
 
     /**

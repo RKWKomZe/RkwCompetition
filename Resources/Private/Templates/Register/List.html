@@ -20,7 +20,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
     <table class="tx_rkwcompetition">
         <tr>
-            <th><f:translate key="tx_rkwcompetition_domain_model_register.saluation" /></th>
+            <th><f:translate key="tx_rkwcompetition_domain_model_register.salutation" /></th>
             <th><f:translate key="tx_rkwcompetition_domain_model_register.title" /></th>
             <th><f:translate key="tx_rkwcompetition_domain_model_register.first_name" /></th>
             <th><f:translate key="tx_rkwcompetition_domain_model_register.last_name" /></th>
@@ -42,7 +42,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
         </tr>
         <f:for each="{registers}" as="register">
             <tr>
-                <td><f:link.action action="show" arguments="{register : register}">{register.saluation}</f:link.action></td>
+                <td><f:link.action action="show" arguments="{register : register}">{register.salutation}</f:link.action></td>
                 <td><f:link.action action="show" arguments="{register : register}">{register.title}</f:link.action></td>
                 <td><f:link.action action="show" arguments="{register : register}">{register.firstName}</f:link.action></td>
                 <td><f:link.action action="show" arguments="{register : register}">{register.lastName}</f:link.action></td>

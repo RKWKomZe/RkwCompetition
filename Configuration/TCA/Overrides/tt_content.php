@@ -15,16 +15,22 @@ call_user_func(
             'RKW Competition: Anmeldung'
         );
 
+//        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+//            'RkwCompetition',
+//            'Edit',
+//            'RKW Competition: Edit'
+//        );
+
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
             'RkwCompetition',
-            'Edit',
-            'RKW Competition: Edit'
+            'Participant',
+            'RKW Competition: Teilnehmer (Login-Bereich)'
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
             'RkwCompetition',
             'Jury',
-            'RKW Competition: Jury'
+            'RKW Competition: Jury (Login-Bereich)'
         );
 
 

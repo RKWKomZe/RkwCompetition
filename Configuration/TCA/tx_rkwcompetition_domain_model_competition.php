@@ -16,7 +16,7 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'title,jury_end,file_removal_end,jury_add_data,link_jury_declaration_confident,link_cond_participation,link_privacy',
+        'searchFields' => 'title,jury_access_end,file_removal_end,jury_add_data,link_jury_declaration_confident,link_cond_participation,link_privacy',
         'iconfile' => 'EXT:rkw_competition/Resources/Public/Icons/tx_rkwcompetition_domain_model_competition.gif'
     ],
     'types' => [
@@ -24,7 +24,7 @@ return [
             'title, --palette--;;startEnd, --palette--;;userInfo, sectors, link_cond_participation, link_privacy, reminder_interval, 
             
             --div--;LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.tab_jury,
-            jury_end, link_jury_declaration_confident, group_for_jury, jury_member, jury_add_data, 
+            jury_access_end, link_jury_declaration_confident, group_for_jury, jury_member, jury_add_data, 
             
              --div--;LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.tab_admin,
             admin_member, 
@@ -165,9 +165,9 @@ return [
                 'default' => time()
             ],
         ],
-        'jury_end' => [
+        'jury_access_end' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.jury_end',
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.jury_access_end',
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',

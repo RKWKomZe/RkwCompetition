@@ -1,0 +1,101 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:rkwCheckup="http://typo3.org/ns/RKW/RkwCheckup/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+
+    <f:layout name="Default" />
+
+    <f:section name="content">
+
+        <f:link.action style="text-decoration: underline;" action="list">Zurück zur Liste</f:link.action>
+
+        <f:be.container includeCssFiles="{0: \"{f:uri.resource(path:'Styles/Backend.css')}\"}">
+
+            <h1>{competition.title}</h1>
+
+            <f:flashMessages />
+
+            <f:if condition="{competition}">
+                <f:else>
+                    <f:translate key="templates_backend_show.no_competition_selected" />
+                </f:else>
+                <f:then>
+                    <strong>
+                        <f:translate key="templates_backend_show.finished_registrations_total" />: {registerCountTotal}
+                    </strong>
+                    <br/><br/>
+
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    Name, Vorname
+                                </th>
+                                <th>
+                                    Titel
+                                </th>
+                                <th>
+                                    Sektor
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                                <th>
+                                    Aktion
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <!-- group by sectors -->
+                            <f:for each="{competition.sectors}" as="competitionSector">
+                                <f:for each="{registerList}" as="register" iteration="registerIter">
+
+                                    <f:comment>
+                                        <!-- @toDo: Own table for each sector? -->
+                                        <f:if condition="{registerIter.isFirst}">
+
+                                            <p>
+                                                <strong>{competitionSector.title}</strong>
+                                            </p>
+
+                                        </f:if>
+                                        {competitionSector.uid} == {register.sector.uid}<br>
+                                    </f:comment>
+                                    <f:if condition="{competitionSector.uid} == {register.sector.uid}">
+                                        <tr>
+                                            <td class="center" style="min-width: 30px;">
+                                                {register.lastName}, {register.firstName}
+                                            </td>
+                                            <td class="center" style="min-width: 30px;">
+                                                {register.contributionTitle}
+                                            </td>
+                                            <td>
+                                                {register.sector.title}
+                                            </td>
+                                            <td>
+                                                Offen / Abgegeben / Geprüft
+                                            </td>
+                                            <td>
+                                                <f:link.action action="registerDetail" arguments="{register: register}">Show</f:link.action>
+                                            </td>
+                                        </tr>
+                                    </f:if>
+
+
+
+                                </f:for>
+                            </f:for>
+                        </tbody>
+                    </table>
+
+
+
+
+
+                </f:then>
+            </f:if>
+
+        </f:be.container>
+    </f:section>
+</html>

@@ -42,7 +42,7 @@
                             "propertyIsL10nModeExclude": false,
                             "propertyIsNullable": false,
                             "propertyIsRequired": false,
-                            "propertyName": "saluation",
+                            "propertyName": "salutation",
                             "propertyType": "String",
                             "uid": "928092922983"
                         },

@@ -33,7 +33,12 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
     <f:render partial="FormErrors" />
 
-    <f:form action="create" name="newRegister" object="{newRegister}">
+    <f:form
+        enctype="multipart/form-data"
+        action="create"
+        name="newRegister"
+        object="{newRegister}"
+    >
         <div class="flex-container">
             <div class="form flex flex-basis-8 full-width-medium space-between">
 

@@ -147,6 +147,41 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $groupWorkAddPersons = '';
 
     /**
+     * adminApproved
+     *
+     * @var boolean
+     */
+    protected $adminApproved = 0;
+
+    /**
+     * adminApprovedAt
+     *
+     * @var int
+     */
+    protected $adminApprovedAt = 0;
+
+    /**
+     * adminRefused
+     *
+     * @var boolean
+     */
+    protected $adminRefused = 0;
+
+    /**
+     * adminRefusedAt
+     *
+     * @var int
+     */
+    protected $adminRefusedAt = 0;
+
+    /**
+     * adminRefusedText
+     *
+     * @var string
+     */
+    protected $adminRefusedText = '';
+
+    /**
      * sector
      *
      * @var \RKW\RkwCompetition\Domain\Model\Sector
@@ -173,6 +208,20 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var \RKW\RkwCompetition\Domain\Model\Competition
      */
     protected $competition = null;
+
+    /**
+     * adminApprovedBy
+     *
+     * @var \RKW\RkwCompetition\Domain\Model\BackendUser
+     */
+    protected $adminApprovedBy = null;
+
+    /**
+     * adminRefusedBy
+     *
+     * @var \RKW\RkwCompetition\Domain\Model\BackendUser
+     */
+    protected $adminRefusedBy = null;
 
     /**
      * @var string
@@ -577,6 +626,117 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
+     * @return boolean
+     */
+    public function isAdminApproved()
+    {
+        return $this->adminApproved;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getAdminApproved()
+    {
+        return $this->adminApproved;
+    }
+
+    /**
+     * @param boolean $adminApproved
+     */
+    public function setAdminApproved($adminApproved)
+    {
+        $this->adminApproved = $adminApproved;
+    }
+
+    /**
+     * Returns the adminApprovedAt
+     *
+     * @return int
+     */
+    public function getAdminApprovedAt()
+    {
+        return $this->adminApprovedAt;
+    }
+
+    /**
+     * Sets the adminApprovedAt
+     *
+     * @param int $adminApprovedAt
+     * @return void
+     */
+    public function setAdminApprovedAt(int $adminApprovedAt)
+    {
+        $this->adminApprovedAt = $adminApprovedAt;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isAdminRefused()
+    {
+        return $this->adminRefused;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getAdminRefused()
+    {
+        return $this->adminRefused;
+    }
+
+    /**
+     * @param boolean $adminRefused
+     */
+    public function setAdminRefused($adminRefused)
+    {
+        $this->adminRefused = $adminRefused;
+    }
+
+    /**
+     * Returns the adminRefusedAt
+     *
+     * @return int
+     */
+    public function getAdminRefusedAt()
+    {
+        return $this->adminRefusedAt;
+    }
+
+    /**
+     * Sets the adminRefusedAt
+     *
+     * @param int $adminRefusedAt
+     * @return void
+     */
+    public function setAdminRefusedAt(int $adminRefusedAt)
+    {
+        $this->adminRefusedAt = $adminRefusedAt;
+    }
+
+    /**
+     * Returns the adminRefusedText
+     *
+     * @return string
+     */
+    public function getAdminRefusedText()
+    {
+        return $this->adminRefusedText;
+    }
+
+    /**
+     * Sets the adminRefusedText
+     *
+     * @param string $adminRefusedText
+     * @return void
+     */
+    public function setAdminRefusedText(string $adminRefusedText)
+    {
+        $this->adminRefusedText = $adminRefusedText;
+    }
+
+    /**
      * Returns the sector
      *
      * @return \RKW\RkwCompetition\Domain\Model\Sector
@@ -659,4 +819,48 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->competition = $competition;
     }
+
+    /**
+     * Returns the adminApprovedBy
+     *
+     * @return \RKW\RkwCompetition\Domain\Model\BackendUser $adminApprovedBy
+     */
+    public function getAdminApprovedBy()
+    {
+        return $this->adminApprovedBy;
+    }
+
+    /**
+     * Sets the adminApprovedBy
+     *
+     * @param \RKW\RkwCompetition\Domain\Model\BackendUser $adminApprovedBy
+     * @return void
+     */
+    public function setAdminApprovedBy(\RKW\RkwCompetition\Domain\Model\BackendUser $adminApprovedBy)
+    {
+        $this->adminApprovedBy = $adminApprovedBy;
+    }
+
+    /**
+     * Returns the adminRefusedBy
+     *
+     * @return \RKW\RkwCompetition\Domain\Model\BackendUser $adminRefusedBy
+     */
+    public function getAdminRefusedBy()
+    {
+        return $this->adminRefusedBy;
+    }
+
+    /**
+     * Sets the adminRefusedBy
+     *
+     * @param \RKW\RkwCompetition\Domain\Model\BackendUser $adminRefusedBy
+     * @return void
+     */
+    public function setAdminRefusedBy(\RKW\RkwCompetition\Domain\Model\BackendUser $adminRefusedBy)
+    {
+        $this->adminRefusedBy = $adminRefusedBy;
+    }
+
+
 }

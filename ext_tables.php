@@ -10,11 +10,11 @@ defined('TYPO3_MODE') || die();
         'list',
         '',
         [
-            Backend::class => 'list, show',
+            Backend::class => 'list, show, registerDetail, approve, refuse',
         ],
         [
             'access' => 'user,group',
-            'icon'   => 'EXT:rkw_competition/Resources/Public/Icons/user_mod_list.svg',
+            'icon'   => 'EXT:rkw_competition/ext_icon.gif',
             'labels' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_list.xlf',
         ]
     );
