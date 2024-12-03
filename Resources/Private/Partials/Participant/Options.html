@@ -30,7 +30,7 @@
 
 
                         <f:if condition="<rkw:isDateWithinDeadline date='{register.competition.fileRemovalEnd}' />">
-                            <f:link.action class="btn btn--secondary" controller="Register" action="delete" arguments="{register : register}">
+                            <f:link.action class="btn btn--secondary" controller="Register" action="deleteQuestion" arguments="{register : register}">
                                 <f:translate key="tx_rkwcompetition_fluid.partials_participant_options.registerDelete" />
                             </f:link.action>
                         </f:if>

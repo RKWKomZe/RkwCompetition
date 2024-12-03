@@ -23,7 +23,7 @@ class Upload extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * abstract
      *
-     * @var \RKW\RkwCompetition\Domain\Model\FileReference
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
      * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      */
     protected $abstract = null;
@@ -31,7 +31,7 @@ class Upload extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * full
      *
-     * @var \RKW\RkwCompetition\Domain\Model\FileReference
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
      * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      */
     protected $full = null;
@@ -60,7 +60,7 @@ class Upload extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the abstract
      *
-     * @return \RKW\RkwCompetition\Domain\Model\FileReference
+     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference
      */
     public function getAbstract()
     {
@@ -70,10 +70,10 @@ class Upload extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the abstract
      *
-     * @param \RKW\RkwCompetition\Domain\Model\FileReference $abstract
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $abstract
      * @return void
      */
-    public function setAbstract(\RKW\RkwCompetition\Domain\Model\FileReference $abstract)
+    public function setAbstract(\TYPO3\CMS\Extbase\Domain\Model\FileReference $abstract)
     {
         $this->abstract = $abstract;
     }
@@ -81,7 +81,7 @@ class Upload extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the full
      *
-     * @return \RKW\RkwCompetition\Domain\Model\FileReference
+     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference
      */
     public function getFull()
     {
@@ -91,10 +91,10 @@ class Upload extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the full
      *
-     * @param \RKW\RkwCompetition\Domain\Model\FileReference $full
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $full
      * @return void
      */
-    public function setFull(\RKW\RkwCompetition\Domain\Model\FileReference $full)
+    public function setFull(\TYPO3\CMS\Extbase\Domain\Model\FileReference $full)
     {
         $this->full = $full;
     }

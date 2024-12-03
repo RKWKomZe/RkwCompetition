@@ -16,6 +16,8 @@ namespace RKW\RkwCompetition\Persistence;
 
 use TYPO3\CMS\Core\Log\Logger;
 use TYPO3\CMS\Core\Log\LogManager;
+use TYPO3\CMS\Core\Resource\Folder;
+use TYPO3\CMS\Core\Resource\ResourceStorage;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Resource\File;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -43,22 +45,20 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 class FileUpload implements SingletonInterface
 {
 
-    /**
-     * @var \TYPO3\CMS\Core\Log\Logger|null
+    /*
+     * @var string
      */
-    protected ?Logger $logger = null;
-
-
-    /**
-     * @var \TYPO3\CMS\Core\Resource\ResourceFactory|null
-     */
-    protected ?ResourceFactory $resourceFactory = null;
+    protected string $subFolderName = '';
 
     /**
      * @var string
      */
-    protected string $defaultUploadFolder = '1:/user_upload/tx_rkwcompetition';
+    protected string $defaultUploadFolder = 'user_upload/tx_rkwcompetition';
 
+    /**
+     * @var string
+     */
+    protected string $resourceStorageUid = '1';
 
     /**
      * One of 'cancel', 'replace', 'rename'
@@ -67,18 +67,35 @@ class FileUpload implements SingletonInterface
      */
     protected string $defaultConflictMode = 'rename';
 
+    /**
+     * @var \TYPO3\CMS\Core\Resource\ResourceFactory|null
+     */
+    protected ?ResourceFactory $resourceFactory = null;
+
+    /**
+     * @var \TYPO3\CMS\Core\Resource\ResourceStorage|null
+     */
+    protected ?ResourceStorage $resourceStorage = null;
+
+    /**
+     * @var \TYPO3\CMS\Core\Resource\Folder|null
+     */
+    protected ?Folder $folder = null;
 
     /**
      * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface|null
      */
     protected ?ObjectManagerInterface $objectManager = null;
 
-
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager|null
      */
     protected ?PersistenceManager $persistenceManager = null;
 
+    /**
+     * @var \TYPO3\CMS\Core\Log\Logger|null
+     */
+    protected ?Logger $logger = null;
 
     /**
      * @return void
@@ -89,12 +106,14 @@ class FileUpload implements SingletonInterface
         /** @var \TYPO3\CMS\Core\Resource\ResourceFactory $resourceFactory */
         $this->resourceFactory = GeneralUtility::makeInstance(ResourceFactory::class);
 
+        /** @var \TYPO3\CMS\Core\Resource\ResourceStorage $resourceStorage */
+        $this->resourceStorage = $this->resourceFactory->getStorageObject($this->resourceStorageUid);
+
         /** @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager */
         $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 
         /** @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager */
         $this->persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
-
     }
 
 
@@ -102,7 +121,7 @@ class FileUpload implements SingletonInterface
     /**
      * checkFileFormUpload
      *
-     * @todo : check multiple upload arry?
+     * @todo : check multiple upload array?
      *
      * @param array $fileFromForm The single file array
      * @return bool
@@ -129,10 +148,46 @@ class FileUpload implements SingletonInterface
      */
     public function importUploadedResource(array $file): ExtbaseFileReference
     {
-        $uploadFolder = $this->resourceFactory->retrieveFileOrFolderObject($this->defaultUploadFolder);
-        $uploadedFile = $uploadFolder->addUploadedFile($file, $this->defaultConflictMode);  //  second parameter $conflict mode
+        // get the basic folder
+        $this->folder = $this->resourceFactory->createFolderObject(
+            $this->resourceStorage,
+            $this->defaultUploadFolder,
+            $this->getDefaultUploadFolder()
+        );
+
+        // If given: Get the subFolder. Create it, if necessary
+        $folder = $this->createNewSubFolderIfNotExists();
+
+        // upload into the given folder
+        $uploadedFile = $folder->addUploadedFile($file, $this->defaultConflictMode);
 
         return $this->createFileReferenceFromFalFileObject($uploadedFile);
+    }
+
+
+    /**
+     * createNewFileFolder
+     *
+     * @return \TYPO3\CMS\Core\Resource\Folder
+     */
+    protected function createNewSubFolderIfNotExists(): Folder
+    {
+        // if no subFolder is given, do nothing. Return current folder
+        if (!$this->subFolderName) {
+            return $this->folder;
+        }
+
+        // if subFolder already exists, return subFolder.
+        if ($this->folder->hasFolder($this->subFolderName)) {
+            return $this->resourceFactory->createFolderObject(
+                $this->resourceStorage,
+                $this->getFullFilePath(),
+                $this->subFolderName
+            );
+        }
+
+        // else: Create and return new folder
+        return $this->folder->createFolder($this->getSubFolderName());
     }
 
 
@@ -198,7 +253,7 @@ class FileUpload implements SingletonInterface
      * @return array
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
      */
-    public static function getSettings(string $which = ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS): array
+    protected static function getSettings(string $which = ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS): array
     {
         return \Madj2k\CoreExtended\Utility\GeneralUtility::getTypoScriptConfiguration('Rkwcompetition', $which);
     }
@@ -216,6 +271,72 @@ class FileUpload implements SingletonInterface
         }
 
         return $this->logger;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getSubFolderName(): string
+    {
+        return $this->subFolderName;
+    }
+
+
+    /**
+     * @param string $subFolderName The path without beginning or ending slash
+     * @return void
+     */
+    public function setSubFolderName(string $subFolderName): void
+    {
+        $this->subFolderName = rtrim(ltrim($subFolderName, '/'), '/');
+    }
+
+    /**
+     * @return string
+     */
+    public function getResourceStorageUid(): string
+    {
+        return $this->resourceStorageUid;
+    }
+
+    /**
+     * @param string $resourceStorageUid
+     * @return void
+     */
+    public function setResourceStorageUid(string $resourceStorageUid): void
+    {
+        $this->resourceStorageUid = $resourceStorageUid;
+
+        // if new storage UID is set: Set new storage
+        /** @var \TYPO3\CMS\Core\Resource\ResourceStorage $resourceStorage */
+        $this->resourceStorage = $this->resourceFactory->getStorageObject($this->resourceStorageUid);
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultUploadFolder(): string
+    {
+        return $this->defaultUploadFolder;
+    }
+
+    /**
+     * @param string $defaultUploadFolder
+     * @return void
+     */
+    public function setDefaultUploadFolder(string $defaultUploadFolder): void
+    {
+        $this->defaultUploadFolder = $defaultUploadFolder;
+    }
+
+    /**
+     *
+     * @return string
+     */
+    private function getFullFilePath(): string
+    {
+        return $this->defaultUploadFolder . '/' . $this->subFolderName . '/';
     }
 
 }

@@ -5,11 +5,6 @@ declare(strict_types=1);
 namespace RKW\RkwCompetition\Controller;
 
 
-use Madj2k\FeRegister\Domain\Model\OptIn;
-use RKW\RkwCompetition\Service\RkwMailService;
-use RKW\RkwCompetition\Utility\CompetitionUtility;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
-
 /**
  * This file is part of the "RKW Competition" Extension for TYPO3 CMS.
  *

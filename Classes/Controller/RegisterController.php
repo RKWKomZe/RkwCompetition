@@ -13,6 +13,7 @@ use RKW\RkwCompetition\Domain\Model\Competition;
 use RKW\RkwCompetition\Domain\Model\FileReference;
 use RKW\RkwCompetition\Domain\Model\Register;
 use RKW\RkwCompetition\Persistence\FileUpload;
+use RKW\RkwCompetition\Service\RkwMailService;
 use RKW\RkwCompetition\Utility\CompetitionUtility;
 use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\Log\Logger;
@@ -145,15 +146,14 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
     public function createAction(\RKW\RkwCompetition\Domain\Model\Register $newRegister)
     {
 
-    //    DebuggerUtility::var_dump($newRegister); exit;
-
-        // @toDo: FileUpload
-        // @toDo: create random unique hash (as sub-folder name)
         // -> create an additional field inside the RegisterModel for it
+        $newRegister->setUniqueId(uniqid('feuser', false));
 
         /** @var \RKW\RkwCompetition\Persistence\FileUpload $fileUpload */
         $fileUpload = GeneralUtility::makeInstance(FileUpload::class);
 
+        // set special file path for every frontendUser
+        $fileUpload->setSubFolderName($newRegister->getUniqueId());
 
         // @toDo: FileUpload try-catch
 
@@ -199,7 +199,12 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
                 'new competition register'
             );
 
-            $this->addFlashMessage(LocalizationUtility::translate('registerController.message.registrationCreated', 'rkw_events'));
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'registerController.message.registrationCreated',
+                    'rkw_competition'
+                )
+            );
 
         } else {
 
@@ -277,6 +282,19 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
 
 
     /**
+     * action deleteQuestion
+     *
+     * @param \RKW\RkwCompetition\Domain\Model\Register $register
+     * @return void
+     */
+    public function deleteQuestionAction(\RKW\RkwCompetition\Domain\Model\Register $register)
+    {
+        $this->view->assign('register', $register);
+    }
+
+
+
+    /**
      * action delete
      *
      * @param \RKW\RkwCompetition\Domain\Model\Register $register
@@ -286,6 +304,33 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
     {
         $this->addFlashMessage('The object was deleted.');
         $this->registerRepository->remove($register);
+
+
+        $emailService = \Madj2k\CoreExtended\Utility\GeneralUtility::makeInstance(RkwMailService::class);
+        // @toDo: Email an Teilnehmenden: "Teilnahme zurückgezogen"
+        $emailService->deleteRegisterUser($register->getFrontendUser(), $register);
+        // @toDo: Email an Admins (siehe #4198):  "Teilnahme zurückgezogen"
+        // 5. send information mail to be-users
+        $adminMails = [];
+        if ($backendUserList = $register->getCompetition()->getAdminMember()) {
+            /** @var \Madj2k\FeRegister\Domain\Model\BackendUser $backendUser */
+            foreach ($backendUserList as $backendUser) {
+                if ($backendUser->getEmail()) {
+                    $adminMails[] = $backendUser;
+                }
+            }
+            $emailService->deleteRegisterAdmin($adminMails, $register);
+        }
+
+
+
+
+        // Folgende Punkte: (Ggf über Cronjob mit einbeziehen, anstatt einzelne Lösch-Queries zu starten?)
+
+        // @toDo: Löschen des Beitragsdatensatzens inklusive aller hochgeladener Dateien
+
+        // @toDo: Löschen des Cloud-Ordners (siehe #4200) --------
+
         $this->redirect('list', 'Participant');
     }
 

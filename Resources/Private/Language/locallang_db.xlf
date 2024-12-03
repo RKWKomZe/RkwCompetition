@@ -93,6 +93,9 @@
 			<trans-unit id="tx_rkwcompetition_domain_model_register.competition">
                 <source>Competition</source>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.unique_id">
+                <source>Unique ID</source>
+            </trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_upload" resname="tx_rkwcompetition_domain_model_upload">
 				<source>Upload</source>
 			</trans-unit>

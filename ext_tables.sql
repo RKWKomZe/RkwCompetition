@@ -42,6 +42,7 @@ CREATE TABLE tx_rkwcompetition_domain_model_register (
 	is_group_work int(11) NOT NULL DEFAULT '0',
 	group_work_insurance int(11) NOT NULL DEFAULT '0',
 	group_work_add_persons text NOT NULL DEFAULT '',
+    unique_id varchar(255) NOT NULL DEFAULT '',
 
     admin_approved int(11) NOT NULL DEFAULT '0',
     admin_approved_by int(11) NOT NULL DEFAULT '0',

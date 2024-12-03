@@ -182,6 +182,13 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $adminRefusedText = '';
 
     /**
+     * uniqueId
+     *
+     * @var string
+     */
+    protected $uniqueId = '';
+
+    /**
      * sector
      *
      * @var \RKW\RkwCompetition\Domain\Model\Sector
@@ -734,6 +741,27 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setAdminRefusedText(string $adminRefusedText)
     {
         $this->adminRefusedText = $adminRefusedText;
+    }
+
+    /**
+     * Returns the uniqueId
+     *
+     * @return string
+     */
+    public function getUniqueId()
+    {
+        return $this->uniqueId;
+    }
+
+    /**
+     * Sets the uniqueId
+     *
+     * @param string $uniqueId
+     * @return void
+     */
+    public function setUniqueId(string $uniqueId)
+    {
+        $this->uniqueId = $uniqueId;
     }
 
     /**

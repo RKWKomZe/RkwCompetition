@@ -389,11 +389,19 @@
                 <source>Registration refused</source>
                 <target>Wettbewerbsregistrierung abgelehnt</target>
             </trans-unit>
+            <trans-unit id="rkwMailService.deleteRegisterUser.subject" approved="yes">
+                <source>Your registration has been canceled</source>
+                <target>Ihre Bewerbung wurde zurückgezogen</target>
+            </trans-unit>
 
             <!-- ADMIN -->
             <trans-unit id="rkwMailService.confirmationRegisterAdmin.subject" approved="yes">
                 <source>New registration</source>
                 <target>Neue Wettbewerbsregistrierung</target>
+            </trans-unit>
+            <trans-unit id="rkwMailService.deleteRegisterAdmin.subject" approved="yes">
+                <source>Registration has been canceled</source>
+                <target>Eine Wettbewerbsanmeldung wurde zurückgezogen</target>
             </trans-unit>
 
             
@@ -589,6 +597,33 @@
             <trans-unit id="templates_email_refusedRegisterUser.reason">
                 <source>Reason:</source>
                 <target>Begründung:</target>
+            </trans-unit>
+
+
+            <!-- Templates/Email/DeleteRegisterUser.html -->
+            <trans-unit id="templates_email_deleteRegisterUser.headline">
+                <source>Hello %s %s,</source>
+                <target>Hallo %s %s,</target>
+            </trans-unit>
+            <trans-unit id="templates_email_deleteRegisterUser.text1">
+                <source>sorry to see you go.</source>
+                <target>wir hätten Sie gerne dabei gehabt. Selbstverständlich kommen wir aber Ihrem Wunsch nach und löschen Ihre Anmeldung zum Wettbewerb.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_deleteRegisterUser.text2">
+                <source>Please find below the details of your canceled reservation.</source>
+                <target>Untenstehend finden Sie die Details Ihrer zurückgezogenen Bewerbung. Bei Rückfragen können Sie einfach direkt auf diese E-Mail antworten.</target>
+            </trans-unit>
+
+
+
+            <!-- Templates/Email/DeleteRegisterAdmin.html -->
+            <trans-unit id="templates_email_deleteRegisterAdmin.headline">
+                <source>Hello %s,</source>
+                <target>Hallo %s,</target>
+            </trans-unit>
+            <trans-unit id="templates_email_deleteRegisterAdmin.text1" approved="no">
+                <source>a registration has been canceled.</source>
+                <target phase-name="approval-1" state="final">jemand hat über die Website seine Bewerbung zu einem Wettbewerb zurückgezogen. Sie können dem oder der Nutzenden direkt auf diese E-Mail antworten, um etwaige Fragen zu klären.</target>
             </trans-unit>
 
 

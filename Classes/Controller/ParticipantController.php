@@ -132,7 +132,7 @@ class ParticipantController extends \RKW\RkwCompetition\Controller\AbstractContr
      */
     public function deleteAction(\RKW\RkwCompetition\Domain\Model\Upload $upload)
     {
-        $this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/p/friendsoftypo3/extension-builder/master/en-us/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+        $this->addFlashMessage('The object was deleted.');
         $this->uploadRepository->remove($upload);
         $this->redirect('list');
     }

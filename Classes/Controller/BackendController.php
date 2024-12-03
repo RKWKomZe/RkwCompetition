@@ -112,7 +112,7 @@ class BackendController extends \RKW\RkwCompetition\Controller\AbstractControlle
         $this->registerRepository->update($register);
 
         $emailService = GeneralUtility::makeInstance(RkwMailService::class);
-        $emailService->registerApprovedUser($register->getFrontendUser(), $register);
+        $emailService->approvedRegisterUser($register->getFrontendUser(), $register);
 
         $this->addFlashMessage(
             "Alles klar :-)"
@@ -142,7 +142,7 @@ class BackendController extends \RKW\RkwCompetition\Controller\AbstractControlle
         $this->persistenceManager->persistAll();
 
         $emailService = GeneralUtility::makeInstance(RkwMailService::class);
-        $emailService->registerRefusedUser($register->getFrontendUser(), $register);
+        $emailService->refusedRegisterUser($register->getFrontendUser(), $register);
 
         $this->addFlashMessage(
             "Abgelehnt!"

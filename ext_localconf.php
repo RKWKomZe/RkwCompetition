@@ -43,12 +43,12 @@ defined('TYPO3_MODE') || die();
         'Participant',
         [
             Participant::class => 'list, show',
-            Register::class => 'edit, update, delete'
+            Register::class => 'edit, update, deleteQuestion, delete'
         ],
         // non-cacheable actions
         [
             Participant::class => 'list, show',
-            Register::class => 'edit, update, delete'
+            Register::class => 'edit, update, deleteQuestion, delete'
         ]
     );
 

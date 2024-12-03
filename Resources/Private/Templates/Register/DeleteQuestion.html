@@ -1,0 +1,16 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:rkw="http://typo3.org/ns/RKW/RkwCompetition/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+
+    <f:layout name="Default" />
+
+    <f:section name="content">
+
+        Wirklich löschen?
+
+        <f:link.action class="btn btn--secondary" controller="Register" action="delete" arguments="{register : register}">
+            <f:translate key="tx_rkwcompetition_fluid.partials_participant_options.registerDelete" />
+        </f:link.action>
+    </f:section>
+
+</html>
