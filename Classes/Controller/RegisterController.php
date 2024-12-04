@@ -12,7 +12,7 @@ use Madj2k\FeRegister\Utility\FrontendUserUtility;
 use RKW\RkwCompetition\Domain\Model\Competition;
 use RKW\RkwCompetition\Domain\Model\FileReference;
 use RKW\RkwCompetition\Domain\Model\Register;
-use RKW\RkwCompetition\Persistence\FileUpload;
+use RKW\RkwCompetition\Persistence\FileHandler;
 use RKW\RkwCompetition\Service\RkwMailService;
 use RKW\RkwCompetition\Utility\CompetitionUtility;
 use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
@@ -148,32 +148,6 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
 
         // -> create an additional field inside the RegisterModel for it
         $newRegister->setUniqueId(uniqid('feuser', false));
-
-        /** @var \RKW\RkwCompetition\Persistence\FileUpload $fileUpload */
-        $fileUpload = GeneralUtility::makeInstance(FileUpload::class);
-
-        // set special file path for every frontendUser
-        $fileUpload->setSubFolderName($newRegister->getUniqueId());
-
-        // @toDo: FileUpload try-catch
-
-
-        // Abstract PDF
-        if ($fileUpload->checkFileFormUpload($newRegister->getUpload()->getFileAbstract())) {
-            $newRegister->getUpload()->setAbstract($fileUpload->importUploadedResource($newRegister->getUpload()->getFileAbstract()));
-        }
-
-        // Full PDF
-        if ($fileUpload->checkFileFormUpload($newRegister->getUpload()->getFileFull())) {
-            $newRegister->getUpload()->setFull($fileUpload->importUploadedResource($newRegister->getUpload()->getFileFull()));
-        }
-
-
-        /*
-         All configuration settings of the \TYPO3\CMS\Extbase\Mvc\Controller\FileUploadConfiguration object can be
-         defined using the FileUpload attribute. It is however not possible to add custom validators using the FileUpload
-         attribute, which you can achieve with a manual configuration as shown below.
-         */
 
 
         // @toDo: Check register end time of competition

@@ -1,5 +1,5 @@
 <?php
-namespace RKW\RkwCompetition\Domain\Model;
+namespace RKW\RkwCompetition\Domain\Repository;
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -15,14 +15,14 @@ namespace RKW\RkwCompetition\Domain\Model;
  */
 
 /**
- * Class FileReference
+ * Class FileReferenceRepository
  *
- * @author Christian Dilger <c.dilger@addorange.de>
+ * @author Maximilian Fäßler <maximilian@faesslerweb.de>
  * @copyright RKW Kompetenzzentrum
  * @package RKW_RkwCompetition
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class FileReference extends \Madj2k\CoreExtended\Domain\Model\FileReference
+class FileReferenceRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
 
 }

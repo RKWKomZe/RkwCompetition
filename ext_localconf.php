@@ -26,28 +26,18 @@ defined('TYPO3_MODE') || die();
         ]
     );
 
-//    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-//        'RKW.RkwCompetition',
-//        'Edit',
-//        [
-//            Register::class => 'edit, update'
-//        ],
-//        // non-cacheable actions
-//        [
-//            Register::class => 'edit, update'
-//        ]
-//    );
-
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
         'RKW.RkwCompetition',
         'Participant',
         [
             Participant::class => 'list, show',
+            Upload::class => 'edit, update, delete',
             Register::class => 'edit, update, deleteQuestion, delete'
         ],
         // non-cacheable actions
         [
             Participant::class => 'list, show',
+            Upload::class => 'edit, update, delete',
             Register::class => 'edit, update, deleteQuestion, delete'
         ]
     );
@@ -63,46 +53,6 @@ defined('TYPO3_MODE') || die();
             Jury::class => 'list, show'
         ]
     );
-
-    // wizards
-    /*
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-        'mod {
-            wizards.newContentElement.wizardItems.plugins {
-                elements {
-                    register {
-                        iconIdentifier = rkw_competition-plugin-register
-                        title = LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkw_competition_register.name
-                        description = LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkw_competition_register.description
-                        tt_content_defValues {
-                            CType = list
-                            list_type = rkwcompetition_register
-                        }
-                    }
-                    edit {
-                        iconIdentifier = rkw_competition-plugin-edit
-                        title = LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkw_competition_edit.name
-                        description = LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkw_competition_edit.description
-                        tt_content_defValues {
-                            CType = list
-                            list_type = RkwCompetition_edit
-                        }
-                    }
-                    jury {
-                        iconIdentifier = rkw_competition-plugin-jury
-                        title = LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkw_competition_jury.name
-                        description = LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkw_competition_jury.description
-                        tt_content_defValues {
-                            CType = list
-                            list_type = rkwcompetition_jury
-                        }
-                    }
-                }
-                show = *
-            }
-       }'
-    );
-    */
 
     $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
     $iconRegistry->registerIcon(

@@ -42,7 +42,7 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
  * @package RKW_RkwCompetition
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class FileUpload implements SingletonInterface
+class FileHandler implements SingletonInterface
 {
 
     /*
@@ -129,7 +129,10 @@ class FileUpload implements SingletonInterface
     public function checkFileFormUpload(array $fileFromForm): bool
     {
         // check if file upload exists (4 = no file set)
-        if ($fileFromForm["error"] == 4) {
+        if (
+            empty($fileFromForm)
+            || $fileFromForm["error"] == 4
+        ) {
             return false;
         }
 
@@ -142,11 +145,11 @@ class FileUpload implements SingletonInterface
     /**
      * importUploadedResource
      *
-     * @param array $file
+     * @param array $fileUpload
      * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException|Exception
      */
-    public function importUploadedResource(array $file): ExtbaseFileReference
+    public function importUploadedResource(array $fileUpload): ExtbaseFileReference
     {
         // get the basic folder
         $this->folder = $this->resourceFactory->createFolderObject(
@@ -159,10 +162,58 @@ class FileUpload implements SingletonInterface
         $folder = $this->createNewSubFolderIfNotExists();
 
         // upload into the given folder
-        $uploadedFile = $folder->addUploadedFile($file, $this->defaultConflictMode);
+        $uploadedFile = $folder->addUploadedFile($fileUpload, $this->defaultConflictMode);
 
         return $this->createFileReferenceFromFalFileObject($uploadedFile);
     }
+
+
+
+    /**
+     * removeFileFromHdd
+     *
+     * @param \Madj2k\CoreExtended\Domain\Model\File $file
+     * @return bool
+     */
+    public function removeFileFromHdd(\Madj2k\CoreExtended\Domain\Model\File $file): bool
+    {
+        return $this->resourceStorage->deleteFile($file->get);
+    }
+
+
+
+    /**
+     * removeFolderFromHddByIdentifier
+     *
+     * -> folder name is the identifier of a file (the path)
+     *
+     * @param string $folderIdentifier
+     * @return bool
+     */
+    public function removeFolderFromHddByIdentifier(string $folderIdentifier): bool
+    {
+        $folderToRemove = $this->resourceFactory->createFolderObject(
+            $this->resourceStorage,
+            $folderIdentifier,
+            $folderIdentifier
+        );
+
+        return $this->removeFolderFromHddByFolder($folderToRemove);
+    }
+
+
+
+    /**
+     * removeFolderFromHddByFolder
+     *
+     * @param \TYPO3\CMS\Core\Resource\Folder $folder
+     * @return bool
+     */
+    public function removeFolderFromHddByFolder(\TYPO3\CMS\Core\Resource\Folder $folder): bool
+    {
+        return $this->resourceStorage->deleteFolder($folder);
+    }
+
 
 
     /**
@@ -191,6 +242,7 @@ class FileUpload implements SingletonInterface
     }
 
 
+
     /**
      * @param \TYPO3\CMS\Core\Resource\File $file
      * @param int|null $resourcePointer
@@ -212,6 +264,7 @@ class FileUpload implements SingletonInterface
         );
         return $this->createFileReferenceFromFalFileReferenceObject($fileReference, $resourcePointer);
     }
+
 
 
     /**
@@ -246,6 +299,7 @@ class FileUpload implements SingletonInterface
     }
 
 
+
     /**
      * Returns TYPO3 settings
      *
@@ -257,6 +311,7 @@ class FileUpload implements SingletonInterface
     {
         return \Madj2k\CoreExtended\Utility\GeneralUtility::getTypoScriptConfiguration('Rkwcompetition', $which);
     }
+
 
 
     /**
@@ -274,6 +329,7 @@ class FileUpload implements SingletonInterface
     }
 
 
+
     /**
      * @return string
      */
@@ -281,6 +337,7 @@ class FileUpload implements SingletonInterface
     {
         return $this->subFolderName;
     }
+
 
 
     /**

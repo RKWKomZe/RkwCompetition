@@ -24,7 +24,7 @@ namespace RKW\RkwCompetition\Domain\Repository;
  * @package RKW_RkwCompetition
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class FrontendUserRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class FrontendUserRepository extends \Madj2k\CoreExtended\Domain\Repository\FileReferenceRepository
 {
 
 

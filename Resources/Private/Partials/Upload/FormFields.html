@@ -1,14 +1,55 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<label for="abstract">
-	<f:translate key="tx_rkwcompetition_domain_model_upload.abstract" />
-</label><br />
-	<span>File upload is not implemented!</span><br /><br />
-<label for="full">
-	<f:translate key="tx_rkwcompetition_domain_model_upload.full" />
-</label><br />
-	<span>File upload is not implemented!</span><br /><br />
-<label for="remark">
-	<f:translate key="tx_rkwcompetition_domain_model_upload.remark" />
-</label><br />
-	<f:form.textarea property="remark" id="remark" cols="40" rows="15" /><br />
+
+
+	<f:if condition="{register.upload.abstract}">
+		<f:then>
+			<p>
+				File existiert. Löschen option.
+				<f:link.action action="delete" arguments="{register: register, property: 'abstract', fileReference: register.upload.abstract}">
+					Entfernen
+				</f:link.action>
+			</p>
+		</f:then>
+		<f:else>
+			<div class="form__field width100">
+				FileUpload Abstract
+				<f:form.upload property="upload.fileAbstractUploadArray" />
+			</div>
+		</f:else>
+	</f:if>
+
+	<f:if condition="{register.upload.full}">
+		<f:then>
+			<p>
+				File existiert. Löschen option.
+
+			<f:comment>
+				<div class="form__field">
+					<f:form.checkbox
+							class="checkbox"
+							id="uploadFull"
+							property="upload.full"
+							value="0"
+					/>
+					<label for="uploadFull" class="checkbox-label">
+						Datei löschen
+					</label>
+				</div>
+			</f:comment>
+
+
+				<f:link.action action="delete" arguments="{register: register, property: 'full', fileReference: register.upload.full}">
+					Entfernen
+				</f:link.action>
+			</p>
+		</f:then>
+		<f:else>
+			<div class="form__field width100">
+				FileUpload Full version
+				<f:form.upload property="upload.fileFullUploadArray" />
+			</div>
+		</f:else>
+	</f:if>
+
+
 </html>

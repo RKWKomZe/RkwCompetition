@@ -29,12 +29,21 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
  */
 class RegisterUtility
 {
+    const STATUS_NEW = 100;
+
+    const STATUS_REFUSED = 200;
+
+    const STATUS_SUBMITTED = 300;
+
+    const STATUS_APPROVED = 500;
+
 
     /**
-     * Returns the status of a Register-Record
+     * Returns the status of a register record
      * 100 = new
      * 200 = refused
-     * 500 = complete
+     * 300 = submitted
+     * 500 = approved
      *
      *
      * @param \RKW\RkwCompetition\Domain\Model\Register $register
@@ -43,17 +52,21 @@ class RegisterUtility
     public static function registerStatus(Register $register) :int
     {
         if ($register->getAdminApproved()) {
-            // approved (complete)
-            return 500;
+            // approved
+            return self::STATUS_APPROVED;
         }
 
         if ($register->getAdminRefused()) {
             // refused
-            return 200;
+            return self::STATUS_REFUSED;
         }
 
+
+        // @toDo: Include "STATUS_SUBMITTED". Additional form field necessary?
+
+
         // new
-        return 100;
+        return self::STATUS_NEW;
     }
 
 

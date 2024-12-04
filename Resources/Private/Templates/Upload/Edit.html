@@ -14,15 +14,30 @@ in /Configuration/ExtensionBuilder/settings.yaml:
 Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
 <f:section name="content">
-    <h1>Edit Upload</h1>
+    <h1>File Upload</h1>
 
     <f:flashMessages />
 
     <f:render partial="FormErrors" />
 
-    <f:form action="update" name="upload" object="{upload}" >
-    <f:render partial="Upload/FormFields" arguments="{upload:upload}" />
-    <f:form.submit value="Save" />
+    <f:form
+        enctype="multipart/form-data"
+        action="update"
+        name="register"
+        object="{register}"
+    >
+        <div class="flex-container">
+            <div class="form flex flex-basis-8 full-width-medium space-between">
+
+                <f:form.hidden property="upload" value="{register.upload}" />
+
+                <f:render partial="Upload/FormFields" arguments="{register:register}" />
+
+                <button type="submit" class="btn btn--primary">
+                    Hochladen
+                </button>
+            </div>
+        </div>
     </f:form>
 </f:section>
 </html>

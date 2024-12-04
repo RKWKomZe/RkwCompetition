@@ -22,12 +22,15 @@
             <!-- ViewHelper returns true if reg time for competition is still running -->
             <f:if condition="<rkw:isDateWithinDeadline date='{register.competition.registerEnd}' />">
 
-                <f:if condition="<rkw:registerStatus register='{register}' /> < 500">
+                <f:if condition="<rkw:registerStatus register='{register}' /> < 300">
                     <f:then>
                         <f:link.action class="btn btn--secondary" controller="Register" action="edit" arguments="{register : register}">
                             <f:translate key="tx_rkwcompetition_fluid.partials_participant_options.registerEdit" />
                         </f:link.action>
 
+                        <f:link.action class="btn btn--secondary" controller="Upload" action="edit" arguments="{register : register}">
+                            <f:translate key="tx_rkwcompetition_fluid.partials_participant_options.registerUpload" />
+                        </f:link.action>
 
                         <f:if condition="<rkw:isDateWithinDeadline date='{register.competition.fileRemovalEnd}' />">
                             <f:link.action class="btn btn--secondary" controller="Register" action="deleteQuestion" arguments="{register : register}">

@@ -23,7 +23,7 @@ class Upload extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * abstract
      *
-     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference|null
      * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      */
     protected $abstract = null;
@@ -31,7 +31,7 @@ class Upload extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * full
      *
-     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference|null
      * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      */
     protected $full = null;
@@ -48,14 +48,14 @@ class Upload extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @var array
      */
-    protected array $fileAbstract = [];
+    protected array $fileAbstractUploadArray = [];
 
     /**
      * ### only for form upload ###
      *
      * @var array
      */
-    protected array $fileFull = [];
+    protected array $fileFullUploadArray = [];
 
     /**
      * Returns the abstract
@@ -78,6 +78,15 @@ class Upload extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $this->abstract = $abstract;
     }
 
+
+    /**
+     * Deletes the abstract file
+     */
+    public function unsetAbstract() {
+        $this->abstract = null;
+    }
+
+
     /**
      * Returns the full
      *
@@ -91,12 +100,19 @@ class Upload extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the full
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $full
+     * @param mixed $full
      * @return void
      */
-    public function setFull(\TYPO3\CMS\Extbase\Domain\Model\FileReference $full)
+    public function setFull($full)
     {
         $this->full = $full;
+    }
+
+    /**
+     * Deletes the full file
+     */
+    public function unsetFull() {
+        $this->full = null;
     }
 
     /**
@@ -124,35 +140,35 @@ class Upload extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Returns the fileAbstract
      * ### only for form upload ###
      *
-     * @return array $fileAbstract
+     * @return array $fileAbstractUploadArray
      */
-    public function getFileAbstract(): array
+    public function getFileAbstractUploadArray(): array
     {
-        return $this->fileAbstract;
+        return $this->fileAbstractUploadArray;
     }
 
 
     /**
-     * Sets the fileAbstract
+     * Sets the fileAbstractUploadArray
      * ### only for form upload ###
      *
-     * @param array $fileAbstract
+     * @param array $fileAbstractUploadArray
      * @return void
      */
-    public function setFileAbstract(array $fileAbstract): void
+    public function setFileAbstractUploadArray(array $fileAbstractUploadArray): void
     {
-        $this->fileAbstract = $fileAbstract;
+        $this->fileAbstractUploadArray = $fileAbstractUploadArray;
     }
 
     /**
      * Returns the fileFull
      * ### only for form upload ###
      *
-     * @return array $fileFull
+     * @return array $fileFullUploadArray
      */
-    public function getFileFull(): array
+    public function getFileFullUploadArray(): array
     {
-        return $this->fileFull;
+        return $this->fileFullUploadArray;
     }
 
 
@@ -160,11 +176,11 @@ class Upload extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Sets the fileFull
      * ### only for form upload ###
      *
-     * @param array $fileFull
+     * @param array $fileFullUploadArray
      * @return void
      */
-    public function setFileFull(array $fileFull): void
+    public function setFileFullUploadArray(array $fileFullUploadArray): void
     {
-        $this->fileFull = $fileFull;
+        $this->fileFullUploadArray = $fileFullUploadArray;
     }
 }

@@ -10,6 +10,7 @@ use Madj2k\FeRegister\Utility\FrontendUserSessionUtility;
 use Madj2k\FeRegister\Utility\FrontendUserUtility;
 use RKW\RkwCompetition\Utility\RegisterUtility;
 use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * This file is part of the "RKW Competition" Extension for TYPO3 CMS.
@@ -49,6 +50,7 @@ class ParticipantController extends \RKW\RkwCompetition\Controller\AbstractContr
         } else {
 
             $registerList = $this->registerRepository->findByFrontendUser($this->getFrontendUser());
+
             $this->view->assign('registerList', $registerList);
         }
 

@@ -294,6 +294,10 @@
                 <source>Edit registration</source>
                 <target>Registrierung bearbeiten</target>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.registerUpload">
+                <source>Upload files</source>
+                <target>Dateien hochladen</target>
+            </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.registerDelete">
                 <source>Delete registration</source>
                 <target>Registrierung löschen</target>
