@@ -36,6 +36,10 @@ plugin.tx_rkwcompetition {
             register = {$plugin.tx_rkwcompetition.settings.mandatoryFields.register}
             registerGroupWork = {$plugin.tx_rkwcompetition.settings.mandatoryFields.registerGroupWork}
         }
+        upload {
+            extensionFolder = {$plugin.tx_rkwcompetition.settings.upload.extensionFolder}
+            allowedFileTypes = {$plugin.tx_rkwcompetition.settings.upload.allowedFileTypes}
+        }
     }
 }
 

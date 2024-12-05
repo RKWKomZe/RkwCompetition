@@ -1,55 +1,73 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 
+	<table class="responsive-table responsive-table--background">
+		<tr>
+			<td>
+				Kurzfassung
+			</td>
+			<f:if condition="{register.upload.abstract}">
+				<f:then>
+					<td>
+						<f:link.typolink
+								parameter="{register.upload.abstract.originalResource.publicUrl}"
+								target="_blank"
+								title="Download"
+								absolute="true"
+						>
+							{register.upload.abstract.originalResource.name}
+						</f:link.typolink>
+					</td>
+					<td>
+						<f:link.action
+								action="delete"
+								arguments="{register: register, property: 'abstract', fileReference: register.upload.abstract}"
+						>
+							Löschen
+						</f:link.action>
+					</td>
+				</f:then>
+				<f:else>
+					<td>
+						<f:form.upload property="upload.fileAbstractUploadArray" />
+					</td>
+				</f:else>
+			</f:if>
+		</tr>
 
-	<f:if condition="{register.upload.abstract}">
-		<f:then>
-			<p>
-				File existiert. Löschen option.
-				<f:link.action action="delete" arguments="{register: register, property: 'abstract', fileReference: register.upload.abstract}">
-					Entfernen
-				</f:link.action>
-			</p>
-		</f:then>
-		<f:else>
-			<div class="form__field width100">
-				FileUpload Abstract
-				<f:form.upload property="upload.fileAbstractUploadArray" />
-			</div>
-		</f:else>
-	</f:if>
+		<tr>
+			<td>
+				Langfassung
+			</td>
+			<f:if condition="{register.upload.full}">
+				<f:then>
 
-	<f:if condition="{register.upload.full}">
-		<f:then>
-			<p>
-				File existiert. Löschen option.
+					<td>
+						<f:link.typolink
+								parameter="{register.upload.full.originalResource.publicUrl}"
+								target="_blank"
+								title="Download"
+								absolute="true"
+						>
+						{register.upload.full.originalResource.name}
+						</f:link.typolink>
+					</td>
+					<td>
+						<f:link.action
+								action="delete"
+								arguments="{register: register, property: 'full', fileReference: register.upload.full}"
+						>
+							Löschen
+						</f:link.action>
+					</td>
+				</f:then>
+				<f:else>
+					<td>
+						<f:form.upload property="upload.fileFullUploadArray" />
+					</td>
+				</f:else>
+			</f:if>
+		</tr>
 
-			<f:comment>
-				<div class="form__field">
-					<f:form.checkbox
-							class="checkbox"
-							id="uploadFull"
-							property="upload.full"
-							value="0"
-					/>
-					<label for="uploadFull" class="checkbox-label">
-						Datei löschen
-					</label>
-				</div>
-			</f:comment>
-
-
-				<f:link.action action="delete" arguments="{register: register, property: 'full', fileReference: register.upload.full}">
-					Entfernen
-				</f:link.action>
-			</p>
-		</f:then>
-		<f:else>
-			<div class="form__field width100">
-				FileUpload Full version
-				<f:form.upload property="upload.fileFullUploadArray" />
-			</div>
-		</f:else>
-	</f:if>
-
+	</table>
 
 </html>

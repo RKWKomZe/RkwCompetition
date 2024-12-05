@@ -10,7 +10,7 @@ use Madj2k\FeRegister\Domain\Model\FrontendUser;
 use Madj2k\FeRegister\Registration\FrontendUserRegistration;
 use Madj2k\FeRegister\Utility\FrontendUserUtility;
 use RKW\RkwCompetition\Domain\Model\Competition;
-use RKW\RkwCompetition\Domain\Model\FileReference;
+use Madj2k\CoreExtended\Domain\Model\FileReference;
 use RKW\RkwCompetition\Domain\Model\Register;
 use RKW\RkwCompetition\Persistence\FileHandler;
 use RKW\RkwCompetition\Service\RkwMailService;
@@ -278,6 +278,17 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
     {
         $this->addFlashMessage('The object was deleted.');
         $this->registerRepository->remove($register);
+
+        // @toDo: Remove complete fileFolder
+
+        /** @var \RKW\RkwCompetition\Persistence\FileHandler $fileHandler */
+        $fileHandler = GeneralUtility::makeInstance(FileHandler::class);
+        $folderIdentifier = $fileHandler->createFolderIdentifierByFolderName($register->getUniqueId());
+        $fileHandler->removeAllFilesOfFolderFromHdd($folderIdentifier);
+        $fileHandler->removeFolderFromHddByIdentifier($folderIdentifier);
+
+
+        // @toDo: Remove API stuff
 
 
         $emailService = \Madj2k\CoreExtended\Utility\GeneralUtility::makeInstance(RkwMailService::class);

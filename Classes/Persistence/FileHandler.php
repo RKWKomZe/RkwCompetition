@@ -107,7 +107,7 @@ class FileHandler implements SingletonInterface
         $this->resourceFactory = GeneralUtility::makeInstance(ResourceFactory::class);
 
         /** @var \TYPO3\CMS\Core\Resource\ResourceStorage $resourceStorage */
-        $this->resourceStorage = $this->resourceFactory->getStorageObject($this->resourceStorageUid);
+        $this->resourceStorage = $this->getResourceStorage();
 
         /** @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager */
         $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
@@ -115,31 +115,6 @@ class FileHandler implements SingletonInterface
         /** @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager */
         $this->persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
     }
-
-
-
-    /**
-     * checkFileFormUpload
-     *
-     * @todo : check multiple upload array?
-     *
-     * @param array $fileFromForm The single file array
-     * @return bool
-     */
-    public function checkFileFormUpload(array $fileFromForm): bool
-    {
-        // check if file upload exists (4 = no file set)
-        if (
-            empty($fileFromForm)
-            || $fileFromForm["error"] == 4
-        ) {
-            return false;
-        }
-
-        // Otherwise return true. File is part of upload
-        return true;
-    }
-
 
 
     /**
@@ -158,6 +133,7 @@ class FileHandler implements SingletonInterface
             $this->getDefaultUploadFolder()
         );
 
+        // @toDo: Implicit folder create is maybe crappy?
         // If given: Get the subFolder. Create it, if necessary
         $folder = $this->createNewSubFolderIfNotExists();
 
@@ -168,18 +144,53 @@ class FileHandler implements SingletonInterface
     }
 
 
+    /**
+     * createFolderIdentifierByFolderName
+     *
+     * @param string $folderName
+     * @return string
+     */
+    public function createFolderIdentifierByFolderName(string $folderName): string
+    {
+        return $this->resourceStorageUid . ':' . $this->defaultUploadFolder .'/'. $folderName;
+    }
+
 
     /**
      * removeFileFromHdd
      *
-     * @param \Madj2k\CoreExtended\Domain\Model\File $file
+     * @param mixed $file
      * @return bool
      */
-    public function removeFileFromHdd(\Madj2k\CoreExtended\Domain\Model\File $file): bool
+    public function removeFileFromHdd($file): bool
     {
-        return $this->resourceStorage->deleteFile($file->get);
+        if ($file instanceof \Madj2k\CoreExtended\Domain\Model\File) {
+            // using the "extbase-style" $file directly will not work. We need a core file of type fileInterface
+            $file = $this->resourceStorage->getFile($file->getIdentifier());
+        }
+
+        return $this->resourceStorage->deleteFile($file);
     }
 
+
+
+    /**
+     * removeAllFilesOfFolderFromHdd
+     *
+     * @param string $folderIdentifier
+     * @return bool
+     */
+    public function removeAllFilesOfFolderFromHdd(string $folderIdentifier): bool
+    {
+        $folder = $this->resourceFactory->getFolderObjectFromCombinedIdentifier($folderIdentifier);
+        $fileListToRemove = $folder->getFiles();
+
+        foreach ($fileListToRemove as $fileToRemove) {
+            $this->removeFileFromHdd($fileToRemove);
+        }
+
+        return true;
+    }
 
 
     /**
@@ -192,11 +203,7 @@ class FileHandler implements SingletonInterface
      */
     public function removeFolderFromHddByIdentifier(string $folderIdentifier): bool
     {
-        $folderToRemove = $this->resourceFactory->createFolderObject(
-            $this->resourceStorage,
-            $folderIdentifier,
-            $folderIdentifier
-        );
+        $folderToRemove = $this->resourceFactory->getFolderObjectFromCombinedIdentifier($folderIdentifier);
 
         return $this->removeFolderFromHddByFolder($folderToRemove);
     }
@@ -206,12 +213,31 @@ class FileHandler implements SingletonInterface
     /**
      * removeFolderFromHddByFolder
      *
+     * Hint: Throws an error if the folder is NOT empty
+     *
      * @param \TYPO3\CMS\Core\Resource\Folder $folder
      * @return bool
      */
     public function removeFolderFromHddByFolder(\TYPO3\CMS\Core\Resource\Folder $folder): bool
     {
         return $this->resourceStorage->deleteFolder($folder);
+    }
+
+
+    /**
+     * removeFolderFromHddByFile
+     *
+     * !! untested !!
+     *
+     * @param \Madj2k\CoreExtended\Domain\Model\File $file
+     * @return bool
+     */
+    public function removeFolderFromHddByFile(\Madj2k\CoreExtended\Domain\Model\File $file): bool
+    {
+        // using the "extbase-style" $file directly will not work. We need a core file of type fileInterface
+        $originalFile = $this->resourceStorage->getFile($file->getIdentifier());
+
+        return $this->resourceStorage->deleteFolder($originalFile->getParentFolder());
     }
 
 
@@ -394,6 +420,16 @@ class FileHandler implements SingletonInterface
     private function getFullFilePath(): string
     {
         return $this->defaultUploadFolder . '/' . $this->subFolderName . '/';
+    }
+
+
+    /**
+     *
+     * @return \TYPO3\CMS\Core\Resource\ResourceStorage
+     */
+    private function getResourceStorage(): \TYPO3\CMS\Core\Resource\ResourceStorage
+    {
+        return $this->resourceFactory->getStorageObject($this->resourceStorageUid);
     }
 
 }

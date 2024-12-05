@@ -21,5 +21,13 @@ plugin.tx_rkwcompetition {
             register =
             registerGroupWork = groupWorkInsurance, groupWorkAddPersons
         }
+
+        upload {
+            extensionFolder = rkw_competition
+            # .pdf = application/pdf
+            # .doc = application/msword
+            # .docx = application/vnd.openxmlformats-officedocument.wordprocessingml.document
+            allowedFileTypes = pdf, msword, vnd.openxmlformats-officedocument.wordprocessingml.document
+        }
     }
 }

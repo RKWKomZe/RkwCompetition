@@ -73,8 +73,12 @@ class BackendController extends \RKW\RkwCompetition\Controller\AbstractControlle
         // @toDo: Liste der vollständigen und zu prüfenden Datensätze gruppiert nach Wettbewerb
         // (via Fluid umsetzen? Einfach wettbewerbe iterieren und registrierungen dazu ausgeben)
 
+
         // @toDo: Count FINISHED registrations by competition
         $registerList = $this->registerRepository->findByCompetition($competition);
+
+       // DebuggerUtility::var_dump($registerList);
+
         $this->view->assign('registerCountTotal', $registerList->count());
         $this->view->assign('registerList', $registerList);
         $this->view->assign('competition', $competition);

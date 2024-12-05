@@ -8,15 +8,15 @@ return [
     \RKW\RkwCompetition\Domain\Model\FrontendUser::class => [
         'tableName' => 'fe_users',
     ],
-    \RKW\RkwCompetition\Domain\Model\File::class => [
-        'tableName' => 'sys_file',
-    ],
-    \RKW\RkwCompetition\Domain\Model\FileReference::class => [
-        'tableName' => 'sys_file_reference',
-        'properties' => [
-            'file' => [
-                'fieldName' => 'uid_local'
-            ],
-        ],
-    ],
+//    \RKW\RkwCompetition\Domain\Model\File::class => [
+//        'tableName' => 'sys_file',
+//    ],
+//    \RKW\RkwCompetition\Domain\Model\FileReference::class => [
+//        'tableName' => 'sys_file_reference',
+//        'properties' => [
+//            'file' => [
+//                'fieldName' => 'uid_local'
+//            ],
+//        ],
+//    ],
 ];

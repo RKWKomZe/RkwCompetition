@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace RKW\RkwCompetition\Controller;
 
 
+use RKW\RkwCompetition\Domain\Model\Upload;
 use RKW\RkwCompetition\Persistence\FileHandler;
+use RKW\RkwCompetition\Utility\FileUploadUtility;
 use Solarium\Component\Debug;
 use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
  * This file is part of the "RKW Competition" Extension for TYPO3 CMS.
@@ -35,14 +38,14 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
     /**
      * fileRepository
      *
-     * @var \RKW\RkwCompetition\Domain\Repository\FileRepository
+     * @var \Madj2k\CoreExtended\Domain\Repository\FileRepository
      */
     protected $fileRepository = null;
 
     /**
      * fileReferenceRepository
      *
-     * @var \RKW\RkwCompetition\Domain\Repository\FileReferenceRepository
+     * @var \Madj2k\CoreExtended\Domain\Repository\FileReferenceRepository
      */
     protected $fileReferenceRepository = null;
 
@@ -55,17 +58,17 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
     }
 
     /**
-     * @param \RKW\RkwCompetition\Domain\Repository\FileRepository $fileRepository
+     * @param \Madj2k\CoreExtended\Domain\Repository\FileRepository $fileRepository
      */
-    public function injectFileRepository(\RKW\RkwCompetition\Domain\Repository\FileRepository $fileRepository)
+    public function injectFileRepository(\Madj2k\CoreExtended\Domain\Repository\FileRepository $fileRepository)
     {
         $this->fileRepository = $fileRepository;
     }
 
     /**
-     * @param \RKW\RkwCompetition\Domain\Repository\FileReferenceRepository $fileReferenceRepository
+     * @param \Madj2k\CoreExtended\Domain\Repository\FileReferenceRepository $fileReferenceRepository
      */
-    public function injectFileReferenceRepository(\RKW\RkwCompetition\Domain\Repository\FileReferenceRepository $fileReferenceRepository)
+    public function injectFileReferenceRepository(\Madj2k\CoreExtended\Domain\Repository\FileReferenceRepository $fileReferenceRepository)
     {
         $this->fileReferenceRepository = $fileReferenceRepository;
     }
@@ -79,9 +82,15 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
      * @param \RKW\RkwCompetition\Domain\Model\Register $register
      * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("register")
      * @return void
+     * @throws AspectNotFoundException
      */
     public function editAction(\RKW\RkwCompetition\Domain\Model\Register $register)
     {
+        // check if "Upload"-Entity exists
+        if (!$register->getUpload() instanceof Upload) {
+            throw new AspectNotFoundException();
+        }
+
         $this->view->assign('register', $register);
     }
 
@@ -91,13 +100,11 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
      * action update
      *
      * @param \RKW\RkwCompetition\Domain\Model\Register $register
-     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("register")
+     * @TYPO3\CMS\Extbase\Annotation\Validate("RKW\RkwCompetition\Validation\Validator\FileValidator", param="register")
      * @return void
      */
     public function updateAction(\RKW\RkwCompetition\Domain\Model\Register $register)
     {
-
-        DebuggerUtility::var_dump($register); exit;
 
         // @toDo: Validation mimeType stuff
         // https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/13.3/Feature-103511-IntroduceExtbaseFileUploadHandling.html#83749-validationkeys
@@ -105,25 +112,28 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
         /** @var \RKW\RkwCompetition\Persistence\FileHandler $fileHandler */
         $fileHandler = GeneralUtility::makeInstance(FileHandler::class);
 
+        // @toDo: Warning if no subFolderName is given? (no "uniqueId")
+
         // set special file path for every frontendUser
         $fileHandler->setSubFolderName($register->getUniqueId());
 
-
         // @toDo: FileHandler try-catch
 
+        $uploadCounter = 0;
+
         // Abstract PDF
-        if ($fileHandler->checkFileFormUpload($register->getUpload()->getFileAbstractUploadArray())) {
+        if (FileUploadUtility::checkFileFormUpload($register->getUpload()->getFileAbstractUploadArray())) {
             $register->getUpload()->setAbstract($fileHandler->importUploadedResource($register->getUpload()->getFileAbstractUploadArray()));
+            $uploadCounter++;
         }
 
         // Full PDF
-        if ($fileHandler->checkFileFormUpload($register->getUpload()->getFileFullUploadArray())) {
+        if (FileUploadUtility::checkFileFormUpload($register->getUpload()->getFileFullUploadArray())) {
             $register->getUpload()->setFull($fileHandler->importUploadedResource($register->getUpload()->getFileFullUploadArray()));
+            $uploadCounter++;
         }
 
-        $this->addFlashMessage('The object was created.');
-        $this->registerRepository->update($register);
-
+        $this->addFlashMessage('Insgesamt ' . $uploadCounter . ' wurden hochgeladen.');
 
         $this->uploadRepository->update($register->getUpload());
 
@@ -139,13 +149,13 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
      *
      * @param \RKW\RkwCompetition\Domain\Model\Upload $upload
      * @param string $property
-     * @param \RKW\RkwCompetition\Domain\Model\FileReference $fileReference
+     * @param \Madj2k\CoreExtended\Domain\Model\FileReference $fileReference
      * @return string|object|null|void
      */
     public function deleteAction(
         \RKW\RkwCompetition\Domain\Model\Register $register,
         string $property,
-        \RKW\RkwCompetition\Domain\Model\FileReference $fileReference
+        \Madj2k\CoreExtended\Domain\Model\FileReference $fileReference
     )
     {
 
@@ -156,7 +166,7 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
         $fileHandler = GeneralUtility::makeInstance(FileHandler::class);
 
         // remove file from HDD
-    //    $fileHandler->removeFileFromHdd($fileReference->getFile());
+        $fileHandler->removeFileFromHdd($fileReference->getFile());
 
         // remove file from repo
         $this->fileRepository->remove($fileReference->getFile());

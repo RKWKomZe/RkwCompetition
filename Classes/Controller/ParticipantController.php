@@ -27,8 +27,6 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 class ParticipantController extends \RKW\RkwCompetition\Controller\AbstractController
 {
 
-
-
     /**
      * action list
      *

@@ -199,6 +199,7 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * upload
      *
      * @var \RKW\RkwCompetition\Domain\Model\Upload
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      */
     protected $upload = null;
 

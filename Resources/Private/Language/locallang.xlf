@@ -204,6 +204,10 @@
                 <source>Please answer the question '%s'.</source>
                 <target>Da fehlt noch was. Bitte beantworten Sie auch die Frage '%s'.</target>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_validator.wrong_mime_type">
+                <source>Wrong mime type for: '%s'.</source>
+                <target>Falscher Datentyp für: '%s'.</target>
+            </trans-unit>
 
             <trans-unit id="tx_rkwcompetition_validator.remark">
                 <source>Remark</source>
@@ -262,6 +266,15 @@
                 <target>Namen der anderen Gruppenmitglieder</target>
             </trans-unit>
 
+            <trans-unit id="tx_rkwcompetition_validator.upload.abstract">
+                <source>Abstract</source>
+                <target>Kurzfassung</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_validator.upload.full">
+                <source>Full</source>
+                <target>Langfassung</target>
+            </trans-unit>
+
 
             <!-- ==================================================================================== -->
 
@@ -280,6 +293,24 @@
                 <source>No competition planned</source>
                 <target>Derzeit liegen keine Registrierungen für Wettbewerbe vor.</target>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.status.100">
+                <source>New</source>
+                <target>Neu</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.status.200">
+                <source>Refused</source>
+                <target>Zurückgewiesen</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.status.300">
+                <source>Submitted</source>
+                <target>Eingereicht</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.status.500">
+                <source>Approved</source>
+                <target>Akzeptiert</target>
+            </trans-unit>
+
+
 
             <!-- Partials/Participant/Options.html -->
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.competitionShow">
@@ -321,7 +352,7 @@
                 <target>Woohoo! Sie sind nun für den Wettbewerb registriert. In Kürze erhalten Sie eine Bestätigung per E-Mail.</target>
             </trans-unit>
             <trans-unit id="registerController.error.somethingWentWrong" approved="yes">
-                <source>Something went wrong with the given event!</source>
+                <source>Something went wrong with the given competition!</source>
                 <target>Leider scheint hier etwas nicht zu stimmen. Überprüfen Sie, ob der Wettbewerb noch existiert.</target>
             </trans-unit>
             <trans-unit id="registerController.error.optInDisabled" approved="yes">
