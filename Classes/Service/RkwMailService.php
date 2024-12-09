@@ -42,6 +42,99 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
 {
 
     /**
+     * Handles backendModule register approved user
+     *
+     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
+     * @param \RKW\RkwCompetition\Domain\Model\Register $register
+     * @return void
+     * @throws \Madj2k\Postmaster\Exception
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
+     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     */
+    public function approvedRegisterUser(
+        \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser,
+        \RKW\RkwCompetition\Domain\Model\Register $register
+    ) :void
+    {
+        $this->frontendUserMail($frontendUser, $register, 'approved');
+    }
+
+
+    /**
+     * Handles confirm mail for user
+     * Works with FeRegister-FrontendUser -> this is correct! (data comes from TxFeRegister)
+     *
+     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
+     * @param \RKW\RkwCompetition\Domain\Model\Register $register
+     * @return void
+     * @throws \Madj2k\Postmaster\Exception
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
+     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     */
+    public function confirmRegisterUser(
+        \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser,
+        \RKW\RkwCompetition\Domain\Model\Register $register
+    ) :void
+    {
+        // send confirmation
+        $this->frontendUserMail($frontendUser, $register, 'confirmation');
+    }
+
+
+
+    /**
+     * Handles delete mail for user
+     *
+     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
+     * @param \RKW\RkwCompetition\Domain\Model\Register $register
+     * @return void
+     * @throws \Madj2k\Postmaster\Exception
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
+     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     */
+    public function deleteRegisterUser(
+        \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser,
+        \RKW\RkwCompetition\Domain\Model\Register $register
+    ) :void
+    {
+        $this->frontendUserMail($frontendUser, $register, 'delete');
+    }
+
+
+    /**
+     * Handles incomplete mail for user (unsubmitted registration)
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\QueryResultInterface $registerList
+     * @return void
+     * @throws \Madj2k\Postmaster\Exception
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
+     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     */
+    public function incompleteRegisterUser(\TYPO3\CMS\Extbase\Persistence\QueryResultInterface $registerList) :void
+    {
+        /** @var \RKW\RkwCompetition\Domain\Model\Register $register */
+        foreach ($registerList as $register) {
+
+            // @toDo: Check if frontendUser is set? (It's null if user was deleted)
+            if ($register->getFrontendUser() instanceof FrontendUser)
+
+            // send submitted
+            $this->frontendUserMail($register->getFrontendUser(), $register, 'incomplete');
+        }
+
+    }
+
+
+
+    /**
      * Handles opt-in event
      *
      * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
@@ -112,11 +205,32 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
             $mailService->getQueueMail()->addTemplatePaths($settings['view']['templateRootPaths']);
             $mailService->getQueueMail()->addPartialPaths($settings['view']['partialRootPaths']);
 
-            $mailService->getQueueMail()->setPlaintextTemplate('Email/OptInRegisterUser');
-            $mailService->getQueueMail()->setHtmlTemplate('Email/OptInRegisterUser');
+            $mailService->getQueueMail()->setPlaintextTemplate('Email/FrontendUser/OptIn');
+            $mailService->getQueueMail()->setHtmlTemplate('Email/FrontendUser/OptIn');
 
             $mailService->send();
         }
+    }
+
+
+    /**
+     * Handles backendModule register refused user
+     *
+     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
+     * @param \RKW\RkwCompetition\Domain\Model\Register $register
+     * @return void
+     * @throws \Madj2k\Postmaster\Exception
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
+     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     */
+    public function refusedRegisterUser(
+        \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser,
+        \RKW\RkwCompetition\Domain\Model\Register $register
+    ) :void
+    {
+        $this->frontendUserMail($frontendUser, $register, 'refused');
     }
 
 
@@ -133,13 +247,13 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
      */
-    public function confirmRegistrationUser(
+    public function submitRegisterUser(
         \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser,
         \RKW\RkwCompetition\Domain\Model\Register $register
     ) :void
     {
-        // send confirmation
-        $this->userMail($frontendUser, $register, 'confirmation');
+        // send submitted
+        $this->frontendUserMail($frontendUser, $register, 'submit');
     }
 
 
@@ -161,184 +275,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
     ) :void
     {
         // send confirmation
-        $this->userMail($frontendUser, $register, 'upload');
-    }
-
-
-
-
-
-    /**
-     * Handles confirm mail for user
-     * Works with FeRegister-FrontendUser -> this is correct! (data comes from TxFeRegister)
-     *
-     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
-     * @param \RKW\RkwCompetition\Domain\Model\Register $register
-     * @return void
-     * @throws \Madj2k\Postmaster\Exception
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
-     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
-     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
-     */
-    public function confirmRegisterUser(
-        \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser,
-        \RKW\RkwCompetition\Domain\Model\Register $register
-    ) :void
-    {
-        // send confirmation
-        $this->userMail($frontendUser, $register, 'confirmation');
-    }
-
-
-    /**
-     * Handles update mail for user
-     *
-     * @todo Wird das genutzt?
-     *
-     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
-     * @param \RKW\RkwCompetition\Domain\Model\Register $register
-     * @return void
-     * @throws \Madj2k\Postmaster\Exception
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
-     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
-     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
-     */
-    public function updateRegisterUser(
-        \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser,
-        \RKW\RkwCompetition\Domain\Model\Register $register
-    ) :void
-    {
-        $this->userMail($frontendUser, $register, 'update');
-    }
-
-
-    /**
-     * Handles delete mail for user
-     *
-     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
-     * @param \RKW\RkwCompetition\Domain\Model\Register $register
-     * @return void
-     * @throws \Madj2k\Postmaster\Exception
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
-     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
-     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
-     */
-    public function deleteRegisterUser(
-        \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser,
-        \RKW\RkwCompetition\Domain\Model\Register $register
-    ) :void
-    {
-        $this->userMail($frontendUser, $register, 'delete');
-    }
-
-
-    /**
-     * Handles backendModule register approved user
-     *
-     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
-     * @param \RKW\RkwCompetition\Domain\Model\Register $register
-     * @return void
-     * @throws \Madj2k\Postmaster\Exception
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
-     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
-     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
-     */
-    public function approvedRegisterUser(
-        \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser,
-        \RKW\RkwCompetition\Domain\Model\Register $register
-    ) :void
-    {
-        $this->userMail($frontendUser, $register, 'approved');
-    }
-
-
-    /**
-     * Handles backendModule register refused user
-     *
-     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
-     * @param \RKW\RkwCompetition\Domain\Model\Register $register
-     * @return void
-     * @throws \Madj2k\Postmaster\Exception
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
-     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
-     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
-     */
-    public function refusedRegisterUser(
-        \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser,
-        \RKW\RkwCompetition\Domain\Model\Register $register
-    ) :void
-    {
-        $this->userMail($frontendUser, $register, 'refused');
-    }
-
-
-
-    /**
-     * Handles confirm mail for admin
-     *
-     * @param BackendUser|array $backendUser
-     * @param \RKW\RkwCompetition\Domain\Model\Register $register
-     * @return void
-     * @throws \Madj2k\Postmaster\Exception
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
-     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
-     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
-     */
-    public function confirmRegistrationAdmin(
-        $backendUser,
-        \RKW\RkwCompetition\Domain\Model\Register $register
-    ) :void
-    {
-        $this->adminMail($backendUser, $register, 'confirmation');
-    }
-
-    /**
-     * Handles update mail for admin
-     *
-     * @todo Wird das genutzt?
-     *
-     * @param BackendUser|array $backendUser
-     * @param \RKW\RkwCompetition\Domain\Model\Register $register
-     * @return void
-     * @throws \Madj2k\Postmaster\Exception
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
-     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
-     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
-     */
-    public function updateRegisterAdmin(
-        $backendUser,
-        \RKW\RkwCompetition\Domain\Model\Register $register
-    ) :void
-    {
-        $this->adminMail($backendUser, $register, 'update');
-    }
-
-    /**
-     * Handles delete mail for admin
-     *
-     * @param BackendUser|array $backendUser
-     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
-     * @param \RKW\RkwCompetition\Domain\Model\Register $register
-     * @return void
-     * @throws \Madj2k\Postmaster\Exception
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
-     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
-     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
-     */
-    public function deleteRegisterAdmin(
-        $backendUser,
-        \RKW\RkwCompetition\Domain\Model\Register $register
-    ) :void
-    {
-        $this->adminMail($backendUser, $register, 'delete', $register->getFrontendUser());
+        $this->frontendUserMail($frontendUser, $register, 'upload');
     }
 
 
@@ -354,7 +291,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      * @throws InvalidConfigurationTypeException
      * @throws UnknownObjectException
      */
-    protected function userMail(
+    protected function frontendUserMail(
         \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser,
         \RKW\RkwCompetition\Domain\Model\Register    $register,
         string $action = ''
@@ -404,7 +341,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
 
             $mailService->getQueueMail()->setSubject(
                 LocalizationUtility::translate(
-                    'rkwMailService.' . strtolower($action) . 'RegisterUser.subject',
+                    'rkwMailService.frontendUser.subject.' . strtolower($action),
                     'rkw_competition',
                     null,
                     $frontendUser->getTxFeregisterLanguageKey()
@@ -414,12 +351,79 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
             $mailService->getQueueMail()->addTemplatePaths($settings['view']['templateRootPaths']);
             $mailService->getQueueMail()->addPartialPaths($settings['view']['partialRootPaths']);
 
-            $mailService->getQueueMail()->setPlaintextTemplate('Email/' . ucfirst(strtolower($action)) . 'RegisterUser');
-            $mailService->getQueueMail()->setHtmlTemplate('Email/' . ucfirst(strtolower($action)) . 'RegisterUser');
+            $mailService->getQueueMail()->setPlaintextTemplate('Email/FrontendUser/' . ucfirst(strtolower($action)));
+            $mailService->getQueueMail()->setHtmlTemplate('Email/FrontendUser/' . ucfirst(strtolower($action)));
 
             $mailService->send();
         }
     }
+
+
+    /**
+     * Handles confirm mail for admin
+     *
+     * @param BackendUser|array $backendUser
+     * @param \RKW\RkwCompetition\Domain\Model\Register $register
+     * @return void
+     * @throws \Madj2k\Postmaster\Exception
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
+     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     */
+    public function confirmRegisterAdmin(
+        $backendUser,
+        \RKW\RkwCompetition\Domain\Model\Register $register
+    ) :void
+    {
+        $this->backendUserMail($backendUser, $register, 'confirmation');
+    }
+
+    /**
+     * Handles update mail for admin
+     *
+     * @todo Wird das genutzt?
+     *
+     * @param BackendUser|array $backendUser
+     * @param \RKW\RkwCompetition\Domain\Model\Register $register
+     * @return void
+     * @throws \Madj2k\Postmaster\Exception
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
+     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     */
+    public function submitRegisterAdmin(
+        $backendUser,
+        \RKW\RkwCompetition\Domain\Model\Register $register
+    ) :void
+    {
+        $this->backendUserMail($backendUser, $register, 'submit');
+    }
+
+    /**
+     * Handles delete mail for admin
+     *
+     * @param BackendUser|array $backendUser
+     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
+     * @param \RKW\RkwCompetition\Domain\Model\Register $register
+     * @return void
+     * @throws \Madj2k\Postmaster\Exception
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
+     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     */
+    public function deleteRegisterAdmin(
+        $backendUser,
+        \RKW\RkwCompetition\Domain\Model\Register $register
+    ) :void
+    {
+        $this->backendUserMail($backendUser, $register, 'delete', $register->getFrontendUser());
+    }
+
+
+
 
 
     /**
@@ -435,7 +439,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      * @throws UnknownObjectException
      * @return void
      */
-    protected function adminMail(
+    protected function backendUserMail(
         $backendUser,
         \RKW\RkwCompetition\Domain\Model\Register $register,
         string $action = '',
@@ -496,7 +500,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
                             'language'          => $language,
                         ],
                         'subject' => LocalizationUtility::translate(
-                            'rkwMailService.' . strtolower($action) . 'RegisterAdmin.subject',
+                            'rkwMailService.backendUser.subject.' . strtolower($action),
                             'rkw_competition',
                             null,
                             $recipient->getLang()
@@ -514,7 +518,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
 
             $mailService->getQueueMail()->setSubject(
                 LocalizationUtility::translate(
-                    'rkwMailService.' . strtolower($action) . 'RegisterAdmin.subject',
+                    'rkwMailService.backendUser.subject.' . strtolower($action),
                     'rkw_competition',
                     null,
                     'de'
@@ -524,8 +528,8 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
             $mailService->getQueueMail()->addTemplatePaths($settings['view']['templateRootPaths']);
             $mailService->getQueueMail()->addPartialPaths($settings['view']['partialRootPaths']);
 
-            $mailService->getQueueMail()->setPlaintextTemplate('Email/' . ucfirst(strtolower($action)) . 'RegisterAdmin');
-            $mailService->getQueueMail()->setHtmlTemplate('Email/' . ucfirst(strtolower($action)) . 'RegisterAdmin');
+            $mailService->getQueueMail()->setPlaintextTemplate('Email/BackendUser/' . ucfirst(strtolower($action)));
+            $mailService->getQueueMail()->setHtmlTemplate('Email/BackendUser/' . ucfirst(strtolower($action)));
 
             if (count($mailService->getTo())) {
                 $mailService->send();

@@ -237,6 +237,44 @@ return [
                 'default' => 0,
             ]
         ],
+        'reminder_mail_tstamp' => [
+            'exclude' => 1,
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.reminder_mail_tstamp',
+            'config' => [
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'size' => 13,
+                'eval' => 'datetime',
+                'checkbox' => 0,
+                'default' => 0,
+                'readOnly' => 1,
+                'range' => [
+                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y')),
+                ],
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true
+                ]
+            ],
+        ],
+        'reminder_cleanup_mail_tstamp' => [
+            'exclude' => 1,
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.reminder_cleanup_mail_tstamp',
+            'config' => [
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'size' => 13,
+                'eval' => 'datetime',
+                'checkbox' => 0,
+                'default' => 0,
+                'readOnly' => 1,
+                'range' => [
+                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y')),
+                ],
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true
+                ]
+            ],
+        ],
         'link_cond_participation' => [
             'exclude' => true,
             'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.link_cond_participation',
@@ -355,6 +393,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
                 'foreign_table' => 'tx_rkwcompetition_domain_model_register',
+                'foreign_field' => 'competition',
                 'default' => 0,
                 'size' => 10,
                 'autoSizeMax' => 30,

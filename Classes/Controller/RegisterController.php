@@ -279,7 +279,7 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
         $this->addFlashMessage('The object was deleted.');
         $this->registerRepository->remove($register);
 
-        // @toDo: Remove complete fileFolder
+        // Remove complete fileFolder
 
         /** @var \RKW\RkwCompetition\Persistence\FileHandler $fileHandler */
         $fileHandler = GeneralUtility::makeInstance(FileHandler::class);
@@ -292,9 +292,9 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
 
 
         $emailService = \Madj2k\CoreExtended\Utility\GeneralUtility::makeInstance(RkwMailService::class);
-        // @toDo: Email an Teilnehmenden: "Teilnahme zurückgezogen"
+        // Email an Teilnehmenden: "Teilnahme zurückgezogen"
         $emailService->deleteRegisterUser($register->getFrontendUser(), $register);
-        // @toDo: Email an Admins (siehe #4198):  "Teilnahme zurückgezogen"
+        // Email an Admins (siehe #4198):  "Teilnahme zurückgezogen"
         // 5. send information mail to be-users
         $adminMails = [];
         if ($backendUserList = $register->getCompetition()->getAdminMember()) {
@@ -321,6 +321,72 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
 
 
     /**
+     * action submitQuestion
+     *
+     * @param \RKW\RkwCompetition\Domain\Model\Register $register
+     * @return void
+     */
+    public function submitQuestionAction(\RKW\RkwCompetition\Domain\Model\Register $register)
+    {
+        $this->view->assign('register', $register);
+    }
+
+
+    /**
+     * action submit
+     *
+     * @param \RKW\RkwCompetition\Domain\Model\Register $register
+     * @param int $submitConfirm
+     * @return void
+     */
+    public function submitAction(\RKW\RkwCompetition\Domain\Model\Register $register, int $submitConfirm = 0)
+    {
+
+        if (!$submitConfirm) {
+
+            $this->addFlashMessage('Bitte bestätigen Sie die Vollständigkeit Ihrer Angaben.');
+
+            $this->redirect(
+                'submitQuestion',
+                'Register',
+                null,
+                ['register' => $register]
+            );
+        }
+
+
+        $this->addFlashMessage('The object was submitted.');
+
+        $register->setUserSubmittedAt(time());
+
+        $this->registerRepository->update($register);
+
+
+
+        $emailService = \Madj2k\CoreExtended\Utility\GeneralUtility::makeInstance(RkwMailService::class);
+
+
+        // @toDo: Email an Teilnehmenden: "Unterlagen eingereicht"
+        $emailService->submitRegisterUser($register->getFrontendUser(), $register);
+        // @toDo: Email an Admins (siehe #4198):  "Unterlagen eingereicht"
+        // 5. send information mail to be-users
+        $adminMails = [];
+        if ($backendUserList = $register->getCompetition()->getAdminMember()) {
+            /** @var \Madj2k\FeRegister\Domain\Model\BackendUser $backendUser */
+            foreach ($backendUserList as $backendUser) {
+                if ($backendUser->getEmail()) {
+                    $adminMails[] = $backendUser;
+                }
+            }
+            $emailService->submitRegisterAdmin($adminMails, $register);
+        }
+
+        $this->redirect('list', 'Participant');
+    }
+
+
+
+    /**
      * action optIn
      * Comment by Maximilian Fäßler: We get tricky validation issues here (https://rkwticket.rkw.de/issues/2803)
      * -> So we ignore the validation itself and checking with internal alias "instanceof" for trustful data
@@ -335,14 +401,6 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
      */
     public function optInAction(Competition $competition, string $tokenUser, string $token): void
     {
-
-//        https://rkw-kompetenzzentrum.ddev.site:8443/themen/rg-bau/ueber-uns/wettbewerb-registrierung/
-//?tx_rkwcompetition_register%5Baction%5D=optIn
-//&tx_rkwcompetition_register%5Bcompetition%5D=1
-//&tx_rkwcompetition_register%5Bcontroller%5D=Register
-//&tx_rkwcompetition_register%5Btoken%5D=9fa7d3bf318cceb58257928d1a234c
-//&tx_rkwcompetition_register%5BtokenUser%5D=7d5021a206b8598af263495a77ce28
-//&cHash=2a659375db78b90837149dc09b85ad05#rkw-competition
 
         // General error:
         if ($competition->_isDirty()) {

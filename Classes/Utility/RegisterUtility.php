@@ -51,21 +51,22 @@ class RegisterUtility
      */
     public static function registerStatus(Register $register) :int
     {
-        if ($register->getAdminApproved()) {
-            // approved
+        if ($register->getAdminApprovedAt()) {
+            // approved (500)
             return self::STATUS_APPROVED;
         }
 
-        if ($register->getAdminRefused()) {
-            // refused
+        if ($register->getAdminRefusedAt()) {
+            // refused (200)
             return self::STATUS_REFUSED;
         }
 
+        if ($register->getUserSubmittedAt()) {
+            // submitted (300)
+            return self::STATUS_SUBMITTED;
+        }
 
-        // @toDo: Include "STATUS_SUBMITTED". Additional form field necessary?
-
-
-        // new
+        // new (100)
         return self::STATUS_NEW;
     }
 

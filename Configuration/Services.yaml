@@ -1,0 +1,34 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  RKW\RkwCompetition\:
+    resource: '../Classes/*'
+
+#  RKW\RkwCompetition\Command\CleanupCommand:
+#    tags:
+#      - name: 'console.command'
+#        command: 'rkw_competition:cleanup'
+#        schedulable: true
+#
+#  RKW\RkwCompetition\Command\ClosingDayCommand:
+#    tags:
+#      - name: 'console.command'
+#        command: 'rkw_competition:closingDay'
+#        schedulable: true
+#
+#  RKW\RkwCompetition\Command\DeletionDeadlineWarningAdminCommand:
+#    tags:
+#      - name: 'console.command'
+#        command: 'rkw_competition:deletionDeadlineWarningAdmin'
+#        schedulable: true
+
+  RKW\RkwCompetition\Command\IncompleteUserRegistrationCommand:
+    tags:
+      - name: 'console.command'
+        command: 'rkw_competition:incompleteUserRegistration'
+        schedulable: true
+
+

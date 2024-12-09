@@ -147,6 +147,13 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $groupWorkAddPersons = '';
 
     /**
+     * userSubmittedAt
+     *
+     * @var int
+     */
+    protected $userSubmittedAt = 0;
+
+    /**
      * adminApproved
      *
      * @var boolean
@@ -631,6 +638,27 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setGroupWorkAddPersons(string $groupWorkAddPersons)
     {
         $this->groupWorkAddPersons = $groupWorkAddPersons;
+    }
+
+    /**
+     * Returns the userSubmittedAt
+     *
+     * @return int
+     */
+    public function getUserSubmittedAt()
+    {
+        return $this->userSubmittedAt;
+    }
+
+    /**
+     * Sets the userSubmittedAt
+     *
+     * @param int $userSubmittedAt
+     * @return void
+     */
+    public function setUserSubmittedAt(int $userSubmittedAt)
+    {
+        $this->userSubmittedAt = $userSubmittedAt;
     }
 
     /**

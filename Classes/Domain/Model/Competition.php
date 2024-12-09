@@ -84,6 +84,20 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $reminderInterval = 0;
 
     /**
+     * reminderMailTstamp
+     *
+     * @var integer
+     */
+    protected $reminderMailTstamp = 0;
+
+    /**
+     * reminderCleanupMailTstamp
+     *
+     * @var integer
+     */
+    protected $reminderCleanupMailTstamp = 0;
+
+    /**
      * linkCondParticipation
      *
      * @var string
@@ -165,7 +179,7 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $this->adminMember = $this->adminMember ?: new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->juryMember = $this->juryMember ?: new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->register = $this->register ?: new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $this->sectors = $this->sector ?: new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->sectors = $this->sectors ?: new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
 
     /**
@@ -365,6 +379,48 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setReminderInterval(int $reminderInterval)
     {
         $this->reminderInterval = $reminderInterval;
+    }
+
+    /**
+     * Returns the reminderMailTstamp
+     *
+     * @return int $reminderMailTstamp
+     */
+    public function getReminderMailTstamp()
+    {
+        return $this->reminderMailTstamp;
+    }
+
+    /**
+     * Sets the reminderMailTstamp
+     *
+     * @param int $reminderMailTstamp
+     * @return void
+     */
+    public function setReminderMailTstamp($reminderMailTstamp)
+    {
+        $this->reminderMailTstamp = $reminderMailTstamp;
+    }
+
+    /**
+     * Returns the reminderCleanupMailTstamp
+     *
+     * @return int $reminderCleanupMailTstamp
+     */
+    public function getReminderCleanupMailTstamp()
+    {
+        return $this->reminderCleanupMailTstamp;
+    }
+
+    /**
+     * Sets the reminderCleanupMailTstamp
+     *
+     * @param int $reminderCleanupMailTstamp
+     * @return void
+     */
+    public function setReminderCleanupMailTstamp($reminderCleanupMailTstamp)
+    {
+        $this->reminderCleanupMailTstamp = $reminderCleanupMailTstamp;
     }
 
     /**

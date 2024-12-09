@@ -2,36 +2,90 @@
 
 <f:section name="content">
 
-	<h1><f:translate key="templates_backend_list.headline" /></h1>
-	<f:if condition="{competitionList}">
-		<f:then>
-			<p>
-				<f:translate key="templates_backend_list.intro1" />
-				<br /><br />
-			</p>
-			<f:form action="show">
-				<label for="competition">
-					<f:translate key="templates_backend_list.intro2" />
-				</label>
-				<br />
-				<f:form.select
-						id="competition"
-						name="competition"
-						property="competition"
-						options="{competitionList}"
-						optionLabelField="title"
-						optionValueField="uid"
-				/>
-				<br /><br />
-				<f:form.submit value="{f:translate(key: 'templates_backend_list.proceed')}" />
-			</f:form>
-		</f:then>
-		<f:else>
-			<p>
-				<strong>
-					<f:translate key="templates_backend_list.no_competition" />
-				</strong>
-			</p>
-		</f:else>
-	</f:if>
+	<f:be.container includeCssFiles="{0: \"{f:uri.resource(path:'Styles/Backend.css')}\"}">
+
+		<h1><f:translate key="templates_backend_list.headline" /></h1>
+		<f:if condition="{competitionList}">
+			<f:then>
+
+
+				<table>
+					<thead>
+					<tr>
+						<th>
+							Title
+						</th>
+						<th>
+							Reg start
+						</th>
+						<th>
+							Reg end
+						</th>
+						<th>
+							Admin(s)
+						</th>
+						<th>
+							Registered Total
+						</th>
+						<th>
+							Registered Approved
+						</th>
+						<th>
+							Aktion
+						</th>
+					</tr>
+					</thead>
+					<tbody>
+
+					<!-- group by sectors -->
+					<f:for each="{competitionList}" as="competition">
+
+						<tr class="center">
+							<td>
+								{competition.title}
+							</td>
+							<td>
+								<f:format.date format="d.m.Y">{competition.registerStart}</f:format.date>
+							</td>
+							<td>
+								<f:format.date format="d.m.Y">{competition.registerEnd}</f:format.date>
+							</td>
+							<td>
+								<f:for each="{competition.adminMember}" as="admin" iteration="iter">
+									<f:if condition="{iter.isFirst}"><f:else>, </f:else></f:if>
+									{admin.email}
+								</f:for>
+							</td>
+							<td>
+								<f:count>{competition.register}</f:count>
+							</td>
+							<td>
+								@toDo count
+							</td>
+							<td>
+								<f:link.action action="show" arguments="{competition: competition}">Show</f:link.action>
+							</td>
+						</tr>
+
+
+
+					</f:for>
+					</tbody>
+				</table>
+
+
+
+
+
+			</f:then>
+			<f:else>
+				<p>
+					<strong>
+						<f:translate key="templates_backend_list.no_competition" />
+					</strong>
+				</p>
+			</f:else>
+		</f:if>
+
+	</f:be.container>
 </f:section>

@@ -46,4 +46,26 @@ class RegisterRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     }
 
 
+
+    /**
+     * function findUnsubmittedByCompetition
+     *
+     * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+
+    public function findUnsubmittedByCompetition(Competition $competition): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+
+        return $query->matching(
+            $query->logicalAnd(
+                $query->equals('userSubmittedAt', 0),
+                $query->equals('competition', $competition)
+            )
+        )->execute();
+    }
+
+
 }

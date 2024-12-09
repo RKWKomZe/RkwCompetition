@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace RKW\RkwCompetition\Domain\Repository;
 
 
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+
 /**
  * This file is part of the "RKW Competition" Extension for TYPO3 CMS.
  *
@@ -19,4 +21,32 @@ namespace RKW\RkwCompetition\Domain\Repository;
  */
 class CompetitionRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
+
+    /**
+     * Return competitions within register period which are qualified for new reminder mails since the last interval
+     *
+     * @todo: Really use a daily default interval? Maybe a little bit aggro...
+     *
+     * @param int $timeInterval
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     */
+    public function findWithinRegisterPeriodForReminder(int $timeInterval = 86400): QueryResultInterface
+    {
+
+        $query = $this->createQuery();
+
+        $query->getQuerySettings()->setRespectStoragePage(false);
+
+        return $query->matching(
+            $query->logicalAnd(
+                $query->logicalAnd(
+                    $query->lessThanOrEqual('registerStart', time()),
+                    $query->greaterThan('registerEnd', time())
+                ),
+                $query->lessThanOrEqual('reminderMailTstamp', time() - $timeInterval)
+            )
+
+        )->execute();
+    }
 }

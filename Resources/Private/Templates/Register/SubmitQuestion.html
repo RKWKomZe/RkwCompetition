@@ -1,0 +1,95 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:rkw="http://typo3.org/ns/RKW/RkwCompetition/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+
+    <f:layout name="Default" />
+
+    <f:section name="content">
+
+        <h3>Bewerbung offiziell einreichen</h3>
+
+        <f:flashMessages />
+
+        <div class="mb-1">
+            <strong>
+                Ihre Checklist
+            </strong>
+        </div>
+
+        <div class="system-message">
+            <p class="system-message__item system-message__item--severity0">
+                <f:comment><!-- This is an evergreen. Form validation solves that point directly --></f:comment>
+                Alle Pflichtfelder ausgefüllt
+            </p>
+
+            <p class="system-message__item system-message__item--severity{f:if(condition: '{register.upload.abstract}', then: '0', else: '2')}">
+                Kurzfassung der Bewerbung
+                <f:if condition="{register.upload.abstract}">
+                    <f:else>
+                        <f:link.action
+                            target="_blank"
+                            controller="Upload"
+                            action="edit"
+                            arguments="{register : register}"
+                        >
+                            <br/>(jetzt die Kurzfassung hochladen)
+                        </f:link.action>
+                    </f:else>
+                </f:if>
+            </p>
+
+            <p class="system-message__item system-message__item--severity{f:if(condition: '{register.upload.full}', then: '0', else: '1')}">
+                Langfassung der Bewerbung (optional)
+            </p>
+
+
+            <p class="system-message__item system-message__item--severity1">
+                Haben Sie daran gedacht, für zusätzliche Dateien und Bilder die bereitgestellte Cloud zu nutzen?
+                <br />
+                @toDo: cloudlink
+                <br />
+                @toDo: Api check if cloud folder has content
+            </p>
+
+
+        </div>
+
+        <f:form
+                enctype="multipart/form-data"
+                action="submit"
+                name="register"
+                object="{register}"
+        >
+            <div class="flex-container">
+                <div class="form flex flex-basis-12 full-width-medium space-between">
+
+                    <div class="form__field">
+                        <f:form.checkbox
+                                class="checkbox toggle-form-button"
+                                id="submitConfirm"
+                                name="submitConfirm"
+                                value="1"
+                        />
+                        <label for="submitConfirm" class="checkbox-label">
+                            Ich habe verstanden dass nach dem Absenden gemachte Angaben und eingereichte Dateien nicht mehr geändert werden können.
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn--primary">
+                        <f:translate key="tx_rkwcompetition_fluid.partials_participant_options.registerSubmit" />
+                    </button>
+
+                    <f:link.action
+                        class="btn btn--secondary"
+                        controller="Participant"
+                        action="list"
+                        arguments="{register : register}"
+                    >
+                        Zurück
+                    </f:link.action>
+                </div>
+            </div>
+        </f:form>
+    </f:section>
+
+</html>

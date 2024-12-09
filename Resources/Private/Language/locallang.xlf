@@ -96,6 +96,9 @@
 			<trans-unit id="tx_rkwcompetition_domain_model_register.competition">
                 <source>Competition</source>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.user_submitted_at">
+                <source>User submitted at</source>
+            </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.admin_approved">
                 <source>Admin approved</source>
             </trans-unit>
@@ -159,6 +162,12 @@
 			<trans-unit id="tx_rkwcompetition_domain_model_competition.reminder_interval" resname="tx_rkwcompetition_domain_model_competition.reminder_interval">
 				<source>Reminder Interval</source>
 			</trans-unit>
+			<trans-unit id="tx_rkwcompetition_domain_model_competition.reminder_mail_tstamp" resname="tx_rkwcompetition_domain_model_competition.reminder_mail_tstamp">
+                <source>Reminder Interval</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_competition.reminder_cleanup_mail_tstamp" resname="tx_rkwcompetition_domain_model_competition.reminder_cleanup_mail_tstamp">
+                <source>Reminder Cleanup Interval</source>
+            </trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_competition.link_cond_participation" resname="tx_rkwcompetition_domain_model_competition.link_cond_participation">
 				<source>Link Cond Participation</source>
 			</trans-unit>
@@ -333,6 +342,10 @@
                 <source>Delete registration</source>
                 <target>Registrierung löschen</target>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.registerSubmit">
+                <source>Submit registration</source>
+                <target>Registrierung einreichen</target>
+            </trans-unit>
 
 
             <!-- ==================================================================================== -->
@@ -404,39 +417,51 @@
 
             <!-- E-Mail subjects -->
             <!-- USER -->
-            <trans-unit id="rkwMailService.optInRegisterUser.subject" approved="yes">
+            <trans-unit id="rkwMailService.frontendUser.subject.optIn" approved="yes">
                 <source>Please confirm your registration</source>
                 <target>Bitte bestätigen Sie Ihre Teilnahme</target>
             </trans-unit>
-            <trans-unit id="rkwMailService.confirmationRegisterUser.subject" approved="yes">
+            <trans-unit id="rkwMailService.frontendUser.subject.confirmation" approved="yes">
                 <source>Thank you for your registration</source>
                 <target>Danke für Ihre Anmeldung</target>
             </trans-unit>
-            <trans-unit id="rkwMailService.uploadRegisterUser.subject" approved="yes">
+            <trans-unit id="rkwMailService.frontendUser.subject.upload" approved="yes">
                 <source>Upload additional data</source>
                 <target>Upload Unterlagen</target>
             </trans-unit>
-            <trans-unit id="rkwMailService.approvedRegisterUser.subject" approved="yes">
+            <trans-unit id="rkwMailService.frontendUser.subject.approved" approved="yes">
                 <source>Registration approved</source>
                 <target>Wettbewerbsregistrierung genehmigt</target>
             </trans-unit>
-            <trans-unit id="rkwMailService.refusedRegisterUser.subject" approved="yes">
+            <trans-unit id="rkwMailService.frontendUser.subject.refused" approved="yes">
                 <source>Registration refused</source>
                 <target>Wettbewerbsregistrierung abgelehnt</target>
             </trans-unit>
-            <trans-unit id="rkwMailService.deleteRegisterUser.subject" approved="yes">
+            <trans-unit id="rkwMailService.frontendUser.subject.delete" approved="yes">
                 <source>Your registration has been canceled</source>
                 <target>Ihre Bewerbung wurde zurückgezogen</target>
             </trans-unit>
+            <trans-unit id="rkwMailService.frontendUser.subject.submit" approved="yes">
+                <source>Your registration has been submitted</source>
+                <target>Ihre Bewerbung wurde eingereicht</target>
+            </trans-unit>
+            <trans-unit id="rkwMailService.frontendUser.subject.incomplete" approved="yes">
+                <source>Your registration is still incomplete</source>
+                <target>Bitte vervollständigen Sie Ihre Bewerbung</target>
+            </trans-unit>
 
             <!-- ADMIN -->
-            <trans-unit id="rkwMailService.confirmationRegisterAdmin.subject" approved="yes">
+            <trans-unit id="rkwMailService.backendUser.subject.confirmation" approved="yes">
                 <source>New registration</source>
                 <target>Neue Wettbewerbsregistrierung</target>
             </trans-unit>
-            <trans-unit id="rkwMailService.deleteRegisterAdmin.subject" approved="yes">
+            <trans-unit id="rkwMailService.backendUser.subject.delete" approved="yes">
                 <source>Registration has been canceled</source>
                 <target>Eine Wettbewerbsanmeldung wurde zurückgezogen</target>
+            </trans-unit>
+            <trans-unit id="rkwMailService.backendUser.subject.submit" approved="yes">
+                <source>Registration has been submitted</source>
+                <target>Eine Wettbewerbsanmeldung wurde eingereicht</target>
             </trans-unit>
 
             
@@ -513,153 +538,240 @@
 
             <!-- ==================================================================================== -->
             
-            <!-- Templates/Email/OptInReservationUser.html -->
-            <trans-unit id="templates_email_optInRegisterUser.headline">
+            <!-- Templates/Email/FrontendUser/OptIn.html -->
+            <trans-unit id="templates_email_frontendUser_optIn.headline">
                 <source>Hello,</source>
                 <target>Hallo,</target>
             </trans-unit>
-            <trans-unit id="templates_email_optInRegisterUser.text1">
+            <trans-unit id="templates_email_frontendUser_optIn.text1">
                 <source>thank you for your interest.</source>
                 <target>vielen Dank für Ihr Interesse an der Teilnahme an einem Wettbewerb des RKW.</target>
             </trans-unit>
-            <trans-unit id="templates_email_optInRegisterUser.text2">
+            <trans-unit id="templates_email_frontendUser_optIn.text2">
                 <source>Please check and confirm your request below.</source>
                 <target>Bitte prüfen Sie Ihre Registrierung auf Richtigkeit und bestätigen Sie sie über den untenstehenden Link. Bei Rückfragen können Sie einfach direkt auf diese E-Mail antworten.</target>
             </trans-unit>
-            <trans-unit id="templates_email_optInRegisterUser.textOptIn" approved="no">
+            <trans-unit id="templates_email_frontendUser_optIn.textOptIn" approved="no">
                 <source>Click here to confirm your request:</source>
                 <target>Bitte klicken Sie hier, um die Registrierung zu bestätigen. Um Ihnen zukünftige Wettbewerbe zu erleichtern, wird automatisch ein kostenloser Account erstellt, falls Sie nicht schon als Nutzender registriert sind. Das Passwort erhalten Sie in einer weiteren E-Mail.</target>
             </trans-unit>
-            <trans-unit id="templates_email_optInRegisterUser.textOptOut">
+            <trans-unit id="templates_email_frontendUser_optIn.textOptOut">
                 <source>Click here to cancel your request:</source>
                 <target>Sie haben es sich anders überlegt oder haben die Anmeldung gar nicht selbst angefragt? Klicken Sie einfach hier, um alle Daten zu löschen:</target>
             </trans-unit>
-            <trans-unit id="templates_email_optInRegisterUser.textOptInLinkLabel">
+            <trans-unit id="templates_email_frontendUser_optIn.textOptInLinkLabel">
                 <source>Yes, I want to attend</source>
                 <target>Ja, ich möchte an dem Wettbewerb teilnehmen</target>
             </trans-unit>
-            <trans-unit id="templates_email_optInRegisterUser.textOptOutLinkLabel">
+            <trans-unit id="templates_email_frontendUser_optIn.textOptOutLinkLabel">
                 <source>No, thank you</source>
                 <target>Nein, ich möchte an dem Wettbewerb nicht teilnehmen</target>
             </trans-unit>
-            <trans-unit id="templates_email_optInRegisterUser.confirmHeadline">
+            <trans-unit id="templates_email_frontendUser_optIn.confirmHeadline">
                 <source>Please confirm your registration</source>
                 <target>Bitte bestätigen Sie Ihre Anmeldung</target>
             </trans-unit>
 
-            <!-- Templates/Email/ConfirmationRegistrationUser.html -->
-            <trans-unit id="templates_email_confirmationRegisterUser.headline">
+            <!-- Templates/Email/FrontendUser/Confirmationr.html -->
+            <trans-unit id="templates_email_frontendUser_confirmation.headline">
                 <source>Hello %s %s,</source>
                 <target>Hallo %s %s,</target>
             </trans-unit>
-            <trans-unit id="templates_email_confirmationRegisterUser.text1">
+            <trans-unit id="templates_email_frontendUser_confirmation.text1">
                 <source>thank you for your registration.</source>
                 <target>vielen Dank für Ihre Anmeldung zu eines Wettbewerbs des RKW.</target>
             </trans-unit>
-            <trans-unit id="templates_email_confirmationRegisterUser.text2">
+            <trans-unit id="templates_email_frontendUser_confirmation.text2">
                 <source>Please find below the details of your registration.</source>
                 <target>Untenstehend finden Sie die Details Ihrer Anmeldung. Bei Rückfragen können Sie einfach direkt auf diese E-Mail antworten.</target>
             </trans-unit>
-            <trans-unit id="templates_email_confirmationRegisterUser.changeDeleteHeadline">
+            <trans-unit id="templates_email_frontendUser_confirmation.changeDeleteHeadline">
                 <source>Change / Delete</source>
                 <target>Löschen / Ändern</target>
             </trans-unit>
-            <trans-unit id="templates_email_confirmationRegisterUser.text3">
+            <trans-unit id="templates_email_frontendUser_confirmation.text3">
                 <source>Login here to change or delete your registration.</source>
                 <target>Loggen Sie sich hier ein, um Ihre Anmeldung zu löschen oder zu ändern.</target>
             </trans-unit>
-            
 
 
-            <!-- Templates/Email/ConfirmationRegistrationAdmin.html -->
-            <trans-unit id="templates_email_confirmationRegisterAdmin.headline">
-                <source>Hello %s,</source>
-                <target>Hallo %s,</target>
-            </trans-unit>
-            <trans-unit id="templates_email_confirmationRegisterAdmin.text1" approved="no">
-                <source>a registration has been placed.</source>
-                <target>jemand hat sich über die Website an einen Wettbewerbs angemeldet. Sie können dem oder der Nutzenden direkt auf diese E-Mail antworten, um etwaige Fragen zu klären.</target>
-            </trans-unit>
-            <trans-unit id="templates_email_confirmationRegisterAdmin.text2" approved="no">
-                <source>IMPORTANT: The user has already received a confirmation for his reservation. He will also automatically receive a reminder-mail a few days before the event.</source>
-                <target>WICHTIG: Der oder die Nutzende haben bereits eine Bestätigungsemail für die Anmeldung erhalten.</target>
-            </trans-unit>
-
-
-            <!-- Templates/Email/ApproveRegistrationUser.html -->
-            <trans-unit id="templates_email_approvedRegisterUser.headline">
+            <!-- Templates/Email/FrontendUser/Approve.html -->
+            <trans-unit id="templates_email_frontendUser_approved.headline">
                 <source>Hello %s %s,</source>
                 <target>Hallo %s %s,</target>
             </trans-unit>
-            <trans-unit id="templates_email_approvedRegisterUser.text1">
+            <trans-unit id="templates_email_frontendUser_approved.text1">
                 <source>There is news about a competition organised by RKW.</source>
                 <target>es gibt Neuigkeiten zu einem Wettbewerbs des RKW.</target>
             </trans-unit>
-            <trans-unit id="templates_email_approvedRegisterUser.text2">
+            <trans-unit id="templates_email_frontendUser_approved.text2">
                 <source>Your registration has been approved:</source>
                 <target>Ihre Registrierung wurde akzeptiert und final genehmigt:</target>
             </trans-unit>
-            <trans-unit id="templates_email_approvedRegisterUser.text3">
+            <trans-unit id="templates_email_frontendUser_approved.text3">
                 <source>Login here to take a look to your registration.</source>
                 <target>Loggen Sie sich hier ein, um Ihre Angaben im Detail anzusehen</target>
             </trans-unit>
-            <trans-unit id="templates_email_approvedRegisterUser.showHeadline">
+            <trans-unit id="templates_email_frontendUser_approved.showHeadline">
                 <source>Show registration</source>
                 <target>Wettbewerbsregistrierung ansehen</target>
             </trans-unit>
 
-            <!-- Templates/Email/RefusedRegistrationUser.html -->
-            <trans-unit id="templates_email_refusedRegisterUser.headline">
+
+
+            <!-- Templates/Email/FrontendUser/Refused.html -->
+            <trans-unit id="templates_email_frontendUser_refused.headline">
                 <source>Hello %s %s,</source>
                 <target>Hallo %s %s,</target>
             </trans-unit>
-            <trans-unit id="templates_email_refusedRegisterUser.text1">
+            <trans-unit id="templates_email_frontendUser_refused.text1">
                 <source>There is news about a competition organised by RKW.</source>
                 <target>es gibt Neuigkeiten zu einem Wettbewerbs des RKW.</target>
             </trans-unit>
-            <trans-unit id="templates_email_refusedRegisterUser.text2">
+            <trans-unit id="templates_email_frontendUser_refused.text2">
                 <source>Your registration has been refused:</source>
                 <target>Ihre Registrierung wurde vorläufig abgelehnt:</target>
             </trans-unit>
-            <trans-unit id="templates_email_refusedRegisterUser.text3">
+            <trans-unit id="templates_email_frontendUser_refused.text3">
                 <source>Login here to take a look to your registration.</source>
                 <target>Loggen Sie sich hier ein, um Ihre Angaben im Detail anzusehen und Ihre Unterlagen zu aktualisieren.</target>
             </trans-unit>
-            <trans-unit id="templates_email_refusedRegisterUser.showHeadline">
+            <trans-unit id="templates_email_frontendUser_refused.showHeadline">
                 <source>Show registration</source>
-                <target>Wettbewerbsregistrierung ansehen</target>
+                <target>Wettbewerbsanmeldungen ansehen</target>
             </trans-unit>
-            <trans-unit id="templates_email_refusedRegisterUser.reason">
+            <trans-unit id="templates_email_frontendUser_refused.reason">
                 <source>Reason:</source>
                 <target>Begründung:</target>
             </trans-unit>
 
 
-            <!-- Templates/Email/DeleteRegisterUser.html -->
-            <trans-unit id="templates_email_deleteRegisterUser.headline">
+            <!-- Templates/Email/FrontendUser/Incomplete.html -->
+            <trans-unit id="templates_email_frontendUser_incomplete.headline">
                 <source>Hello %s %s,</source>
                 <target>Hallo %s %s,</target>
             </trans-unit>
-            <trans-unit id="templates_email_deleteRegisterUser.text1">
+            <trans-unit id="templates_email_frontendUser_incomplete.text1">
+                <source>This is a reminder about a competition organised by RKW.</source>
+                <target>dies ist eine Erinnerung zu einem Wettbewerbs des RKW.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_incomplete.text2">
+                <source>Your registration is unsubmitted yet</source>
+                <target>Sie haben Ihre Registrierung bisher nicht eingereicht. Benötigen Sie hilfe oder haben Sie Fragen?</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_incomplete.text3">
+                <source>Login here to take a look to your registration.</source>
+                <target>Loggen Sie sich hier ein, um Ihre Angaben im Detail anzusehen und Ihre Unterlagen zu aktualisieren.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_incomplete.showHeadline">
+                <source>Show registration</source>
+                <target>Wettbewerbsanmeldungen ansehen</target>
+            </trans-unit>
+
+
+            <!-- Templates/Email/FrontendUser/Submit.html -->
+            <trans-unit id="templates_email_frontendUser_submit.headline">
+                <source>Hello %s %s,</source>
+                <target>Hallo %s %s,</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_submit.text1">
+                <source>There is news about a competition organised by RKW.</source>
+                <target>sie haben Ihre Wettbewerbsanmeldung erfolgreich eingereicht.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_submit.text2">
+                <source>Your registration has been submitted:</source>
+                <target>Wir drücken Ihnen die Daumen:</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_submit.text3">
+                <source>Login here to take a look to your registration.</source>
+                <target>Loggen Sie sich hier ein, um Ihre Angaben im Detail anzusehen</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_submit.showHeadline">
+                <source>Show registration</source>
+                <target>Wettbewerbsregistrierung ansehen</target>
+            </trans-unit>
+
+
+            <!-- Templates/Email/FrontendUser/Upload.html -->
+            <trans-unit id="templates_email_frontendUser_submit.headline">
+                <source>Hello %s %s,</source>
+                <target>Hallo %s %s,</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_submit.text1">
+                <source>thanks for your registration.</source>
+                <target>vielen Dank für Ihre Interesse an einem Wettbewerb des RKW.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_submit.text2">
+                <source>Please upload your files.</source>
+                <target>Bitte vervollständigen Sie jetzt Ihre Anmeldung durch das hochladen entsprechender Dateien.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_submit.text3">
+                <source>Login here to take a look to your registration.</source>
+                <target>Loggen Sie sich hier ein, um Ihre Angaben im Detail anzusehen</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_submit.showHeadline">
+                <source>Show registration</source>
+                <target>Wettbewerbsregistrierung ansehen</target>
+            </trans-unit>
+
+
+            <!-- Templates/Email/FrontendUser/Delete.html -->
+            <trans-unit id="templates_email_frontendUser_delete.headline">
+                <source>Hello %s %s,</source>
+                <target>Hallo %s %s,</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_delete.text1">
                 <source>sorry to see you go.</source>
                 <target>wir hätten Sie gerne dabei gehabt. Selbstverständlich kommen wir aber Ihrem Wunsch nach und löschen Ihre Anmeldung zum Wettbewerb.</target>
             </trans-unit>
-            <trans-unit id="templates_email_deleteRegisterUser.text2">
+            <trans-unit id="templates_email_frontendUser_delete.text2">
                 <source>Please find below the details of your canceled reservation.</source>
                 <target>Untenstehend finden Sie die Details Ihrer zurückgezogenen Bewerbung. Bei Rückfragen können Sie einfach direkt auf diese E-Mail antworten.</target>
             </trans-unit>
 
 
 
-            <!-- Templates/Email/DeleteRegisterAdmin.html -->
-            <trans-unit id="templates_email_deleteRegisterAdmin.headline">
+
+            <!-- Templates/Email/BackendUser/Confirmation.html -->
+            <trans-unit id="templates_email_backendUser_confirmation.headline">
                 <source>Hello %s,</source>
                 <target>Hallo %s,</target>
             </trans-unit>
-            <trans-unit id="templates_email_deleteRegisterAdmin.text1" approved="no">
+            <trans-unit id="templates_email_backendUser_confirmation.text1" approved="no">
+                <source>a registration has been placed.</source>
+                <target>jemand hat sich über die Website an einen Wettbewerbs angemeldet. Sie können dem oder der Nutzenden direkt auf diese E-Mail antworten, um etwaige Fragen zu klären.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_backendUser_confirmation.text2" approved="no">
+                <source>IMPORTANT: The user has already received a confirmation for his reservation. He will also automatically receive a reminder-mail a few days before the event.</source>
+                <target>WICHTIG: Der oder die Nutzende haben bereits eine Bestätigungsemail für die Anmeldung erhalten.</target>
+            </trans-unit>
+
+
+            <!-- Templates/Email/BackendUser/Delete.html -->
+            <trans-unit id="templates_email_backendUser_delete.headline">
+                <source>Hello %s,</source>
+                <target>Hallo %s,</target>
+            </trans-unit>
+            <trans-unit id="templates_email_backendUser_delete.text1" approved="no">
                 <source>a registration has been canceled.</source>
                 <target phase-name="approval-1" state="final">jemand hat über die Website seine Bewerbung zu einem Wettbewerb zurückgezogen. Sie können dem oder der Nutzenden direkt auf diese E-Mail antworten, um etwaige Fragen zu klären.</target>
             </trans-unit>
+
+
+            <!-- Templates/Email/BackendUser/Submit.html -->
+            <trans-unit id="templates_email_backendUser_submit.headline">
+                <source>Hello %s,</source>
+                <target>Hallo %s,</target>
+            </trans-unit>
+            <trans-unit id="templates_email_backendUser_submit.text1" approved="no">
+                <source>a registration has been submitted.</source>
+                <target>jemand hat eine Wettbewerbsanmeldung vollständig ausgefüllt und eingereicht. Sie können dem oder der Nutzenden direkt auf diese E-Mail antworten, um etwaige Fragen zu klären.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_backendUser_submit.text2" approved="no">
+                <source>IMPORTANT: The user has already received a confirmation for his reservation. He will also automatically receive a reminder-mail a few days before the event.</source>
+                <target>WICHTIG: Der oder die Nutzende haben bereits eine Bestätigungsemail für die Anmeldung erhalten.</target>
+            </trans-unit>
+
 
 
            

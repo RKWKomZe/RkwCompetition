@@ -32,13 +32,13 @@ defined('TYPO3_MODE') || die();
         [
             Participant::class => 'list, show',
             Upload::class => 'edit, update, delete',
-            Register::class => 'edit, update, deleteQuestion, delete'
+            Register::class => 'edit, update, deleteQuestion, delete, submitQuestion, submit'
         ],
         // non-cacheable actions
         [
             Participant::class => 'list, show',
             Upload::class => 'edit, update, delete',
-            Register::class => 'edit, update, deleteQuestion, delete'
+            Register::class => 'edit, update, deleteQuestion, delete, submitQuestion, submit'
         ]
     );
 
@@ -75,6 +75,10 @@ defined('TYPO3_MODE') || die();
     //=================================================================
     // Register Signal-Slots
     //=================================================================
+
+    // @toDo: The FeRegister still works with SignalSlots.
+    // For all other stuff: https://docs.typo3.org/m/typo3/reference-coreapi/10.4/en-us/ApiOverview/Events/EventDispatcher/Index.html#eventdispatcher
+
     /**
      * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher
      */
@@ -100,7 +104,7 @@ defined('TYPO3_MODE') || die();
         RKW\RkwCompetition\Controller\RegisterController::class,
         \RKW\RkwCompetition\Controller\RegisterController::SIGNAL_AFTER_REGISTER_CREATED_USER,
         RKW\RkwCompetition\Service\RkwMailService::class,
-        'confirmRegistrationUser'
+        'confirmRegisterUser'
     );
 
     $signalSlotDispatcher->connect(
@@ -114,36 +118,8 @@ defined('TYPO3_MODE') || die();
         RKW\RkwCompetition\Controller\RegisterController::class,
         \RKW\RkwCompetition\Controller\RegisterController::SIGNAL_AFTER_REGISTER_CREATED_ADMIN,
         RKW\RkwCompetition\Service\RkwMailService::class,
-        'confirmRegistrationAdmin'
+        'confirmRegisterAdmin'
     );
 
-//    $signalSlotDispatcher->connect(
-//        RKW\RkwCompetition\Controller\RegisterController::class,
-//        \RKW\RkwCompetition\Controller\RegisterController::SIGNAL_AFTER_RESERVATION_UPDATE_USER,
-//        RKW\RkwCompetition\Service\RkwMailService::class,
-//        'updateReservationUser'
-//    );
-//
-//    $signalSlotDispatcher->connect(
-//        RKW\RkwCompetition\Controller\RegisterController::class,
-//        \RKW\RkwCompetition\Controller\RegisterController::SIGNAL_AFTER_RESERVATION_UPDATE_ADMIN,
-//        RKW\RkwCompetition\Service\RkwMailService::class,
-//        'updateReservationAdmin'
-//    );
-//
-//    $signalSlotDispatcher->connect(
-//        RKW\RkwCompetition\Controller\RegisterController::class,
-//        \RKW\RkwCompetition\Controller\RegisterController::SIGNAL_AFTER_RESERVATION_DELETE_USER,
-//        RKW\RkwCompetition\Service\RkwMailService::class,
-//        'deleteReservationUser'
-//    );
-//
-//    $signalSlotDispatcher->connect(
-//        RKW\RkwCompetition\Controller\RegisterController::class,
-//        \RKW\RkwCompetition\Controller\RegisterController::SIGNAL_AFTER_RESERVATION_DELETE_ADMIN,
-//        RKW\RkwCompetition\Service\RkwMailService::class,
-//        'deleteReservationAdmin'
-//    );
-    
     
 })();

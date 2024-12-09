@@ -35,7 +35,6 @@ class ParticipantController extends \RKW\RkwCompetition\Controller\AbstractContr
      */
     public function listAction()
     {
-
         if (!$this->getFrontendUser()) {
 
             $this->addFlashMessage(

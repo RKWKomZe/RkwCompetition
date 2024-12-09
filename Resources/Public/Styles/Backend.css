@@ -23,6 +23,10 @@ table {
         background-color: #ffffff;
     }
 
+    tbody tr.center {
+        text-align: center;
+    }
+
     tbody tr td.center {
         text-align: center;
     }
@@ -34,4 +38,8 @@ h1 {
 
 button.default-btn {
     margin: 10px;
+}
+
+a {
+    color: orangered;
 }

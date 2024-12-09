@@ -18,11 +18,11 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'salutation,first_name,last_name,institution,address,city,telephone,email,contribution_title,remark,conditions_of_participation,group_work_insurance,group_work_add_persons,competition,admin_approved,admin_approved_by,admin_approved,admin_refused,admin_refused_by,admin_refused_at,admin_refused_text,unique_id',
+        'searchFields' => 'salutation,first_name,last_name,institution,address,city,telephone,email,contribution_title,remark,conditions_of_participation,group_work_insurance,group_work_add_persons,competition,user_submitted_at,admin_approved,admin_approved_by,admin_approved_at,admin_refused,admin_refused_by,admin_refused_at,admin_refused_text,unique_id',
         'iconfile' => 'EXT:rkw_competition/Resources/Public/Icons/tx_rkwcompetition_domain_model_register.gif'
     ],
     'types' => [
-        '1' => ['showitem' => 'salutation, title, first_name, last_name, institution, address, zip, city, telephone, email, contribution_title, type_of_work, sector, remark, privacy, conditions_of_participation, is_group_work, group_work_insurance, group_work_add_persons, upload, competition, admin_approved_by, admin_approved, admin_refused_by, admin_refused_at, admin_refused_text, unique_id, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, sys_language_uid, l10n_parent, l10n_diffsource, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'],
+        '1' => ['showitem' => 'salutation, title, first_name, last_name, institution, address, zip, city, telephone, email, contribution_title, type_of_work, sector, remark, privacy, conditions_of_participation, is_group_work, group_work_insurance, group_work_add_persons, upload, competition, user_submitted_at, admin_approved, admin_approved_by, admin_approved_at, admin_refused_by, admin_refused_at, admin_refused_text, unique_id, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, sys_language_uid, l10n_parent, l10n_diffsource, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -307,6 +307,17 @@ return [
                 'default' => ''
             ],
         ],
+        'user_submitted_at' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register.user_submitted_at',
+            'config' => [
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'size' => 4,
+                'eval' => 'time',
+                'default' => time()
+            ]
+        ],
         'admin_approved' => [
             'exclude' => 0,
             'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register.admin_approved',
@@ -410,7 +421,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'foreign_table' => 'fe_users',
-                'foreign_table_where' => 'AND fe_users.deleted = 0  AND fe_users.disable = 0 AND fe_users.email <> "" ORDER BY fe_users.username',
+                'foreign_table_where' => 'AND fe_users.disable = 0',
                 'minitems' => 1,
                 'maxitems' => 1,
             ],
