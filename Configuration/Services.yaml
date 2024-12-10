@@ -18,12 +18,12 @@ services:
 #      - name: 'console.command'
 #        command: 'rkw_competition:closingDay'
 #        schedulable: true
-#
-#  RKW\RkwCompetition\Command\DeletionDeadlineWarningAdminCommand:
-#    tags:
-#      - name: 'console.command'
-#        command: 'rkw_competition:deletionDeadlineWarningAdmin'
-#        schedulable: true
+
+  RKW\RkwCompetition\Command\DeletionDeadlineWarningAdminCommand:
+    tags:
+      - name: 'console.command'
+        command: 'rkw_competition:deletionDeadlineWarningAdmin'
+        schedulable: true
 
   RKW\RkwCompetition\Command\IncompleteUserRegistrationCommand:
     tags:

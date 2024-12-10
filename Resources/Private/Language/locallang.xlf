@@ -147,8 +147,8 @@
 			<trans-unit id="tx_rkwcompetition_domain_model_competition.jury_access_end" resname="tx_rkwcompetition_domain_model_competition.jury_access_end">
 				<source>Jury Access End</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_competition.file_removal_end" resname="tx_rkwcompetition_domain_model_competition.file_removal_end">
-				<source>File Removal End</source>
+			<trans-unit id="tx_rkwcompetition_domain_model_competition.record_removal_date" resname="tx_rkwcompetition_domain_model_competition.record_removal_date">
+				<source>Record removal date</source>
 			</trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_competition.jury_add_data" resname="tx_rkwcompetition_domain_model_competition.jury_add_data">
 				<source>Jury Add Data</source>
@@ -656,8 +656,8 @@
                 <target>dies ist eine Erinnerung zu einem Wettbewerbs des RKW.</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_incomplete.text2">
-                <source>Your registration is unsubmitted yet</source>
-                <target>Sie haben Ihre Registrierung bisher nicht eingereicht. Benötigen Sie hilfe oder haben Sie Fragen?</target>
+                <source>Your registration is unsubmitted yet:</source>
+                <target>Sie haben Ihre Anmeldung bisher nicht finalisiert und eingereicht. Benötigen Sie Hilfe oder haben Sie Fragen?</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_incomplete.text3">
                 <source>Login here to take a look to your registration.</source>

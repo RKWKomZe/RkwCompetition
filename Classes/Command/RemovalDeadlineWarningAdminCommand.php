@@ -14,6 +14,9 @@ namespace RKW\RkwCompetition\Command;
  * The TYPO3 project - inspiring people to share!
  */
 
+use RKW\RkwCompetition\Domain\Repository\CompetitionRepository;
+use RKW\RkwCompetition\Domain\Repository\RegisterRepository;
+use RKW\RkwCompetition\Service\RkwMailService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -26,20 +29,20 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 /**
- * DeletionDeadlineWarningAdmin
+ * RemovalDeadlineWarningAdmin
  *
  *
  * @todo #4206: Nach Ablauf der Löschfrist wird eine automatische E-Mail an alle Admins versendet, dass die Daten nur noch bis zum Ablauf der Löschfrist-Toleranz (default: 14 Tage, via TS) downgeloadet werden können.
  *
  *
- * Execute on CLI with: 'vendor/bin/typo3 rkw_competition:deletionDeadline'
+ * Execute on CLI with: 'vendor/bin/typo3 rkw_competition:removalDeadline'
  *
  * @author Maximilian Fäßler <maximilian@faesslerweb.de>
  * @copyright RKW Kompetenzzentrum
  * @package RKW_RkwCompetition
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class DeletionDeadlineWarningAdminCommand extends Command
+class RemovalDeadlineWarningAdminCommand extends Command
 {
 
 
@@ -62,18 +65,14 @@ class DeletionDeadlineWarningAdminCommand extends Command
 
 
     /**
-     * @param EventRepository $eventRepository,
-     * @param EventReservationRepository $eventReservationRepository,
+     * @param CompetitionRepository $competitionRepository,
      * @param PersistenceManager $persistenceManager
      */
     public function __construct(
-        EventRepository $eventRepository,
-        EventReservationRepository $eventReservationRepository,
+        CompetitionRepository $competitionRepository,
         PersistenceManager $persistenceManager
     ) {
-
-        $this->eventRepository = $eventRepository;
-        $this->eventReservationRepository = $eventReservationRepository;
+        $this->competitionRepository = $competitionRepository;
         $this->persistenceManager = $persistenceManager;
 
         parent::__construct();
@@ -85,13 +84,13 @@ class DeletionDeadlineWarningAdminCommand extends Command
      */
     protected function configure(): void
     {
-        $this->setDescription('Sends an email to all users of an upcoming event.')
+        $this->setDescription('Sends notify email to project admins that the project will erased soon.')
             ->addOption(
-                'timeFrame',
+                'daysUntilRemoval',
                 't',
                 InputOption::VALUE_REQUIRED,
-                'Defines when we start to send e-mails as reminder for the user before the event starts in seconds.',
-                86400
+                'Set days to sent last reminder to admins before the project will deleted with all files. Triggers only if a removal deadline is set.',
+                14
             );
     }
 
@@ -112,45 +111,45 @@ class DeletionDeadlineWarningAdminCommand extends Command
         $io->title($this->getDescription());
         $io->newLine();
 
-        $timeFrame = $input->getOption('timeFrame');
+        $daysUntilRemoval = $input->getOption('daysUntilRemoval');
 
         $result = 0;
         try {
 
-            $eventList = $this->eventRepository->findUpcomingEventsForReminder($timeFrame);
+            $competitionList = $this->competitionRepository->findWithinRemovalRangeIfSetForReminder($daysUntilRemoval);
 
-            if (count($eventList)) {
+            if (count($competitionList)) {
 
-                $io->note('Processing ' . count($eventList) . ' events.');
+                $io->note('Processing ' . count($competitionList) . ' competitions.');
 
-                /** @var \RKW\RkwEvents\Domain\Model\Event $event */
-                foreach ($eventList as $event) {
-                    if ($eventReservationList = $event->getReservation()) {
+                /** @var \RKW\RkwCompetition\Domain\Model\Competition $competition */
+                foreach ($competitionList as $competition) {
 
-                        // send mails
-                        /** @var RkwMailService $mailService */
-                        $mailService = GeneralUtility::makeInstance(RkwMailService::class);
-                        $mailService->informUpcomingEventUser($eventReservationList, $event);
+                    // send mails
+                    /** @var RkwMailService $mailService */
+                    $mailService = GeneralUtility::makeInstance(RkwMailService::class);
+                    $mailService->removalOfCompetitionAdmin(
+                        $competition->getAdminMember(),
+                        $competition
+                    );
 
-                        $io->note("\t" . 'eventUid: ' . $event->getUid());
+                    $io->note("\t" . 'competitionUid: ' . $competition->getUid());
 
-                        // set timestamp in event, so that mails are not send twice
-                        $event->setReminderMailTstamp(time());
-                        $this->eventRepository->update($event);
-                        $this->persistenceManager->persistAll();
+                    // set timestamp in event, so that mails are not send twice
+                    $competition->setReminderCleanupMailTstamp(time());
+                    $this->competitionRepository->update($competition);
+                    $this->persistenceManager->persistAll();
 
-                        $this->getLogger()->log(LogLevel::INFO, sprintf('Successfully sent %s reminder mails for upcoming event %s.', count($eventReservationList), $event->getUid()));
-                    } else {
-                        $this->getLogger()->log(LogLevel::INFO, sprintf('No reservations found for upcoming event %s. No reminder mail sent.', $event->getUid()));
-                    }
+                    $this->getLogger()->log(LogLevel::INFO, sprintf('Successfully sent %s reminder mails for competition within deletion period %s.', count($competition->getAdminMember()), $competition->getUid()));
+
                 }
             } else {
-                $this->getLogger()->log(LogLevel::INFO, sprintf('No relevant events found for reminder mail.'));
+                $this->getLogger()->log(LogLevel::INFO, sprintf('No relevant competitions found for deletion reminder mail.'));
             }
 
         } catch (\Exception $e) {
 
-            $message = sprintf('An error occurred while trying to send an inform mail about an upcoming event. Message: %s',
+            $message = sprintf('An error occurred while trying to send an inform mail about an competition within deletion period. Message: %s',
                 str_replace(["\n", "\r"], '', $e->getMessage())
             );
 

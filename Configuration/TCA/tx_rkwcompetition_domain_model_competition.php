@@ -16,7 +16,7 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'title,jury_access_end,file_removal_end,jury_add_data,link_jury_declaration_confident,link_cond_participation,link_privacy',
+        'searchFields' => 'title,jury_access_end,record_removal_date,jury_add_data,link_jury_declaration_confident,link_cond_participation,link_privacy',
         'iconfile' => 'EXT:rkw_competition/Resources/Public/Icons/tx_rkwcompetition_domain_model_competition.gif'
     ],
     'types' => [
@@ -45,7 +45,7 @@ return [
             'showitem' => 'hidden, sys_language_uid, l10n_parent, l10n_diffsource',
         ],
         'startEnd' => [
-            'showitem' => 'register_start, register_end, file_removal_end',
+            'showitem' => 'register_start, register_end, record_removal_date',
         ],
         'userInfo' => [
             'showitem' => 'group_for_user, allow_team_participation ',
@@ -176,9 +176,9 @@ return [
                 'default' => time()
             ],
         ],
-        'file_removal_end' => [
+        'record_removal_date' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.file_removal_end',
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.record_removal_date',
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',

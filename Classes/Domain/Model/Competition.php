@@ -49,11 +49,11 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $juryAccessEnd = '';
 
     /**
-     * fileRemovalEnd
+     * recordRemovalDate
      *
      * @var \DateTime
      */
-    protected $fileRemovalEnd = '';
+    protected $recordRemovalDate = '';
 
     /**
      * juryAddData
@@ -267,24 +267,24 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Returns the fileRemovalEnd
+     * Returns the recordRemovalDate
      *
      * @return \DateTime
      */
-    public function getFileRemovalEnd()
+    public function getRecordRemovalDate()
     {
-        return $this->fileRemovalEnd;
+        return $this->recordRemovalDate;
     }
 
     /**
-     * Sets the fileRemovalEnd
+     * Sets the recordRemovalDate
      *
-     * @param \DateTime $fileRemovalEnd
+     * @param \DateTime $recordRemovalDate
      * @return void
      */
-    public function setFileRemovalEnd(\DateTime $fileRemovalEnd)
+    public function setRecordRemovalDate(\DateTime $recordRemovalDate)
     {
-        $this->fileRemovalEnd = $fileRemovalEnd;
+        $this->recordRemovalDate = $recordRemovalDate;
     }
 
     /**

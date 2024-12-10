@@ -49,4 +49,31 @@ class CompetitionRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
         )->execute();
     }
+
+
+    /**
+     * Return competitions within removal period (if a date is set)
+     *
+     * @param int $timeFrameDays
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     */
+    public function findWithinRemovalRangeIfSetForReminder(int $timeFrameDays = 14): QueryResultInterface
+    {
+
+        $query = $this->createQuery();
+
+        $query->getQuerySettings()->setRespectStoragePage(false);
+
+        return $query->matching(
+            $query->logicalAnd(
+                $query->lessThanOrEqual('recordRemovalDate', time() + $timeFrameDays . ' days'),
+                // ! exclude all where no removal date is set !
+                $query->logicalNot(
+                    $query->equals('recordRemovalDate', 0)
+                )
+            )
+
+        )->execute();
+    }
 }

@@ -124,22 +124,22 @@ class CompetitionTest extends UnitTestCase
     /**
      * @test
      */
-    public function getFileRemovalEndReturnsInitialValueForString(): void
+    public function getRecordRemovalDateReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
-            $this->subject->getFileRemovalEnd()
+            $this->subject->getRecordRemovalDate()
         );
     }
 
     /**
      * @test
      */
-    public function setFileRemovalEndForStringSetsFileRemovalEnd(): void
+    public function setRecordRemovalDateForStringSetsRecordRemovalDate(): void
     {
-        $this->subject->setFileRemovalEnd('Conceived at T3CON10');
+        $this->subject->setRecordRemovalDate('Conceived at T3CON10');
 
-        self::assertEquals('Conceived at T3CON10', $this->subject->_get('fileRemovalEnd'));
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('recordRemovalDate'));
     }
 
     /**

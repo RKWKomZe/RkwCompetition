@@ -15,8 +15,8 @@
 			<trans-unit id="jury_end.description" resname="jury_end.description">
 				<source>juryEnd</source>
 			</trans-unit>
-			<trans-unit id="file_removal_end.description" resname="file_removal_end.description">
-				<source>fileRemovalEnd</source>
+			<trans-unit id="record_removal_date.description" resname="record_removal_date.description">
+				<source>recordRemovalDate</source>
 			</trans-unit>
 			<trans-unit id="jury_add_data.description" resname="jury_add_data.description">
 				<source>juryAddData</source>

@@ -50,10 +50,6 @@ plugin.tx_rkwcompetition_edit < plugin.tx_competition
 plugin.tx_rkwcompetition_jury < plugin.tx_competition
 
 
-// for backend module
-#module.tx_rkwcompetition < plugin.tx_competition
-
-
 # Module configuration
 module.tx_rkwcompetition_web_rkwcompetitionlist {
     persistence {
@@ -74,6 +70,11 @@ module.tx_rkwcompetition_web_rkwcompetitionlist {
     }
 }
 
-# we also need default FE settings for the email-stuff
-module.tx_rkwcompetition_web_rkwcompetitionlist.settings < plugin.tx_competition.settings
+# we also need default FE settings for the email-stuff inside backend module
+module.tx_rkwcompetition_web_rkwcompetitionlist.settings < plugin.tx_rkwcompetition.settings
 
+
+# needed for cronjobs
+module.tx_rkwcompetition.settings < plugin.tx_rkwcompetition.settings
+module.tx_rkwcompetition.persistence.storagePid < plugin.tx_rkwcompetition.persistence.storagePid
+module.tx_rkwcompetition.view < plugin.tx_rkwcompetition.view

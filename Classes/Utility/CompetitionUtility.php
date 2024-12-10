@@ -48,12 +48,14 @@ class CompetitionUtility
     /**
      * Returns true if time for file removal has ended
      *
+     * @deprecated Should have no usage yet
+     *
      * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
      * @return boolean
      */
-    public static function hasFileRemovalTimeEnded(Competition $competition) :bool
+    public static function hasRecordRemovalDateReached(Competition $competition) :bool
     {
-        if ($competition->getFileRemovalEnd()->getTimestamp() < time()) {
+        if ($competition->getRecordRemovalDate()->getTimestamp() < time()) {
             return true;
         }
 

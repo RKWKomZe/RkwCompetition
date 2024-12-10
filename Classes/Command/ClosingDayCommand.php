@@ -14,6 +14,9 @@ namespace RKW\RkwCompetition\Command;
  * The TYPO3 project - inspiring people to share!
  */
 
+use RKW\RkwCompetition\Domain\Repository\CompetitionRepository;
+use RKW\RkwCompetition\Domain\Repository\RegisterRepository;
+use RKW\RkwCompetition\Service\RkwMailService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -64,18 +67,18 @@ class ClosingDayCommand extends Command
 
 
     /**
-     * @param EventRepository $eventRepository,
-     * @param EventReservationRepository $eventReservationRepository,
+     * @param CompetitionRepository $competitionRepository,
+     * @param RegisterRepository $registerRepository,
      * @param PersistenceManager $persistenceManager
      */
     public function __construct(
-        EventRepository $eventRepository,
-        EventReservationRepository $eventReservationRepository,
+        CompetitionRepository $competitionRepository,
+        RegisterRepository $registerRepository,
         PersistenceManager $persistenceManager
     ) {
 
-        $this->eventRepository = $eventRepository;
-        $this->eventReservationRepository = $eventReservationRepository;
+        $this->competitionRepository = $competitionRepository;
+        $this->registerRepository = $registerRepository;
         $this->persistenceManager = $persistenceManager;
 
         parent::__construct();
@@ -87,13 +90,13 @@ class ClosingDayCommand extends Command
      */
     protected function configure(): void
     {
-        $this->setDescription('Sends an email to all users of an upcoming event.')
+        $this->setDescription('Sends notify email to project admins that the project will erased soon.')
             ->addOption(
-                'timeFrame',
+                'daysTillDeath',
                 't',
                 InputOption::VALUE_REQUIRED,
-                'Defines when we start to send e-mails as reminder for the user before the event starts in seconds.',
-                86400
+                'Set days to sent last reminder to admins before the project will deleted with all files. Triggers only if a removal deadline is set.',
+                14
             );
     }
 
@@ -114,45 +117,46 @@ class ClosingDayCommand extends Command
         $io->title($this->getDescription());
         $io->newLine();
 
-        $timeFrame = $input->getOption('timeFrame');
+        $daysTillDeath = $input->getOption('daysTillDeath');
 
         $result = 0;
         try {
 
-            $eventList = $this->eventRepository->findUpcomingEventsForReminder($timeFrame);
+            $competitionList = $this->competitionRepository->findInDeletionRangeForReminder($daysTillDeath);
 
-            if (count($eventList)) {
+            if (count($competitionList)) {
 
-                $io->note('Processing ' . count($eventList) . ' events.');
+                $io->note('Processing ' . count($competitionList) . ' competitions.');
 
-                /** @var \RKW\RkwEvents\Domain\Model\Event $event */
-                foreach ($eventList as $event) {
-                    if ($eventReservationList = $event->getReservation()) {
+                /** @var \RKW\RkwCompetition\Domain\Model\Competition $competition */
+                foreach ($competitionList as $competition) {
+
+                    if ($registerList = $this->registerRepository->findUnsubmittedByCompetition($competition)) {
 
                         // send mails
                         /** @var RkwMailService $mailService */
                         $mailService = GeneralUtility::makeInstance(RkwMailService::class);
-                        $mailService->informUpcomingEventUser($eventReservationList, $event);
+                        $mailService->removalOfCompetitionAdmin($registerList);
 
-                        $io->note("\t" . 'eventUid: ' . $event->getUid());
+                        $io->note("\t" . 'competitionUid: ' . $competition->getUid());
 
                         // set timestamp in event, so that mails are not send twice
-                        $event->setReminderMailTstamp(time());
-                        $this->eventRepository->update($event);
+                        $competition->setReminderMailTstamp(time());
+                        $this->competitionRepository->update($competition);
                         $this->persistenceManager->persistAll();
 
-                        $this->getLogger()->log(LogLevel::INFO, sprintf('Successfully sent %s reminder mails for upcoming event %s.', count($eventReservationList), $event->getUid()));
+                        $this->getLogger()->log(LogLevel::INFO, sprintf('Successfully sent %s reminder mails for competition within register period %s.', count($registerList), $competition->getUid()));
                     } else {
-                        $this->getLogger()->log(LogLevel::INFO, sprintf('No reservations found for upcoming event %s. No reminder mail sent.', $event->getUid()));
+                        $this->getLogger()->log(LogLevel::INFO, sprintf('No reservations found for competition in register period %s. No reminder mail sent.', $competition->getUid()));
                     }
                 }
             } else {
-                $this->getLogger()->log(LogLevel::INFO, sprintf('No relevant events found for reminder mail.'));
+                $this->getLogger()->log(LogLevel::INFO, sprintf('No relevant competitions found for reminder mail.'));
             }
 
         } catch (\Exception $e) {
 
-            $message = sprintf('An error occurred while trying to send an inform mail about an upcoming event. Message: %s',
+            $message = sprintf('An error occurred while trying to send an inform mail about an competition within register period. Message: %s',
                 str_replace(["\n", "\r"], '', $e->getMessage())
             );
 

@@ -12,6 +12,7 @@ use SJBR\StaticInfoTables\Domain\Model\Language;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
@@ -124,10 +125,10 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
         foreach ($registerList as $register) {
 
             // @toDo: Check if frontendUser is set? (It's null if user was deleted)
-            if ($register->getFrontendUser() instanceof FrontendUser)
 
             // send submitted
             $this->frontendUserMail($register->getFrontendUser(), $register, 'incomplete');
+
         }
 
     }
@@ -401,6 +402,8 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
         $this->backendUserMail($backendUser, $register, 'submit');
     }
 
+
+
     /**
      * Handles delete mail for admin
      *
@@ -423,14 +426,33 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
     }
 
 
-
+    /**
+     * Handles delete mail for admin
+     *
+     * @param BackendUser|array $backendUser
+     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
+     * @param \RKW\RkwCompetition\Domain\Model\Register $register
+     * @return void
+     * @throws \Madj2k\Postmaster\Exception
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
+     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     */
+    public function removalOfCompetitionAdmin(
+        $backendUser,
+        \RKW\RkwCompetition\Domain\Model\Register $register
+    ) :void
+    {
+        $this->backendUserMail($backendUser, $register, 'removalReminder', $register->getFrontendUser());
+    }
 
 
     /**
      * Sends an E-Mail to an Admin
      *
      * @param BackendUser|array $backendUser
-     * @param Register $register
+     * @param AbstractEntity $entity
      * @param string $action
      * @param FrontendUser|null $frontendUser
      * @throws Exception
@@ -441,7 +463,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      */
     protected function backendUserMail(
         $backendUser,
-        \RKW\RkwCompetition\Domain\Model\Register $register,
+        \TYPO3\CMS\Extbase\DomainObject\AbstractEntity $entity,
         string $action = '',
         \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser = null
     ) :void
@@ -466,11 +488,8 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
             foreach ($recipients as $recipient) {
 
                 if (
-                    (
-                        ($recipient instanceof BackendUser)
-                        || ($recipient instanceof EventContact)
-                    )
-                    && ($recipient->getEmail())
+                    $recipient instanceof BackendUser
+                    && $recipient->getEmail()
                 ) {
 
                     $language = $recipient->getLang();
@@ -478,26 +497,19 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
                         $language = $language->getTypo3Code();
                     }
 
-                    $name = '';
-                    if ($recipient instanceof BackendUser) {
-                        $name = $recipient->getRealName();
-                    }
-                    if ($recipient instanceof EventContact) {
-                        $name = $recipient->getFirstName() . ' ' . $recipient->getLastName();
-                    }
-
                     // send new user an email with token
                     $mailService->setTo($recipient, [
                         'marker'  => [
-                            'register'          => $register,
-                            'admin'             => $recipient,
-                            'frontendUser'      => $frontendUser,
-                            'pageUid'           => intval($GLOBALS['TSFE']->id),
-                            'competitionPid'    => intval($settingsDefault['competitionPid']),
-                            'loginPid'          => intval($settingsDefault['loginPid']),
-                            'showPid'           => $showPid,
-                            'fullName'          => $name,
-                            'language'          => $language,
+                            // set variable "register" for Classname "Register; set "competition" for class "Competition"...
+                            strtolower(get_class($entity))  => $entity,
+                            'admin'                         => $recipient,
+                            'frontendUser'                  => $frontendUser,
+                            'pageUid'                       => intval($GLOBALS['TSFE']->id),
+                            'competitionPid'                => intval($settingsDefault['competitionPid']),
+                            'loginPid'                      => intval($settingsDefault['loginPid']),
+                            'showPid'                       => $showPid,
+                            'fullName'                      => $recipient->getRealName(),
+                            'language'                      => $language,
                         ],
                         'subject' => LocalizationUtility::translate(
                             'rkwMailService.backendUser.subject.' . strtolower($action),
@@ -509,11 +521,14 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
                 }
             }
 
-            if (
-                ($register->getFrontendUser())
-                && ($register->getFrontendUser()->getEmail())
-            ) {
-                $mailService->getQueueMail()->setReplyAddress($register->getFrontendUser()->getEmail());
+
+            if ($entity instanceof Register) {
+                if (
+                    ($entity->getFrontendUser())
+                    && ($entity->getFrontendUser()->getEmail())
+                ) {
+                    $mailService->getQueueMail()->setReplyAddress($entity->getFrontendUser()->getEmail());
+                }
             }
 
             $mailService->getQueueMail()->setSubject(

@@ -424,7 +424,7 @@
                             "propertyIsL10nModeExclude": false,
                             "propertyIsNullable": false,
                             "propertyIsRequired": false,
-                            "propertyName": "fileRemovalEnd",
+                            "propertyName": "recordRemovalDate",
                             "propertyType": "String",
                             "uid": "192148093822"
                         },
