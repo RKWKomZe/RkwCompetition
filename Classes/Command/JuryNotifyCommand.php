@@ -14,7 +14,10 @@ namespace RKW\RkwCompetition\Command;
  * The TYPO3 project - inspiring people to share!
  */
 
+use RKW\RkwCompetition\Domain\Model\FrontendUser;
+use RKW\RkwCompetition\Domain\Model\JuryReference;
 use RKW\RkwCompetition\Domain\Repository\CompetitionRepository;
+use RKW\RkwCompetition\Domain\Repository\JuryReferenceRepository;
 use RKW\RkwCompetition\Domain\Repository\RegisterRepository;
 use RKW\RkwCompetition\Service\RkwMailService;
 use Symfony\Component\Console\Command\Command;
@@ -30,20 +33,20 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
- * RemovalDeadlineWarningAdmin
+ * JuryNotifyCommand
  *
  *
- * @todo #4206: Nach Ablauf der Löschfrist wird eine automatische E-Mail an alle Admins versendet, dass die Daten nur noch bis zum Ablauf der Löschfrist-Toleranz (default: 14 Tage, via TS) downgeloadet werden können.
+ * @todo #4203: Informiert jury Mitglieder
  *
  *
- * Execute on CLI with: 'vendor/bin/typo3 rkw_competition:removalDeadline'
+ * Execute on CLI with: 'vendor/bin/typo3 rkw_competition:juryNotify'
  *
  * @author Maximilian Fäßler <maximilian@faesslerweb.de>
  * @copyright RKW Kompetenzzentrum
  * @package RKW_RkwCompetition
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class RemovalDeadlineWarningAdminCommand extends Command
+class JuryNotifyCommand extends Command
 {
 
 
@@ -66,14 +69,17 @@ class RemovalDeadlineWarningAdminCommand extends Command
 
 
     /**
-     * @param CompetitionRepository $competitionRepository,
+     * @param CompetitionRepository $competitionRepository
+     * @param JuryReferenceRepository $juryReferenceRepository
      * @param PersistenceManager $persistenceManager
      */
     public function __construct(
         CompetitionRepository $competitionRepository,
+        JuryReferenceRepository $juryReferenceRepository,
         PersistenceManager $persistenceManager
     ) {
         $this->competitionRepository = $competitionRepository;
+        $this->juryReferenceRepository = $juryReferenceRepository;
         $this->persistenceManager = $persistenceManager;
 
         parent::__construct();
@@ -85,13 +91,13 @@ class RemovalDeadlineWarningAdminCommand extends Command
      */
     protected function configure(): void
     {
-        $this->setDescription('Sends notify email to project admins that the project will erased soon.')
+        $this->setDescription('Sends notify email if competitions register ends. Sends also reminder mails until user has accepted or declined.')
             ->addOption(
-                'daysUntilRemoval',
+                'reminderInterval',
                 't',
                 InputOption::VALUE_REQUIRED,
-                'Set days to sent last reminder to admins before the project will deleted with all files. Triggers only if a removal deadline is set.',
-                14
+                'Set reminder interval in days.',
+                3
             );
     }
 
@@ -108,16 +114,21 @@ class RemovalDeadlineWarningAdminCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
 
+        // @toDos
+        // add to jury group (if not already set)
+        // mail to jury member
+
+
         $io = new SymfonyStyle($input, $output);
         $io->title($this->getDescription());
         $io->newLine();
 
-        $daysUntilRemoval = $input->getOption('daysUntilRemoval');
+        $reminderInterval = $input->getOption('reminderInterval');
 
         $result = 0;
         try {
 
-            $competitionList = $this->competitionRepository->findWithinRemovalRangeIfSetForReminder($daysUntilRemoval);
+            $competitionList = $this->competitionRepository->findBetweenRegisterAndJuryAccessEndForJuryReminder($reminderInterval);
 
             if (count($competitionList)) {
 
@@ -126,31 +137,47 @@ class RemovalDeadlineWarningAdminCommand extends Command
                 /** @var \RKW\RkwCompetition\Domain\Model\Competition $competition */
                 foreach ($competitionList as $competition) {
 
-                    // send mails
-                    /** @var RkwMailService $mailService */
-                    $mailService = GeneralUtility::makeInstance(RkwMailService::class);
-                    $mailService->removalOfCompetitionAdmin(
-                        $competition->getAdminMember(),
-                        $competition
-                    );
+                    if ($juryCandidateList = $competition->getJuryMemberCandidate()) {
 
-                    $io->note("\t" . 'competitionUid: ' . $competition->getUid());
+                        /** @var FrontendUser $juryCandidate */
+                        foreach ($juryCandidateList as $juryCandidate) {
+                            // @toDo: create jury record
+                            /** @var JuryReference $newJuryReference */
+                            $newJuryReference = GeneralUtility::makeInstance(JuryReferenceRepository::class);
+                            $newJuryReference->setFrontendUser($juryCandidate);
+                            $newJuryReference->setCompetition($competition);
+                            $this->juryReferenceRepository->add($newJuryReference);
 
-                    // set timestamp in event, so that mails are not send twice
-                    $competition->setReminderCleanupMailTstamp(time());
-                    $this->competitionRepository->update($competition);
-                    $this->persistenceManager->persistAll();
+                            // @toDo: add to jury group
+                            $juryCandidate->addUsergroup($competition->getGroupForJury());
+                        }
 
-                    $this->getLogger()->log(LogLevel::INFO, sprintf('Successfully sent %s reminder mails for competition within deletion period %s.', count($competition->getAdminMember()), $competition->getUid()));
 
+
+                        // send mails
+                        /** @var RkwMailService $mailService */
+                        $mailService = GeneralUtility::makeInstance(RkwMailService::class);
+                        $mailService->juryNotifyUser($juryCandidateList->toArray(), $competition);
+
+                        $io->note("\t" . 'competitionUid: ' . $competition->getUid());
+
+                        // set timestamp in competition, so that mails are not send twice
+                        $competition->setReminderJuryMailTstamp(time());
+                        $this->competitionRepository->update($competition);
+                        $this->persistenceManager->persistAll();
+
+                        $this->getLogger()->log(LogLevel::INFO, sprintf('Successfully sent %s reminder mails for jury candidates for competition with UID %s.', count($juryCandidateList), $competition->getUid()));
+                    } else {
+                        $this->getLogger()->log(LogLevel::INFO, sprintf('No jury candidates found for competition after register end %s. No reminder mail sent.', $competition->getUid()));
+                    }
                 }
             } else {
-                $this->getLogger()->log(LogLevel::INFO, sprintf('No relevant competitions found for deletion reminder mail.'));
+                $this->getLogger()->log(LogLevel::INFO, sprintf('No relevant competitions found for jury candidate reminder mail.'));
             }
 
         } catch (\Exception $e) {
 
-            $message = sprintf('An error occurred while trying to send an inform mail about an competition within deletion period. Message: %s',
+            $message = sprintf('An error occurred while trying to send an inform mail about an competition within jury period. Message: %s',
                 str_replace(["\n", "\r"], '', $e->getMessage())
             );
 

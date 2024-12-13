@@ -8,7 +8,6 @@
 
 <postmaster:email.translate key="templates_email_frontendUser_delete.text1" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
 <postmaster:email.translate key="templates_email_frontendUser_delete.text2" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
-<f:if condition="{register.event.costsReg}"><postmaster:email.translate key="templates_email_frontendUser_delete.billing" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" /></f:if>
 
 <f:render partial="Email/Details" section="Plaintext" arguments="{register: register, frontendUser: frontendUser, language:frontendUser.txFeregisterLanguageKey, showPid: showPid}"/>
 </f:section>
@@ -20,11 +19,6 @@
 		<postmaster:email.translate key="templates_email_frontendUser_delete.text1" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" /><br>
 		<postmaster:email.translate key="templates_email_frontendUser_delete.text2" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
 	</p>
-	<f:if condition="{register.event.costsReg}">
-		<p>
-			<f:format.raw><postmaster:email.translate key="templates_email_frontendUser_delete.billing" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" /></f:format.raw>
-		</p>
-	</f:if>
 
 	<f:render partial="Email/Details" section="Html" arguments="{register:register, frontendUser: frontendUser, language:frontendUser.txFeregisterLanguageKey, showPid: showPid}"/>
 

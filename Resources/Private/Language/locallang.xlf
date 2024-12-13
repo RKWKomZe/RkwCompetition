@@ -120,18 +120,36 @@
             <trans-unit id="tx_rkwcompetition_domain_model_register.admin_refused_text">
                 <source>Admin refused text</source>
             </trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_upload" resname="tx_rkwcompetition_domain_model_upload">
+			<trans-unit id="tx_rkwcompetition_domain_model_upload">
 				<source>Upload</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_upload.abstract" resname="tx_rkwcompetition_domain_model_upload.abstract">
+			<trans-unit id="tx_rkwcompetition_domain_model_upload.abstract">
 				<source>Abstract</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_upload.full" resname="tx_rkwcompetition_domain_model_upload.full">
+			<trans-unit id="tx_rkwcompetition_domain_model_upload.full">
 				<source>Full</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_upload.remark" resname="tx_rkwcompetition_domain_model_upload.remark">
+			<trans-unit id="tx_rkwcompetition_domain_model_upload.remark">
 				<source>Remark</source>
 			</trans-unit>
+
+			<trans-unit id="tx_rkwcompetition_domain_model_juryreference">
+                <source>Jury Reference</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_juryreference.invitation_mail_tstamp">
+                <source>Invitation Mail Tstamp</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_juryreference.consented_at">
+                <source>Constented at</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_juryreference.competition">
+                <source>Competition</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_juryreference.frontend_user">
+                <source>FrontendUser</source>
+            </trans-unit>
+
+
 			<trans-unit id="tx_rkwcompetition_domain_model_competition" resname="tx_rkwcompetition_domain_model_competition">
 				<source>Competition</source>
 			</trans-unit>
@@ -159,14 +177,17 @@
 			<trans-unit id="tx_rkwcompetition_domain_model_competition.allow_team_participation" resname="tx_rkwcompetition_domain_model_competition.allow_team_participation">
 				<source>Allow Team Participation</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_competition.reminder_interval" resname="tx_rkwcompetition_domain_model_competition.reminder_interval">
-				<source>Reminder Interval</source>
-			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_competition.reminder_mail_tstamp" resname="tx_rkwcompetition_domain_model_competition.reminder_mail_tstamp">
-                <source>Reminder Interval</source>
+			<trans-unit id="tx_rkwcompetition_domain_model_competition.reminder_incomplete_mail_tstamp" resname="tx_rkwcompetition_domain_model_competition.reminder_incomplete_mail_tstamp">
+                <source>Reminder Incomplete Tstamp</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_competition.reminder_cleanup_mail_tstamp" resname="tx_rkwcompetition_domain_model_competition.reminder_cleanup_mail_tstamp">
                 <source>Reminder Cleanup Interval</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_competition.reminder_jury_mail_tstamp" resname="tx_rkwcompetition_domain_model_competition.reminder_jury_mail_tstamp">
+                <source>Reminder Jury Tstamp</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_competition.closing_day_mail_tstamp" resname="tx_rkwcompetition_domain_model_competition.closing_day_mail_tstamp">
+                <source>Closing Day Tstamp</source>
             </trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_competition.link_cond_participation" resname="tx_rkwcompetition_domain_model_competition.link_cond_participation">
 				<source>Link Cond Participation</source>
@@ -177,9 +198,12 @@
 			<trans-unit id="tx_rkwcompetition_domain_model_competition.admin_member" resname="tx_rkwcompetition_domain_model_competition.admin_member">
 				<source>Admin Member</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_competition.jury_member" resname="tx_rkwcompetition_domain_model_competition.jury_member">
-				<source>Jury Member</source>
+			<trans-unit id="tx_rkwcompetition_domain_model_competition.jury_member_candidate" resname="tx_rkwcompetition_domain_model_competition.jury_member_candidate">
+				<source>Jury Member Candidates</source>
 			</trans-unit>
+			<trans-unit id="tx_rkwcompetition_domain_model_competition.jury_member_confirmed" resname="tx_rkwcompetition_domain_model_competition.jury_member_confirmed">
+                <source>Jury Member Confirmed</source>
+            </trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_competition.group_for_jury" resname="tx_rkwcompetition_domain_model_competition.group_for_jury">
 				<source>Group For Jury</source>
 			</trans-unit>
@@ -449,6 +473,19 @@
                 <source>Your registration is still incomplete</source>
                 <target>Bitte vervollständigen Sie Ihre Bewerbung</target>
             </trans-unit>
+            <trans-unit id="rkwMailService.frontendUser.subject.juryNotify" approved="yes">
+                <source>Confirm your role as a jury member</source>
+                <target>Bestätigen sie ihre Rolle in der Jury</target>
+            </trans-unit>
+            <trans-unit id="rkwMailService.frontendUser.subject.closingDayIncomplete" approved="yes">
+                <source>Closing day imcomplete</source>
+                <target>Leider konnten wir Sie aus formalen Gründen nicht berücksichtigen</target>
+            </trans-unit>
+            <trans-unit id="rkwMailService.frontendUser.subject.closingDayApproved" approved="yes">
+                <source>Closing day approved</source>
+                <target>Jury-Sitzung demnächst. Spannung steigt!</target>
+            </trans-unit>
+
 
             <!-- ADMIN -->
             <trans-unit id="rkwMailService.backendUser.subject.confirmation" approved="yes">
@@ -462,6 +499,14 @@
             <trans-unit id="rkwMailService.backendUser.subject.submit" approved="yes">
                 <source>Registration has been submitted</source>
                 <target>Eine Wettbewerbsanmeldung wurde eingereicht</target>
+            </trans-unit>
+            <trans-unit id="rkwMailService.backendUser.subject.removalReminder" approved="yes">
+                <source>A competition will removed soon</source>
+                <target>Ein abgelaufener Wettbewerb wird demnächst gelöscht</target>
+            </trans-unit>
+            <trans-unit id="rkwMailService.backendUser.subject.closingDay" approved="yes">
+                <source>Competition closing day</source>
+                <target>Wettbewerb: Registrierungsphase beendet</target>
             </trans-unit>
 
             
@@ -572,7 +617,7 @@
                 <target>Bitte bestätigen Sie Ihre Anmeldung</target>
             </trans-unit>
 
-            <!-- Templates/Email/FrontendUser/Confirmationr.html -->
+            <!-- Templates/Email/FrontendUser/Confirmation.html -->
             <trans-unit id="templates_email_frontendUser_confirmation.headline">
                 <source>Hello %s %s,</source>
                 <target>Hallo %s %s,</target>
@@ -714,6 +759,28 @@
                 <target>Wettbewerbsregistrierung ansehen</target>
             </trans-unit>
 
+            <!-- Templates/Email/FrontendUser/JuryNotify.html -->
+            <trans-unit id="templates_email_frontendUser_juryNotify.headline">
+                <source>Hello %s %s,</source>
+                <target>Hallo %s %s,</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_juryNotify.text1">
+                <source>you have been selected.</source>
+                <target>Sie wurden ausgewählt als Jury-Mitglied an einem Wettbewerb des RKWs teilzunehmen.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_juryNotify.text2">
+                <source>Please agree to our terms to participate.</source>
+                <target>Dafür benötigen wir jedoch noch Ihre Einverständnis- und Verschwiegendheitserklärung.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_juryNotify.text3">
+                <source>Login here to take a look to the competitions.</source>
+                <target>Loggen Sie sich hier ein, um Ihre Nominierung zu bestätigen.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_juryNotify.showHeadline">
+                <source>Show registration</source>
+                <target>Nominierung ansehen</target>
+            </trans-unit>
+
 
             <!-- Templates/Email/FrontendUser/Delete.html -->
             <trans-unit id="templates_email_frontendUser_delete.headline">
@@ -730,8 +797,46 @@
             </trans-unit>
 
 
+            <!-- Templates/Email/FrontendUser/ClosingDayApproved.html -->
+            <trans-unit id="templates_email_frontendUser_closingDayApproved.headline">
+                <source>Hello %s %s,</source>
+                <target>Hallo %s %s,</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_closingDayApproved.text1">
+                <source>great news!</source>
+                <target>Tolle Neuigkeiten! Die Bewerbungsphase ist beendet und der Ball liegt nun bei der Jury.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_closingDayApproved.text2">
+                <source>Please find below the details of your reservation.</source>
+                <target>Untenstehend finden Sie die Details Ihrer Bewerbung. Bei Rückfragen können Sie einfach direkt auf diese E-Mail antworten.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_incomplete.showHeadline">
+                <source>Show registration</source>
+                <target>Bewerbung ansehen</target>
+            </trans-unit>
 
 
+            <!-- Templates/Email/FrontendUser/ClosingDayIncomplete.html -->
+            <trans-unit id="templates_email_frontendUser_closingDayIncomplete.headline">
+                <source>Hello %s %s,</source>
+                <target>Hallo %s %s,</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_closingDayIncomplete.text1">
+                <source>bad news!</source>
+                <target>Schade! Die Bewerbungsphase ist beendet und wir konnten Ihren Beitrag leider nicht berücksichtigen.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_closingDayIncomplete.text2">
+                <source>Please find below the details of your reservation.</source>
+                <target>Untenstehend finden Sie die Details Ihrer Bewerbung. Bei Rückfragen können Sie einfach direkt auf diese E-Mail antworten.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_closingDayIncomplete.showHeadline">
+                <source>Show registration</source>
+                <target>Bewerbung ansehen</target>
+            </trans-unit>
+
+
+
+            <!-- ############################################# -->
             <!-- Templates/Email/BackendUser/Confirmation.html -->
             <trans-unit id="templates_email_backendUser_confirmation.headline">
                 <source>Hello %s,</source>
@@ -758,6 +863,20 @@
             </trans-unit>
 
 
+            <!-- Templates/Email/BackendUser/RemovalReminder.html -->
+            <trans-unit id="templates_email_backendUser_removalReminder.headline">
+                <source>Hello %s,</source>
+                <target>Hallo %s,</target>
+            </trans-unit>
+            <trans-unit id="templates_email_backendUser_removalReminder.text1" approved="no">
+                <source>a competition will be removed soon.</source>
+                <target>ein abgelaufener Wettbewerb wird demnächst gelöscht werden.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_backendUser_removalReminder.text2" approved="no">
+                <source>Secure the data and information you want to receive now.</source>
+                <target>Sichern sie sich jetzt noch Daten und Informationen, die sie erhalten wollen.</target>
+            </trans-unit>
+
             <!-- Templates/Email/BackendUser/Submit.html -->
             <trans-unit id="templates_email_backendUser_submit.headline">
                 <source>Hello %s,</source>
@@ -773,8 +892,20 @@
             </trans-unit>
 
 
+            <!-- Templates/Email/BackendUser/ClosingDay.html -->
+            <trans-unit id="templates_email_backendUser_closingDay.headline">
+                <source>Hello %s,</source>
+                <target>Hallo %s,</target>
+            </trans-unit>
+            <trans-unit id="templates_email_backendUser_closingDay.text1" approved="no">
+                <source>a competition register period comes to it's end.</source>
+                <target>Die Bewerbungsphase eines Wettbewerbs ist beendet.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_backendUser_closingDay.text2" approved="no">
+                <source>IMPORTANT: You found downloadable content inside the TYPO3 backend module.</source>
+                <target>WICHTIG: Im zugehörigen Backend Module finden Sie nun herunterladbare Informationen zu den jeweiligen Bewerbungen.</target>
+            </trans-unit>
 
-           
 
             <!--
             =========================== Backend Module ============================================

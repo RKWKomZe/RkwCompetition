@@ -15,6 +15,7 @@ use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
@@ -281,10 +282,81 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
 
 
     /**
+     * Handles jury notify mails
+     *
+     * @param array $frontendUserList FrontendUser inside an array
+     * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
+     * @return void
+     * @throws \Madj2k\Postmaster\Exception
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
+     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     */
+    public function juryNotifyUser(
+        array $frontendUserList,
+        \RKW\RkwCompetition\Domain\Model\Competition $competition
+    ) :void
+    {
+        foreach ($frontendUserList as $frontendUser) {
+            $this->frontendUserMail($frontendUser, $competition, 'juryNotify');
+        }
+    }
+
+
+    /**
+     * Handles closing day mails for user without approved registrations (rejections)
+     *
+     * @param array $registerList Register records inside an array
+     * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
+     * @return void
+     * @throws \Madj2k\Postmaster\Exception
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
+     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     */
+    public function closingDayIncompleteUser(
+        array $registerList,
+        \RKW\RkwCompetition\Domain\Model\Competition $competition
+    ) :void
+    {
+        /** @var Register $register */
+        foreach ($registerList as $register) {
+            $this->frontendUserMail($register->getFrontendUser(), $competition, 'closingDayIncomplete');
+        }
+    }
+
+
+    /**
+     * Handles closing day mails for user with approved registrations (accepted)
+     *
+     * @param array $registerList Register records inside an array
+     * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
+     * @return void
+     * @throws \Madj2k\Postmaster\Exception
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
+     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     */
+    public function closingDayApprovedUser(
+        array $registerList,
+        \RKW\RkwCompetition\Domain\Model\Competition $competition
+    ) :void
+    {
+        /** @var Register $register */
+        foreach ($registerList as $register) {
+            $this->frontendUserMail($register->getFrontendUser(), $competition, 'closingDayApproved');
+        }
+    }
+
+
+    /**
      * Sends an E-Mail to a Frontend-User
      *
      * @param FrontendUser $frontendUser
-     * @param Register $register
+     * @param AbstractEntity $entity
      * @param string $action
      * @return void
      * @throws Exception
@@ -294,7 +366,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      */
     protected function frontendUserMail(
         \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser,
-        \RKW\RkwCompetition\Domain\Model\Register    $register,
+        \TYPO3\CMS\Extbase\DomainObject\AbstractEntity $entity,
         string $action = ''
     ) :void
     {
@@ -308,17 +380,21 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
             /** @var \Madj2k\Postmaster\Mail\MailMessage $mailService */
             $mailService = GeneralUtility::makeInstance(MailMessage::class);
 
+            // get class name to set a comfortable marker variable for the email templates
+            $classNameParts = GeneralUtility::trimExplode('\\', strtolower(get_class($entity)));
+            $classNameUnqualified = end($classNameParts);
+
             // send new user an email with token
             $mailService->setTo($frontendUser, [
                 'marker' => [
-                    'register'          => $register,
-                    'frontendUser'      => $frontendUser,
-                    'pageUid'           => intval($GLOBALS['TSFE']->id),
-                    'competitionPid'    => intval($settingsDefault['competitionPid']),
-                    'loginPid'          => intval($settingsDefault['loginPid']),
-                    'showPid'           => $showPid,
-                    'uniqueKey'         => uniqid(),
-                    'currentTime'       => time(),
+                    $classNameUnqualified   => $entity,
+                    'frontendUser'          => $frontendUser,
+                    'pageUid'               => intval($GLOBALS['TSFE']->id),
+                    'competitionPid'        => intval($settingsDefault['competitionPid']),
+                    'loginPid'              => intval($settingsDefault['loginPid']),
+                    'showPid'               => $showPid,
+                    'uniqueKey'             => uniqid(),
+                    'currentTime'           => time(),
                 ],
             ]);
 
@@ -342,7 +418,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
 
             $mailService->getQueueMail()->setSubject(
                 LocalizationUtility::translate(
-                    'rkwMailService.frontendUser.subject.' . strtolower($action),
+                    'rkwMailService.frontendUser.subject.' . $action,
                     'rkw_competition',
                     null,
                     $frontendUser->getTxFeregisterLanguageKey()
@@ -352,8 +428,8 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
             $mailService->getQueueMail()->addTemplatePaths($settings['view']['templateRootPaths']);
             $mailService->getQueueMail()->addPartialPaths($settings['view']['partialRootPaths']);
 
-            $mailService->getQueueMail()->setPlaintextTemplate('Email/FrontendUser/' . ucfirst(strtolower($action)));
-            $mailService->getQueueMail()->setHtmlTemplate('Email/FrontendUser/' . ucfirst(strtolower($action)));
+            $mailService->getQueueMail()->setPlaintextTemplate('Email/FrontendUser/' . ucfirst($action));
+            $mailService->getQueueMail()->setHtmlTemplate('Email/FrontendUser/' . ucfirst($action));
 
             $mailService->send();
         }
@@ -430,8 +506,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      * Handles delete mail for admin
      *
      * @param BackendUser|array $backendUser
-     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
-     * @param \RKW\RkwCompetition\Domain\Model\Register $register
+     * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
      * @return void
      * @throws \Madj2k\Postmaster\Exception
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
@@ -441,10 +516,31 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      */
     public function removalOfCompetitionAdmin(
         $backendUser,
-        \RKW\RkwCompetition\Domain\Model\Register $register
+        \RKW\RkwCompetition\Domain\Model\Competition $competition
     ) :void
     {
-        $this->backendUserMail($backendUser, $register, 'removalReminder', $register->getFrontendUser());
+        $this->backendUserMail($backendUser, $competition, 'removalReminder');
+    }
+
+
+    /**
+     * Handles notify mails to admins on competitions closing day
+     *
+     * @param BackendUser|array $backendUser
+     * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
+     * @return void
+     * @throws \Madj2k\Postmaster\Exception
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
+     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     */
+    public function closingDayAdmin(
+        $backendUser,
+        \RKW\RkwCompetition\Domain\Model\Competition $competition
+    ) :void
+    {
+        $this->backendUserMail($backendUser, $competition, 'closingDay');
     }
 
 
@@ -476,6 +572,8 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
         $recipients = [];
         if (is_array($backendUser)) {
             $recipients = $backendUser;
+        } else if ($backendUser instanceof ObjectStorage) {
+            $recipients = $backendUser->toArray();
         } else {
             $recipients[] = $backendUser;
         }
@@ -484,9 +582,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
 
             /** @var \Madj2k\Postmaster\Mail\MailMessage $mailService */
             $mailService = GeneralUtility::makeInstance(MailMessage::class);
-
             foreach ($recipients as $recipient) {
-
                 if (
                     $recipient instanceof BackendUser
                     && $recipient->getEmail()
@@ -497,11 +593,15 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
                         $language = $language->getTypo3Code();
                     }
 
+                    // get class name to set a comfortable marker variable for the email templates
+                    $classNameParts = GeneralUtility::trimExplode('\\', strtolower(get_class($entity)));
+                    $classNameUnqualified = end($classNameParts);
+
                     // send new user an email with token
                     $mailService->setTo($recipient, [
                         'marker'  => [
                             // set variable "register" for Classname "Register; set "competition" for class "Competition"...
-                            strtolower(get_class($entity))  => $entity,
+                            $classNameUnqualified           => $entity,
                             'admin'                         => $recipient,
                             'frontendUser'                  => $frontendUser,
                             'pageUid'                       => intval($GLOBALS['TSFE']->id),
@@ -533,7 +633,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
 
             $mailService->getQueueMail()->setSubject(
                 LocalizationUtility::translate(
-                    'rkwMailService.backendUser.subject.' . strtolower($action),
+                    'rkwMailService.backendUser.subject.' . $action,
                     'rkw_competition',
                     null,
                     'de'
@@ -543,8 +643,8 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
             $mailService->getQueueMail()->addTemplatePaths($settings['view']['templateRootPaths']);
             $mailService->getQueueMail()->addPartialPaths($settings['view']['partialRootPaths']);
 
-            $mailService->getQueueMail()->setPlaintextTemplate('Email/BackendUser/' . ucfirst(strtolower($action)));
-            $mailService->getQueueMail()->setHtmlTemplate('Email/BackendUser/' . ucfirst(strtolower($action)));
+            $mailService->getQueueMail()->setPlaintextTemplate('Email/BackendUser/' . $action);
+            $mailService->getQueueMail()->setHtmlTemplate('Email/BackendUser/' . $action);
 
             if (count($mailService->getTo())) {
                 $mailService->send();

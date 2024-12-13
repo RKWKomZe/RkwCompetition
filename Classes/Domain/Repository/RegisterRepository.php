@@ -21,7 +21,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 /**
  * The repository for Registers
  */
-class RegisterRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class RegisterRepository extends AbstractRepository
 {
 
     /**
@@ -31,7 +31,6 @@ class RegisterRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
      * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-
     public function findByCompetitionAndFrontendUser(Competition $competition, FrontendUser $frontendUser): QueryResultInterface
     {
         $query = $this->createQuery();
@@ -48,21 +47,43 @@ class RegisterRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
 
     /**
-     * function findUnsubmittedByCompetition
+     * function findNotApprovedByCompetition
      *
      * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
      * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-
-    public function findUnsubmittedByCompetition(Competition $competition): QueryResultInterface
+    public function findNotApprovedByCompetition(Competition $competition): QueryResultInterface
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
 
         return $query->matching(
             $query->logicalAnd(
-                $query->equals('userSubmittedAt', 0),
-                $query->equals('competition', $competition)
+                $query->equals('competition', $competition),
+                $query->equals('adminApprovedAt', 0)
+            )
+        )->execute();
+    }
+
+
+
+    /**
+     * function findAdminApprovedByCompetition
+     *
+     * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findAdminApprovedByCompetition(Competition $competition): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+
+        return $query->matching(
+            $query->logicalAnd(
+                $query->equals('competition', $competition),
+                $query->logicalNot(
+                    $query->equals('adminApprovedAt', 0)
+                )
             )
         )->execute();
     }

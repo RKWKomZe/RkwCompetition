@@ -542,9 +542,14 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
         \Madj2k\FeRegister\Domain\Model\OptIn $optIn = null
     ): void
     {
+        // persist new registration
         $newRegister->setFrontendUser($frontendUser);
-
         $this->registerRepository->add($newRegister);
+
+        // add userGroup
+        $frontendUser->addUsergroup($newRegister->getCompetition()->getGroupForUser());
+        $this->frontendUserRepository->update($frontendUser);
+
         $this->persistenceManager->persistAll();
 
         // 4. send final confirmation mail to user

@@ -15,20 +15,47 @@ namespace RKW\RkwCompetition\Controller;
  */
 
 /**
+ *
+ * @toDo: Gedanken:
+ * Extra tabelle jury im nm-style wie sys_file_reference?
+ * Hier Verbindung zwischen competition - frontendUser
+ * Das sollte sich auch gut mit dem DoubleOptIn-Verfahren ergänzen
+ * -> dazu Felder "reminder_mail" für besseres management
+ * -> timestamp einverständniserklärung je wettbewerb
+ *
+ *
+ *
  * JuryController
  */
 class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
 {
 
     /**
+     * juryReferenceRepository
+     *
+     * @var \RKW\RkwCompetition\Domain\Repository\JuryReferenceRepository
+     */
+    protected $juryReferenceRepository = null;
+
+    /**
+     * @param \RKW\RkwCompetition\Domain\Repository\JuryReferenceRepository $juryReferenceRepository
+     */
+    public function injectJuryReferenceRepository(\RKW\RkwCompetition\Domain\Repository\JuryReferenceRepository $juryReferenceRepository)
+    {
+        $this->juryReferenceRepository = $juryReferenceRepository;
+    }
+
+
+
+    /**
      * action list
      *
-     * @return string|object|null|void
+     * @return void
      */
     public function listAction()
     {
-        $uploads = $this->uploadRepository->findAll();
-        $this->view->assign('uploads', $uploads);
+        $juryReferenceList = $this->juryReferenceRepository->findAll();
+        $this->view->assign('juryReferenceList', $juryReferenceList);
     }
 
 
@@ -36,18 +63,22 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
     /**
      * action show
      *
-     * @param \RKW\RkwCompetition\Domain\Model\Upload $upload
+     * @deprecated Should not be used
+     *
+     * @param \RKW\RkwCompetition\Domain\Model\JuryReference $juryReference
      * @return string|object|null|void
      */
-    public function showAction(\RKW\RkwCompetition\Domain\Model\Upload $upload)
+    public function showAction(\RKW\RkwCompetition\Domain\Model\JuryReference $juryReference)
     {
-        $this->view->assign('upload', $upload);
+        $this->view->assign('juryReference', $juryReference);
     }
 
 
 
     /**
      * action new
+     *
+     * @deprecated Should not be used
      *
      * @return string|object|null|void
      */
@@ -60,13 +91,15 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
     /**
      * action create
      *
-     * @param \RKW\RkwCompetition\Domain\Model\Upload $newUpload
+     * @deprecated Should not be used
+     *
+     * @param \RKW\RkwCompetition\Domain\Model\juryReference $newjuryReference
      * @return string|object|null|void
      */
-    public function createAction(\RKW\RkwCompetition\Domain\Model\Upload $newUpload)
+    public function createAction(\RKW\RkwCompetition\Domain\Model\juryReference $newjuryReference)
     {
         $this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/p/friendsoftypo3/extension-builder/master/en-us/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        $this->uploadRepository->add($newUpload);
+        $this->juryReferenceRepository->add($newjuryReference);
         $this->redirect('list');
     }
 
@@ -75,13 +108,15 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
     /**
      * action edit
      *
-     * @param \RKW\RkwCompetition\Domain\Model\Upload $upload
-     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("upload")
+     * Hint: The juryReference record is created via cronjob (juryNotify)
+     *
+     * @param \RKW\RkwCompetition\Domain\Model\JuryReference $juryReference
+     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("juryReference")
      * @return string|object|null|void
      */
-    public function editAction(\RKW\RkwCompetition\Domain\Model\Upload $upload)
+    public function editAction(\RKW\RkwCompetition\Domain\Model\JuryReference $juryReference)
     {
-        $this->view->assign('upload', $upload);
+        $this->view->assign('juryReference', $juryReference);
     }
 
 
@@ -89,13 +124,15 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
     /**
      * action update
      *
-     * @param \RKW\RkwCompetition\Domain\Model\Upload $upload
+     *
+     *
+     * @param \RKW\RkwCompetition\Domain\Model\JuryReference $juryReference
      * @return string|object|null|void
      */
-    public function updateAction(\RKW\RkwCompetition\Domain\Model\Upload $upload)
+    public function updateAction(\RKW\RkwCompetition\Domain\Model\JuryReference $juryReference)
     {
         $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/p/friendsoftypo3/extension-builder/master/en-us/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        $this->uploadRepository->update($upload);
+        $this->juryReferenceRepository->update($juryReference);
         $this->redirect('list');
     }
 
@@ -104,13 +141,15 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
     /**
      * action delete
      *
-     * @param \RKW\RkwCompetition\Domain\Model\Upload $upload
+     * @todo Bisher keine Vorgabe, dass Jurymitglieder sich selbst rauslöschen können. Könnte chaotisch werden!
+     *
+     * @param \RKW\RkwCompetition\Domain\Model\JuryReference $juryReference
      * @return string|object|null|void
      */
-    public function deleteAction(\RKW\RkwCompetition\Domain\Model\Upload $upload)
+    public function deleteAction(\RKW\RkwCompetition\Domain\Model\JuryReference $juryReference)
     {
         $this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/p/friendsoftypo3/extension-builder/master/en-us/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        $this->uploadRepository->remove($upload);
+        $this->juryReferenceRepository->remove($juryReference);
         $this->redirect('list');
     }
 }

@@ -46,11 +46,11 @@ defined('TYPO3_MODE') || die();
         'RKW.RkwCompetition',
         'Jury',
         [
-            Jury::class => 'list, show'
+            Jury::class => 'list, edit, update, delete',
         ],
         // non-cacheable actions
         [
-            Jury::class => 'list, show'
+            Jury::class => 'list, edit, update, delete'
         ]
     );
 

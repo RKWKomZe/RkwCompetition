@@ -174,7 +174,6 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
         // remove fileReference from repo (with "cascadeRemove")
         $this->fileReferenceRepository->remove($fileReference);
 
-
         $this->addFlashMessage('The file was deleted.');
         $this->redirect('edit', 'Upload', null, ['register' => $register]);
     }

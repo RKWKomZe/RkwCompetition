@@ -21,10 +21,10 @@ return [
     ],
     'types' => [
         '1' => ['showitem' =>
-            'title, --palette--;;startEnd, --palette--;;userInfo, sectors, link_cond_participation, link_privacy, reminder_interval, 
+            'title, --palette--;;startEnd, --palette--;;userInfo, sectors, link_cond_participation, link_privacy, 
             
             --div--;LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.tab_jury,
-            jury_access_end, link_jury_declaration_confident, group_for_jury, jury_member, jury_add_data, 
+            jury_access_end, link_jury_declaration_confident, group_for_jury, jury_member_candidate, jury_member_confirmed, jury_add_data, 
             
              --div--;LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.tab_admin,
             admin_member, 
@@ -227,19 +227,9 @@ return [
                 'default' => 0,
             ]
         ],
-        'reminder_interval' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.reminder_interval',
-            'config' => [
-                'type' => 'input',
-                'size' => 4,
-                'eval' => 'int, required',
-                'default' => 0,
-            ]
-        ],
-        'reminder_mail_tstamp' => [
+        'reminder_incomplete_mail_tstamp' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.reminder_mail_tstamp',
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.reminder_incomplete_mail_tstamp',
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
@@ -259,6 +249,44 @@ return [
         'reminder_cleanup_mail_tstamp' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.reminder_cleanup_mail_tstamp',
+            'config' => [
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'size' => 13,
+                'eval' => 'datetime',
+                'checkbox' => 0,
+                'default' => 0,
+                'readOnly' => 1,
+                'range' => [
+                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y')),
+                ],
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true
+                ]
+            ],
+        ],
+        'reminder_jury_mail_tstamp' => [
+            'exclude' => 1,
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.reminder_jury_mail_tstamp',
+            'config' => [
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'size' => 13,
+                'eval' => 'datetime',
+                'checkbox' => 0,
+                'default' => 0,
+                'readOnly' => 1,
+                'range' => [
+                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y')),
+                ],
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true
+                ]
+            ],
+        ],
+        'closing_day_mail_tstamp' => [
+            'exclude' => 1,
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.closing_day_mail_tstamp',
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
@@ -320,9 +348,9 @@ return [
             ],
 
         ],
-        'jury_member' => [
+        'jury_member_candidate' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.jury_member',
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.jury_member_candidate',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
@@ -345,7 +373,32 @@ return [
                     ],
                 ],
             ],
-
+        ],
+        'jury_member_confirmed' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.jury_member_confirmed',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
+                'foreign_table' => 'fe_users',
+                'default' => 0,
+                'size' => 10,
+                'autoSizeMax' => 30,
+                'minitems' => 0,
+                'maxitems' => 9999,
+                'multiple' => 0,
+                'fieldControl' => [
+                    'editPopup' => [
+                        'disabled' => false,
+                    ],
+                    'addRecord' => [
+                        'disabled' => false,
+                    ],
+                    'listModule' => [
+                        'disabled' => true,
+                    ],
+                ],
+            ],
         ],
         'group_for_jury' => [
             'exclude' => true,

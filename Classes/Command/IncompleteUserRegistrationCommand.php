@@ -138,7 +138,7 @@ class IncompleteUserRegistrationCommand extends Command
                         $io->note("\t" . 'competitionUid: ' . $competition->getUid());
 
                         // set timestamp in event, so that mails are not send twice
-                        $competition->setReminderMailTstamp(time());
+                        $competition->setReminderIncompleteMailTstamp(time());
                         $this->competitionRepository->update($competition);
                         $this->persistenceManager->persistAll();
 

@@ -27,6 +27,7 @@ use TYPO3\CMS\Core\Log\LogLevel;
 use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * ClosingDayCommand
@@ -90,14 +91,7 @@ class ClosingDayCommand extends Command
      */
     protected function configure(): void
     {
-        $this->setDescription('Sends notify email to project admins that the project will erased soon.')
-            ->addOption(
-                'daysTillDeath',
-                't',
-                InputOption::VALUE_REQUIRED,
-                'Set days to sent last reminder to admins before the project will deleted with all files. Triggers only if a removal deadline is set.',
-                14
-            );
+        $this->setDescription('Send several mails to user and admins after register period is over.');
     }
 
 
@@ -117,12 +111,11 @@ class ClosingDayCommand extends Command
         $io->title($this->getDescription());
         $io->newLine();
 
-        $daysTillDeath = $input->getOption('daysTillDeath');
 
         $result = 0;
         try {
 
-            $competitionList = $this->competitionRepository->findInDeletionRangeForReminder($daysTillDeath);
+            $competitionList = $this->competitionRepository->findAfterRegisterPeriodForReminder();
 
             if (count($competitionList)) {
 
@@ -131,24 +124,61 @@ class ClosingDayCommand extends Command
                 /** @var \RKW\RkwCompetition\Domain\Model\Competition $competition */
                 foreach ($competitionList as $competition) {
 
-                    if ($registerList = $this->registerRepository->findUnsubmittedByCompetition($competition)) {
+                    // 1. ADMIN MAILS (competition over; downloadable stuff)
+                    if ($adminMember = $competition->getAdminMember()) {
+                        // send mails
+                        /** @var RkwMailService $mailService */
+                        $mailService = GeneralUtility::makeInstance(RkwMailService::class);
+                        $mailService->closingDayAdmin(
+                            $adminMember,
+                            $competition
+                        );
+
+                        $io->note("\t" . 'competitionUid: ' . $competition->getUid());
+
+                        $this->getLogger()->log(LogLevel::INFO, sprintf('Successfully sent %s closing day mails to admins %s.', count($competition->getAdminMember()), $competition->getUid()));
+                    } else {
+                        $this->getLogger()->log(LogLevel::ERROR, sprintf('No admins found for competition to send mails on closing day %s. No notify mail sent.', $competition->getUid()));
+                    }
+
+
+                    // 2. USER MAILS
+                    // 2.1 rejected
+                    if ($registerListRejected = $this->registerRepository->findNotApprovedByCompetition($competition)) {
 
                         // send mails
                         /** @var RkwMailService $mailService */
                         $mailService = GeneralUtility::makeInstance(RkwMailService::class);
-                        $mailService->removalOfCompetitionAdmin($registerList);
+                        $mailService->closingDayIncompleteUser($registerListRejected->toArray(), $competition);
 
                         $io->note("\t" . 'competitionUid: ' . $competition->getUid());
 
-                        // set timestamp in event, so that mails are not send twice
-                        $competition->setReminderMailTstamp(time());
-                        $this->competitionRepository->update($competition);
-                        $this->persistenceManager->persistAll();
-
-                        $this->getLogger()->log(LogLevel::INFO, sprintf('Successfully sent %s reminder mails for competition within register period %s.', count($registerList), $competition->getUid()));
+                        $this->getLogger()->log(LogLevel::INFO, sprintf('Successfully sent %s reminder mails for competition within register period %s.', count($registerListRejected), $competition->getUid()));
                     } else {
-                        $this->getLogger()->log(LogLevel::INFO, sprintf('No reservations found for competition in register period %s. No reminder mail sent.', $competition->getUid()));
+                        $this->getLogger()->log(LogLevel::INFO, sprintf('No registrations found for competition to reject on closing day %s. No notify mail sent.', $competition->getUid()));
                     }
+
+                    // 2.2 approved
+                    if ($registerListApproved = $this->registerRepository->findAdminApprovedByCompetition($competition)) {
+
+                        // send mails
+                        /** @var RkwMailService $mailService */
+                        $mailService = GeneralUtility::makeInstance(RkwMailService::class);
+                        $mailService->closingDayApprovedUser($registerListApproved->toArray(), $competition);
+
+                        $io->note("\t" . 'competitionUid: ' . $competition->getUid());
+
+                        $this->getLogger()->log(LogLevel::INFO, sprintf('Successfully sent %s reminder mails for competition within register period %s.', count($registerListApproved), $competition->getUid()));
+                    } else {
+                        $this->getLogger()->log(LogLevel::INFO, sprintf('No registrations found for competition which are approved on closing day %s. No notify mail sent.', $competition->getUid()));
+                    }
+
+
+                    // set timestamp in competition, so that mails are not send twice
+                    $competition->setClosingDayMailTstamp(time());
+                    $this->competitionRepository->update($competition);
+                    $this->persistenceManager->persistAll();
+
                 }
             } else {
                 $this->getLogger()->log(LogLevel::INFO, sprintf('No relevant competitions found for reminder mail.'));

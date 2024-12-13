@@ -6,6 +6,7 @@ namespace RKW\RkwCompetition\Domain\Repository;
 
 
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * This file is part of the "RKW Competition" Extension for TYPO3 CMS.
@@ -19,7 +20,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 /**
  * The repository for Competitions
  */
-class CompetitionRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class CompetitionRepository extends AbstractRepository
 {
 
     /**
@@ -44,7 +45,7 @@ class CompetitionRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                     $query->lessThanOrEqual('registerStart', time()),
                     $query->greaterThan('registerEnd', time())
                 ),
-                $query->lessThanOrEqual('reminderMailTstamp', time() - $timeInterval)
+                $query->lessThanOrEqual('reminderIncompleteMailTstamp', time() - $timeInterval)
             )
 
         )->execute();
@@ -67,8 +68,88 @@ class CompetitionRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
         return $query->matching(
             $query->logicalAnd(
-                $query->lessThanOrEqual('recordRemovalDate', time() + $timeFrameDays . ' days'),
+                $query->lessThanOrEqual(
+                    'recordRemovalDate',
+                    strtotime('+' . $timeFrameDays . ' days', time())
+                ),
                 // ! exclude all where no removal date is set !
+                $query->logicalNot(
+                    $query->equals('recordRemovalDate', 0)
+                ),
+                $query->equals('reminderCleanupMailTstamp', 0)
+            )
+
+        )->execute();
+    }
+
+
+
+    /**
+     * Return competitions between register_end and jury_access_end
+     *
+     * @param int $timeFrameDays
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     */
+    public function findBetweenRegisterAndJuryAccessEndForJuryReminder(int $timeFrameDays = 3): QueryResultInterface
+    {
+
+        $query = $this->createQuery();
+
+        $query->getQuerySettings()->setRespectStoragePage(false);
+
+        return $query->matching(
+            $query->logicalAnd(
+                $query->lessThanOrEqual('registerEnd', time()),
+                $query->greaterThanOrEqual('juryAccessEnd', time()),
+                $query->lessThanOrEqual(
+                    'reminderJuryMailTstamp',
+                    strtotime('+' . $timeFrameDays . ' days', time())
+                ),
+            )
+
+        )->execute();
+    }
+
+
+    /**
+     * Return competitions after registerEnd without closingDayMailTimestamp
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     */
+    public function findAfterRegisterPeriodForReminder(): QueryResultInterface
+    {
+
+        $query = $this->createQuery();
+
+        $query->getQuerySettings()->setRespectStoragePage(false);
+
+        return $query->matching(
+            $query->logicalAnd(
+                $query->lessThanOrEqual('registerEnd', time()),
+                $query->equals('closingDayMailTstamp', 0),
+            )
+
+        )->execute();
+    }
+
+
+    /**
+     * Return competitions with expired removal date
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     */
+    public function findExpiredWithRemovalDate(): QueryResultInterface
+    {
+        $query = $this->createQuery();
+
+        $query->getQuerySettings()->setRespectStoragePage(false);
+
+        return $query->matching(
+            $query->logicalAnd(
+                $query->lessThanOrEqual('recordRemovalDate', time()),
                 $query->logicalNot(
                     $query->equals('recordRemovalDate', 0)
                 )

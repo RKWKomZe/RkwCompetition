@@ -20,6 +20,8 @@ use Madj2k\FeRegister\Domain\Repository\FrontendUserRepository;
 use Madj2k\FeRegister\Domain\Repository\GuestUserRepository;
 use Madj2k\FeRegister\Domain\Repository\OptInRepository;
 use Madj2k\FeRegister\Domain\Repository\ConsentRepository;
+use RKW\RkwCompetition\Domain\Model\Competition;
+use SJBR\StaticInfoTables\Domain\Model\AbstractEntity;
 use TYPO3\CMS\Core\Log\Logger;
 use TYPO3\CMS\Core\Log\LogLevel;
 use TYPO3\CMS\Core\Log\LogManager;
@@ -78,82 +80,86 @@ class Cleaner
 
 
     /**
-     * Removes expired objects really from database
      *
-     * @param int $daysSinceExpired
+     * @param array $competitionList
      * @return int
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      */
-    public function removeOptIns (int $daysSinceExpired = 30): int
+    public function removeCompetitionList (array $competitionList): int
     {
-        return $this->remove($this->optInRepository, $daysSinceExpired);
+        foreach ($competitionList as $competition) {
+            $competitionRepository->removeHard($object);
+        }
+
     }
 
 
     /**
-     * Removes expired objects really from database
      *
-     * @param int $daysSinceExpired
      * @return int
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      */
-    public function removeGuestUsers (int $daysSinceExpired = 30): int
+    public function removeRegisterByCompetition (): int
     {
         return $this->remove($this->guestUserRepository, $daysSinceExpired);
     }
 
 
     /**
-     * Removes expired objects really from database
+     *
+     * @return int
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     */
+    public function removeJuryRelationsByCompetition (): int
+    {
+        return $this->remove($this->guestUserRepository, $daysSinceExpired);
+    }
+
+
+    /**
+     *
+     * @return int
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     */
+    public function removeUploadRecordByFrontendUser (): int
+    {
+        // @toDo: Remove upload records from DB
+
+        return $this->remove($this->frontendUserRepository, $daysSinceExpired);
+    }
+
+
+
+    /**
+     *
+     * @return int
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     */
+    public function removeUploadFolderFromHddByFrontendUser (): int
+    {
+        // @toDo: Remove upload folder
+
+        return $this->remove($this->frontendUserRepository, $daysSinceExpired);
+    }
+
+
+    /**
      *
      * @param int $daysSinceExpired
      * @return int
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      */
-    public function removeFrontendUsers (int $daysSinceExpired = 30): int
+    public function removeCloudFilesByRegister (): int
     {
         return $this->remove($this->frontendUserRepository, $daysSinceExpired);
     }
 
-
-    /**
-     * Marks expired objects as deleted
-     *
-     * @param int $daysSinceExpired
-     * @return int
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
-     */
-    public function deleteFrontendUsers (int $daysSinceExpired = 30): int
-    {
-        $expiredFrontendUsers = $this->frontendUserRepository->findReadyToMarkAsDeleted($daysSinceExpired);
-        $cnt = 0;
-
-        /** @var \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser */
-        foreach ($expiredFrontendUsers as $frontendUser) {
-            if (! $this->dryRun) {
-                $this->frontendUserRepository->remove($frontendUser);
-            }
-            $cnt++;
-
-            $this->getLogger()->log(
-                LogLevel::INFO,
-                sprintf(
-                    (($this->dryRun) ? 'Dry-Run: ' : '' ). 'Marked id %s of object "%s" as deleted.',
-                    $frontendUser->getUid(),
-                    get_class($frontendUser),
-
-                )
-            );
-        }
-
-        $this->persistenceManager->persistAll();
-
-        return $cnt;
-    }
 
 
     /**
@@ -174,17 +180,13 @@ class Cleaner
      * Removes expired objects really from database
      *
      * @param \Madj2k\FeRegister\Domain\Repository\CleanerInterface $repository
-     * @param int $daysSinceExpired
+     * @param AbstractEntity $entity
      * @return int
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
      */
-    protected function remove(CleanerInterface $repository, int $daysSinceExpired): int
+    protected function remove(CleanerInterface $repository, array $recordsToRemove): int
     {
-        $expiredOptIns = $repository->findReadyToRemove($daysSinceExpired);
-        $cnt = 0;
-
-        DebuggerUtility::var_dump($expiredOptIns); exit;
 
         /** @var \TYPO3\CMS\Extbase\DomainObject\AbstractEntity $object */
         foreach ($expiredOptIns as $object) {

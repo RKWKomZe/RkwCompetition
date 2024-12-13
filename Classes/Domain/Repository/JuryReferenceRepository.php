@@ -15,8 +15,8 @@ namespace RKW\RkwCompetition\Domain\Repository;
  */
 
 /**
- * The repository for Uploads
+ * The repository for JuryReference
  */
-class UploadRepository extends AbstractRepository
+class JuryReferenceRepository extends AbstractRepository
 {
 }

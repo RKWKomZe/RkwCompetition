@@ -77,18 +77,11 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $allowTeamParticipation = false;
 
     /**
-     * reminderInterval
-     *
-     * @var int
-     */
-    protected $reminderInterval = 0;
-
-    /**
-     * reminderMailTstamp
+     * reminderIncompleteMailTstamp
      *
      * @var integer
      */
-    protected $reminderMailTstamp = 0;
+    protected $reminderIncompleteMailTstamp = 0;
 
     /**
      * reminderCleanupMailTstamp
@@ -96,6 +89,20 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var integer
      */
     protected $reminderCleanupMailTstamp = 0;
+
+    /**
+     * reminderJuryMailTstamp
+     *
+     * @var integer
+     */
+    protected $reminderJuryMailTstamp = 0;
+
+    /**
+     * closingDayMailTstamp
+     *
+     * @var integer
+     */
+    protected $closingDayMailTstamp = 0;
 
     /**
      * linkCondParticipation
@@ -115,17 +122,22 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * adminMember
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\FeRegister\Domain\Model\BackendUser>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      */
     protected $adminMember = null;
 
     /**
-     * juryMember
+     * juryMemberCandidate
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\FeRegister\Domain\Model\FrontendUser>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      */
-    protected $juryMember = null;
+    protected $juryMemberCandidate = null;
+
+    /**
+     * juryMemberConfirmed
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\FeRegister\Domain\Model\FrontendUser>
+     */
+    protected $juryMemberConfirmed = null;
 
     /**
      * groupForJury
@@ -177,7 +189,8 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function initializeObject()
     {
         $this->adminMember = $this->adminMember ?: new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $this->juryMember = $this->juryMember ?: new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->juryMemberCandidate = $this->juryMemberCandidate ?: new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->juryMemberConfirmed = $this->juryMemberCandidate ?: new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->register = $this->register ?: new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->sectors = $this->sectors ?: new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
@@ -361,45 +374,24 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Returns the reminderInterval
+     * Returns the reminderIncompleteMailTstamp
      *
-     * @return int
+     * @return int $reminderIncompleteMailTstamp
      */
-    public function getReminderInterval()
+    public function getReminderIncompleteMailTstamp()
     {
-        return $this->reminderInterval;
+        return $this->reminderIncompleteMailTstamp;
     }
 
     /**
-     * Sets the reminderInterval
+     * Sets the reminderIncompleteMailTstamp
      *
-     * @param int $reminderInterval
+     * @param int $reminderIncompleteMailTstamp
      * @return void
      */
-    public function setReminderInterval(int $reminderInterval)
+    public function setReminderIncompleteMailTstamp($reminderIncompleteMailTstamp)
     {
-        $this->reminderInterval = $reminderInterval;
-    }
-
-    /**
-     * Returns the reminderMailTstamp
-     *
-     * @return int $reminderMailTstamp
-     */
-    public function getReminderMailTstamp()
-    {
-        return $this->reminderMailTstamp;
-    }
-
-    /**
-     * Sets the reminderMailTstamp
-     *
-     * @param int $reminderMailTstamp
-     * @return void
-     */
-    public function setReminderMailTstamp($reminderMailTstamp)
-    {
-        $this->reminderMailTstamp = $reminderMailTstamp;
+        $this->reminderIncompleteMailTstamp = $reminderIncompleteMailTstamp;
     }
 
     /**
@@ -421,6 +413,48 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setReminderCleanupMailTstamp($reminderCleanupMailTstamp)
     {
         $this->reminderCleanupMailTstamp = $reminderCleanupMailTstamp;
+    }
+
+    /**
+     * Returns the reminderJuryMailTstamp
+     *
+     * @return int $reminderJuryMailTstamp
+     */
+    public function getReminderJuryMailTstamp()
+    {
+        return $this->reminderJuryMailTstamp;
+    }
+
+    /**
+     * Sets the reminderJuryMailTstamp
+     *
+     * @param int $reminderJuryMailTstamp
+     * @return void
+     */
+    public function setReminderJuryMailTstamp($reminderJuryMailTstamp)
+    {
+        $this->reminderJuryMailTstamp = $reminderJuryMailTstamp;
+    }
+
+    /**
+     * Returns the closingDayMailTstamp
+     *
+     * @return int $closingDayMailTstamp
+     */
+    public function getClosingDayMailTstamp()
+    {
+        return $this->closingDayMailTstamp;
+    }
+
+    /**
+     * Sets the closingDayMailTstamp
+     *
+     * @param int $closingDayMailTstamp
+     * @return void
+     */
+    public function setClosingDayMailTstamp($closingDayMailTstamp)
+    {
+        $this->closingDayMailTstamp = $closingDayMailTstamp;
     }
 
     /**
@@ -511,44 +545,87 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Adds a FrontendUser
      *
-     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $juryMember
+     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $juryMemberCandidate
      * @return void
      */
-    public function addJuryMember(\Madj2k\FeRegister\Domain\Model\FrontendUser $juryMember)
+    public function addJuryMemberCandidate(\Madj2k\FeRegister\Domain\Model\FrontendUser $juryMemberCandidate)
     {
-        $this->juryMember->attach($juryMember);
+        $this->juryMemberCandidate->attach($juryMemberCandidate);
     }
 
     /**
      * Removes a FrontendUser
      *
-     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $juryMemberToRemove The FrontendUser to be removed
+     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $juryMemberCandidateToRemove The FrontendUser to be removed
      * @return void
      */
-    public function removeJuryMember(\Madj2k\FeRegister\Domain\Model\FrontendUser $juryMemberToRemove)
+    public function removeJuryMemberCandidate(\Madj2k\FeRegister\Domain\Model\FrontendUser $juryMemberCandidateToRemove)
     {
-        $this->juryMember->detach($juryMemberToRemove);
+        $this->juryMemberCandidate->detach($juryMemberCandidateToRemove);
     }
 
     /**
-     * Returns the juryMember
+     * Returns the juryMemberCandidate
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\FeRegister\Domain\Model\FrontendUser>
      */
-    public function getJuryMember()
+    public function getJuryMemberCandidate()
     {
-        return $this->juryMember;
+        return $this->juryMemberCandidate;
     }
 
     /**
-     * Sets the juryMember
+     * Sets the juryMemberCandidate
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\FeRegister\Domain\Model\FrontendUser> $juryMember
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\FeRegister\Domain\Model\FrontendUser> $juryMemberCandidate
      * @return void
      */
-    public function setJuryMember(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $juryMember)
+    public function setJuryMemberCandidate(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $juryMemberCandidate)
     {
-        $this->juryMember = $juryMember;
+        $this->juryMemberCandidate = $juryMemberCandidate;
+    }
+
+    /**
+     * Adds a FrontendUser
+     *
+     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $juryMemberConfirmed
+     * @return void
+     */
+    public function addJuryMemberConfirmed(\Madj2k\FeRegister\Domain\Model\FrontendUser $juryMemberConfirmed)
+    {
+        $this->juryMemberConfirmed->attach($juryMemberConfirmed);
+    }
+
+    /**
+     * Removes a FrontendUser
+     *
+     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $juryMemberConfirmedToRemove The FrontendUser to be removed
+     * @return void
+     */
+    public function removeJuryMemberConfirmed(\Madj2k\FeRegister\Domain\Model\FrontendUser $juryMemberConfirmedToRemove)
+    {
+        $this->juryMemberConfirmed->detach($juryMemberConfirmedToRemove);
+    }
+
+    /**
+     * Returns the juryMemberConfirmed
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\FeRegister\Domain\Model\FrontendUser>
+     */
+    public function getJuryMemberConfirmed()
+    {
+        return $this->juryMemberConfirmed;
+    }
+
+    /**
+     * Sets the juryMemberConfirmed
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\FeRegister\Domain\Model\FrontendUser> $juryMemberConfirmed
+     * @return void
+     */
+    public function setJuryMemberConfirmed(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $juryMemberConfirmed)
+    {
+        $this->juryMemberConfirmed = $juryMemberConfirmed;
     }
 
     /**

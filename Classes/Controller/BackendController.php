@@ -20,8 +20,6 @@ use RKW\RkwCompetition\Domain\Model\Competition;
 use RKW\RkwCompetition\Domain\Model\Register;
 use RKW\RkwCompetition\Domain\Repository\BackendUserRepository;
 use RKW\RkwCompetition\Service\RkwMailService;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
  * Class BackendController

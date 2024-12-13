@@ -13,20 +13,25 @@ namespace RKW\RkwCompetition\Command;
  * The TYPO3 project - inspiring people to share!
  */
 
-use Madj2k\FeRegister\DataProtection\DataProtectionHandler;
-use Madj2k\FeRegister\Domain\Repository\OptInRepository;
-use Madj2k\FeRegister\Persistence\Cleaner;
+use RKW\RkwCompetition\Domain\Model\Competition;
+use RKW\RkwCompetition\Domain\Model\Register;
+use RKW\RkwCompetition\Domain\Model\Upload;
+use RKW\RkwCompetition\Domain\Repository\CompetitionRepository;
+use RKW\RkwCompetition\Domain\Repository\JuryReferenceRepository;
+use RKW\RkwCompetition\Domain\Repository\RegisterRepository;
+use RKW\RkwCompetition\Domain\Repository\UploadRepository;
+use RKW\RkwCompetition\Persistence\Cleaner;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use TYPO3\CMS\Core\Log\Logger;
 use TYPO3\CMS\Core\Log\LogLevel;
 use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * class CleanupCommand
@@ -42,7 +47,7 @@ class CleanupCommand extends Command
 {
 
     /**
-     * @var \Madj2k\FeRegister\Persistence\Cleaner|null
+     * @var Cleaner|null
      */
     protected ?Cleaner $cleaner = null;
 
@@ -52,20 +57,36 @@ class CleanupCommand extends Command
      */
     protected ?Logger $logger = null;
 
+    /**
+     * @param CompetitionRepository $competitionRepository
+     * @param RegisterRepository $registerRepository
+     * @param UploadRepository $uploadRepository
+     * @param JuryReferenceRepository $juryReferenceRepository
+     * @param PersistenceManager $persistenceManager
+     */
+    public function __construct(
+        CompetitionRepository $competitionRepository,
+        RegisterRepository $registerRepository,
+        UploadRepository $uploadRepository,
+        JuryReferenceRepository $juryReferenceRepository,
+        PersistenceManager $persistenceManager
+    ) {
+
+        $this->competitionRepository = $competitionRepository;
+        $this->registerRepository = $registerRepository;
+        $this->uploadRepository = $uploadRepository;
+        $this->juryReferenceRepository = $juryReferenceRepository;
+        $this->persistenceManager = $persistenceManager;
+
+        parent::__construct();
+    }
 
     /**
      * Configure the command by defining the name, options and arguments
      */
     protected function configure(): void
     {
-        $this->setDescription('Removes expired optIns and frontendUsers.')
-            ->addOption(
-                'daysSinceExpired',
-                'd',
-                InputOption::VALUE_REQUIRED,
-                'Days since optIns and frontendUsers are expired.',
-                7
-            )
+        $this->setDescription('Removes expired competitions if a removal date is set.')
             ->addOption(
                 'dryRun',
                 't',
@@ -73,27 +94,6 @@ class CleanupCommand extends Command
                 'Do a dry-run without making changes (default: 1).',
                 1
             );
-    }
-
-
-    /**
-     * Initializes the command after the input has been bound and before the input
-     * is validated.
-     *
-     * This is mainly useful when a lot of commands extends one main command
-     * where some things need to be initialized based on the input arguments and options.
-     *
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     * @see \Symfony\Component\Console\Input\InputInterface::bind()
-     * @see \Symfony\Component\Console\Input\InputInterface::validate()
-     */
-    protected function initialize(InputInterface $input, OutputInterface $output): void
-    {
-        /** @var \TYPO3\CMS\Extbase\Object\ObjectManager$objectManager */
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-
-        $this->cleaner = $objectManager->get(Cleaner::class);
     }
 
 
@@ -111,54 +111,71 @@ class CleanupCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $io->title($this->getDescription());
 
-        $daysSinceExpired = $input->getOption('daysSinceExpired');
         $dryRun = $input->getOption('dryRun');
 
-        $io->note('Using daysSinceExpired="' . $daysSinceExpired .'"');
         $io->note('Using dryRun="' . $dryRun .'"');
 
         $result = 0;
-        try {
+//        try {
 
-            $this->cleaner->setDryRun(boolval($dryRun));
+            $competitionList = $this->competitionRepository->findExpiredWithRemovalDate();
 
-            $cnt = $this->cleaner->removeOptIns($daysSinceExpired);
-            $message = 'Removed ' . $cnt . ' optIn(s).';
+            $message = 'Removed ' . count($competitionList) . ' competition(s).';
+
+            /** @var Competition $competition */
+            foreach ($competitionList as $competition) {
+
+                // ###############################################################
+                // ### REMOVE REGISTER (+ related UPLOAD records) ###
+                $message = 'Removed ' . $competition->getRegister()->count() . ' register(s) with related upload records.';
+                /** @var Register $register */
+                foreach ($competition->getRegister() as $register) {
+                    if (! $dryRun) {
+                        if ($register->getUpload() instanceof Upload) {
+                            // REMOVE RELATED UPLOAD RECORD
+                            $this->uploadRepository->removeHard($register->getUpload());
+                        }
+                        // REMOVE REGISTER
+                        $this->registerRepository->removeHard($register);
+                    }
+                }
+                $io->note($message);
+                $this->getLogger()->log(LogLevel::INFO, $message);
+
+
+                // ###############################################################
+                // ### REMOVE JURY REFERENCE RECORDS ###
+//                $juryReferenceList = $this->juryReferenceRepository->findByCompetition($competition);
+//                $message = 'Removed ' . count($juryReferenceList) . ' jury reference(s).';
+//                foreach ($juryReferenceList as $juryReference) {
+//                    if (! $dryRun) {
+//                        $this->juryReferenceRepository->removeHard($juryReference);
+//                    }
+//                }
+//                $io->note($message);
+//                $this->getLogger()->log(LogLevel::INFO, $message);
+
+
+                // ###############################################################
+                // ### REMOVE COMPETITION ###
+                if (! $dryRun) {
+                    $this->competitionRepository->removeHard($competition);
+                }
+            }
             $io->note($message);
             $this->getLogger()->log(LogLevel::INFO, $message);
 
-            $cnt = $this->cleaner->removeGuestUsers($daysSinceExpired);
-            $message = 'Removed ' . $cnt . ' GuestUsers(s).';
-            $io->note($message);
-            $this->getLogger()->log(LogLevel::INFO, $message);
-
-            $cnt = $this->cleaner->removeFrontendUsers($daysSinceExpired);
-            $message = 'Removed ' . $cnt . ' FrontendUsers(s).';
-            $io->note($message);
-            $this->getLogger()->log(LogLevel::INFO, $message);
-
-            $cnt = $this->cleaner->deleteFrontendUsers($daysSinceExpired);
-            $message = 'Marked ' . $cnt . ' FrontendUsers(s) as deleted.';
-            $io->note($message);
-            $this->getLogger()->log(LogLevel::INFO, $message);
-
-            $cnt = $this->cleaner->removeConsents($daysSinceExpired);
-            $message = 'Removed ' . $cnt . ' Consents(s).';
-            $io->note($message);
-            $this->getLogger()->log(LogLevel::INFO, $message);
-
-
-        } catch (\Exception $e) {
-
-            $message = sprintf('An unexpected error occurred while trying to cleanup: %s',
-                str_replace(array("\n", "\r"), '', $e->getMessage())
-            );
-
-            // @extensionScannerIgnoreLine
-            $io->error($message);
-            $this->getLogger()->log(LogLevel::ERROR, $message);
-            $result = 1;
-        }
+//        } catch (\Exception $e) {
+//
+//            $message = sprintf('An unexpected error occurred while trying to cleanup: %s',
+//                str_replace(array("\n", "\r"), '', $e->getMessage())
+//            );
+//
+//            // @extensionScannerIgnoreLine
+//            $io->error($message);
+//            $this->getLogger()->log(LogLevel::ERROR, $message);
+//            $result = 1;
+//        }
 
         $io->writeln('Done');
         return $result;
