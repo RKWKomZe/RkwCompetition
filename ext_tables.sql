@@ -77,6 +77,8 @@ CREATE TABLE tx_rkwcompetition_domain_model_juryreference (
     consented_at int(11) unsigned NOT NULL DEFAULT '0',
     competition int(11) unsigned DEFAULT '0' NOT NULL,
     frontend_user int(11) unsigned DEFAULT '0' NOT NULL,
+
+    UNIQUE KEY reference (competition, frontend_user)
 );
 
 

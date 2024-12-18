@@ -1,14 +1,15 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 
-	<div class="form__field width50">
+	<div class="form__field width100">
 		<f:form.checkbox
 				class="checkbox"
 				id="consentAsJuryMember"
-				property="consentAsJuryMember"
+				name="consentAsJuryMember"
 				value="1"
 		/>
 		<label for="consentAsJuryMember" class="checkbox-label">
-			<f:translate key="fluid_jury_partial_formfields.consent" />
+			<f:translate key="tx_rkwcompetition_fluid.partials_jury_formfields.consent" />
+			<f:link.typolink parameter="{juryReference.competition.linkJuryDeclarationConfident}" />
 		</label>
 	</div>
 

@@ -1,0 +1,50 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:rkw="http://typo3.org/ns/RKW/RkwCompetition/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+
+    <f:if condition="{juryReference.competition}">
+
+        <div class="space-between">
+            <div class="btn-list">
+
+                <f:comment>
+                    <!-- show competition -->
+                    <f:link.action
+                        pageUid="{settings.competitionPid}"
+                        target="_blank"
+                        class="btn btn--primary"
+                        controller="Competition"
+                        action="show"
+                        arguments="{competition : juryReference.competition}"
+                    >
+                        <f:translate key="tx_rkwcompetition_fluid.partials_participant_options.competitionShow" /> (Frontend)
+                    </f:link.action>
+                </f:comment>
+
+                <!-- ViewHelper returns true if reg time for competition is still running -->
+                <f:if condition="<rkw:isDateWithinDeadline date='{juryReference.competition.juryAccessEnd}' />">
+                    <f:then>
+
+                        <f:link.action class="btn btn--primary" action="show" arguments="{juryReference : juryReference}">
+                            Eingereichte Unterlagen ansehen
+                        </f:link.action>
+
+                        <f:if condition="{juryReference.consentedAt}">
+                            <f:else>
+                                <f:link.action class="btn btn--primary" action="edit" arguments="{juryReference : juryReference}">
+                                    Einwilligen
+                                </f:link.action>
+                            </f:else>
+                        </f:if>
+
+
+                    </f:then>
+                    <f:else>
+                        <p>Keine Aktionen mehr möglich</p>
+                    </f:else>
+
+                </f:if>
+
+            </div>
+    </f:if>
+</html>

@@ -104,7 +104,7 @@ class CompetitionRepository extends AbstractRepository
                 $query->greaterThanOrEqual('juryAccessEnd', time()),
                 $query->lessThanOrEqual(
                     'reminderJuryMailTstamp',
-                    strtotime('+' . $timeFrameDays . ' days', time())
+                    strtotime('-' . $timeFrameDays . ' days', time())
                 ),
             )
 

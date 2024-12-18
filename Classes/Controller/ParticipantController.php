@@ -58,6 +58,8 @@ class ParticipantController extends \RKW\RkwCompetition\Controller\AbstractContr
     /**
      * action show
      *
+     * @deprecated Not used yet
+     *
      * @param \RKW\RkwCompetition\Domain\Model\Upload $upload
      * @return string|object|null|void
      */
@@ -71,6 +73,8 @@ class ParticipantController extends \RKW\RkwCompetition\Controller\AbstractContr
     /**
      * action new
      *
+     * @deprecated Not used yet
+     *
      * @return string|object|null|void
      */
     public function newAction()
@@ -81,6 +85,8 @@ class ParticipantController extends \RKW\RkwCompetition\Controller\AbstractContr
 
     /**
      * action create
+     *
+     * @deprecated Not used yet
      *
      * @param \RKW\RkwCompetition\Domain\Model\Upload $newUpload
      * @return string|object|null|void
@@ -97,6 +103,8 @@ class ParticipantController extends \RKW\RkwCompetition\Controller\AbstractContr
     /**
      * action edit
      *
+     * @deprecated Not used yet
+     *
      * @param \RKW\RkwCompetition\Domain\Model\Upload $upload
      * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("upload")
      * @return string|object|null|void
@@ -110,6 +118,8 @@ class ParticipantController extends \RKW\RkwCompetition\Controller\AbstractContr
 
     /**
      * action update
+     *
+     * @deprecated Not used yet
      *
      * @param \RKW\RkwCompetition\Domain\Model\Upload $upload
      * @return string|object|null|void
@@ -125,6 +135,8 @@ class ParticipantController extends \RKW\RkwCompetition\Controller\AbstractContr
 
     /**
      * action delete
+     *
+     * @deprecated Not used yet
      *
      * @param \RKW\RkwCompetition\Domain\Model\Upload $upload
      * @return string|object|null|void

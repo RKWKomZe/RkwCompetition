@@ -126,7 +126,7 @@ class JuryNotifyCommand extends Command
         $reminderInterval = $input->getOption('reminderInterval');
 
         $result = 0;
-        try {
+//        try {
 
             $competitionList = $this->competitionRepository->findBetweenRegisterAndJuryAccessEndForJuryReminder($reminderInterval);
 
@@ -141,18 +141,27 @@ class JuryNotifyCommand extends Command
 
                         /** @var FrontendUser $juryCandidate */
                         foreach ($juryCandidateList as $juryCandidate) {
-                            // @toDo: create jury record
-                            /** @var JuryReference $newJuryReference */
-                            $newJuryReference = GeneralUtility::makeInstance(JuryReferenceRepository::class);
-                            $newJuryReference->setFrontendUser($juryCandidate);
-                            $newJuryReference->setCompetition($competition);
-                            $this->juryReferenceRepository->add($newJuryReference);
 
-                            // @toDo: add to jury group
-                            $juryCandidate->addUsergroup($competition->getGroupForJury());
+                            // create juryReference record (IF NOT EXISTS YET)
+                            $existingRecord = $this->juryReferenceRepository->findByFrontendUserAndCompetition($juryCandidate, $competition);
+                            if ($existingRecord instanceof JuryReference) {
+                                /** @var JuryReference $newJuryReference */
+                                $newJuryReference = GeneralUtility::makeInstance(JuryReference::class);
+
+                                // the backend (cron) does not know the extension storage PID)
+                                $newJuryReference->setPid($competition->getPid());
+                                $newJuryReference->setFrontendUser($juryCandidate);
+                                $newJuryReference->setCompetition($competition);
+                                $newJuryReference->setInvitationMailTstamp(time());
+                                $this->juryReferenceRepository->add($newJuryReference);
+                            }
+
+                            // add to jury group
+                            // avoid double added groups
+                            if (!$juryCandidate->getUsergroup()->contains($competition->getGroupForJury())) {
+                                $juryCandidate->addUsergroup($competition->getGroupForJury());
+                            }
                         }
-
-
 
                         // send mails
                         /** @var RkwMailService $mailService */
@@ -175,17 +184,17 @@ class JuryNotifyCommand extends Command
                 $this->getLogger()->log(LogLevel::INFO, sprintf('No relevant competitions found for jury candidate reminder mail.'));
             }
 
-        } catch (\Exception $e) {
-
-            $message = sprintf('An error occurred while trying to send an inform mail about an competition within jury period. Message: %s',
-                str_replace(["\n", "\r"], '', $e->getMessage())
-            );
-
-            // @extensionScannerIgnoreLine
-            $io->error($message);
-            $this->getLogger()->log(LogLevel::ERROR, $message);
-            $result = 1;
-        }
+//        } catch (\Exception $e) {
+//
+//            $message = sprintf('An error occurred while trying to send an inform mail about an competition within jury period. Message: %s',
+//                str_replace(["\n", "\r"], '', $e->getMessage())
+//            );
+//
+//            // @extensionScannerIgnoreLine
+//            $io->error($message);
+//            $this->getLogger()->log(LogLevel::ERROR, $message);
+//            $result = 1;
+//        }
 
         $io->writeln('Done');
         return $result;

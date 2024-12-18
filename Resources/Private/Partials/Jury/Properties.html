@@ -1,0 +1,217 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	  xmlns:rkw="http://typo3.org/ns/RKW/RkwCompetition/ViewHelpers"
+	  data-namespace-typo3-fluid="true">
+
+
+
+	<!-- show competition -->
+	<f:link.action
+			pageUid="{settings.competitionPid}"
+			target="_blank"
+			class="btn btn--primary"
+			controller="Competition"
+			action="show"
+			arguments="{competition : register.competition}"
+	>
+		<f:translate key="tx_rkwcompetition_fluid.partials_participant_options.competitionShow" />
+	</f:link.action>
+
+	<f:if condition="{juryReference.consentedAt}">
+		<f:then>
+			<f:if condition="<rkw:isDateWithinDeadline date='{juryReference.competition.juryAccessEnd}' />">
+				<f:then>
+					<f:render section="submittedApplications" arguments="{_all}" />
+				</f:then>
+				<f:else>
+					Zugriff abgelaufen
+				</f:else>
+			</f:if>
+		</f:then>
+		<f:else>
+			Sie müssen erst den Datenschutzbestimmungen zustimmen:
+			<f:link.action class="btn btn--primary" action="edit" arguments="{juryReference : juryReference}">
+				Einwilligen
+			</f:link.action>
+		</f:else>
+	</f:if>
+
+
+
+	<f:comment><!-- SECTION: submittedApplications --></f:comment>
+	<f:section name="submittedApplications">
+		<f:comment><!-- Option 1: TabNavigation --></f:comment>
+		<f:comment>
+			<div class="tabs js-tabs ui-tabs ui-corner-all ui-widget ui-widget-content">
+				<ul class="tabs__nav ui-tabs-nav ui-corner-all ui-helper-reset ui-helper-clearfix ui-widget-header" role="tablist">
+
+					<f:for each="{approvedRegistrations}" as="register" iteration="iterHead">
+						<li class="tabs__nav-item ui-tabs-tab ui-corner-top ui-state-default ui-tab{f:if(condition: '{iterHead.isFirst}', then: ' ui-tabs-active ui-state-active')}" role="tab" tabindex="0" aria-controls="tab-{iterHead.cycle}" aria-labelledby="ui-id-{iterHead.cycle}" aria-selected="true" aria-expanded="true">
+							<a class="tabs__nav-link ui-tabs-anchor" data-target="#tab-{iterHead.cycle}" href="#tab-{iterHead.cycle}" role="presentation" tabindex="-1" id="ui-id-{iterHead.cycle}">
+								{iterHead.cycle}. {register.contributionTitle}
+							</a>
+						</li>
+					</f:for>
+
+				</ul>
+
+				<f:for each="{approvedRegistrations}" as="register" iteration="iterBody">
+					<div class="tabs__content ui-tabs-panel ui-corner-bottom ui-widget-content" id="tab-{iterBody.cycle}" aria-labelledby="ui-id-{iterBody.cycle}" role="tabpanel" aria-hidden="false">
+						<h2>{register.contributionTitle}</h2>
+						<f:render section="registerData" arguments="{register: register}" />
+					</div>
+				</f:for>
+			</div>
+		</f:comment>
+
+		<f:comment><!-- Option 2: Accordion --></f:comment>
+		<div aria-label="Accordion Control Group Buttons" class="accordion mt-2">
+			<f:for each="{approvedRegistrations}" as="register" iteration="iter">
+				<div class="accordion__item">
+					<button class="accordion__button accordion-control" aria-expanded="false" aria-controls="accordion-content-{iter.cycle}-2030017679" id="accordion-item-{iter.cycle}-2030017679">
+					<span class="accordion__title">
+					{iter.cycle}. {register.contributionTitle}
+					<span class="accordion__icon"></span>
+				</span>
+					</button>
+					<div class="accordion__item-content" aria-hidden="true" id="accordion-content-{iter.cycle}-2030017679" role="region" aria-labelledby="accordion-item-{iter.cycle}-2030017679" style="display: none;">
+						<div class="accordion__item-inner">
+							<f:render section="registerData" arguments="{register: register}" />
+						</div>
+					</div>
+				</div>
+			</f:for>
+		</div>
+	</f:section>
+
+
+	<f:comment><!-- SECTION: registerData --></f:comment>
+	<f:section name="registerData">
+		<table>
+			<tbody>
+			<tr>
+				<td>
+					Titel der Arbeit
+				</td>
+				<td>
+					{register.contributionTitle}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Institution
+				</td>
+				<td>
+					{register.institution}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Wettbewerbsbereich
+				</td>
+				<td>
+					{register.sector.title}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Name Bewerber
+				</td>
+				<td>
+					{register.title}
+					{register.salutation} {register.firstName} {register.lastName}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Ist Gruppenarbeit
+				</td>
+				<td>
+					{register.isGroupWork}
+				</td>
+			</tr>
+			<f:if condition="{register.isGroupWork}">
+				<tr>
+					<td>
+						Eidstattliche Versicherung
+					</td>
+					<td>
+						{register.groupWorkInsurance}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Gruppenarbeit weitere Personen
+					</td>
+					<td>
+						{register.groupWorkAddPersons}
+					</td>
+				</tr>
+			</f:if>
+			<tr>
+				<td>
+					Anmerkung
+				</td>
+				<td>
+					{register.remark}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Kurzfassung PDF (+ Word File?)
+				</td>
+				<td>
+					<f:if condition="{register.upload.abstract.originalResource.publicUrl}">
+						<f:then>
+							<f:link.typolink
+									parameter="{register.upload.abstract.originalResource.publicUrl}"
+									class="btn btn--primary"
+									target="_blank"
+									title="Download"
+									absolute="true"
+							>
+
+								<svg class="icon icon--16">
+									<use xlink:href="#ic-download"/>
+								</svg>
+								Download
+							</f:link.typolink>
+						</f:then>
+						<f:else>
+							Keine Datei vorhanden
+						</f:else>
+					</f:if>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Langfassung PDF (+ Word File?)
+				</td>
+				<td>
+					<f:if condition="{register.upload.full.originalResource.publicUrl}">
+						<f:then>
+							<f:link.typolink
+									parameter="{register.upload.full.originalResource.publicUrl}"
+									class="btn btn--primary"
+									target="_blank"
+									title="Download"
+									absolute="true"
+							>
+
+								<svg class="icon icon--16">
+									<use xlink:href="#ic-download"/>
+								</svg>
+								Download
+							</f:link.typolink>
+						</f:then>
+						<f:else>
+							Keine Datei vorhanden
+						</f:else>
+					</f:if>
+				</td>
+			</tr>
+
+			</tbody>
+		</table>
+	</f:section>
+
+</html>

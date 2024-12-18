@@ -19,7 +19,6 @@ use RKW\RkwCompetition\Domain\Repository\RegisterRepository;
 use RKW\RkwCompetition\Service\RkwMailService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use TYPO3\CMS\Core\Log\Logger;
@@ -33,9 +32,9 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
  * ClosingDayCommand
  *
  *
- * @todo #4202: Email an definierte Admins (siehe #4198) mit Hinweis auf Download-Möglichkeit aller eingereichten Unterlagen im BE
- * @todo #4200: Info-Mail an Teilnehmende mit vollständigen und geprüften Daten: "Jury-Sitzung demnächst. Spannung steigt!"
- * @todo #4200: Info-Mail an Teilnehmende mit unvollständigen oder fehlerhaften Daten: "Leider konnten wir Sie aus formalen Gründen nicht berücksichtigen"
+ * #4202: Email an definierte Admins (siehe #4198) mit Hinweis auf Download-Möglichkeit aller eingereichten Unterlagen im BE
+ * #4200: Info-Mail an Teilnehmende mit vollständigen und geprüften Daten: "Jury-Sitzung demnächst. Spannung steigt!"
+ * #4200: Info-Mail an Teilnehmende mit unvollständigen oder fehlerhaften Daten: "Leider konnten wir Sie aus formalen Gründen nicht berücksichtigen"
  *
  *
  * Execute on CLI with: 'vendor/bin/typo3 rkw_competition:closingDay'
@@ -159,12 +158,19 @@ class ClosingDayCommand extends Command
                     }
 
                     // 2.2 approved
+                    $registerNumber = 1;
                     if ($registerListApproved = $this->registerRepository->findAdminApprovedByCompetition($competition)) {
+
+                        // @toDo: Should we do it with static numbers? (in case of subsequent changes)
+                        // now: Every approved registration get's a static (ascending) number for jury purpose
+                        //$registerListApproved->setAscOrderNumber($registerNumber);
 
                         // send mails
                         /** @var RkwMailService $mailService */
                         $mailService = GeneralUtility::makeInstance(RkwMailService::class);
                         $mailService->closingDayApprovedUser($registerListApproved->toArray(), $competition);
+
+                        $registerNumber++;
 
                         $io->note("\t" . 'competitionUid: ' . $competition->getUid());
 

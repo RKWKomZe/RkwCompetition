@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace RKW\RkwCompetition\Controller;
 
 
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 /**
  * This file is part of the "RKW Competition" Extension for TYPO3 CMS.
  *
@@ -15,15 +17,6 @@ namespace RKW\RkwCompetition\Controller;
  */
 
 /**
- *
- * @toDo: Gedanken:
- * Extra tabelle jury im nm-style wie sys_file_reference?
- * Hier Verbindung zwischen competition - frontendUser
- * Das sollte sich auch gut mit dem DoubleOptIn-Verfahren ergänzen
- * -> dazu Felder "reminder_mail" für besseres management
- * -> timestamp einverständniserklärung je wettbewerb
- *
- *
  *
  * JuryController
  */
@@ -36,6 +29,7 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
      * @var \RKW\RkwCompetition\Domain\Repository\JuryReferenceRepository
      */
     protected $juryReferenceRepository = null;
+
 
     /**
      * @param \RKW\RkwCompetition\Domain\Repository\JuryReferenceRepository $juryReferenceRepository
@@ -54,8 +48,22 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
      */
     public function listAction()
     {
-        $juryReferenceList = $this->juryReferenceRepository->findAll();
-        $this->view->assign('juryReferenceList', $juryReferenceList);
+
+        if (!$this->getFrontendUser()) {
+
+            $this->addFlashMessage(
+                \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                    'participantController.message.error.notPermitted', 'rkw_competition'
+                ),
+                '',
+                \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+            );
+        } else {
+
+            $juryReferenceList = $this->juryReferenceRepository->findByFrontendUser($this->getFrontendUser());
+
+            $this->view->assign('juryReferenceList', $juryReferenceList);
+        }
     }
 
 
@@ -63,14 +71,16 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
     /**
      * action show
      *
-     * @deprecated Should not be used
-     *
      * @param \RKW\RkwCompetition\Domain\Model\JuryReference $juryReference
      * @return string|object|null|void
      */
     public function showAction(\RKW\RkwCompetition\Domain\Model\JuryReference $juryReference)
     {
         $this->view->assign('juryReference', $juryReference);
+        $this->view->assign(
+            'approvedRegistrations',
+            $this->registerRepository->findAdminApprovedByCompetition($juryReference->getCompetition())
+        );
     }
 
 
@@ -124,14 +134,40 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
     /**
      * action update
      *
-     *
-     *
      * @param \RKW\RkwCompetition\Domain\Model\JuryReference $juryReference
+     * @param int $consentAsJuryMember
      * @return string|object|null|void
      */
-    public function updateAction(\RKW\RkwCompetition\Domain\Model\JuryReference $juryReference)
+    public function updateAction(
+        \RKW\RkwCompetition\Domain\Model\JuryReference $juryReference,
+        int $consentAsJuryMember = 0
+    )
     {
-        $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/p/friendsoftypo3/extension-builder/master/en-us/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+
+        $errorMessage = '';
+
+        if (!$consentAsJuryMember) {
+            $errorMessage = 'Sie müssen Ihr Einverständnis erklären.';
+
+        }
+        if ($juryReference->getConsentedAt()) {
+            $errorMessage = 'Offenbar haben Sie ihr Einverständnis für diesen Wettbewerb bereits erklärt. Hier ist etwas schief gelaufen.';
+        }
+
+        if ($errorMessage) {
+            $this->addFlashMessage($errorMessage);
+
+            $this->redirect(
+                'edit',
+                null,
+                null,
+                ['juryReference' => $juryReference]
+            );
+        }
+
+        $juryReference->setConsentedAt(time());
+
+        $this->addFlashMessage('The object was updated.');
         $this->juryReferenceRepository->update($juryReference);
         $this->redirect('list');
     }

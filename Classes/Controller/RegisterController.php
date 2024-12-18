@@ -235,6 +235,9 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
      */
     public function editAction(\RKW\RkwCompetition\Domain\Model\Register $register)
     {
+
+        // @toDo: Check for logged in user
+
         $this->view->assign('register', $register);
     }
 
@@ -248,6 +251,9 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
      */
     public function updateAction(\RKW\RkwCompetition\Domain\Model\Register $register)
     {
+
+        // @toDo: Check for logged in user
+
         $this->addFlashMessage('The object was updated.');
         $this->registerRepository->update($register);
         $this->redirect('list', 'Participant');
@@ -263,6 +269,9 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
      */
     public function deleteQuestionAction(\RKW\RkwCompetition\Domain\Model\Register $register)
     {
+
+        // @toDo: Check for logged in user
+
         $this->view->assign('register', $register);
     }
 
@@ -276,6 +285,8 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
      */
     public function deleteAction(\RKW\RkwCompetition\Domain\Model\Register $register)
     {
+        // @toDo: Check for logged in user
+
         $this->addFlashMessage('The object was deleted.');
         $this->registerRepository->remove($register);
 
@@ -328,6 +339,8 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
      */
     public function submitQuestionAction(\RKW\RkwCompetition\Domain\Model\Register $register)
     {
+        // @toDo: Check for logged in user
+
         $this->view->assign('register', $register);
     }
 
@@ -339,8 +352,12 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
      * @param int $submitConfirm
      * @return void
      */
-    public function submitAction(\RKW\RkwCompetition\Domain\Model\Register $register, int $submitConfirm = 0)
+    public function submitAction(
+        \RKW\RkwCompetition\Domain\Model\Register $register,
+        int $submitConfirm = 0
+    )
     {
+        // @toDo: Check for logged in user
 
         if (!$submitConfirm) {
 

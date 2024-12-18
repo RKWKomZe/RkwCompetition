@@ -372,6 +372,13 @@
             </trans-unit>
 
 
+            <!-- Partials/Jury/FormFields.html -->
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_formfields.consent">
+                <source>I agree to the declaration of confidentiality</source>
+                <target>Ich stimme der Verschwiegendheitserklärung zu</target>
+            </trans-unit>
+
+
             <!-- ==================================================================================== -->
 
 
