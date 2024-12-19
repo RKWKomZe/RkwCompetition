@@ -86,36 +86,6 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
 
 
     /**
-     * action new
-     *
-     * @deprecated Should not be used
-     *
-     * @return string|object|null|void
-     */
-    public function newAction()
-    {
-    }
-
-
-
-    /**
-     * action create
-     *
-     * @deprecated Should not be used
-     *
-     * @param \RKW\RkwCompetition\Domain\Model\juryReference $newjuryReference
-     * @return string|object|null|void
-     */
-    public function createAction(\RKW\RkwCompetition\Domain\Model\juryReference $newjuryReference)
-    {
-        $this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/p/friendsoftypo3/extension-builder/master/en-us/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        $this->juryReferenceRepository->add($newjuryReference);
-        $this->redirect('list');
-    }
-
-
-
-    /**
      * action edit
      *
      * Hint: The juryReference record is created via cronjob (juryNotify)
@@ -147,11 +117,15 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
         $errorMessage = '';
 
         if (!$consentAsJuryMember) {
-            $errorMessage = 'Sie müssen Ihr Einverständnis erklären.';
+            $errorMessage = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                'juryController.message.consent'
+            );
 
         }
         if ($juryReference->getConsentedAt()) {
-            $errorMessage = 'Offenbar haben Sie ihr Einverständnis für diesen Wettbewerb bereits erklärt. Hier ist etwas schief gelaufen.';
+            $errorMessage = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                'juryController.message.alreadyConsented'
+            );
         }
 
         if ($errorMessage) {
@@ -167,7 +141,9 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
 
         $juryReference->setConsentedAt(time());
 
-        $this->addFlashMessage('The object was updated.');
+        $this->addFlashMessage(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+            'juryController.message.updated'
+        ));
         $this->juryReferenceRepository->update($juryReference);
         $this->redirect('list');
     }
@@ -176,6 +152,8 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
 
     /**
      * action delete
+     *
+     * @deprecated Not used yet
      *
      * @todo Bisher keine Vorgabe, dass Jurymitglieder sich selbst rauslöschen können. Könnte chaotisch werden!
      *

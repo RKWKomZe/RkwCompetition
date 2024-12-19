@@ -99,21 +99,6 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
 
 
     /**
-     * action show
-     *
-     * @deprecated Vermutlich nicht benötigt (nutze CompetitionController->show)
-     *
-     * @param \RKW\RkwCompetition\Domain\Model\Register $register
-     * @return void
-     */
-    public function showAction(\RKW\RkwCompetition\Domain\Model\Register $register)
-    {
-        $this->view->assign('register', $register);
-    }
-
-
-
-    /**
      * action new
      *
      * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
@@ -205,12 +190,7 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
                 ->startRegistration();
 
             $this->addFlashMessage(
-                LocalizationUtility::translate(
-                    'registerController.message.registrationCreatedEmail',
-                    'rkw_competition',
-                ),
-                '',
-                \TYPO3\CMS\Core\Messaging\AbstractMessage::OK
+                LocalizationUtility::translate('registerController.message.registrationCreatedEmail')
             );
         }
 
@@ -254,7 +234,9 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
 
         // @toDo: Check for logged in user
 
-        $this->addFlashMessage('The object was updated.');
+        $this->addFlashMessage(
+            LocalizationUtility::translate('registerController.message.updated')
+        );
         $this->registerRepository->update($register);
         $this->redirect('list', 'Participant');
     }
@@ -287,7 +269,9 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
     {
         // @toDo: Check for logged in user
 
-        $this->addFlashMessage('The object was deleted.');
+        $this->addFlashMessage(
+            LocalizationUtility::translate('registerController.message.updated')
+        );
         $this->registerRepository->remove($register);
 
         // Remove complete fileFolder
@@ -361,8 +345,9 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
 
         if (!$submitConfirm) {
 
-            $this->addFlashMessage('Bitte bestätigen Sie die Vollständigkeit Ihrer Angaben.');
-
+            $this->addFlashMessage(
+                LocalizationUtility::translate('registerController.message.submitIncomplete')
+            );
             $this->redirect(
                 'submitQuestion',
                 'Register',
@@ -372,7 +357,9 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
         }
 
 
-        $this->addFlashMessage('The object was submitted.');
+        $this->addFlashMessage(
+            LocalizationUtility::translate('registerController.message.submitSuccess')
+        );
 
         $register->setUserSubmittedAt(time());
 

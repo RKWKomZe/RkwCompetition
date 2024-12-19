@@ -35,6 +35,7 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
  * Class UploadHelper
  *
  * @todo: This should be part of a central extension. We only would need getter and setter for the uploadFolder and maybe settings
+ * @toDo: subFolder and extension-Name handling needs an upgrade!
  *
  * @author Maximilian Fäßler <maximilian@faesslerweb.de>
  * @author Christian Dilger <c.dilger@addorange.de>
@@ -234,7 +235,7 @@ class FileHandler implements SingletonInterface
      */
     public function removeFolderFromHddByFile(\Madj2k\CoreExtended\Domain\Model\File $file): bool
     {
-        // using the "extbase-style" $file directly will not work. We need a core file of type fileInterface
+        // using the "extbase"-$file-model directly will not work. We need a core file of type fileInterface
         $originalFile = $this->resourceStorage->getFile($file->getIdentifier());
 
         return $this->resourceStorage->deleteFolder($originalFile->getParentFolder());

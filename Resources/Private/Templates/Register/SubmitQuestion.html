@@ -6,24 +6,26 @@
 
     <f:section name="content">
 
-        <h3>Bewerbung offiziell einreichen</h3>
+        <h3>
+            <f:translate key="tx_rkwcompetition_fluid.templates_register_submitquestion.header" />
+        </h3>
 
         <f:flashMessages />
 
         <div class="mb-1">
             <strong>
-                Ihre Checklist
+                <f:translate key="tx_rkwcompetition_fluid.templates_register_submitquestion.your_checklist" />
             </strong>
         </div>
 
         <div class="system-message">
             <p class="system-message__item system-message__item--severity0">
                 <f:comment><!-- This is an evergreen. Form validation solves that point directly --></f:comment>
-                Alle Pflichtfelder ausgefüllt
+                <f:translate key="tx_rkwcompetition_fluid.templates_register_submitquestion.checkMandatoryFields" />
             </p>
 
             <p class="system-message__item system-message__item--severity{f:if(condition: '{register.upload.abstract}', then: '0', else: '2')}">
-                Kurzfassung der Bewerbung
+                <f:translate key="tx_rkwcompetition_fluid.templates_register_submitquestion.checkAbstract" />
                 <f:if condition="{register.upload.abstract}">
                     <f:else>
                         <f:link.action
@@ -32,19 +34,19 @@
                             action="edit"
                             arguments="{register : register}"
                         >
-                            <br/>(jetzt die Kurzfassung hochladen)
+                            <br/>(<f:translate key="tx_rkwcompetition_fluid.templates_register_submitquestion.checkAbstractUpload" />)
                         </f:link.action>
                     </f:else>
                 </f:if>
             </p>
 
             <p class="system-message__item system-message__item--severity{f:if(condition: '{register.upload.full}', then: '0', else: '1')}">
-                Langfassung der Bewerbung (optional)
+                <f:translate key="tx_rkwcompetition_fluid.templates_register_submitquestion.checkFull" />
             </p>
 
 
             <p class="system-message__item system-message__item--severity1">
-                Haben Sie daran gedacht, für zusätzliche Dateien und Bilder die bereitgestellte Cloud zu nutzen?
+                <f:translate key="tx_rkwcompetition_fluid.templates_register_submitquestion.hint1" />
                 <br />
                 @toDo: cloudlink
                 <br />
@@ -70,7 +72,7 @@
                                 value="1"
                         />
                         <label for="submitConfirm" class="checkbox-label">
-                            Ich habe verstanden dass nach dem Absenden gemachte Angaben und eingereichte Dateien nicht mehr geändert werden können.
+                            <f:translate key="tx_rkwcompetition_fluid.templates_register_submitquestion.hint2" />
                         </label>
                     </div>
 

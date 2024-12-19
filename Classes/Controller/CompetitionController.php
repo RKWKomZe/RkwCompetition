@@ -35,23 +35,6 @@ class CompetitionController extends \RKW\RkwCompetition\Controller\AbstractContr
         $this->competitionRepository = $competitionRepository;
     }
 
-
-
-    /**
-     * action list
-     *
-     * @deprecated Do we need this?
-     *
-     * @return void
-     */
-    public function listAction()
-    {
-        $competitions = $this->competitionRepository->findAll();
-        $this->view->assign('competitions', $competitions);
-    }
-
-
-
     /**
      * action show
      *

@@ -3,19 +3,6 @@
 	  data-namespace-typo3-fluid="true">
 
 
-
-	<!-- show competition -->
-	<f:link.action
-			pageUid="{settings.competitionPid}"
-			target="_blank"
-			class="btn btn--primary"
-			controller="Competition"
-			action="show"
-			arguments="{competition : register.competition}"
-	>
-		<f:translate key="tx_rkwcompetition_fluid.partials_participant_options.competitionShow" />
-	</f:link.action>
-
 	<f:if condition="{juryReference.consentedAt}">
 		<f:then>
 			<f:if condition="<rkw:isDateWithinDeadline date='{juryReference.competition.juryAccessEnd}' />">
@@ -41,6 +28,7 @@
 	<f:section name="submittedApplications">
 		<f:comment><!-- Option 1: TabNavigation --></f:comment>
 		<f:comment>
+			<!--
 			<div class="tabs js-tabs ui-tabs ui-corner-all ui-widget ui-widget-content">
 				<ul class="tabs__nav ui-tabs-nav ui-corner-all ui-helper-reset ui-helper-clearfix ui-widget-header" role="tablist">
 
@@ -61,24 +49,29 @@
 					</div>
 				</f:for>
 			</div>
+			-->
 		</f:comment>
 
 		<f:comment><!-- Option 2: Accordion --></f:comment>
 		<div aria-label="Accordion Control Group Buttons" class="accordion mt-2">
-			<f:for each="{approvedRegistrations}" as="register" iteration="iter">
-				<div class="accordion__item">
-					<button class="accordion__button accordion-control" aria-expanded="false" aria-controls="accordion-content-{iter.cycle}-2030017679" id="accordion-item-{iter.cycle}-2030017679">
-					<span class="accordion__title">
-					{iter.cycle}. {register.contributionTitle}
-					<span class="accordion__icon"></span>
-				</span>
-					</button>
-					<div class="accordion__item-content" aria-hidden="true" id="accordion-content-{iter.cycle}-2030017679" role="region" aria-labelledby="accordion-item-{iter.cycle}-2030017679" style="display: none;">
-						<div class="accordion__item-inner">
-							<f:render section="registerData" arguments="{register: register}" />
+			<f:for each="{juryReference.competition.sectors}" as="competitionSector">
+				<f:for each="{approvedRegistrations}" as="register">
+					<f:if condition="{competitionSector.uid} == {register.sector.uid}">
+						<div class="accordion__item">
+							<button class="accordion__button accordion-control" aria-expanded="false" aria-controls="accordion-content-{iter.cycle}-2030017679" id="accordion-item-{iter.cycle}-2030017679">
+							<span class="accordion__title">
+							{register.sector.title}: {register.contributionTitle}
+							<span class="accordion__icon"></span>
+						</span>
+							</button>
+							<div class="accordion__item-content" aria-hidden="true" id="accordion-content-{iter.cycle}-2030017679" role="region" aria-labelledby="accordion-item-{iter.cycle}-2030017679" style="display: none;">
+								<div class="accordion__item-inner">
+									<f:render section="registerData" arguments="{register: register}" />
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
+					</f:if>
+				</f:for>
 			</f:for>
 		</div>
 	</f:section>

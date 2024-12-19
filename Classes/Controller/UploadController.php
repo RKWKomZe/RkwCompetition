@@ -133,7 +133,9 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
             $uploadCounter++;
         }
 
-        $this->addFlashMessage('Insgesamt ' . $uploadCounter . ' wurden hochgeladen.');
+        $this->addFlashMessage(
+            LocalizationUtility::translate('updateController.message.uploadSuccess')
+        );
 
         $this->uploadRepository->update($register->getUpload());
 
@@ -174,7 +176,11 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
         // remove fileReference from repo (with "cascadeRemove")
         $this->fileReferenceRepository->remove($fileReference);
 
+        $this->addFlashMessage(
+            LocalizationUtility::translate('updateController.message.fileDeleted')
+        );
         $this->addFlashMessage('The file was deleted.');
+
         $this->redirect('edit', 'Upload', null, ['register' => $register]);
     }
 

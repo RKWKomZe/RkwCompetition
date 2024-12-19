@@ -116,8 +116,8 @@ class BackendController extends \RKW\RkwCompetition\Controller\AbstractControlle
         $emailService = GeneralUtility::makeInstance(RkwMailService::class);
         $emailService->approvedRegisterUser($register->getFrontendUser(), $register);
 
-        $this->addFlashMessage(
-            "Alles klar :-)"
+        $this->addFlashMessage(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+            'backendController.message.approved')
         );
 
         $this->forward('registerDetail', null, null, ['register' => $register]);
@@ -146,8 +146,8 @@ class BackendController extends \RKW\RkwCompetition\Controller\AbstractControlle
         $emailService = GeneralUtility::makeInstance(RkwMailService::class);
         $emailService->refusedRegisterUser($register->getFrontendUser(), $register);
 
-        $this->addFlashMessage(
-            "Abgelehnt!"
+        $this->addFlashMessage(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+            'backendController.message.declined')
         );
 
         $this->forward('registerDetail', null, null, ['register' => $register]);
