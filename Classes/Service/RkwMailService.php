@@ -197,7 +197,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
 
             $mailService->getQueueMail()->setSubject(
                 LocalizationUtility::translate(
-                    'rkwMailService.optInRegisterUser.subject',
+                    'rkwMailService.frontendUser.subject.optIn',
                     'rkw_competition',
                     null,
                     $frontendUser->getTxFeregisterLanguageKey()

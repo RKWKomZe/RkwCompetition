@@ -168,7 +168,7 @@
                 <source>See your registratios %shere%s!</source>
                 <target>Ihre aktuellen Wettbewerbsregistrierungen können Sie %shier%s einsehen.</target>
             </trans-unit>
-            <trans-unit id="registerController.messageregistrationCanceled">
+            <trans-unit id="registerController.message.registrationCanceled">
                 <source>Registration was canceled.</source>
                 <target>Schade! Die Wettbewerbsanmeldung wurde, wie gewünscht, abgebrochen. Sie können aber jederzeit erneut eine Registrierung vornehmen.</target>
             </trans-unit>

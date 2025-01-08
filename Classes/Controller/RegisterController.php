@@ -190,7 +190,10 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
                 ->startRegistration();
 
             $this->addFlashMessage(
-                LocalizationUtility::translate('registerController.message.registrationCreatedEmail')
+                LocalizationUtility::translate(
+                    'registerController.message.registrationCreatedEmail',
+                    'rkw_competition'
+                )
             );
         }
 
@@ -474,7 +477,10 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
                 if (CompetitionUtility::hasRegTimeEnded($competition)) {
 
                     $this->addFlashMessage(
-                        LocalizationUtility::translate('registerController.error.registrationTime', 'rkw_competition'),
+                        LocalizationUtility::translate(
+                            'registerController.error.registrationTime',
+                            'rkw_competition'
+                        ),
                         '',
                         \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
                     );
@@ -492,7 +498,8 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
 
                 $this->addFlashMessage(
                     LocalizationUtility::translate(
-                        'registerController.message.registrationCreated', 'rkw_competition'
+                        'registerController.message.registrationCreated',
+                        'rkw_competition'
                     )
                 );
 
@@ -504,7 +511,8 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
 
             $this->addFlashMessage(
                 LocalizationUtility::translate(
-                    'registerController.message.registrationCanceled', 'rkw_competition'
+                    'registerController.message.registrationCanceled',
+                    'rkw_competition'
                 )
             );
 
@@ -514,7 +522,8 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
 
         $this->addFlashMessage(
             LocalizationUtility::translate(
-                'registerController.error.registrationError', 'rkw_competition'
+                'registerController.error.registrationError',
+                'rkw_competition'
             ),
             '',
             \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
