@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace RKW\RkwCompetition\Domain\Repository;
 
 
+use Madj2k\FeRegister\Domain\Model\FrontendUser;
 use RKW\RkwCompetition\Domain\Model\Competition;
-use RKW\RkwCompetition\Domain\Model\FrontendUser;
 use RKW\RkwCompetition\Domain\Model\JuryReference;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
@@ -30,12 +30,12 @@ class JuryReferenceRepository extends AbstractRepository
      *
      * @param FrontendUser $frontendUser
      * @param Competition $competition
-     * @return object
+     * @return object|null
      */
     public function findByFrontendUserAndCompetition(
         FrontendUser $frontendUser,
         Competition $competition
-    ): object
+    ): ?object
     {
 
         $query = $this->createQuery();

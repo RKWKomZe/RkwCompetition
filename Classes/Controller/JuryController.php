@@ -53,7 +53,8 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
 
             $this->addFlashMessage(
                 \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-                    'participantController.message.error.notPermitted', 'rkw_competition'
+                    'participantController.message.error.notPermitted',
+                    'rkw_competition'
                 ),
                 '',
                 \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
@@ -118,18 +119,24 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
 
         if (!$consentAsJuryMember) {
             $errorMessage = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-                'juryController.message.consent'
+                'juryController.message.consent',
+                'rkw_competition'
             );
 
         }
         if ($juryReference->getConsentedAt()) {
             $errorMessage = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-                'juryController.message.alreadyConsented'
+                'juryController.message.alreadyConsented',
+                'rkw_competition'
             );
         }
 
         if ($errorMessage) {
-            $this->addFlashMessage($errorMessage);
+            $this->addFlashMessage(
+                $errorMessage,
+                '',
+                \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+            );
 
             $this->redirect(
                 'edit',
@@ -141,9 +148,12 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
 
         $juryReference->setConsentedAt(time());
 
-        $this->addFlashMessage(\TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-            'juryController.message.updated'
-        ));
+        $this->addFlashMessage(
+            \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                'juryController.message.updated',
+                'rkw_competition'
+            )
+        );
         $this->juryReferenceRepository->update($juryReference);
         $this->redirect('list');
     }

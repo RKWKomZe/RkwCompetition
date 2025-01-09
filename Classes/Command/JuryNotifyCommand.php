@@ -144,7 +144,8 @@ class JuryNotifyCommand extends Command
 
                             // create juryReference record (IF NOT EXISTS YET)
                             $existingRecord = $this->juryReferenceRepository->findByFrontendUserAndCompetition($juryCandidate, $competition);
-                            if ($existingRecord instanceof JuryReference) {
+
+                            if (!$existingRecord instanceof JuryReference) {
                                 /** @var JuryReference $newJuryReference */
                                 $newJuryReference = GeneralUtility::makeInstance(JuryReference::class);
 
@@ -153,6 +154,7 @@ class JuryNotifyCommand extends Command
                                 $newJuryReference->setFrontendUser($juryCandidate);
                                 $newJuryReference->setCompetition($competition);
                                 $newJuryReference->setInvitationMailTstamp(time());
+
                                 $this->juryReferenceRepository->add($newJuryReference);
                             }
 

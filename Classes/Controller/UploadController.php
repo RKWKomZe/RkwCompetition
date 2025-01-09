@@ -88,7 +88,14 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
     {
         // check if "Upload"-Entity exists
         if (!$register->getUpload() instanceof Upload) {
-            throw new AspectNotFoundException();
+
+           // throw new AspectNotFoundException();
+
+            // instead of throwing error simply create and add an Upload object
+            $upload = GeneralUtility::makeInstance(Upload::class);
+            $register->setUpload($upload);
+            $this->registerRepository->update($register);
+            $this->persistenceManager->persistAll();
         }
 
         $this->view->assign('register', $register);
@@ -134,7 +141,10 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
         }
 
         $this->addFlashMessage(
-            LocalizationUtility::translate('updateController.message.uploadSuccess')
+            LocalizationUtility::translate(
+                'updateController.message.uploadSuccess',
+                'rkw_competition'
+            )
         );
 
         $this->uploadRepository->update($register->getUpload());

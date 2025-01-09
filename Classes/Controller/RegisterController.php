@@ -349,7 +349,10 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
         if (!$submitConfirm) {
 
             $this->addFlashMessage(
-                LocalizationUtility::translate('registerController.message.submitIncomplete')
+                LocalizationUtility::translate(
+                    'registerController.message.submitIncomplete',
+                    'rkw_competition'
+                )
             );
             $this->redirect(
                 'submitQuestion',
@@ -361,7 +364,10 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
 
 
         $this->addFlashMessage(
-            LocalizationUtility::translate('registerController.message.submitSuccess')
+            LocalizationUtility::translate(
+                'registerController.message.submitSuccess',
+                'rkw_competition'
+            )
         );
 
         $register->setUserSubmittedAt(time());
@@ -412,7 +418,10 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
         // General error:
         if ($competition->_isDirty()) {
             $this->addFlashMessage(
-                LocalizationUtility::translate('registerController.error.somethingWentWrong', 'rkw_competition'),
+                LocalizationUtility::translate(
+                    'registerController.error.somethingWentWrong',
+                    'rkw_competition'
+                ),
                 '',
                 \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
             );
