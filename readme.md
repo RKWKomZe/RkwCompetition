@@ -75,9 +75,9 @@ plugin.tx_rkwcompetition {
 
 Jury-Member are basically normal FrontendUsers with a certain FrontendUserGroup.
 
-They can be added to a ***Competition*** as a ***candidate*** ("jury_member_candidate"). Through a Cronjob ("JuryNotifyCommand") they will get E-Mails with deadline information and invitation to accept the membership.
+They can be added to a ***Competition*** as a ***candidate*** ("jury_member_candidate"). They do not belong to any particular FrontendUserGroup at this time. Through a Cronjob ("JuryNotifyCommand") they will get E-Mails with deadline information and invitation to accept the membership.
 
-If a FrontendUser and Candidate is accepting the membership, the FrontendUser will be added as a ***confirmed jury member*** to the ***competition***.
+If a FrontendUser and Candidate is accepting the membership, the FrontendUser get the defined FrontendUserGroup for JuryMembers and will be added as a ***confirmed jury member*** to the ***competition***.
 
 ***@toDo: Do we need a function for Admins to notify them if a jury member does not accept the invitation?***
 

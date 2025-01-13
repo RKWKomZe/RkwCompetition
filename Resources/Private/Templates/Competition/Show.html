@@ -1,5 +1,5 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-      xmlns:postmaster="http://typo3.org/ns/Madj2k\Postmaster\ViewHelpers"
+      xmlns:rkw="http://typo3.org/ns/RKW/RkwCompetition/ViewHelpers"
       data-namespace-typo3-fluid="true"
 >
 <f:layout name="Default" />
@@ -33,23 +33,24 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
     <f:render partial="Competition/Properties" arguments="{competition:competition}" />
 
-    <br>
-    <br>
-    <strong>
-    @toDo: Link nur zeigen, wenn Anmeldefrist noch gegeben. Ansonsten "keine registrierung mehr möglich" anzeigen.
-    </strong>
-    <br>
-    <br>
+    <f:comment><!-- ViewHelper returns true if reg time for competition is still running --></f:comment>
+    <f:if condition="<rkw:isDateWithinDeadline date='{competition.registerEnd}' />">
+        <f:then>
+            <f:link.action
+                    action="new"
+                    controller="Register"
+                    pluginName="Register"
+                    pageUid="{settings.registerPid}"
+                    additionalParams='{tx_rkwcompetition_register: {competition: competition}}'
+            >
+                <f:translate key="tx_rkwcompetition_fluid.templates_competition_show.register" />
+            </f:link.action>
+        </f:then>
+        <f:else>
+            <strong>Die Anmeldefrist ist abgelaufen.</strong>
+        </f:else>
+    </f:if>
 
 
-    <f:link.action
-            action="new"
-            controller="Register"
-            pluginName="Register"
-            pageUid="{settings.registerPid}"
-            additionalParams='{tx_rkwcompetition_register: {competition: competition}}'
-    >
-        <f:translate key="tx_rkwcompetition_fluid.templates_competition_show.register" />
-    </f:link.action>
 </f:section>
 </html>

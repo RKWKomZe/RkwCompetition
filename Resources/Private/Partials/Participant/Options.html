@@ -20,7 +20,7 @@
                 </f:link.action>
 
 
-                <!-- ViewHelper returns true if reg time for competition is still running -->
+                <f:comment><!-- ViewHelper returns true if reg time for competition is still running --></f:comment>
                 <f:if condition="<rkw:isDateWithinDeadline date='{register.competition.registerEnd}' />">
 
                     <f:if condition="<rkw:registerStatus register='{register}' /> < 300">
