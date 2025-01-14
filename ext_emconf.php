@@ -15,7 +15,7 @@ $EM_CONF[$_EXTKEY] = [
             'core_extended' => '10.4.0-10.4.99',
             'postmaster' => '10.4.0-10.4.99',
             'fe_register' => '10.4.0-10.4.99',
-            'hcaptcha' => '10.4.0-10.4.99',
+            'typo3-hcaptcha' => '10.4.0-10.4.99',
         ],
         'conflicts' => [],
         'suggests' => [],

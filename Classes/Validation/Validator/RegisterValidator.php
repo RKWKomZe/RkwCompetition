@@ -41,7 +41,7 @@ class RegisterValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abstract
     /**
      * validation
      *
-     * @var \RKW\RkwEvents\Domain\Model\Register $newRegister
+     * @var \RKW\RkwCompetition\Domain\Model\Register $newRegister
      * @return bool
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
      */
@@ -64,6 +64,21 @@ class RegisterValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abstract
         }
 
         $isValid = true;
+
+        // check if register period is already expired
+        if ($newRegister->getCompetition()->getRegisterEnd()->getTimestamp() < time()) {
+            $this->result->addError(
+                new \TYPO3\CMS\Extbase\Error\Error(
+                    \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                        'tx_rkwcompetition_validator.expired',
+                        'rkw_competition',
+                        [date('d.m.Y', $newRegister->getCompetition()->getRegisterEnd()->getTimestamp())]
+                    ), 1736779680
+                )
+            );
+            $isValid = false;
+        }
+
 
         // 1. Check mandatory fields main person
         if ($mandatoryFields) {

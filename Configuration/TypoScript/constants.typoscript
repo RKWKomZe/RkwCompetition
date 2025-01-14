@@ -18,7 +18,7 @@ plugin.tx_rkwcompetition {
         registerPid =
 
         mandatoryFields {
-            register =
+            register = email, firstName, lastName
             registerGroupWork = groupWorkInsurance, groupWorkAddPersons
         }
 

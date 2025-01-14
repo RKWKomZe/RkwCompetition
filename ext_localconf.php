@@ -72,6 +72,10 @@ defined('TYPO3_MODE') || die();
     );
 
 
+
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['locallangXMLOverride']['de']['EXT:hcaptcha/Resources/Private/Language/locallang.xlf'][] = 'EXT:rkw_competition/Resources/Private/Language/Overrides/de.locallang_hcaptcha.xlf';
+
+
     //=================================================================
     // Register Signal-Slots
     //=================================================================

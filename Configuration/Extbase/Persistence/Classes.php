@@ -8,6 +8,9 @@ return [
     \RKW\RkwCompetition\Domain\Model\FrontendUser::class => [
         'tableName' => 'fe_users',
     ],
+    \RKW\RkwCompetition\Domain\Model\FrontendUserGroup::class => [
+        'tableName' => 'fe_groups',
+    ],
 //    \RKW\RkwCompetition\Domain\Model\File::class => [
 //        'tableName' => 'sys_file',
 //    ],

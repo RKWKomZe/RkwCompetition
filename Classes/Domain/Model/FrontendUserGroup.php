@@ -24,7 +24,7 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  * @package Rkw_RkwCompetition
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class FrontendUserGroup extends \Madj2k\CoreExtended\Domain\FrontendUserGroup
+class FrontendUserGroup extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
 
     /**

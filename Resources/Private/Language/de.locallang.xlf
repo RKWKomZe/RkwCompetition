@@ -23,6 +23,10 @@
                 <source>Wrong mime type for: '%s'.</source>
                 <target>Falscher Datentyp für: '%s'.</target>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_validator.expired">
+                <source>Competition expired</source>
+                <target>Die Registrierungsphase ist leider seit dem %s abgelaufen.</target>
+            </trans-unit>
 
             <trans-unit id="tx_rkwcompetition_validator.remark">
                 <source>Remark</source>

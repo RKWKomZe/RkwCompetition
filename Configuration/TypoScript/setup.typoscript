@@ -10,7 +10,7 @@ plugin.tx_rkwcompetition {
         }
         partialRootPaths {
             0 = EXT:rkw_competition/Resources/Private/Partials/
-            1 = {$plugin.tx_coreextended.view.partialRootPath}
+            #1 = {$plugin.tx_coreextended.view.partialRootPath}
             # we need to overwrite FormErrors of CoreExtended but want to use CaptchaElement of CoreExtended
             2 = {$plugin.tx_rkwcompetition.view.partialRootPath}
         }

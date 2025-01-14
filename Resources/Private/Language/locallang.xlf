@@ -244,6 +244,9 @@
             <trans-unit id="tx_rkwcompetition_validator.wrong_mime_type">
                 <source>Wrong mime type for: '%s'.</source>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_validator.expired">
+                <source>Competition expired</source>
+            </trans-unit>
 
             <trans-unit id="tx_rkwcompetition_validator.remark">
                 <source>Remark</source>

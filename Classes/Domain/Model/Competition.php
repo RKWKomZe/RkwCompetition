@@ -142,14 +142,14 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * groupForJury
      *
-     * @var \Madj2k\FeRegister\Domain\Model\FrontendUserGroup
+     * @var \RKW\RkwCompetition\Domain\Model\FrontendUserGroup
      */
     protected $groupForJury = null;
 
     /**
      * groupForUser
      *
-     * @var \Madj2k\FeRegister\Domain\Model\FrontendUserGroup
+     * @var \RKW\RkwCompetition\Domain\Model\FrontendUserGroup
      */
     protected $groupForUser = null;
 
@@ -631,7 +631,7 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the groupForJury
      *
-     * @return \Madj2k\FeRegister\Domain\Model\FrontendUserGroup
+     * @return \RKW\RkwCompetition\Domain\Model\FrontendUserGroup
      */
     public function getGroupForJury()
     {
@@ -641,10 +641,10 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the groupForJury
      *
-     * @param \Madj2k\FeRegister\Domain\Model\FrontendUserGroup $groupForJury
+     * @param \RKW\RkwCompetition\Domain\Model\FrontendUserGroup $groupForJury
      * @return void
      */
-    public function setGroupForJury(\Madj2k\FeRegister\Domain\Model\FrontendUserGroup $groupForJury)
+    public function setGroupForJury(\RKW\RkwCompetition\Domain\Model\FrontendUserGroup $groupForJury)
     {
         $this->groupForJury = $groupForJury;
     }
@@ -652,7 +652,7 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the groupForUser
      *
-     * @return \Madj2k\FeRegister\Domain\Model\FrontendUserGroup
+     * @return \RKW\RkwCompetition\Domain\Model\FrontendUserGroup
      */
     public function getGroupForUser()
     {
@@ -662,10 +662,10 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the groupForUser
      *
-     * @param \Madj2k\FeRegister\Domain\Model\FrontendUserGroup $groupForUser
+     * @param \RKW\RkwCompetition\Domain\Model\FrontendUserGroup $groupForUser
      * @return void
      */
-    public function setGroupForUser(\Madj2k\FeRegister\Domain\Model\FrontendUserGroup $groupForUser)
+    public function setGroupForUser(\RKW\RkwCompetition\Domain\Model\FrontendUserGroup $groupForUser)
     {
         $this->groupForUser = $groupForUser;
     }

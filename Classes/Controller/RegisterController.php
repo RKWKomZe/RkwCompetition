@@ -124,19 +124,15 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
      * @TYPO3\CMS\Extbase\Annotation\Validate("RKW\RkwCompetition\Validation\Validator\RegisterValidator", param="newRegister")
      * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\FeRegister\Validation\Consent\TermsValidator", param="newRegister")
      * @TYPO3\CMS\Extbase\Annotation\Validate("Madj2k\FeRegister\Validation\Consent\PrivacyValidator", param="newRegister")
+     * @TYPO3\CMS\Extbase\Annotation\Validate("Waldhacker\Hcaptcha\Validation\HcaptchaValidator", param="newRegister")
      * @return void
      * @throws AspectNotFoundException
      * @throws StopActionException
      */
     public function createAction(\RKW\RkwCompetition\Domain\Model\Register $newRegister)
     {
-
         // -> create an additional field inside the RegisterModel for it
         $newRegister->setUniqueId(uniqid('feuser', false));
-
-
-        // @toDo: Check register end time of competition
-
 
         $newRegister->setPrivacy(time());
         $newRegister->setConditionsOfParticipation(time());
@@ -238,7 +234,10 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
         // @toDo: Check for logged in user
 
         $this->addFlashMessage(
-            LocalizationUtility::translate('registerController.message.updated')
+            LocalizationUtility::translate(
+                'registerController.message.updated',
+                'rkw_competition'
+            )
         );
         $this->registerRepository->update($register);
         $this->redirect('list', 'Participant');
@@ -273,7 +272,10 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
         // @toDo: Check for logged in user
 
         $this->addFlashMessage(
-            LocalizationUtility::translate('registerController.message.updated')
+            LocalizationUtility::translate(
+                'registerController.message.updated',
+                'rkw_competition'
+            )
         );
         $this->registerRepository->remove($register);
 
@@ -459,7 +461,10 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
                 if (count($registerQueryResult)) {
 
                     $this->addFlashMessage(
-                        LocalizationUtility::translate('registerController.error.exists', 'rkw_competition'),
+                        LocalizationUtility::translate(
+                            'registerController.error.exists',
+                            'rkw_competition'
+                        ),
                         '',
                         \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
                     );

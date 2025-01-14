@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2019-08-19T13:37:00Z">
+        <body>
+            <trans-unit id="error_hcaptcha_timeout-or-duplicate">
+                <source>Duplicate submission of form. Please check the captcha again.</source>
+                <target>Doppelte Übermittlung des Formulars. Bitte überprüfen Sie das Captcha erneut.</target>
+            </trans-unit>
+            <trans-unit id="error_hcaptcha_invalid-input-secret">
+                <source>Invalid input secret.</source>
+                <target>Ungültige Passworteingabe.</target>
+            </trans-unit>
+            <trans-unit id="error_hcaptcha_invalid-post-form">
+                <source>Missing validation value in POST request.</source>
+                <target>Fehlender Validierungswert in POST-Anfrage.</target>
+            </trans-unit>
+            <trans-unit id="error_hcaptcha_invalid-input-response">
+                <source>Invalid input response.</source>
+                <target>Ungültige Eingabeantwort.</target>
+            </trans-unit>
+            <trans-unit id="error_hcaptcha_missing-input-response">
+                <source>Missing input.</source>
+                <target>Es muss leider sein: Bitte denken Sie auch an die Captcha eingabe.</target>
+            </trans-unit>
+            <trans-unit id="error_hcaptcha_generic">
+                <source>Validating the captcha failed.</source>
+                <target>Die Validierung des Captcha ist fehlgeschlagen.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

@@ -1,4 +1,8 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:hcap="http://typo3.org/ns/Waldhacker/Hcaptcha/ViewHelpers"
+      data-namespace-typo3-fluid="true"
+
+>
 <f:layout name="Default" />
 
 This template displays a NEW form for the current domain object.
@@ -48,7 +52,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
                 <f:render partial="Register/FormFields" arguments="{_all}" />
 
-                <f:render partial="CaptchaElement" />
+                <hcap:forms.hcaptcha />
 
                 <button type="submit" class="btn btn--primary">
                     <f:translate key="tx_rkwcompetition_fluid.templates_register_new.submit" />
