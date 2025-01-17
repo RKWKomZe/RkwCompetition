@@ -37,6 +37,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
     <f:if condition="<rkw:isDateWithinDeadline date='{competition.registerEnd}' />">
         <f:then>
             <f:link.action
+                    class="btn btn--primary"
                     action="new"
                     controller="Register"
                     pluginName="Register"

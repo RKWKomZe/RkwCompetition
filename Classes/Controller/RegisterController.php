@@ -113,6 +113,7 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
 
         //$this->view->assign('sectorList', $this->sectorRepository->findAll());
         $this->view->assign('competition', $competition);
+        $this->view->assign('frontendUser', $this->getFrontendUser());
 
     }
 

@@ -7,10 +7,10 @@
 		    <!-- ==================================================================================== -->
             <!-- ================                     MODEL                        ================== -->
             <!-- ==================================================================================== -->
-			<trans-unit id="tx_rkwcompetition_domain_model_register" resname="tx_rkwcompetition_domain_model_register">
+			<trans-unit id="tx_rkwcompetition_domain_model_register">
 				<source>Register</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_register.salutation" resname="tx_rkwcompetition_domain_model_register.salutation">
+			<trans-unit id="tx_rkwcompetition_domain_model_register.salutation">
 				<source>Salutation</source>
 			</trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_register.salutation" approved="yes">
@@ -28,37 +28,37 @@
             <trans-unit id="tx_rkwcompetition_domain_model_register.salutation.I.3" approved="yes">
                 <source>Mx</source>
             </trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_register.title" resname="tx_rkwcompetition_domain_model_register.title">
+			<trans-unit id="tx_rkwcompetition_domain_model_register.title">
 				<source>Title</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_register.first_name" resname="tx_rkwcompetition_domain_model_register.first_name">
+			<trans-unit id="tx_rkwcompetition_domain_model_register.first_name">
 				<source>First Name</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_register.last_name" resname="tx_rkwcompetition_domain_model_register.last_name">
+			<trans-unit id="tx_rkwcompetition_domain_model_register.last_name">
 				<source>Last Name</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_register.institution" resname="tx_rkwcompetition_domain_model_register.institution">
+			<trans-unit id="tx_rkwcompetition_domain_model_register.institution">
                 <source>Institution (Hochschule, Institution, Firma)</source>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_domain_model_register.address" resname="tx_rkwcompetition_domain_model_register.address">
+            <trans-unit id="tx_rkwcompetition_domain_model_register.address">
                 <source>Address</source>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_domain_model_register.zip" resname="tx_rkwcompetition_domain_model_register.zip">
+            <trans-unit id="tx_rkwcompetition_domain_model_register.zip">
                 <source>Zip</source>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_domain_model_register.city" resname="tx_rkwcompetition_domain_model_register.city">
+            <trans-unit id="tx_rkwcompetition_domain_model_register.city">
                 <source>City</source>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_domain_model_register.telephone" resname="tx_rkwcompetition_domain_model_register.telephone">
+            <trans-unit id="tx_rkwcompetition_domain_model_register.telephone">
                 <source>Telephone</source>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_domain_model_register.email" resname="tx_rkwcompetition_domain_model_register.email">
+            <trans-unit id="tx_rkwcompetition_domain_model_register.email">
                 <source>Email</source>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_domain_model_register.contribution_title" resname="tx_rkwcompetition_domain_model_register.contribution_title">
+            <trans-unit id="tx_rkwcompetition_domain_model_register.contribution_title">
                 <source>Contribution Title (Titel des Beitrags)</source>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_domain_model_register.type_of_work" resname="tx_rkwcompetition_domain_model_register.type_of_work">
+            <trans-unit id="tx_rkwcompetition_domain_model_register.type_of_work">
                 <source>Type Of Work (Art der Arbeit (Einzel- oder Gruppenarbeit))</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.type_of_work.I.99" approved="yes">
@@ -70,28 +70,28 @@
             <trans-unit id="tx_rkwcompetition_domain_model_register.type_of_work.I.2" approved="yes">
                 <source>Group work</source>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_domain_model_register.sector" resname="tx_rkwcompetition_domain_model_register.sector">
+            <trans-unit id="tx_rkwcompetition_domain_model_register.sector">
                 <source>Sector (Wettbewerbsbereich)</source>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_domain_model_register.remark" resname="tx_rkwcompetition_domain_model_register.remark">
+            <trans-unit id="tx_rkwcompetition_domain_model_register.remark">
                 <source>Remark</source>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_domain_model_register.privacy" resname="tx_rkwcompetition_domain_model_register.privacy">
+            <trans-unit id="tx_rkwcompetition_domain_model_register.privacy">
                 <source>Privacy (Zustimmung zur Datenschutzerklärung)</source>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_domain_model_register.conditions_of_participation" resname="tx_rkwcompetition_domain_model_register.conditions_of_participation">
+            <trans-unit id="tx_rkwcompetition_domain_model_register.conditions_of_participation">
                 <source>Conditions Of Participation (Zustimmung zu Teilnahmebedingungen)</source>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_domain_model_register.is_group_work" resname="tx_rkwcompetition_domain_model_register.is_group_work">
+            <trans-unit id="tx_rkwcompetition_domain_model_register.is_group_work">
                 <source>Is Group Work</source>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_domain_model_register.group_work_insurance" resname="tx_rkwcompetition_domain_model_register.group_work_insurance">
+            <trans-unit id="tx_rkwcompetition_domain_model_register.group_work_insurance">
                 <source>Group Work Insurance (Eidestattliche Versicherung, dass im Namen den anderen Gruppenmitglieder Anmeldung zulässig)</source>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_domain_model_register.group_work_add_persons" resname="tx_rkwcompetition_domain_model_register.group_work_add_persons">
+            <trans-unit id="tx_rkwcompetition_domain_model_register.group_work_add_persons">
                 <source>Group Work Add Persons (Namen der anderen Gruppenmitglieder (Anrede, Titel, Vorname und Nachname))</source>
             </trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_register.upload" resname="tx_rkwcompetition_domain_model_register.upload">
+			<trans-unit id="tx_rkwcompetition_domain_model_register.upload">
 				<source>Upload</source>
 			</trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_register.frontend_user">
@@ -154,79 +154,79 @@
             </trans-unit>
 
 
-			<trans-unit id="tx_rkwcompetition_domain_model_competition" resname="tx_rkwcompetition_domain_model_competition">
+			<trans-unit id="tx_rkwcompetition_domain_model_competition">
 				<source>Competition</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_competition.title" resname="tx_rkwcompetition_domain_model_competition.title">
+			<trans-unit id="tx_rkwcompetition_domain_model_competition.title">
 				<source>Title</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_competition.register_start" resname="tx_rkwcompetition_domain_model_competition.register_start">
+			<trans-unit id="tx_rkwcompetition_domain_model_competition.register_start">
 				<source>Register Start</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_competition.register_end" resname="tx_rkwcompetition_domain_model_competition.register_end">
+			<trans-unit id="tx_rkwcompetition_domain_model_competition.register_end">
 				<source>Register End</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_competition.jury_access_end" resname="tx_rkwcompetition_domain_model_competition.jury_access_end">
+			<trans-unit id="tx_rkwcompetition_domain_model_competition.jury_access_end">
 				<source>Jury Access End</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_competition.record_removal_date" resname="tx_rkwcompetition_domain_model_competition.record_removal_date">
+			<trans-unit id="tx_rkwcompetition_domain_model_competition.record_removal_date">
 				<source>Record removal date</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_competition.jury_add_data" resname="tx_rkwcompetition_domain_model_competition.jury_add_data">
+			<trans-unit id="tx_rkwcompetition_domain_model_competition.jury_add_data">
 				<source>Jury Add Data</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_competition.link_jury_declaration_confident" resname="tx_rkwcompetition_domain_model_competition.link_jury_declaration_confident">
+			<trans-unit id="tx_rkwcompetition_domain_model_competition.link_jury_declaration_confident">
 				<source>Jury Declaration Confident</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_competition.allow_team_participation" resname="tx_rkwcompetition_domain_model_competition.allow_team_participation">
+			<trans-unit id="tx_rkwcompetition_domain_model_competition.allow_team_participation">
 				<source>Allow Team Participation</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_competition.reminder_incomplete_mail_tstamp" resname="tx_rkwcompetition_domain_model_competition.reminder_incomplete_mail_tstamp">
+			<trans-unit id="tx_rkwcompetition_domain_model_competition.reminder_incomplete_mail_tstamp">
                 <source>Reminder Incomplete Tstamp</source>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_domain_model_competition.reminder_cleanup_mail_tstamp" resname="tx_rkwcompetition_domain_model_competition.reminder_cleanup_mail_tstamp">
+            <trans-unit id="tx_rkwcompetition_domain_model_competition.reminder_cleanup_mail_tstamp">
                 <source>Reminder Cleanup Interval</source>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_domain_model_competition.reminder_jury_mail_tstamp" resname="tx_rkwcompetition_domain_model_competition.reminder_jury_mail_tstamp">
+            <trans-unit id="tx_rkwcompetition_domain_model_competition.reminder_jury_mail_tstamp">
                 <source>Reminder Jury Tstamp</source>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_domain_model_competition.closing_day_mail_tstamp" resname="tx_rkwcompetition_domain_model_competition.closing_day_mail_tstamp">
+            <trans-unit id="tx_rkwcompetition_domain_model_competition.closing_day_mail_tstamp">
                 <source>Closing Day Tstamp</source>
             </trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_competition.link_cond_participation" resname="tx_rkwcompetition_domain_model_competition.link_cond_participation">
+			<trans-unit id="tx_rkwcompetition_domain_model_competition.link_cond_participation">
 				<source>Link Cond Participation</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_competition.link_privacy" resname="tx_rkwcompetition_domain_model_competition.link_privacy">
+			<trans-unit id="tx_rkwcompetition_domain_model_competition.link_privacy">
 				<source>Link Privacy</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_competition.admin_member" resname="tx_rkwcompetition_domain_model_competition.admin_member">
+			<trans-unit id="tx_rkwcompetition_domain_model_competition.admin_member">
 				<source>Admin Member</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_competition.jury_member_candidate" resname="tx_rkwcompetition_domain_model_competition.jury_member_candidate">
+			<trans-unit id="tx_rkwcompetition_domain_model_competition.jury_member_candidate">
 				<source>Jury Member Candidates</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_competition.jury_member_confirmed" resname="tx_rkwcompetition_domain_model_competition.jury_member_confirmed">
+			<trans-unit id="tx_rkwcompetition_domain_model_competition.jury_member_confirmed">
                 <source>Jury Member Confirmed</source>
             </trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_competition.group_for_jury" resname="tx_rkwcompetition_domain_model_competition.group_for_jury">
+			<trans-unit id="tx_rkwcompetition_domain_model_competition.group_for_jury">
 				<source>Group For Jury</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_competition.group_for_user" resname="tx_rkwcompetition_domain_model_competition.group_for_user">
+			<trans-unit id="tx_rkwcompetition_domain_model_competition.group_for_user">
 				<source>Group For User</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_competition.sectors" resname="tx_rkwcompetition_domain_model_competition.sectors">
+			<trans-unit id="tx_rkwcompetition_domain_model_competition.sectors">
 				<source>Sectors</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_competition.register" resname="tx_rkwcompetition_domain_model_competition.register">
+			<trans-unit id="tx_rkwcompetition_domain_model_competition.register">
 				<source>Register</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_sector" resname="tx_rkwcompetition_domain_model_sector">
+			<trans-unit id="tx_rkwcompetition_domain_model_sector">
 				<source>Sector</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_sector.title" resname="tx_rkwcompetition_domain_model_sector.title">
+			<trans-unit id="tx_rkwcompetition_domain_model_sector.title">
 				<source>Title</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_sector.description" resname="tx_rkwcompetition_domain_model_sector.description">
+			<trans-unit id="tx_rkwcompetition_domain_model_sector.description">
 				<source>Description</source>
 			</trans-unit>
 
@@ -404,11 +404,51 @@
             <trans-unit id="tx_rkwcompetition_fluid.label_required">
                 <source>(Required)</source>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.yes">
+                <source>Yes</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.no">
+                <source>No</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.back">
+                <source>Back</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.please_choose" approved="yes">
+                <source>-- Please select --</source>
+                <target>-- Bitte wählen --</target>
+            </trans-unit>
 
             <!-- TEMPLATES -->
             <!-- Templates/Competition/Show.html -->
             <trans-unit id="tx_rkwcompetition_fluid.templates_competition_show.register">
                 <source>Register</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_competition_show.headline">
+                <source>Competition</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_competition_show.title">
+                <source>Title</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_competition_show.register_start">
+                <source>Register Start</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_competition_show.register_end">
+                <source>Register End</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_competition_show.allow_team_participation">
+                <source>Allow Team Participation</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_competition_show.link_cond_participation">
+                <source>Link Cond Participation</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_competition_show.link_privacy">
+                <source>Link Privacy</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_competition_show">
+                <source>Sector</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_competition_show.description">
+                <source>Description</source>
             </trans-unit>
 
             <!-- Templates/Jury/Edit.html -->
@@ -451,6 +491,67 @@
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.submit">
                 <source>Send</source>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.headline">
+                <source>Register</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.salutation">
+                <source>Salutation</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.salutation.I.1" approved="yes">
+                <source>Mr.</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.salutation.I.2" approved="yes">
+                <source>Mrs.</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.salutation.I.3" approved="yes">
+                <source>Mx</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.title">
+                <source>Title</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.first_name">
+                <source>First Name</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.last_name">
+                <source>Last Name</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.institution">
+                <source>Institution (Hochschule, Institution, Firma)</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.address">
+                <source>Address</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.zip">
+                <source>Zip</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.city">
+                <source>City</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.telephone">
+                <source>Telephone</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.email">
+                <source>Email</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.contribution_title">
+                <source>Contribution Title</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.sector">
+                <source>Sector</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.remark">
+                <source>Remark</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.is_group_work">
+                <source>Is Group Work</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.group_work_insurance">
+                <source>Group Work Insurance</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.group_work_add_persons">
+                <source>Group Work Add Persons</source>
+            </trans-unit>
+
 
             <!-- Templates/Register/SubmitQuestion.html -->
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.backToList">
@@ -525,6 +626,12 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.registerSubmit">
                 <source>Submit registration</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.submit">
+                <source>Submit</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.registrationComplete">
+                <source>Registration complete</source>
             </trans-unit>
 
 

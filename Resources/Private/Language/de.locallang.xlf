@@ -221,9 +221,27 @@
             <!-- Fluid templates general -->
             <trans-unit id="tx_rkwcompetition_fluid.label_optional">
                 <source>(optional)</source>
+                <target>(optional)</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.label_required">
                 <source>(Required)</source>
+                <target>(Pflichtfeld)</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.yes">
+                <source>Yes</source>
+                <target>Ja</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.no">
+                <source>No</source>
+                <target>Nein</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.back">
+                <source>Back</source>
+                <target>Zurück</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.please_choose" approved="yes">
+                <source>-- Please select --</source>
+                <target>-- Bitte wählen --</target>
             </trans-unit>
 
             <!-- TEMPLATES -->
@@ -232,6 +250,45 @@
                 <source>Register</source>
                 <target>Anmelden</target>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_competition_show.headline">
+                <source>Competition</source>
+                <target>Wettbewerb</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_competition_show.title">
+                <source>Title</source>
+                <target>Titel</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_competition_show.register_start">
+                <source>Register Start</source>
+                <target>Anmeldebeginn</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_competition_show.register_end">
+                <source>Register End</source>
+                <target>Anmeldenende</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_competition_show.allow_team_participation">
+                <source>Allow Team Participation</source>
+                <target>Teamarbeit erlaubt</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_competition_show.link_cond_participation">
+                <source>Link Cond Participation</source>
+                <target>Teilnahmebedingungen</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_competition_show.link_privacy">
+                <source>Link Privacy</source>
+                <target>Datenschutzbestimmungen</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_competition_show">
+                <source>Sector</source>
+                <target>Bereich</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_competition_show.description">
+                <source>Description</source>
+                <target>Beschreibung</target>
+            </trans-unit>
+
+
+
 
             <!-- Templates/Jury/Edit.html -->
             <trans-unit id="tx_rkwcompetition_fluid.templates_jury_edit.edit">
@@ -283,6 +340,87 @@
                 <source>Send</source>
                 <target>Abschicken</target>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.headline">
+                <source>Register</source>
+                <target>Registrieren</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.salutation">
+                <source>Salutation</source>
+                <target>Anrede</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.salutation.I.1" approved="yes">
+                <source>Mr.</source>
+                <target>Herr</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.salutation.I.2" approved="yes">
+                <source>Mrs.</source>
+                <target>Frau</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.salutation.I.3" approved="yes">
+                <source>Mx</source>
+                <target>Divers</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.title">
+                <source>Title</source>
+                <target>Titel</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.first_name">
+                <source>First Name</source>
+                <target>Vorname</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.last_name">
+                <source>Last Name</source>
+                <target>Nachname</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.institution">
+                <source>Institution (Hochschule, Institution, Firma)</source>
+                <target>Institution (Hochschule, Institution, Firma)</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.address">
+                <source>Address</source>
+                <target>Adresse</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.zip">
+                <source>Zip</source>
+                <target>PLZ</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.city">
+                <source>City</source>
+                <target>Stadt</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.telephone">
+                <source>Telephone</source>
+                <target>Telefon</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.email">
+                <source>Email</source>
+                <target>E-Mail</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.contribution_title">
+                <source>Contribution Title</source>
+                <target>Titel des Beitrages</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.sector">
+                <source>Sector</source>
+                <target>Wettbewerbsbereich</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.remark">
+                <source>Remark</source>
+                <target>Anmerkung</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.is_group_work">
+                <source>Is Group Work</source>
+                <target>Gruppenarbeit</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.group_work_insurance">
+                <source>Group Work Insurance</source>
+                <target>Eidestattliche Versicherung, dass im Namen den anderen Gruppenmitglieder Anmeldung zulässig</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.group_work_add_persons">
+                <source>Group Work Add Persons</source>
+                <target>Namen der anderen Gruppenmitglieder (Anrede, Titel, Vorname und Nachname)</target>
+            </trans-unit>
+
 
             <!-- Templates/Register/SubmitQuestion.html -->
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.backToList">
@@ -378,6 +516,14 @@
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.registerSubmit">
                 <source>Submit registration</source>
                 <target>Registrierung einreichen</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.submit">
+                <source>Submit</source>
+                <target>Einreichen</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.registrationComplete">
+                <source>Registration complete</source>
+                <target>Registrierung komplett, keine Aktionen mehr möglich</target>
             </trans-unit>
 
 

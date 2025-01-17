@@ -4,84 +4,116 @@
 
 	<div class="form__field width25 break-after">
 		<label class="form-label" for="salutation">
-			<f:translate key="tx_rkwcompetition_domain_model_register.salutation" />
+			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.salutation" />
 			<f:render partial="LabelSuffix" arguments="{field: 'salutation', mandatoryFields: settings.mandatoryFields.register}" />
 		</label>
 		<f:form.select
 				class="select-field"
 				id="salutation"
 				property="salutation"
-				options="{0: '{f:translate(key: \'tx_rkwcompetition_domain_model_register.salutation.I.0\')}', 1: '{f:translate(key: \'tx_rkwcompetition_domain_model_register.salutation.I.1\')}', 2: '{f:translate(key: \'tx_rkwcompetition_domain_model_register.salutation.I.2\')}', 3: '{f:translate(key: \'tx_rkwcompetition_domain_model_register.salutation.I.3\')}'}"
+				options="{0: '{f:translate(key: \'tx_rkwcompetition_fluid.please_choose\')}', 1: '{f:translate(key: \'tx_rkwcompetition_fluid.templates_register_new.salutation.I.1\')}', 2: '{f:translate(key: \'tx_rkwcompetition_fluid.templates_register_new.salutation.I.2\')}', 3: '{f:translate(key: \'tx_rkwcompetition_fluid.templates_register_new.salutation.I.3\')}'}"
+				value="{frontendUser.txFeregisterGender}"
 		/>
 	</div>
 
 	<div class="form__field width50">
 		<label class="form-label" for="title">
-			<f:translate key="tx_rkwcompetition_domain_model_register.title" />
+			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.title" />
 			<f:render partial="LabelSuffix" arguments="{field: 'title', mandatoryFields: settings.mandatoryFields.register}" />
 		</label>
-		<f:form.textfield property="title" id="title" />
+		<f:form.textfield
+			property="title"
+			id="title"
+		/>
 	</div>
 
 	<div class="form__field width50">
 		<label class="form-label" for="firstName">
-			<f:translate key="tx_rkwcompetition_domain_model_register.first_name" />
+			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.first_name" />
 			<f:render partial="LabelSuffix" arguments="{field: 'firstName', mandatoryFields: settings.mandatoryFields.register}" />
 		</label>
-		<f:form.textfield property="firstName" id="firstName" />
+		<f:form.textfield
+			property="firstName"
+			id="firstName"
+			value="{frontendUser.firstName}"
+		/>
 	</div>
 
 	<div class="form__field width50">
 		<label class="form-label" for="lastName">
-			<f:translate key="tx_rkwcompetition_domain_model_register.last_name" />
+			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.last_name" />
 			<f:render partial="LabelSuffix" arguments="{field: 'lastName', mandatoryFields: settings.mandatoryFields.register}" />
 		</label>
-		<f:form.textfield property="lastName" id="lastName" />
+		<f:form.textfield
+			property="lastName"
+			id="lastName"
+			value="{frontendUser.lastName}"
+		/>
 	</div>
 
 	<div class="form__field width100">
 		<label class="form-label" for="address">
-			<f:translate key="tx_rkwcompetition_domain_model_register.address" />
+			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.address" />
 			<f:render partial="LabelSuffix" arguments="{field: 'address', mandatoryFields: settings.mandatoryFields.register}" />
 		</label>
-		<f:form.textfield property="address" id="address" />
+		<f:form.textfield
+			property="address"
+			id="address"
+			value="{frontendUser.address}"
+		/>
 	</div>
 
 	<div class="form__field width50">
 		<label class="form-label" for="zip">
-			<f:translate key="tx_rkwcompetition_domain_model_register.zip" />
+			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.zip" />
 			<f:render partial="LabelSuffix" arguments="{field: 'zip', mandatoryFields: settings.mandatoryFields.register}" />
 		</label>
-		<f:form.textfield property="zip" id="zip" />
+		<f:form.textfield
+			property="zip"
+			id="zip"
+			value="{frontendUser.zip}"
+		/>
 	</div>
 
 	<div class="form__field width50">
 		<label class="form-label" for="city">
-			<f:translate key="tx_rkwcompetition_domain_model_register.city" />
+			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.city" />
 			<f:render partial="LabelSuffix" arguments="{field: 'city', mandatoryFields: settings.mandatoryFields.register}" />
 		</label>
-		<f:form.textfield property="city" id="city" />
+		<f:form.textfield
+			property="city"
+			id="city"
+			value="{frontendUser.city}"
+		/>
 	</div>
 
 	<div class="form__field width50">
 		<label class="form-label" for="email">
-			<f:translate key="tx_rkwcompetition_domain_model_register.email" />
+			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.email" />
 			<f:render partial="LabelSuffix" arguments="{field: 'email', mandatoryFields: settings.mandatoryFields.register}" />
 		</label>
-		<f:form.textfield property="email" id="email" />
+		<f:form.textfield
+			property="email"
+			id="email"
+			value="{frontendUser.email}"
+		/>
 	</div>
 
 	<div class="form__field width50">
 		<label class="form-label" for="telephone">
-			<f:translate key="tx_rkwcompetition_domain_model_register.telephone" />
+			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.telephone" />
 			<f:render partial="LabelSuffix" arguments="{field: 'telephone', mandatoryFields: settings.mandatoryFields.register}" />
 		</label>
-		<f:form.textfield property="telephone" id="telephone" />
+		<f:form.textfield
+			property="telephone"
+			id="telephone"
+			value="{frontendUser.telephone}"
+		/>
 	</div>
 
 	<div class="form__field width50">
 		<label class="form-label" for="sector">
-			<f:translate key="tx_rkwcompetition_domain_model_register.sector" />
+			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.sector" />
 			<f:render partial="LabelSuffix" arguments="{field: 'sector', mandatoryFields: settings.mandatoryFields.register}" />
 		</label>
 		<f:form.select
@@ -99,7 +131,7 @@
 
 	<div class="form__field width100">
 		<label class="form-label" for="contributionTitle">
-			<f:translate key="tx_rkwcompetition_domain_model_register.contribution_title" />
+			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.contribution_title" />
 			<f:render partial="LabelSuffix" arguments="{field: 'contributionTitle', mandatoryFields: settings.mandatoryFields.register}" />
 		</label>
 		<f:form.textfield property="contributionTitle" id="contributionTitle" />
@@ -107,7 +139,7 @@
 
 	<div class="form__field width100">
 		<label class="form-label" for="institution">
-			<f:translate key="tx_rkwcompetition_domain_model_register.institution" />
+			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.institution" />
 			<f:render partial="LabelSuffix" arguments="{field: 'Institution', mandatoryFields: settings.mandatoryFields.register}" />
 		</label>
 		<f:form.textfield property="institution" id="institution" />
@@ -121,7 +153,7 @@
 				value="1"
 		/>
 		<label for="isGroupWork" class="checkbox-label">
-			<f:translate key="tx_rkwcompetition_domain_model_register.is_group_work" />
+			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.is_group_work" />
 		</label>
 	</div>
 
@@ -133,14 +165,14 @@
 				value="1"
 		/>
 		<label for="groupWorkInsurance" class="checkbox-label">
-			<f:translate key="tx_rkwcompetition_domain_model_register.group_work_insurance" />
+			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.group_work_insurance" />
 			<f:render partial="LabelSuffix" arguments="{field: 'GroupWorkInsurance', mandatoryFields: settings.mandatoryFields.register}" />
 		</label>
 	</div>
 
 	<div class="form__field width100">
 		<label class="form-label" for="groupWorkAddPersons">
-			<f:translate key="tx_rkwcompetition_domain_model_register.group_work_add_persons" />
+			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.group_work_add_persons" />
 			<f:render partial="LabelSuffix" arguments="{field: 'groupWorkAddPersons', mandatoryFields: settings.mandatoryFields.register}" />
 		</label>
 		<f:form.textarea property="groupWorkAddPersons" id="groupWorkAddPersons" />
@@ -148,7 +180,7 @@
 
 	<div class="form__field width100">
 		<label class="form-label" for="remark">
-			<f:translate key="tx_rkwcompetition_domain_model_register.remark" />
+			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.remark" />
 			<f:render partial="LabelSuffix" arguments="{field: 'remark', mandatoryFields: settings.mandatoryFields.register}" />
 		</label>
 		<f:form.textarea property="remark" id="remark" cols="40" rows="15" />
@@ -163,7 +195,7 @@
 	<f:comment>
 		<!-- feRegister consent terms -->
 		<label for="conditionsOfParticipation">
-			<f:translate key="tx_rkwcompetition_domain_model_register.conditions_of_participation" />
+			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.conditions_of_participation" />
 		</label><br />
 		<f:form.textfield property="conditionsOfParticipation" id="conditionsOfParticipation" /><br />
 	</f:comment>

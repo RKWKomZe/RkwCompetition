@@ -44,11 +44,13 @@
                                     action="submitQuestion"
                                     arguments="{register : register}"
                             >
-                                Einreichen
+                                <f:translate key="tx_rkwcompetition_fluid.partials_participant_options.submit" />
                             </f:link.action>
                         </f:then>
                         <f:else>
-                            <p>Keine Aktionen mehr möglich</p>
+                            <div class="btn btn--disabled">
+                                <f:translate key="tx_rkwcompetition_fluid.partials_participant_options.registrationComplete" />
+                            </div>
                         </f:else>
                     </f:if>
 

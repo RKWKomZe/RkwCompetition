@@ -20,18 +20,16 @@ Otherwise your changes will be overwritten the next time you save the extension 
 <f:section name="content">
 
     <f:link.action
+            class="btn btn--secondary"
             action="show"
             controller="Competition"
             pluginName="Competition"
             pageUid="{settings.competitionPid}"
             additionalParams='{tx_rkwcompetition_competition: {competition: competition}}'
     >
-        zurück
+        <f:translate key="tx_rkwcompetition_fluid.back" />
     </f:link.action>
 
-    <h3 class="no-hide">
-        Anmeldung
-    </h3>
 
     <f:flashMessages />
 
@@ -52,7 +50,9 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
                 <f:render partial="Register/FormFields" arguments="{_all}" />
 
-                <hcap:forms.hcaptcha />
+                <div class="form__field width100">
+                    <hcap:forms.hcaptcha />
+                </div>
 
                 <button type="submit" class="btn btn--primary">
                     <f:translate key="tx_rkwcompetition_fluid.templates_register_new.submit" />
