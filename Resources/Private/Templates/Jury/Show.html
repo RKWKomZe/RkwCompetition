@@ -38,7 +38,8 @@
         </f:format.raw>
     </p>
 
-    <f:flashMessages />
+    <f:render partial="FlashMessages" arguments="{_all}" />
+
     <f:render partial="Jury/Properties" arguments="{_all}" />
 
 </f:section>

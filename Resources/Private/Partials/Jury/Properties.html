@@ -58,13 +58,13 @@
 				<f:for each="{approvedRegistrations}" as="register">
 					<f:if condition="{competitionSector.uid} == {register.sector.uid}">
 						<div class="accordion__item">
-							<button class="accordion__button accordion-control" aria-expanded="false" aria-controls="accordion-content-{iter.cycle}-2030017679" id="accordion-item-{iter.cycle}-2030017679">
+							<button class="accordion__button accordion-control" aria-expanded="false" aria-controls="accordion-content-{iter.cycle}-{register.uid}" id="accordion-item-{iter.cycle}-{register.uid}">
 							<span class="accordion__title">
 							{register.sector.title}: {register.contributionTitle}
 							<span class="accordion__icon"></span>
 						</span>
 							</button>
-							<div class="accordion__item-content" aria-hidden="true" id="accordion-content-{iter.cycle}-2030017679" role="region" aria-labelledby="accordion-item-{iter.cycle}-2030017679" style="display: none;">
+							<div class="accordion__item-content" aria-hidden="true" id="accordion-content-{iter.cycle}-{register.uid}" role="region" aria-labelledby="accordion-item-{iter.cycle}-{register.uid}" style="display: none;">
 								<div class="accordion__item-inner">
 									<f:render section="registerData" arguments="{register: register}" />
 								</div>
@@ -83,7 +83,7 @@
 			<tbody>
 			<tr>
 				<td>
-					Titel der Arbeit
+					<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.title" />
 				</td>
 				<td>
 					{register.contributionTitle}
@@ -91,7 +91,7 @@
 			</tr>
 			<tr>
 				<td>
-					Institution
+					<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.institution" />
 				</td>
 				<td>
 					{register.institution}
@@ -99,7 +99,7 @@
 			</tr>
 			<tr>
 				<td>
-					Wettbewerbsbereich
+					<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.sector" />
 				</td>
 				<td>
 					{register.sector.title}
@@ -107,7 +107,7 @@
 			</tr>
 			<tr>
 				<td>
-					Name Bewerber
+					<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.nameOfApplicant" />
 				</td>
 				<td>
 					{register.title}
@@ -116,7 +116,7 @@
 			</tr>
 			<tr>
 				<td>
-					Ist Gruppenarbeit
+					<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.isGroupWork" />
 				</td>
 				<td>
 					{register.isGroupWork}
@@ -125,7 +125,7 @@
 			<f:if condition="{register.isGroupWork}">
 				<tr>
 					<td>
-						Eidstattliche Versicherung
+						<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.affidavit" />
 					</td>
 					<td>
 						{register.groupWorkInsurance}
@@ -133,7 +133,7 @@
 				</tr>
 				<tr>
 					<td>
-						Gruppenarbeit weitere Personen
+						<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.participatingPersons" />
 					</td>
 					<td>
 						{register.groupWorkAddPersons}
@@ -142,7 +142,7 @@
 			</f:if>
 			<tr>
 				<td>
-					Anmerkung
+					<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.remark" />
 				</td>
 				<td>
 					{register.remark}
@@ -150,7 +150,7 @@
 			</tr>
 			<tr>
 				<td>
-					Kurzfassung PDF (+ Word File?)
+					<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.abstract" />
 				</td>
 				<td>
 					<f:if condition="{register.upload.abstract.originalResource.publicUrl}">
@@ -166,18 +166,18 @@
 								<svg class="icon icon--16">
 									<use xlink:href="#ic-download"/>
 								</svg>
-								Download
+								<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.download" />
 							</f:link.typolink>
 						</f:then>
 						<f:else>
-							Keine Datei vorhanden
+							<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.noFile" />
 						</f:else>
 					</f:if>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					Langfassung PDF (+ Word File?)
+					<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.full" />
 				</td>
 				<td>
 					<f:if condition="{register.upload.full.originalResource.publicUrl}">
@@ -193,11 +193,11 @@
 								<svg class="icon icon--16">
 									<use xlink:href="#ic-download"/>
 								</svg>
-								Download
+								<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.download" />
 							</f:link.typolink>
 						</f:then>
 						<f:else>
-							Keine Datei vorhanden
+							<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.noFile" />
 						</f:else>
 					</f:if>
 				</td>

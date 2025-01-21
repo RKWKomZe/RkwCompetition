@@ -24,21 +24,21 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  * @package Rkw_RkwCompetition
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  */
-class FrontendUserGroup extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class FrontendUserGroup extends \Madj2k\FeRegister\Domain\Model\FrontendUserGroup
 {
 
     /**
      * @todo: Ask SK for typecast issue (RegisterController->"create" on var_dump)
      * @var int
      */
-    protected $crdate;
+   // protected $crdate;
 
 
     /**
      * @todo: Ask SK for typecast issue (RegisterController->"create" on var_dump)
      * @var int
      */
-    protected $tstamp;
+    //protected $tstamp;
 
 
 

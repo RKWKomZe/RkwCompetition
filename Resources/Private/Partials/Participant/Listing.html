@@ -12,31 +12,34 @@
                             <td>
                                 <h3 class="h4">{register.competition.title}</h3>
                                 <p>
-                                    Anmeldeschluss: {register.competition.registerEnd -> f:format.date(format: 'd.m.Y')}
+                                    <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.regEnd" />
+                                    {register.competition.registerEnd -> f:format.date(format: 'd.m.Y')}
                                 </p>
                                 <p>
-                                    Status: <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.status.<rkw:registerStatus register='{register}' />" />
+                                    <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.status" />
+                                    <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.status.<rkw:registerStatus register='{register}' />" />
                                 </p>
                                 <f:if condition="<rkw:registerStatus register='{register}' /> == 200">
                                     <p>
-                                        Grund: {register.adminRefusedText}
+                                        <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.reason" />
+                                        {register.adminRefusedText}
                                     </p>
                                 </f:if>
                                 <p>
-                                    Projektbeschreibung:
+                                    <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.projectDescription" />
                                     <f:if condition="{register.upload.abstract} && {register.upload.full}">
                                         <f:then>
-                                            Komplett
+                                            <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.complete" />
                                         </f:then>
                                         <f:else>
                                             <f:if condition="{register.upload.abstract}">
                                                 <f:else>
-                                                    Abstract fehlt
+                                                    <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.abstractMissing" />
                                                 </f:else>
                                             </f:if>
                                             <f:if condition="{register.upload.full}">
                                                 <f:else>
-                                                    Langfassung fehlt (optional)
+                                                    <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.fullVersionMissing" />
                                                 </f:else>
                                             </f:if>
                                         </f:else>

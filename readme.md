@@ -182,3 +182,5 @@ HINT: If the tester has to do something manually which should be done automatica
    5. Click the button to agree ("Einwilligen")
    6. The FrontendUser is now a full qualified jury member for this competition and can take a look to the registrations
 
+Hint: To repeat the jury member process for test purpose, you have to delete the "juryReference" record and to reset the field "reminder_jury_mail_tstamp" inside the competition record
+

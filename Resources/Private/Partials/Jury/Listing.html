@@ -12,16 +12,18 @@
                             <td>
                                 <h3 class="h4">{juryReference.competition.title}</h3>
                                 <p>
-                                    Zugriff bis: {juryReference.competition.juryAccessEnd -> f:format.date(format: 'd.m.Y')}
+                                    <f:translate key="tx_rkwcompetition_fluid.partials_jury_listing.accessUntil" />
+                                    {juryReference.competition.juryAccessEnd -> f:format.date(format: 'd.m.Y')}
                                 </p>
                                 <p>
-                                    Ihre Einwilligung:
+                                    <f:translate key="tx_rkwcompetition_fluid.partials_jury_listing.yourConsent" />
                                     <f:if condition="{juryReference.consentedAt}">
                                         <f:then>
-                                            Erteilt am <f:format.date format="d.m.Y">{juryReference.consentedAt}</f:format.date>
+                                            <f:translate key="tx_rkwcompetition_fluid.partials_jury_listing.grantedOn" />
+                                            <f:format.date format="d.m.Y">{juryReference.consentedAt}</f:format.date>
                                         </f:then>
                                         <f:else>
-                                            Offen
+                                            <f:translate key="tx_rkwcompetition_fluid.partials_jury_listing.stillOpen" />
                                         </f:else>
                                     </f:if>
                                 </p>
@@ -36,7 +38,7 @@
         <f:else>
             <div class="system-message" role="alert">
                 <div class="system-message__item system-message__item--severity0">
-                    Keine Veranstaltungen stehen an
+                    <f:translate key="tx_rkwcompetition_fluid.partials_jury_listing.noCompetitions" />
                 </div>
             </div>
         </f:else>

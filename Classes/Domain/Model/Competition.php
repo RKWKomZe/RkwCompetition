@@ -128,28 +128,28 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * juryMemberCandidate
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\FeRegister\Domain\Model\FrontendUser>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwCompetition\Domain\Model\FrontendUser>
      */
     protected $juryMemberCandidate = null;
 
     /**
      * juryMemberConfirmed
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\FeRegister\Domain\Model\FrontendUser>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwCompetition\Domain\Model\FrontendUser>
      */
     protected $juryMemberConfirmed = null;
 
     /**
      * groupForJury
      *
-     * @var \RKW\RkwCompetition\Domain\Model\FrontendUserGroup
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
      */
     protected $groupForJury = null;
 
     /**
      * groupForUser
      *
-     * @var \RKW\RkwCompetition\Domain\Model\FrontendUserGroup
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
      */
     protected $groupForUser = null;
 
@@ -545,10 +545,10 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Adds a FrontendUser
      *
-     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $juryMemberCandidate
+     * @param \RKW\RkwCompetition\Domain\Model\FrontendUser $juryMemberCandidate
      * @return void
      */
-    public function addJuryMemberCandidate(\Madj2k\FeRegister\Domain\Model\FrontendUser $juryMemberCandidate)
+    public function addJuryMemberCandidate(\RKW\RkwCompetition\Domain\Model\FrontendUser $juryMemberCandidate)
     {
         $this->juryMemberCandidate->attach($juryMemberCandidate);
     }
@@ -556,10 +556,10 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Removes a FrontendUser
      *
-     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $juryMemberCandidateToRemove The FrontendUser to be removed
+     * @param \RKW\RkwCompetition\Domain\Model\FrontendUser $juryMemberCandidateToRemove The FrontendUser to be removed
      * @return void
      */
-    public function removeJuryMemberCandidate(\Madj2k\FeRegister\Domain\Model\FrontendUser $juryMemberCandidateToRemove)
+    public function removeJuryMemberCandidate(\RKW\RkwCompetition\Domain\Model\FrontendUser $juryMemberCandidateToRemove)
     {
         $this->juryMemberCandidate->detach($juryMemberCandidateToRemove);
     }
@@ -567,7 +567,7 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the juryMemberCandidate
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\FeRegister\Domain\Model\FrontendUser>
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwCompetition\Domain\Model\FrontendUser>
      */
     public function getJuryMemberCandidate()
     {
@@ -577,7 +577,7 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the juryMemberCandidate
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\FeRegister\Domain\Model\FrontendUser> $juryMemberCandidate
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwCompetition\Domain\Model\FrontendUser> $juryMemberCandidate
      * @return void
      */
     public function setJuryMemberCandidate(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $juryMemberCandidate)
@@ -588,10 +588,10 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Adds a FrontendUser
      *
-     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $juryMemberConfirmed
+     * @param \RKW\RkwCompetition\Domain\Model\FrontendUser $juryMemberConfirmed
      * @return void
      */
-    public function addJuryMemberConfirmed(\Madj2k\FeRegister\Domain\Model\FrontendUser $juryMemberConfirmed)
+    public function addJuryMemberConfirmed(\RKW\RkwCompetition\Domain\Model\FrontendUser $juryMemberConfirmed)
     {
         $this->juryMemberConfirmed->attach($juryMemberConfirmed);
     }
@@ -599,10 +599,10 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Removes a FrontendUser
      *
-     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $juryMemberConfirmedToRemove The FrontendUser to be removed
+     * @param \RKW\RkwCompetition\Domain\Model\FrontendUser $juryMemberConfirmedToRemove The FrontendUser to be removed
      * @return void
      */
-    public function removeJuryMemberConfirmed(\Madj2k\FeRegister\Domain\Model\FrontendUser $juryMemberConfirmedToRemove)
+    public function removeJuryMemberConfirmed(\RKW\RkwCompetition\Domain\Model\FrontendUser $juryMemberConfirmedToRemove)
     {
         $this->juryMemberConfirmed->detach($juryMemberConfirmedToRemove);
     }
@@ -610,7 +610,7 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the juryMemberConfirmed
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\FeRegister\Domain\Model\FrontendUser>
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwCompetition\Domain\Model\FrontendUser>
      */
     public function getJuryMemberConfirmed()
     {
@@ -620,7 +620,7 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the juryMemberConfirmed
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\FeRegister\Domain\Model\FrontendUser> $juryMemberConfirmed
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwCompetition\Domain\Model\FrontendUser> $juryMemberConfirmed
      * @return void
      */
     public function setJuryMemberConfirmed(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $juryMemberConfirmed)

@@ -148,6 +148,11 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
 
         $juryReference->setConsentedAt(time());
 
+        // change from "candidate" to "confirmed"
+        $juryReference->getCompetition()->removeJuryMemberCandidate($juryReference->getFrontendUser());
+        $juryReference->getCompetition()->addJuryMemberConfirmed($juryReference->getFrontendUser());
+        $this->competitionRepository->update($juryReference->getCompetition());
+
         $this->addFlashMessage(
             \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
                 'juryController.message.updated',

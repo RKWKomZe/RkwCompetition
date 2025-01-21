@@ -606,7 +606,28 @@
                 <source>Approved</source>
             </trans-unit>
 
-
+            <!-- Partials/Jury/Listing.html -->
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.regEnd">
+                <source>Registration deadline:</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.status">
+                <source>Status:</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.reason">
+                <source>Reason:</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.projectDescription">
+                <source>Project description:</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.complete">
+                <source>Complete</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.abstractMissing">
+                <source>Abstract missing</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.fullVersionMissing">
+                <source>Full version missing (optional)</source>
+            </trans-unit>
 
             <!-- Partials/Participant/Options.html -->
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.competitionShow">
@@ -638,6 +659,61 @@
             <!-- Partials/Jury/FormFields.html -->
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_formfields.consent">
                 <source>I agree to the declaration of confidentiality</source>
+            </trans-unit>
+
+            <!-- Partials/Jury/Listing.html -->
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_listing.accessUntil">
+                <source>Access until:</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_listing.yourConsent">
+                <source>Your consent:</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_listing.grantedOn">
+                <source>Granted on</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_listing.stillOpen">
+                <source>Still open</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_listing.noCompetitions">
+                <source>No competitions are scheduled</source>
+            </trans-unit>
+
+            <!-- Partials/Jury/Properties.html -->
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.title">
+                <source>Title of the paper</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.institution">
+                <source>Institution</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.sector">
+                <source>Sector</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.nameOfApplicant">
+                <source>Name of applicant</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.isGroupWork">
+                <source>Is group work</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.affidavit">
+                <source>Affidavit</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.participatingPersons">
+                <source>Affidavit</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.remark">
+                <source>Remark</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.abstract">
+                <source>Abstract PDF</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.full">
+                <source>Full PDF</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.noFile">
+                <source>No file available</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.download">
+                <source>Download</source>
             </trans-unit>
 
 

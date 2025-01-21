@@ -491,6 +491,35 @@
             </trans-unit>
 
 
+            <!-- Partials/Jury/Listing.html -->
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.regEnd">
+                <source>Registration deadline:</source>
+                <target>Anmeldeschluss:</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.status">
+                <source>Status:</source>
+                <target>Status:</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.reason">
+                <source>Reason:</source>
+                <target>Grund:</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.projectDescription">
+                <source>Project description:</source>
+                <target>Projektbeschreibung:</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.complete">
+                <source>Complete</source>
+                <target>Komplett</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.abstractMissing">
+                <source>Abstract missing</source>
+                <target>Abstract fehlt</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.fullVersionMissing">
+                <source>Full version missing (optional)</source>
+                <target>Langfassung fehlt (optional)</target>
+            </trans-unit>
 
             <!-- Partials/Participant/Options.html -->
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.competitionShow">
@@ -531,6 +560,92 @@
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_formfields.consent">
                 <source>I agree to the declaration of confidentiality</source>
                 <target>Ich stimme der Verschwiegendheitserklärung zu</target>
+            </trans-unit>
+
+            <!-- Partials/Jury/Listing.html -->
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_listing.accessUntil">
+                <source>Access until:</source>
+                <target>Zugriff bis:</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_listing.yourConsent">
+                <source>Your consent:</source>
+                <target>Ihre Einwilligung:</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_listing.grantedOn">
+                <source>Granted on</source>
+                <target>Erteilt am</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_listing.stillOpen">
+                <source>Still open</source>
+                <target>Noch offen</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_listing.noCompetitions">
+                <source>No competitions are scheduled</source>
+                <target>Es stehen keine Wettbewerbe an</target>
+            </trans-unit>
+
+            <!-- Partials/Jury/Options.html -->
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_options.submittedDocuments">
+                <source>View submitted documents</source>
+                <target>Eingereichte Unterlagen ansehen</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_options.agree">
+                <source>Agree</source>
+                <target>Einwilligen</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_options.noActionPossible">
+                <source>No more actions possible</source>
+                <target>Keine Aktionen mehr möglich</target>
+            </trans-unit>
+
+            <!-- Partials/Jury/Properties.html -->
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.title">
+                <source>Title of the paper</source>
+                <target>Titel der Arbeit</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.institution">
+                <source>Institution</source>
+                <target>Institution</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.sector">
+                <source>Sector</source>
+                <target>Wettbewerbsbereich</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.nameOfApplicant">
+                <source>Name of applicant</source>
+                <target>Name des Bewerbers</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.isGroupWork">
+                <source>Is group work</source>
+                <target>Ist Gruppenarbeit</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.affidavit">
+                <source>Affidavit</source>
+                <target>Eidstattliche Versicherung</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.participatingPersons">
+                <source>Affidavit</source>
+                <target>Teilnehmende Personen</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.remark">
+                <source>Remark</source>
+                <target>Anmerkung</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.abstract">
+                <source>Abstract PDF</source>
+                <target>Kurzfassung PDF (+ Word File?)</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.full">
+                <source>Full PDF</source>
+                <target>Langfassung PDF (+ Word File?)</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.noFile">
+                <source>No file available</source>
+                <target>Keine Datei vorhanden</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.download">
+                <source>Download</source>
+                <target>Download</target>
             </trans-unit>
 
 

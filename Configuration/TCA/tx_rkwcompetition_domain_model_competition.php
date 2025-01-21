@@ -358,7 +358,7 @@ return [
                 'default' => 0,
                 'size' => 10,
                 'autoSizeMax' => 30,
-                'minitems' => 1,
+                'minitems' => 0,
                 'maxitems' => 9999,
                 'multiple' => 0,
                 'fieldControl' => [

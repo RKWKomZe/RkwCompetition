@@ -36,7 +36,7 @@ class JuryReference extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * frontendUser
      *
-     * @var \Madj2k\FeRegister\Domain\Model\FrontendUser
+     * @var \RKW\RkwCompetition\Domain\Model\FrontendUser
      */
     protected $frontendUser = null;
 
@@ -84,7 +84,7 @@ class JuryReference extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the frontendUser
      *
-     * @return \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
+     * @return \RKW\RkwCompetition\Domain\Model\FrontendUser $frontendUser
      */
     public function getFrontendUser()
     {
@@ -94,10 +94,10 @@ class JuryReference extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the frontendUser
      *
-     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
+     * @param \RKW\RkwCompetition\Domain\Model\FrontendUser $frontendUser
      * @return void
      */
-    public function setFrontendUser(\Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser)
+    public function setFrontendUser(\RKW\RkwCompetition\Domain\Model\FrontendUser $frontendUser)
     {
         $this->frontendUser = $frontendUser;
     }
