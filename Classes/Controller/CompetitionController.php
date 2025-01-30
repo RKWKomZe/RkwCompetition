@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace RKW\RkwCompetition\Controller;
 
 
+use Madj2k\CoreExtended\Utility\GeneralUtility;
+use RKW\RkwCompetition\Api\OwnCloud;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
 /**
  * This file is part of the "RKW Competition" Extension for TYPO3 CMS.
  *
@@ -43,6 +47,37 @@ class CompetitionController extends \RKW\RkwCompetition\Controller\AbstractContr
      */
     public function showAction(\RKW\RkwCompetition\Domain\Model\Competition $competition = null)
     {
+
+        $ownCloud = GeneralUtility::makeInstance(OwnCloud::class);
+
+       // DebuggerUtility::var_dump($ownCloudApi->getUser('Hannes'));
+        //DebuggerUtility::var_dump($ownCloudApi->editUser('Hannes', 'email', 'hannes@rkw.de'));
+
+        //DebuggerUtility::var_dump($ownCloud->getUsersApi()->addUser('Hannes', 'password'));
+
+        //DebuggerUtility::var_dump($ownCloud->getUsersApi()->addToGroup('Hannes', 'Teilnehmer'));
+
+        //$ownCloud->getFolderApi()->addFolder(['Documents', 'Something']);
+
+        $ownCloud->getFolderApi()->removeFolder(['Documents', 'Something']);
+
+
+        //DebuggerUtility::var_dump($ownCloudApi->getUserList('Hannes1'));
+
+
+        /*
+            POST (new user)
+            curl -X POST http://admin:secret@example.com/ocs/v1.php/cloud/users \
+            -d userid="Frank" \
+            -d password="frankspassword"
+
+            PUT (edit user)
+            curl -X PUT http://admin:secret@example.com/ocs/v1.php/cloud/users/Frank \
+            -d key="email" \
+            -d value="franksnewemail@example.org"
+
+         */
+
 
         $this->view->assign(
             'competition', $competition ?: $this->competitionRepository->findByIdentifier(intval($this->settings['selectedCompetition']))

@@ -29,5 +29,25 @@ plugin.tx_rkwcompetition {
             # .docx = application/vnd.openxmlformats-officedocument.wordprocessingml.document
             allowedFileTypes = pdf, msword, vnd.openxmlformats-officedocument.wordprocessingml.document
         }
+
+        api {
+            ownCloud {
+                # cat=plugin.tx_rkwcompetition//a; type=string; label=BaseUrl
+                baseUrl =
+                admin {
+                    # cat=plugin.tx_rkwcompetition//a; type=string; label=username
+                    username =
+                    # cat=plugin.tx_rkwcompetition//a; type=string; label=password
+                    password =
+                }
+                # @toDo: Is proxy needed? (ask SK)
+                # cat=plugin.tx_rkwcompetition//a; type=string; label=Proxy
+                proxy =
+                # cat=plugin.tx_rkwcompetition//a; type=string; label=Proxy Username
+                proxyUsername =
+                # cat=plugin.tx_rkwcompetition//a; type=string; label=Proxy Password
+                proxyPassword =
+            }
+        }
     }
 }

@@ -2,19 +2,61 @@
 
 ## Development
 
-**Local "OwnCloud" install; add OwnCloud-Container**
+**Local "OwnCloud" installation; add OwnCloud-Container**
 
-See: https://doc.owncloud.com/server/next/admin_manual/installation/docker/
+See: https://doc.owncloud.com/server/next/admin_manual/installation/docker/#docker-compose
+Config: https://doc.owncloud.com/server/next/admin_manual/configuration/server/config_sample_php_parameters.html
 
-**Based on RKW basic install**
-
-Required: https://github.com/rkw-kompetenzzentrum/RKW-Website-TYPO3-DDEV
-
-**DO NOT USE :8080 because it's already in use (use something other instead like "8989")**
+1. Create new directory for owncloud docker
 ```bash
-  docker run --rm --name oc-eval -d -p8989:8989 owncloud/server
+  mkdir owncloud-docker-server
+  cd owncloud-docker-server
 ```
-http://localhost:8989
+2. Copy the docker-compose.yml without any changes into the main directory: "/owncloud-docker-server/docker-compose.yml"
+3. In case of any problems change the Port inside the .env file (which is also placed into the main directory): "/owncloud-docker-server/.env"
+
+**DO NOT USE :8080 in your .env file as HTTP_PORT because it may already be in use**
+```
+OWNCLOUD_VERSION=10.15
+OWNCLOUD_DOMAIN=owncloud.local:8080
+OWNCLOUD_TRUSTED_DOMAINS=owncloud.local
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=admin
+HTTP_PORT=8000
+```
+4. Add to your /etc/hosts:
+```
+127.0.0.1 owncloud.local
+```
+5. Start it
+```bash
+docker compose up -d
+```
+6. Use it (login with "admin" / "admin"; @see .env file)
+```
+http://owncloud.local:8000
+(Alternativ: http://localhost:8000)
+```
+7. If you are authorized, you can run custom API test in your browser
+```
+http://owncloud.local:8000/ocs/v1.php/cloud/capabilities?format=json
+http://localhost:8000/ocs/v1.php/cloud/capabilities?format=json
+```
+https://doc.owncloud.com/server/next/developer_manual/core/apis/ocs-capabilities.html
+8. Do not use the port number for API-calls when using it from your local RKW-Machine
+```
+api {
+   owncloud {
+      baseUrl = http://owncloud.local/
+   }
+}
+```   
+9. Stop it
+```
+docker composer down
+```
+Learn API-Stuff here:
+https://doc.owncloud.com/server/next/developer_manual/core/apis/provisioning-api.html#introduction
 
 ## 1. Extension usage for integrators
 
@@ -184,3 +226,210 @@ HINT: If the tester has to do something manually which should be done automatica
 
 Hint: To repeat the jury member process for test purpose, you have to delete the "juryReference" record and to reset the field "reminder_jury_mail_tstamp" inside the competition record
 
+
+## Development
+
+### OwnCloud as part of your current DDEV project
+
+Add following as "docker-compose.owncloud.yml" to your .ddev folder:
+```
+version: "3"
+
+volumes:
+  files:
+    driver: local
+  mysql:
+    driver: local
+  redis:
+    driver: local
+
+services:
+  owncloud:
+    image: owncloud/server:10.15
+    container_name: ddev-${DDEV_SITENAME}-owncloud
+    labels:
+      com.ddev.site-name: ${DDEV_SITENAME}
+      com.ddev.approot: ${DDEV_APPROOT}
+    hostname: ddev-${DDEV_SITENAME}-owncloud
+    restart: always
+    depends_on:
+      - mariadb
+      - redis
+    environment:
+      - VIRTUAL_HOST=$DDEV_HOSTNAME
+      - HTTP_EXPOSE=8985:8080
+      #- HTTPS_EXPOSE=8986:8985
+      - OWNCLOUD_DOMAIN=rkw-website.ddev.site:8080, ddev-RKW-Website-owncloud
+      - OWNCLOUD_TRUSTED_DOMAINS=rkw-website.ddev.site, ddev-RKW-Website-owncloud
+      - OWNCLOUD_DB_TYPE=mysql
+      - OWNCLOUD_DB_NAME=owncloud
+      - OWNCLOUD_DB_USERNAME=owncloud
+      - OWNCLOUD_DB_PASSWORD=owncloud
+      - OWNCLOUD_DB_HOST=mariadb
+      - OWNCLOUD_ADMIN_USERNAME=admin
+      - OWNCLOUD_ADMIN_PASSWORD=admin
+      - OWNCLOUD_MYSQL_UTF8MB4=true
+      - OWNCLOUD_REDIS_ENABLED=true
+      - OWNCLOUD_REDIS_HOST=redis
+    healthcheck:
+      test: ["CMD", "/usr/bin/healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - files:/mnt/data
+
+  mariadb:
+    image: mariadb:10.11 # minimum required ownCloud version is 10.9
+    container_name: ddev-${DDEV_SITENAME}-owncloud_mariadb
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=owncloud
+      - MYSQL_USER=owncloud
+      - MYSQL_PASSWORD=owncloud
+      - MYSQL_DATABASE=owncloud
+      - MARIADB_AUTO_UPGRADE=1
+    command: ["--max-allowed-packet=128M", "--innodb-log-file-size=64M"]
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-u", "root", "--password=owncloud"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - mysql:/var/lib/mysql
+
+  redis:
+    image: redis:6
+    container_name: ddev-${DDEV_SITENAME}-owncloud_redis
+    restart: always
+    command: ["--databases", "1"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - redis:/data
+```
+
+Get the browser URL of the "OwnCloud"-Service:
+```
+ddev describe
+URL:              http://rkw-website.ddev.site:8985
+```
+
+To work with the API inside the container we have to use the container name as URL:
+```
+How it's created: http://ddev-${DDEV_SITENAME}-owncloud
+URL (with port):  http://ddev-RKW-Website-owncloud:8080
+```
+
+TypoScript basic setup:
+```
+api {
+   owncloud {
+      baseUrl = http://ddev-RKW-Website-owncloud:8080/ocs/v1.php/cloud/
+   }
+}
+```
+
+Example API queries:
+```
+Browser:    
+http://rkw-website.ddev.site:8985/ocs/v1.php/cloud/capabilities?format=json
+http://rkw-website.ddev.site:8985/ocs/v1.php/cloud/users?format=json
+
+API:        
+http://ddev-RKW-Website-owncloud:8080/ocs/v1.php/cloud/capabilities?format=json
+http://ddev-RKW-Website-owncloud:8080/ocs/v1.php/cloud/users?format=json
+```
+
+You have to be logged in with credentials (admin / admin) before see any response from this example queries.
+
+Example API query with credentials and debug info (fetch user list of OwnCloud instance):
+```
+$credentials = [
+   'admin',
+   'admin'
+];
+
+$url = 'http://ddev-RKW-Website-owncloud:8080/ocs/v1.php/cloud/users?format=json';
+
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_HTTPHEADER,CURLAUTH_BASIC);
+curl_setopt($ch, CURLOPT_USERPWD, implode(':', $credentials));
+curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HEADER, false);
+
+$data = curl_exec($ch);
+$httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+print curl_error($ch);
+
+curl_close($ch);
+
+DebuggerUtility::var_dump($httpcode);
+var_dump($data);
+exit;
+```
+
+----
+### DEPRECATED: Independent OwnCloud docker installation (NOT USED: API connection issues)
+
+**Local "OwnCloud" installation; add OwnCloud-Container**
+
+See: https://doc.owncloud.com/server/next/admin_manual/installation/docker/#docker-compose
+Config: https://doc.owncloud.com/server/next/admin_manual/configuration/server/config_sample_php_parameters.html
+
+1. Create new directory for owncloud docker
+```bash
+  mkdir owncloud-docker-server
+  cd owncloud-docker-server
+```
+2. Copy the docker-compose.yml without any changes into the main directory: "/owncloud-docker-server/docker-compose.yml"
+3. In case of any problems change the Port inside the .env file (which is also placed into the main directory): "/owncloud-docker-server/.env"
+
+**DO NOT USE :8080 in your .env file as HTTP_PORT because it may already be in use**
+```
+OWNCLOUD_VERSION=10.15
+OWNCLOUD_DOMAIN=owncloud.local:8080
+OWNCLOUD_TRUSTED_DOMAINS=owncloud.local
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=admin
+HTTP_PORT=8000
+```
+4. Add to your /etc/hosts:
+```
+127.0.0.1 owncloud.local
+```
+5. Start it
+```bash
+docker compose up -d
+```
+6. Use it (login with "admin" / "admin"; @see .env file)
+```
+http://owncloud.local:8000
+(Alternativ: http://localhost:8000)
+```
+7. If you are authorized, you can run custom API test in your browser
+```
+http://owncloud.local:8000/ocs/v1.php/cloud/capabilities?format=json
+http://localhost:8000/ocs/v1.php/cloud/capabilities?format=json
+```
+https://doc.owncloud.com/server/next/developer_manual/core/apis/ocs-capabilities.html
+8. Do not use the port number for API-calls when using it from your local RKW-Machine
+```
+api {
+   owncloud {
+      baseUrl = http://owncloud.local/
+   }
+}
+```   
+9. Stop it
+```
+docker composer down
+```
+Learn API-Stuff here:
+https://doc.owncloud.com/server/next/developer_manual/core/apis/provisioning-api.html#introduction
