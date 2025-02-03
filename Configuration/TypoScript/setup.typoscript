@@ -52,6 +52,10 @@ plugin.tx_rkwcompetition {
                 proxy = {$plugin.tx_rkwcompetition.settings.api.ownCloud.proxy}
                 proxyUsername = {$plugin.tx_rkwcompetition.settings.api.ownCloud.proxyUsername}
                 proxyPassword = {$plugin.tx_rkwcompetition.settings.api.ownCloud.proxyPassword}
+
+                folderStructure {
+                    basePath = {$plugin.tx_rkwcompetition.settings.api.ownCloud.folderStructure.basePath}
+                }
             }
         }
     }

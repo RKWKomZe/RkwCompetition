@@ -57,9 +57,19 @@ class CompetitionController extends \RKW\RkwCompetition\Controller\AbstractContr
 
         //DebuggerUtility::var_dump($ownCloud->getUsersApi()->addToGroup('Hannes', 'Teilnehmer'));
 
-        //$ownCloud->getFolderApi()->addFolder(['Documents', 'Something']);
+        //$ownCloud->getWebDavApi()->addFolder(['Documents', 'Something']);
 
-        $ownCloud->getFolderApi()->removeFolder(['Documents', 'Something']);
+        $folderCreatePath = GeneralUtility::trimExplode('/', $this->settings['api']['ownCloud']['folderStructure']['basePath'], true);
+        $folderCreatePath[] = 'competition_uid_12345';
+        //$folderCreatePath[] = 'feuser_uid_987';
+
+        //$ownCloud->getWebDavApi()->addFolder($folderCreatePath);
+
+        //$ownCloud->getWebDavApi()->addFolderRecursive($folderCreatePath);
+
+        //$ownCloud->getWebDavApi()->removeFileOrFolder($folderCreatePath);
+
+        $ownCloud->getShareApi()->createShare('feuser_uid_987', $folderCreatePath, 0, 'Hannes');
 
 
         //DebuggerUtility::var_dump($ownCloudApi->getUserList('Hannes1'));

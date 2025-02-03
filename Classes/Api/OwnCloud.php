@@ -15,7 +15,8 @@ namespace RKW\RkwCompetition\Api;
  */
 
 use Madj2k\CoreExtended\Utility\GeneralUtility;
-use RKW\RkwCompetition\Api\OwnCloud\FolderApi;
+use RKW\RkwCompetition\Api\OwnCloud\ShareApi;
+use RKW\RkwCompetition\Api\OwnCloud\WebDavApi;
 use RKW\RkwCompetition\Api\OwnCloud\GroupsApi;
 use RKW\RkwCompetition\Api\OwnCloud\UsersApi;
 
@@ -33,20 +34,20 @@ use RKW\RkwCompetition\Api\OwnCloud\UsersApi;
 class OwnCloud implements \TYPO3\CMS\Core\SingletonInterface
 {
     /**
-     * @return FolderApi
-     */
-    public function getFolderApi (): FolderApi
-    {
-        return GeneralUtility::makeInstance(FolderApi::class);
-    }
-
-
-    /**
      * @return GroupsApi
      */
     public function getGroupsApi (): GroupsApi
     {
         return GeneralUtility::makeInstance(GroupsApi::class);
+    }
+
+
+    /**
+     * @return ShareApi
+     */
+    public function getShareApi (): ShareApi
+    {
+        return GeneralUtility::makeInstance(ShareApi::class);
     }
 
 
@@ -59,4 +60,11 @@ class OwnCloud implements \TYPO3\CMS\Core\SingletonInterface
     }
 
 
+    /**
+     * @return WebDavApi
+     */
+    public function getWebDavApi (): WebDavApi
+    {
+        return GeneralUtility::makeInstance(WebDavApi::class);
+    }
 }

@@ -1,62 +1,6 @@
 # RkwCompetition
 
-## Development
-
-**Local "OwnCloud" installation; add OwnCloud-Container**
-
-See: https://doc.owncloud.com/server/next/admin_manual/installation/docker/#docker-compose
-Config: https://doc.owncloud.com/server/next/admin_manual/configuration/server/config_sample_php_parameters.html
-
-1. Create new directory for owncloud docker
-```bash
-  mkdir owncloud-docker-server
-  cd owncloud-docker-server
-```
-2. Copy the docker-compose.yml without any changes into the main directory: "/owncloud-docker-server/docker-compose.yml"
-3. In case of any problems change the Port inside the .env file (which is also placed into the main directory): "/owncloud-docker-server/.env"
-
-**DO NOT USE :8080 in your .env file as HTTP_PORT because it may already be in use**
-```
-OWNCLOUD_VERSION=10.15
-OWNCLOUD_DOMAIN=owncloud.local:8080
-OWNCLOUD_TRUSTED_DOMAINS=owncloud.local
-ADMIN_USERNAME=admin
-ADMIN_PASSWORD=admin
-HTTP_PORT=8000
-```
-4. Add to your /etc/hosts:
-```
-127.0.0.1 owncloud.local
-```
-5. Start it
-```bash
-docker compose up -d
-```
-6. Use it (login with "admin" / "admin"; @see .env file)
-```
-http://owncloud.local:8000
-(Alternativ: http://localhost:8000)
-```
-7. If you are authorized, you can run custom API test in your browser
-```
-http://owncloud.local:8000/ocs/v1.php/cloud/capabilities?format=json
-http://localhost:8000/ocs/v1.php/cloud/capabilities?format=json
-```
-https://doc.owncloud.com/server/next/developer_manual/core/apis/ocs-capabilities.html
-8. Do not use the port number for API-calls when using it from your local RKW-Machine
-```
-api {
-   owncloud {
-      baseUrl = http://owncloud.local/
-   }
-}
-```   
-9. Stop it
-```
-docker composer down
-```
-Learn API-Stuff here:
-https://doc.owncloud.com/server/next/developer_manual/core/apis/provisioning-api.html#introduction
+* HowTo: To install you own "OwnCloud" server take a look to the section "Development" below
 
 ## 1. Extension usage for integrators
 
@@ -315,20 +259,20 @@ services:
 Get the browser URL of the "OwnCloud"-Service:
 ```
 ddev describe
-URL:              http://rkw-website.ddev.site:8985
 ```
+URL: http://rkw-website.ddev.site:8985
 
-To work with the API inside the container we have to use the container name as URL:
+To work with the API inside the container we have to use the container name as URL (with different port!):
 ```
-How it's created: http://ddev-${DDEV_SITENAME}-owncloud
 URL (with port):  http://ddev-RKW-Website-owncloud:8080
 ```
+How it's created: http://ddev-${DDEV_SITENAME}-owncloud
 
 TypoScript basic setup:
 ```
 api {
    owncloud {
-      baseUrl = http://ddev-RKW-Website-owncloud:8080/ocs/v1.php/cloud/
+      baseUrl = http://ddev-RKW-Website-owncloud:8080/
    }
 }
 ```
@@ -346,7 +290,7 @@ http://ddev-RKW-Website-owncloud:8080/ocs/v1.php/cloud/users?format=json
 
 You have to be logged in with credentials (admin / admin) before see any response from this example queries.
 
-Example API query with credentials and debug info (fetch user list of OwnCloud instance):
+Example API query with credentials and debug info (this query returns a user list of given OwnCloud instance):
 ```
 $credentials = [
    'admin',

@@ -39,15 +39,12 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 abstract class AbstractApi implements \TYPO3\CMS\Core\SingletonInterface
 {
 
-    //const API_USERS = 'users';
-    //const API_GROUPS = 'groups';
-
-
-
     const METHOD_POST = 'POST';
     const METHOD_GET = 'GET';
     const METHOD_PUT = 'PUT';
     const METHOD_DELETE = 'DELETE';
+    const METHOD_MKCOL = 'MKCOL';
+    const METHOD_PROPFIND = 'PROPFIND';
 
     /**
      * @var string
@@ -72,10 +69,16 @@ abstract class AbstractApi implements \TYPO3\CMS\Core\SingletonInterface
     protected $streamContext = null;
 
     /**
-     * @var string Default is POST; Other options "DELETE", "GET", "POST"
+     * @var string Example options: "DELETE", "GET", "POST" (and more)
      */
     protected string $apiMethod = '';
 
+    /**
+     * webDav queries have a different response (XML). To handle customized stuff you can work with "$queryType"
+     *
+     * @var string
+     */
+    protected string $queryType = '';
 
     /**
      * @var \TYPO3\CMS\Core\Log\Logger|null
@@ -172,7 +175,10 @@ abstract class AbstractApi implements \TYPO3\CMS\Core\SingletonInterface
 
         // CURLOPT_CUSTOMREQUEST is used below
         //curl_setopt($ch, CURLOPT_POST, true);
-        if ($arguments) {
+        if (
+            $arguments
+            && $this->apiMethod != self::METHOD_GET
+        ) {
             curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($arguments));
         }
 
@@ -189,15 +195,12 @@ abstract class AbstractApi implements \TYPO3\CMS\Core\SingletonInterface
         $response = curl_exec($ch);
         $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-        DebuggerUtility::var_dump($response);
-        DebuggerUtility::var_dump($http_code);
 
-        exit;
+        // if it's webdav stuff: Return HTTP-code and response message (XML)
+        if ($this->queryType === 'webdav') {
+            return [$http_code => $response];
+        }
 
-
-
-         //DebuggerUtility::var_dump(curl_getinfo($ch, CURLINFO_HTTP_CODE));
-         //DebuggerUtility::var_dump(curl_error($ch));
 
         // Handle any potential errors
         if(curl_error($ch)) {
@@ -208,13 +211,11 @@ abstract class AbstractApi implements \TYPO3\CMS\Core\SingletonInterface
 
         $data = json_decode(curl_exec($ch));
 
-        DebuggerUtility::var_dump($data);
-
         $array = json_decode((string) json_encode($data), true);
 
         curl_close($ch);
 
-        DebuggerUtility::var_dump($array);
+        DebuggerUtility::var_dump($array); exit;
 
         // @toDo: Question: Return the part we need, or just return all?
 

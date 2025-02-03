@@ -47,6 +47,11 @@ plugin.tx_rkwcompetition {
                 proxyUsername =
                 # cat=plugin.tx_rkwcompetition//a; type=string; label=Proxy Password
                 proxyPassword =
+
+                folderStructure {
+                    # folder depth are possible (example: rkw_competition/competition/)
+                    basePath = rkw_competition
+                }
             }
         }
     }
