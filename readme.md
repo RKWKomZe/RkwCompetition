@@ -26,6 +26,15 @@ plugin.tx_rkwcompetition {
             # additional mandatory fields which only trigger if groupWork is selected
             registerGroupWork = groupWorkInsurance, groupWorkAddPersons
         }
+        api {
+            ownCloud {
+                baseUrl = http://ddev-RKW-Website-owncloud:8080/
+                admin {
+                   username = admin
+                   password = admin
+                }
+             }
+        }
     }
 }
 ```
@@ -124,6 +133,7 @@ HINT: If the tester has to do something manually which should be done automatica
       2. ***TRIGGER:*** Confirmation E-Mail is sent to FrontendUser (RkwMailService->confirmRegisterUser)
       3. ***TRIGGER:*** Notify E-Mail is sent to FrontendUser ("Upload") (RkwMailService->uploadDocumentsUser)
       4. ***TRIGGER:*** Notify E-Mail to Admin ("New Competition register") (RkwMailService->confirmRegisterAdmin)
+      5. ***TRIGGER:*** OwnCloud folder created; Access links persisted (Register-Model; Competition-Model)
 
 ## 5.2 Uploads and final submit (as a FrontendUser)
 1. Login to "Mein RKW" with the E-Mail Address of the done registration (@see 5.1)
@@ -156,8 +166,8 @@ HINT: If the tester has to do something manually which should be done automatica
       4. Now the FrontendUser is finished with the registration
 
 ## 5.4 Become a jury member
-1. Given: The competitions date is between "RegisterEnd" and "JuryAccessEnd"
-2. Given: A FrontendUser is set as "Jury Member Candidate" to the competition
+1. GIVEN: The competitions date is between "RegisterEnd" and "JuryAccessEnd"
+2. GIVEN: A FrontendUser is set as "Jury Member Candidate" to the competition
    1. This means that the jury member is a candidate and not a full value jury member
    2. First of all the jury candidate has to agree the terms. If not happen yet, do it now:
       1. ***TASK:*** Kick off cronjob "rkw_competition:juryNotify" manually (RkwMailService->juryNotifyUser)

@@ -105,6 +105,12 @@ return [
                 ]
             ],
         ],
+        'crdate' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
+
 
         'salutation' => [
             'exclude' => true,
@@ -396,6 +402,16 @@ return [
                 'eval' => 'trim',
                 'default' => ''
             ],
+        ],
+        'own_cloud_folder_link' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register.own_cloud_folder_link',
+            'config' => [
+                'type' => 'input',
+                'size' => 50,
+                'eval' => 'trim',
+                'default' => '',
+            ]
         ],
         'upload' => [
             'exclude' => true,

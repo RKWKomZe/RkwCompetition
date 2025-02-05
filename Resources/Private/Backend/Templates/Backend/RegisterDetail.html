@@ -1,5 +1,5 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-    xmlns:rkwCheckup="http://typo3.org/ns/RKW/RkwCheckup/ViewHelpers"
+    xmlns:rkw="http://typo3.org/ns/RKW/RkwCompetition/ViewHelpers"
     data-namespace-typo3-fluid="true">
 
     <f:layout name="Default" />
@@ -176,6 +176,24 @@
                                     Keine Datei vorhanden
                                 </f:else>
                             </f:if>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            OwnCloud Link
+                        </td>
+                        <td>
+                            <a href="{register.ownCloudFolderLink}" target="_blank">
+                                {register.ownCloudFolderLink}
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            OwnCloud Order Passwort
+                        </td>
+                        <td>
+                            <rkw:ownCloudUserFolderPass register='{register}' /> (Test: "publicSecret")
                         </td>
                     </tr>
                     <tr>

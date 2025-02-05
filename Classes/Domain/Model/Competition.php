@@ -19,6 +19,10 @@ namespace RKW\RkwCompetition\Domain\Model;
  */
 class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
+    /**
+     * @var \DateTime
+     */
+    protected $crdate = null;
 
     /**
      * title
@@ -119,6 +123,13 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $linkPrivacy = '';
 
     /**
+     * ownCloudFolderLink
+     *
+     * @var string
+     */
+    protected $ownCloudFolderLink = '';
+
+    /**
      * adminMember
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Madj2k\FeRegister\Domain\Model\BackendUser>
@@ -193,6 +204,16 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $this->juryMemberConfirmed = $this->juryMemberCandidate ?: new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->register = $this->register ?: new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $this->sectors = $this->sectors ?: new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
+
+    /**
+     * Returns the creation date
+     *
+     * @return \DateTime
+     */
+    public function getCrdate()
+    {
+        return $this->crdate;
     }
 
     /**
@@ -497,6 +518,23 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setLinkPrivacy(string $linkPrivacy)
     {
         $this->linkPrivacy = $linkPrivacy;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOwnCloudFolderLink(): string
+    {
+        return $this->ownCloudFolderLink;
+    }
+
+    /**
+     * @param string $ownCloudFolderLink
+     * @return void
+     */
+    public function setOwnCloudFolderLink(string $ownCloudFolderLink): void
+    {
+        $this->ownCloudFolderLink = $ownCloudFolderLink;
     }
 
     /**

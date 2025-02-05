@@ -158,6 +158,12 @@
                 <source>Admin refused text</source>
                 <target>Begründung der Ablehnung</target>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.own_cloud_folder_link">
+                <source>OwnCloud Link</source>
+                <target>OwnCloud Link</target>
+            </trans-unit>
+
+
             <trans-unit id="tx_rkwcompetition_domain_model_upload">
                 <source>Upload</source>
                 <target>Upload</target>
@@ -296,6 +302,10 @@
             <trans-unit id="tx_rkwcompetition_domain_model_sector.description">
                 <source>Description</source>
                 <target>Beschreibung</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_sector.own_cloud_folder_link">
+                <source>OwnCloud Link</source>
+                <target>OwnCloud Link</target>
             </trans-unit>
 
             <!-- TCA -->

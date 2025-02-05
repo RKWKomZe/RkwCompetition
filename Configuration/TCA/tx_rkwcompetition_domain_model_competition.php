@@ -132,6 +132,11 @@ return [
                 ]
             ],
         ],
+        'crdate' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
 
         'title' => [
             'exclude' => true,
@@ -319,6 +324,16 @@ return [
                 'type' => 'input',
                 'renderType' => 'inputLink',
                 'eval' => 'required',
+            ]
+        ],
+        'own_cloud_folder_link' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.own_cloud_folder_link',
+            'config' => [
+                'type' => 'input',
+                'size' => 50,
+                'eval' => 'trim',
+                'default' => '',
             ]
         ],
         'admin_member' => [

@@ -23,13 +23,7 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 /**
  * Class AbstractApi
  *
- * config/config.php
- *
- * App: "rkw-test"; User: "admin", PW: "MAGVN-WYKFW-IPJAB-ILMIP"
- *
- * https://doc.owncloud.com/server/next/developer_manual/core/apis/ocs-user-sync-api.html
- *
- *
+ * https://doc.owncloud.com/server/next/developer_manual/core/apis/provisioning-api.html
  *
  * @author Maximilian Fäßler <maximilian@faesslerweb.de>
  * @copyright RKW Kompetenzzentrum
@@ -69,7 +63,7 @@ abstract class AbstractApi implements \TYPO3\CMS\Core\SingletonInterface
     protected $streamContext = null;
 
     /**
-     * @var string Example options: "DELETE", "GET", "POST" (and more)
+     * @var string Example options: "DELETE", "GET", "POST" (and other)
      */
     protected string $apiMethod = '';
 
@@ -102,6 +96,8 @@ abstract class AbstractApi implements \TYPO3\CMS\Core\SingletonInterface
 
         $this->apiMethod = self::METHOD_POST;
 
+
+        // @toDo: We need more than one header type. Not used
         // login header
         $opts = array(
             'http' => array(
@@ -132,6 +128,7 @@ abstract class AbstractApi implements \TYPO3\CMS\Core\SingletonInterface
             $opts = array_merge_recursive($opts, $optsProxy);
         }
 
+        // The streamcontext is not used
         $this->streamContext = stream_context_create($opts);
     }
 
@@ -150,8 +147,8 @@ abstract class AbstractApi implements \TYPO3\CMS\Core\SingletonInterface
         // &search=Hannes
         $url = $this->apiBaseUrl . $targetPath . '?format=json';
 
-        DebuggerUtility::var_dump($arguments);
-        DebuggerUtility::var_dump($url);
+//        DebuggerUtility::var_dump($arguments);
+//        DebuggerUtility::var_dump($url);
 
 
         if (
@@ -203,21 +200,21 @@ abstract class AbstractApi implements \TYPO3\CMS\Core\SingletonInterface
 
 
         // Handle any potential errors
-        if(curl_error($ch)) {
-            DebuggerUtility::var_dump('Error:' . curl_error($ch));
-
-            exit;
-        }
+//        if(curl_error($ch)) {
+//            DebuggerUtility::var_dump('Error:' . curl_error($ch));
+//
+//            exit;
+//        }
 
         $data = json_decode(curl_exec($ch));
 
         $array = json_decode((string) json_encode($data), true);
 
         curl_close($ch);
+//
+//        DebuggerUtility::var_dump($array); exit;
 
-        DebuggerUtility::var_dump($array); exit;
-
-        // @toDo: Question: Return the part we need, or just return all?
+        // @toDo: Question: Return the part we need ($array['ocs']['data'] OR $array['ocs']['meta']), or just return all?
 
         if ($array['ocs']['meta']['status'] == "failure") {
             return $array['ocs']['meta'];
@@ -241,8 +238,6 @@ abstract class AbstractApi implements \TYPO3\CMS\Core\SingletonInterface
     }
 
 
-
-
     /**
      * Returns logger instance
      *
@@ -257,16 +252,4 @@ abstract class AbstractApi implements \TYPO3\CMS\Core\SingletonInterface
         return $this->logger;
     }
 
-    /**
-     * Returns specific request path ("users" e.g.)
-     *
-     * @deprecated
-     *
-     * @param string $which Which type of request-URL is needed
-     * @return string
-     */
-    protected function getRequestPath(string $which): string
-    {
-        return $this->apiBaseUrl . 'ocs/v1.php/cloud/' . $which;
-    }
 }

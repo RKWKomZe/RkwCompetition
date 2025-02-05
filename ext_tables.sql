@@ -13,6 +13,7 @@ CREATE TABLE tx_rkwcompetition_domain_model_competition (
     closing_day_mail_tstamp int(11) unsigned DEFAULT '0' NOT NULL,
     link_cond_participation varchar(255) NOT NULL DEFAULT '',
     link_privacy varchar(255) NOT NULL DEFAULT '',
+    own_cloud_folder_link varchar(255) NOT NULL DEFAULT '',
     admin_member text NOT NULL,
     jury_member_candidate text NOT NULL,
     jury_member_confirmed text NOT NULL,
@@ -47,6 +48,7 @@ CREATE TABLE tx_rkwcompetition_domain_model_register (
 	group_work_insurance int(11) NOT NULL DEFAULT '0',
 	group_work_add_persons text NOT NULL DEFAULT '',
     unique_id varchar(255) NOT NULL DEFAULT '',
+    own_cloud_folder_link varchar(255) NOT NULL DEFAULT '',
 
     user_submitted_at int(11) unsigned NOT NULL DEFAULT '0',
 

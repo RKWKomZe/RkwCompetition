@@ -96,6 +96,10 @@
             <trans-unit id="tx_rkwcompetition_domain_model_register.unique_id">
                 <source>Unique ID</source>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.own_cloud_folder_link">
+                <source>OwnCloud Link</source>
+            </trans-unit>
+
 			<trans-unit id="tx_rkwcompetition_domain_model_upload" resname="tx_rkwcompetition_domain_model_upload">
 				<source>Upload</source>
 			</trans-unit>
@@ -162,6 +166,10 @@
 			<trans-unit id="tx_rkwcompetition_domain_model_competition.register" resname="tx_rkwcompetition_domain_model_competition.register">
 				<source>Register</source>
 			</trans-unit>
+			<trans-unit id="tx_rkwcompetition_domain_model_competition.own_cloud_folder_link">
+                <source>OwnCloud Link</source>
+            </trans-unit>
+
 			<trans-unit id="tx_rkwcompetition_domain_model_sector" resname="tx_rkwcompetition_domain_model_sector">
 				<source>Sector</source>
 			</trans-unit>

@@ -187,7 +187,10 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
         $this->fileReferenceRepository->remove($fileReference);
 
         $this->addFlashMessage(
-            LocalizationUtility::translate('updateController.message.fileDeleted')
+            LocalizationUtility::translate(
+                'updateController.message.fileDeleted',
+                'rkw_competition'
+            )
         );
         $this->addFlashMessage('The file was deleted.');
 

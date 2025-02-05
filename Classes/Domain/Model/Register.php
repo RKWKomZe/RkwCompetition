@@ -19,6 +19,10 @@ namespace RKW\RkwCompetition\Domain\Model;
  */
 class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
+    /**
+     * @var \DateTime
+     */
+    protected $crdate = null;
 
     /**
      * salutation
@@ -196,6 +200,13 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $uniqueId = '';
 
     /**
+     * ownCloudFolderLink
+     *
+     * @var string
+     */
+    protected $ownCloudFolderLink = '';
+
+    /**
      * sector
      *
      * @var \RKW\RkwCompetition\Domain\Model\Sector
@@ -238,6 +249,15 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected $adminRefusedBy = null;
 
+    /**
+     * Returns the creation date
+     *
+     * @return \DateTime $crdate
+     */
+    public function getCrdate()
+    {
+        return $this->crdate;
+    }
 
     /**
      * Returns the salutation
@@ -768,6 +788,23 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setUniqueId(string $uniqueId)
     {
         $this->uniqueId = $uniqueId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOwnCloudFolderLink(): string
+    {
+        return $this->ownCloudFolderLink;
+    }
+
+    /**
+     * @param string $ownCloudFolderLink
+     * @return void
+     */
+    public function setOwnCloudFolderLink(string $ownCloudFolderLink): void
+    {
+        $this->ownCloudFolderLink = $ownCloudFolderLink;
     }
 
     /**

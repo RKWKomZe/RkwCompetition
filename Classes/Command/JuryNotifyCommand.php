@@ -29,6 +29,8 @@ use TYPO3\CMS\Core\Log\Logger;
 use TYPO3\CMS\Core\Log\LogLevel;
 use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
@@ -108,8 +110,10 @@ class JuryNotifyCommand extends Command
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @return int
-     * @see \Symfony\Component\Console\Input\InputInterface::bind()
+     * @throws IllegalObjectTypeException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
      * @see \Symfony\Component\Console\Input\InputInterface::validate()
+     * @see \Symfony\Component\Console\Input\InputInterface::bind()
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {

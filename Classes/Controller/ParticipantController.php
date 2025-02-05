@@ -8,6 +8,7 @@ namespace RKW\RkwCompetition\Controller;
 use Madj2k\FeRegister\Domain\Model\FrontendUser;
 use Madj2k\FeRegister\Utility\FrontendUserSessionUtility;
 use Madj2k\FeRegister\Utility\FrontendUserUtility;
+use RKW\RkwCompetition\Utility\OwnCloudUtility;
 use RKW\RkwCompetition\Utility\RegisterUtility;
 use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;

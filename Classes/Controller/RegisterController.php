@@ -9,12 +9,14 @@ use Madj2k\FeRegister\DataProtection\ConsentHandler;
 use Madj2k\FeRegister\Domain\Model\FrontendUser;
 use Madj2k\FeRegister\Registration\FrontendUserRegistration;
 use Madj2k\FeRegister\Utility\FrontendUserUtility;
+use RKW\RkwCompetition\Api\OwnCloud;
 use RKW\RkwCompetition\Domain\Model\Competition;
 use Madj2k\CoreExtended\Domain\Model\FileReference;
 use RKW\RkwCompetition\Domain\Model\Register;
 use RKW\RkwCompetition\Persistence\FileHandler;
 use RKW\RkwCompetition\Service\RkwMailService;
 use RKW\RkwCompetition\Utility\CompetitionUtility;
+use RKW\RkwCompetition\Utility\OwnCloudUtility;
 use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\Log\Logger;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -553,7 +555,6 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
      * finalSaveOrder
      * Adds the order finally to database and sends information mails to user and admin
      * This function is used by "optInAction" and "create"-function
-     * Added by Maximilian Fäßler | FäßlerWeb
      *
      * @param Register $newRegister
      * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
@@ -594,6 +595,58 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
             }
             $this->signalSlotDispatcher->dispatch(__CLASS__, self::SIGNAL_AFTER_REGISTER_CREATED_ADMIN, [$adminMails, $newRegister]);
         }
+
+        // 6. OwnCloud folder & user
+        $ownCloud = \Madj2k\CoreExtended\Utility\GeneralUtility::makeInstance(OwnCloud::class);
+
+        $competitionFolderName = 'competition_uid_' . $newRegister->getCompetition()->getUid();
+        $userFolderName = 'feuser_uid_' . $frontendUser->getUid() . '_' . $frontendUser->getEmail();
+
+        // 6.1 create folder
+        $folderCreatePath = GeneralUtility::trimExplode('/', $this->settings['api']['ownCloud']['folderStructure']['basePath'], true);
+        $ownCloud->getWebDavApi()->addFolderRecursive(
+            array_merge($folderCreatePath, [$competitionFolderName], [$userFolderName])
+        );
+
+        // 6.2 create share (public link; without user & without group)
+        $userShare = $ownCloud->getShareApi()->createShare(
+            $userFolderName,
+            array_merge($folderCreatePath, [$competitionFolderName], [$userFolderName]),
+            3,
+            '',
+            true,
+            OwnCloudUtility::getUserFolderSecret($newRegister),
+            15,
+            $newRegister->getCompetition()->getRegisterEnd()->format('Y-m-d')
+        );
+
+        // @toDo: On DEV the link is wrong, because the internal Container-ID is used (ddev-RKW-Website-owncloud:8080)
+
+        $newRegister->setOwnCloudFolderLink($userShare['url']);
+        $this->registerRepository->update($newRegister);
+
+        // @toDo: Move competition folder share to another place? Maybe a competition->create-Hook would be the right place
+        // 6.3 create share for jury member & backendUsers to show the whole competition folder (if not already exists)
+        if (! $newRegister->getCompetition()->getOwnCloudFolderLink()) {
+            $competitionShare = $ownCloud->getShareApi()->createShare(
+                $competitionFolderName,
+                array_merge($folderCreatePath, [$competitionFolderName]),
+                3,
+                '',
+                true,
+                OwnCloudUtility::getCompetitionFolderSecret($newRegister->getCompetition()),
+                15,
+                $newRegister->getCompetition()->getJuryAccessEnd()->format('Y-m-d')
+            );
+
+            // @toDo: On DEV the link is wrong, because the internal Container-ID is used (ddev-RKW-Website-owncloud:8080)
+
+            $newRegister->getCompetition()->setOwnCloudFolderLink($competitionShare['url']);
+            $this->competitionRepository->update($newRegister->getCompetition());
+        }
+
+        $this->persistenceManager->persistAll();
+
     }
 
 
