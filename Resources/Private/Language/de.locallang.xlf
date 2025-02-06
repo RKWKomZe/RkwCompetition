@@ -990,7 +990,7 @@
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_juryNotify.text3">
                 <source>Login here to take a look to the competitions.</source>
-                <target>Loggen Sie sich hier ein, um Ihre Nominierung zu bestätigen.</target>
+                <target>Klicken Sie hier ein, um Ihre Nominierung zu bestätigen.</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_juryNotify.showHeadline">
                 <source>Show registration</source>

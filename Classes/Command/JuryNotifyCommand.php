@@ -14,12 +14,14 @@ namespace RKW\RkwCompetition\Command;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Random\RandomException;
 use RKW\RkwCompetition\Domain\Model\FrontendUser;
 use RKW\RkwCompetition\Domain\Model\JuryReference;
 use RKW\RkwCompetition\Domain\Repository\CompetitionRepository;
 use RKW\RkwCompetition\Domain\Repository\JuryReferenceRepository;
 use RKW\RkwCompetition\Domain\Repository\RegisterRepository;
 use RKW\RkwCompetition\Service\RkwMailService;
+use RKW\RkwCompetition\Utility\RegisterUtility;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -112,15 +114,17 @@ class JuryNotifyCommand extends Command
      * @return int
      * @throws IllegalObjectTypeException
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @throws RandomException
      * @see \Symfony\Component\Console\Input\InputInterface::validate()
      * @see \Symfony\Component\Console\Input\InputInterface::bind()
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
 
-        // @toDos
-        // add to jury group (if not already set)
-        // mail to jury member
+        // @toDo
+        // Dieser Cron verschickt sowohl erstmalige E-Mails an Jury-Mitglieder, als auch Reminder mails.
+        // -> Ggf sollte der "$reminderInterval" nur bei reminder-Emails greifen, damit erstmalige E-Mails immer ...
+        // ... direkt rausgehen?
 
 
         $io = new SymfonyStyle($input, $output);
@@ -135,19 +139,18 @@ class JuryNotifyCommand extends Command
             $competitionList = $this->competitionRepository->findBetweenRegisterAndJuryAccessEndForJuryReminder($reminderInterval);
 
             if (count($competitionList)) {
-
                 $io->note('Processing ' . count($competitionList) . ' competitions.');
 
                 /** @var \RKW\RkwCompetition\Domain\Model\Competition $competition */
                 foreach ($competitionList as $competition) {
+                    $juryCandidateEmailList = GeneralUtility::trimExplode(',', $competition->getJuryMemberCandidate(), true);
 
-                    if ($juryCandidateList = $competition->getJuryMemberCandidate()) {
-
-                        /** @var FrontendUser $juryCandidate */
-                        foreach ($juryCandidateList as $juryCandidate) {
+                    if ($juryCandidateEmailList) {
+                        $juryReferenceList = [];
+                        foreach ($juryCandidateEmailList as $juryCandidateEmail) {
 
                             // create juryReference record (IF NOT EXISTS YET)
-                            $existingRecord = $this->juryReferenceRepository->findByFrontendUserAndCompetition($juryCandidate, $competition);
+                            $existingRecord = $this->juryReferenceRepository->findByEmailAndCompetition($juryCandidateEmail, $competition);
 
                             if (!$existingRecord instanceof JuryReference) {
                                 /** @var JuryReference $newJuryReference */
@@ -155,33 +158,41 @@ class JuryNotifyCommand extends Command
 
                                 // the backend (cron) does not know the extension storage PID)
                                 $newJuryReference->setPid($competition->getPid());
-                                $newJuryReference->setFrontendUser($juryCandidate);
+                                $newJuryReference->setEmail($juryCandidateEmail);
                                 $newJuryReference->setCompetition($competition);
                                 $newJuryReference->setInvitationMailTstamp(time());
+                                $newJuryReference->setInviteToken(RegisterUtility::createToken());
 
                                 $this->juryReferenceRepository->add($newJuryReference);
+
+                                $juryReferenceList[] = $newJuryReference;
+                            } else {
+                                // send reminder if user has not accepted invitation yet
+                                if (!$existingRecord->getConsentedAt()) {
+                                    $juryReferenceList[] = $existingRecord;
+                                }
                             }
 
                             // add to jury group
                             // avoid double added groups
-                            if (!$juryCandidate->getUsergroup()->contains($competition->getGroupForJury())) {
-                                $juryCandidate->addUsergroup($competition->getGroupForJury());
-                            }
+//                            if (!$juryCandidate->getUsergroup()->contains($competition->getGroupForJury())) {
+//                                $juryCandidate->addUsergroup($competition->getGroupForJury());
+//                            }
                         }
 
                         // send mails
                         /** @var RkwMailService $mailService */
                         $mailService = GeneralUtility::makeInstance(RkwMailService::class);
-                        $mailService->juryNotifyUser($juryCandidateList->toArray(), $competition);
+                        $mailService->juryNotifyUser($juryReferenceList);
 
                         $io->note("\t" . 'competitionUid: ' . $competition->getUid());
 
                         // set timestamp in competition, so that mails are not send twice
-                        $competition->setReminderJuryMailTstamp(time());
+    // TEST                    $competition->setReminderJuryMailTstamp(time());
                         $this->competitionRepository->update($competition);
                         $this->persistenceManager->persistAll();
 
-                        $this->getLogger()->log(LogLevel::INFO, sprintf('Successfully sent %s reminder mails for jury candidates for competition with UID %s.', count($juryCandidateList), $competition->getUid()));
+                        $this->getLogger()->log(LogLevel::INFO, sprintf('Successfully sent %s reminder mails for jury candidates for competition with UID %s.', count($juryReferenceList), $competition->getUid()));
                     } else {
                         $this->getLogger()->log(LogLevel::INFO, sprintf('No jury candidates found for competition after register end %s. No reminder mail sent.', $competition->getUid()));
                     }

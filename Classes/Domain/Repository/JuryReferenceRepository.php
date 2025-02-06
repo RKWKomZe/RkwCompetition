@@ -50,4 +50,31 @@ class JuryReferenceRepository extends AbstractRepository
 
         )->execute()->getFirst();
     }
+
+
+    /**
+     * Return a reference (getFirst)
+     *
+     * @param string $email
+     * @param Competition $competition
+     * @return object|null
+     */
+    public function findByEmailAndCompetition(
+        string $email,
+        Competition $competition
+    ): ?object
+    {
+
+        $query = $this->createQuery();
+
+        $query->getQuerySettings()->setRespectStoragePage(false);
+
+        return $query->matching(
+            $query->logicalAnd(
+                $query->equals('email', $email),
+                $query->equals('competition', $competition),
+            )
+
+        )->execute()->getFirst();
+    }
 }

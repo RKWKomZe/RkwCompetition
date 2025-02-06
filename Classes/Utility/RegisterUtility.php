@@ -15,6 +15,7 @@ namespace RKW\RkwCompetition\Utility;
  */
 
 use Brotkrueml\Schema\Model\Type\DanceEvent;
+use Random\RandomException;
 use RKW\RkwCompetition\Domain\Model\Competition;
 use RKW\RkwCompetition\Domain\Model\Register;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
@@ -49,7 +50,7 @@ class RegisterUtility
      * @param \RKW\RkwCompetition\Domain\Model\Register $register
      * @return int
      */
-    public static function registerStatus(Register $register) :int
+    public static function registerStatus(Register $register): int
     {
         if ($register->getAdminApprovedAt()) {
             // approved (500)
@@ -70,6 +71,17 @@ class RegisterUtility
         return self::STATUS_NEW;
     }
 
+
+
+    /**
+     * @param int $length
+     * @return void
+     * @throws RandomException
+     */
+    public static function createToken(int $length = 10): string
+    {
+        return bin2hex(random_bytes($length));
+    }
 
 
 }

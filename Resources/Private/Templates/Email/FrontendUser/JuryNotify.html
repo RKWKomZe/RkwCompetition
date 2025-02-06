@@ -14,7 +14,7 @@
 =============================================================
 <postmaster:email.translate key="templates_email_frontendUser_juryNotify.showHeadline" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
 <postmaster:email.translate key="templates_email_frontendUser_juryNotify.text3" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
-<postmaster:email.uri.page absolute="true" pageUid="{loginPid}" />
+	<postmaster:email.uri.action action='update' controller='Jury' extensionName='RkwCompetition' pluginName='jury' absolute='true' noCacheHash='true' pageUid='{juryPid}' additionalParams='{tx_rkwcompetition_jury: {token: juryreference.inviteToken}}' />
 </f:section>
 
 <!-- HTML -->
@@ -30,6 +30,12 @@
 
 	<h2><postmaster:email.translate key="templates_email_frontendUser_juryNotify.showHeadline" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" /></h2>
 	<p>
-		<a href="<postmaster:email.uri.page absolute='true' pageUid='{loginPid}' />" target="_blank"><postmaster:email.translate key="templates_email_frontendUser_juryNotify.text3" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" /></a>
+		<a href="<postmaster:email.uri.action action='update' controller='Jury' extensionName='RkwCompetition' pluginName='jury' absolute='true' noCacheHash='true' pageUid='{juryPid}' additionalParams='{tx_rkwcompetition_jury: {token: juryreference.inviteToken}}' />"
+		   target="_blank">
+			<postmaster:email.translate key="templates_email_frontendUser_juryNotify.text3" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
+		</a>
 	</p>
+
+
+
 </f:section>

@@ -6,6 +6,8 @@ namespace RKW\RkwCompetition\Controller;
 
 
 use Madj2k\CoreExtended\Utility\GeneralUtility;
+use Madj2k\FeRegister\Domain\Model\GuestUser;
+use Madj2k\FeRegister\Registration\GuestUserRegistration;
 use RKW\RkwCompetition\Api\OwnCloud;
 use RKW\RkwCompetition\Utility\OwnCloudUtility;
 use Solarium\Component\Debug;
@@ -49,6 +51,11 @@ class CompetitionController extends \RKW\RkwCompetition\Controller\AbstractContr
      */
     public function showAction(\RKW\RkwCompetition\Domain\Model\Competition $competition = null)
     {
+
+//        $newGuestUser = GeneralUtility::makeInstance(GuestUser::class);
+//        $guestUserRegistration = GeneralUtility::makeInstance(GuestUserRegistration::class);
+//        $guestUserRegistration->setFrontendUser($newGuestUser);
+//        $guestUserRegistration->startRegistration();
 
 //
 //        $userId = 8;

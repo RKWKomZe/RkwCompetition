@@ -379,7 +379,7 @@ return [
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectMultipleSideBySide',
-                'foreign_table' => 'fe_users',
+                'foreign_table' => 'tx_rkwcompetition_domain_model_juryreference',
                 'default' => 0,
                 'size' => 10,
                 'autoSizeMax' => 30,

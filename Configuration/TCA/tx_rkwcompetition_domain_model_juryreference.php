@@ -2,7 +2,7 @@
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_juryreference',
-        'label' => 'abstract',
+        'label' => 'email',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
@@ -16,11 +16,11 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'remark',
+        'searchFields' => 'remark,email',
         'iconfile' => 'EXT:rkw_competition/Resources/Public/Icons/tx_rkwcompetition_domain_model_juryreference.gif'
     ],
     'types' => [
-        '1' => ['showitem' => 'invitation_mail_tstamp, consented_at, competition, frontend_user, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, sys_language_uid, l10n_parent, l10n_diffsource, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'],
+        '1' => ['showitem' => 'invitation_mail_tstamp, consented_at, email, invite_token, competition, guest_user, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, sys_language_uid, l10n_parent, l10n_diffsource, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -142,9 +142,27 @@ return [
                 ]
             ],
         ],
-        'frontend_user' => [
+        'email' => [
             'exclude' => 0,
-            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_juryreference.frontend_user',
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_juryreference.email',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim,email'
+            ],
+        ],
+        'invite_token' => [
+            'exclude' => 0,
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_juryreference.invite_token',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim,email'
+            ],
+        ],
+        'guest_user' => [
+            'exclude' => 0,
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_juryreference.guest_user',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',

@@ -197,9 +197,17 @@
                 <source>Competition</source>
                 <target>Wettbewerb</target>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_domain_model_juryreference.frontend_user">
-                <source>FrontendUser</source>
-                <target>Nutzer</target>
+            <trans-unit id="tx_rkwcompetition_domain_model_juryreference.guest_user">
+                <source>GuestUser</source>
+                <target>Nutzer (Gast)</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_juryreference.email">
+                <source>GuestUser</source>
+                <target>Nutzer (Gast)</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_juryreference.invite_token">
+                <source>Invite token</source>
+                <target>Token (für Einladungs-Link)</target>
             </trans-unit>
 
 

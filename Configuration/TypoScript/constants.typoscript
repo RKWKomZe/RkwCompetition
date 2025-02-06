@@ -16,6 +16,7 @@ plugin.tx_rkwcompetition {
         loginPid = 10513
         competitionPid =
         registerPid =
+        juryPid =
 
         mandatoryFields {
             register = email, firstName, lastName

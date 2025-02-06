@@ -7,6 +7,7 @@ use Madj2k\FeRegister\Domain\Model\BackendUser;
 use Madj2k\FeRegister\Domain\Model\FrontendUser;
 use Madj2k\Postmaster\Exception;
 use Madj2k\Postmaster\Mail\MailMessage;
+use RKW\RkwCompetition\Domain\Model\JuryReference;
 use RKW\RkwCompetition\Domain\Model\Register;
 use SJBR\StaticInfoTables\Domain\Model\Language;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -282,10 +283,10 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
 
 
     /**
+     *
      * Handles jury notify mails
      *
-     * @param array $frontendUserList FrontendUser inside an array
-     * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
+     * @param array $juryReferenceList FrontendUser inside an array
      * @return void
      * @throws \Madj2k\Postmaster\Exception
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
@@ -294,12 +295,15 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
      */
     public function juryNotifyUser(
-        array $frontendUserList,
-        \RKW\RkwCompetition\Domain\Model\Competition $competition
+        array $juryReferenceList
     ) :void
     {
-        foreach ($frontendUserList as $frontendUser) {
-            $this->frontendUserMail($frontendUser, $competition, 'juryNotify');
+        /** @var JuryReference $juryReference */
+        foreach ($juryReferenceList as $juryReference) {
+
+            $frontendUser = GeneralUtility::makeInstance(FrontendUser::class);
+            $frontendUser->setEmail($juryReference->getEmail());
+            $this->frontendUserMail($frontendUser, $juryReference, 'juryNotify');
         }
     }
 
@@ -392,6 +396,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
                     'pageUid'               => intval($GLOBALS['TSFE']->id),
                     'competitionPid'        => intval($settingsDefault['competitionPid']),
                     'loginPid'              => intval($settingsDefault['loginPid']),
+                    'juryPid'               => intval($settingsDefault['juryPid']),
                     'showPid'               => $showPid,
                     'uniqueKey'             => uniqid(),
                     'currentTime'           => time(),

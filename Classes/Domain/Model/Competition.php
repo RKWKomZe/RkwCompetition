@@ -146,21 +146,21 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * juryMemberConfirmed
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwCompetition\Domain\Model\FrontendUser>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwCompetition\Domain\Model\JuryReference>
      */
     protected $juryMemberConfirmed = null;
 
     /**
      * groupForJury
      *
-     * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
+     * @var \RKW\RkwCompetition\Domain\Model\FrontendUserGroup
      */
     protected $groupForJury = null;
 
     /**
      * groupForUser
      *
-     * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup
+     * @var \RKW\RkwCompetition\Domain\Model\FrontendUserGroup
      */
     protected $groupForUser = null;
 
@@ -606,21 +606,21 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Adds a FrontendUser
      *
-     * @param \RKW\RkwCompetition\Domain\Model\FrontendUser $juryMemberConfirmed
+     * @param \RKW\RkwCompetition\Domain\Model\JuryReference $juryMemberConfirmed
      * @return void
      */
-    public function addJuryMemberConfirmed(\RKW\RkwCompetition\Domain\Model\FrontendUser $juryMemberConfirmed)
+    public function addJuryMemberConfirmed(\RKW\RkwCompetition\Domain\Model\JuryReference $juryMemberConfirmed)
     {
         $this->juryMemberConfirmed->attach($juryMemberConfirmed);
     }
 
     /**
-     * Removes a FrontendUser
+     * Removes a JuryReference
      *
-     * @param \RKW\RkwCompetition\Domain\Model\FrontendUser $juryMemberConfirmedToRemove The FrontendUser to be removed
+     * @param \RKW\RkwCompetition\Domain\Model\JuryReference $juryMemberConfirmedToRemove The JuryReference to be removed
      * @return void
      */
-    public function removeJuryMemberConfirmed(\RKW\RkwCompetition\Domain\Model\FrontendUser $juryMemberConfirmedToRemove)
+    public function removeJuryMemberConfirmed(\RKW\RkwCompetition\Domain\Model\JuryReference $juryMemberConfirmedToRemove)
     {
         $this->juryMemberConfirmed->detach($juryMemberConfirmedToRemove);
     }
@@ -628,7 +628,7 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the juryMemberConfirmed
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwCompetition\Domain\Model\FrontendUser>
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwCompetition\Domain\Model\JuryReference>
      */
     public function getJuryMemberConfirmed()
     {
@@ -638,7 +638,7 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the juryMemberConfirmed
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwCompetition\Domain\Model\FrontendUser> $juryMemberConfirmed
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwCompetition\Domain\Model\JuryReference> $juryMemberConfirmed
      * @return void
      */
     public function setJuryMemberConfirmed(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $juryMemberConfirmed)

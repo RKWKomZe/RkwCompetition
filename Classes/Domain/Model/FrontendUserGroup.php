@@ -31,14 +31,14 @@ class FrontendUserGroup extends \Madj2k\FeRegister\Domain\Model\FrontendUserGrou
      * @todo: Ask SK for typecast issue (RegisterController->"create" on var_dump)
      * @var int
      */
-   // protected $crdate;
+    protected int $crdate = 0;
 
 
     /**
      * @todo: Ask SK for typecast issue (RegisterController->"create" on var_dump)
      * @var int
      */
-    //protected $tstamp;
+    protected int $tstamp = 0;
 
 
 

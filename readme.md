@@ -20,6 +20,8 @@ plugin.tx_rkwcompetition {
         competitionPid = 2547
         # The register PID (could by a subpage of the competitionPid)
         registerPid = 11924 
+        # Jury register PID
+        juryPid = 11928
         mandatoryFields {
             # set mandatory fields for the register form
             register = firstName, lastName 

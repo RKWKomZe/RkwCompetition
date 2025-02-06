@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace RKW\RkwCompetition\Controller;
 
 
+use Madj2k\CoreExtended\Utility\GeneralUtility;
+use Madj2k\FeRegister\Domain\Model\GuestUser;
+use Madj2k\FeRegister\Registration\GuestUserRegistration;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
@@ -110,10 +113,15 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
      * @return string|object|null|void
      */
     public function updateAction(
-        \RKW\RkwCompetition\Domain\Model\JuryReference $juryReference,
+        \RKW\RkwCompetition\Domain\Model\JuryReference $juryReference = null,
         int $consentAsJuryMember = 0
     )
     {
+
+        // @toDo: Get Token
+        // @toDo: Create GuestUser
+        // @toDo: Add User to JuryGroup?
+
 
         $errorMessage = '';
 
@@ -148,9 +156,14 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
 
         $juryReference->setConsentedAt(time());
 
+        // @toDo: Create GuestUser
+        $newGuestUser = GeneralUtility::makeInstance(GuestUser::class);
+        $guestUserRegistration = GeneralUtility::makeInstance(GuestUserRegistration::class);
+
+
         // change from "candidate" to "confirmed"
-        $juryReference->getCompetition()->removeJuryMemberCandidate($juryReference->getFrontendUser());
-        $juryReference->getCompetition()->addJuryMemberConfirmed($juryReference->getFrontendUser());
+        //$juryReference->getCompetition()->removeJuryMemberCandidate($juryReference->getFrontendUser());
+        $juryReference->getCompetition()->addJuryMemberConfirmed($juryReference);
         $this->competitionRepository->update($juryReference->getCompetition());
 
         $this->addFlashMessage(

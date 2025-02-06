@@ -34,11 +34,25 @@ class JuryReference extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected int $consentedAt = 0;
 
     /**
-     * frontendUser
+     * email
      *
-     * @var \RKW\RkwCompetition\Domain\Model\FrontendUser
+     * @var string
      */
-    protected $frontendUser = null;
+    protected $email = '';
+
+    /**
+     * inviteToken
+     *
+     * @var string
+     */
+    protected $inviteToken = '';
+
+    /**
+     * guestUser
+     *
+     * @var \Madj2k\FeRegister\Domain\Model\GuestUser
+     */
+    protected $guestUser = null;
 
     /**
      * competition
@@ -82,24 +96,66 @@ class JuryReference extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Returns the frontendUser
+     * Returns the email
      *
-     * @return \RKW\RkwCompetition\Domain\Model\FrontendUser $frontendUser
+     * @return string $email
      */
-    public function getFrontendUser()
+    public function getEmail()
     {
-        return $this->frontendUser;
+        return $this->email;
     }
 
     /**
-     * Sets the frontendUser
+     * Sets the email
      *
-     * @param \RKW\RkwCompetition\Domain\Model\FrontendUser $frontendUser
+     * @param string $email
      * @return void
      */
-    public function setFrontendUser(\RKW\RkwCompetition\Domain\Model\FrontendUser $frontendUser)
+    public function setEmail(string $email)
     {
-        $this->frontendUser = $frontendUser;
+        $this->email = $email;
+    }
+
+    /**
+     * Returns the inviteToken
+     *
+     * @return string $inviteToken
+     */
+    public function getInviteToken()
+    {
+        return $this->inviteToken;
+    }
+
+    /**
+     * Sets the inviteToken
+     *
+     * @param string $inviteToken
+     * @return void
+     */
+    public function setInviteToken(string $inviteToken)
+    {
+        $this->inviteToken = $inviteToken;
+    }
+
+    /**
+     * Returns the guestUser
+     *
+     * @return \Madj2k\FeRegister\Domain\Model\GuestUser $guestUser
+     */
+    public function getGuestUser()
+    {
+        return $this->guestUser;
+    }
+
+    /**
+     * Sets the guestUser
+     *
+     * @param \Madj2k\FeRegister\Domain\Model\GuestUser $guestUser
+     * @return void
+     */
+    public function setGuestUser(\Madj2k\FeRegister\Domain\Model\GuestUser $guestUser)
+    {
+        $this->guestUser = $guestUser;
     }
 
     /**

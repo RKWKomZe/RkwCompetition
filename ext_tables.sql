@@ -78,9 +78,10 @@ CREATE TABLE tx_rkwcompetition_domain_model_juryreference (
     invitation_mail_tstamp int(11) unsigned DEFAULT '0' NOT NULL,
     consented_at int(11) unsigned NOT NULL DEFAULT '0',
     competition int(11) unsigned DEFAULT '0' NOT NULL,
-    frontend_user int(11) unsigned DEFAULT '0' NOT NULL,
+    guest_user int(11) unsigned DEFAULT '0' NOT NULL,
+    email varchar(255) DEFAULT '' NOT NULL,
+    invite_token varchar(255) DEFAULT '' NOT NULL,
 
-    UNIQUE KEY reference (competition, frontend_user)
 );
 
 
