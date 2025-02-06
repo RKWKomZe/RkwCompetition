@@ -267,9 +267,9 @@
                 <source>Admin Member</source>
                 <target>Admin</target>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_domain_model_competition.jury_member_candidate">
+            <trans-unit id="tx_rkwcompetition_domain_model_competition.jury_member">
                 <source>Jury Member Candidates</source>
-                <target>Jury (Kandidaten)</target>
+                <target>Jury (Kandidaten; E-Mail Adressen als kommaseparierte Liste)</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_competition.jury_member_confirmed">
                 <source>Jury Member Confirmed</source>

@@ -139,7 +139,7 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * juryMemberCandidate
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwCompetition\Domain\Model\FrontendUser>
+     * @var string
      */
     protected $juryMemberCandidate = null;
 
@@ -580,32 +580,12 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $this->adminMember = $adminMember;
     }
 
-    /**
-     * Adds a FrontendUser
-     *
-     * @param \RKW\RkwCompetition\Domain\Model\FrontendUser $juryMemberCandidate
-     * @return void
-     */
-    public function addJuryMemberCandidate(\RKW\RkwCompetition\Domain\Model\FrontendUser $juryMemberCandidate)
-    {
-        $this->juryMemberCandidate->attach($juryMemberCandidate);
-    }
 
-    /**
-     * Removes a FrontendUser
-     *
-     * @param \RKW\RkwCompetition\Domain\Model\FrontendUser $juryMemberCandidateToRemove The FrontendUser to be removed
-     * @return void
-     */
-    public function removeJuryMemberCandidate(\RKW\RkwCompetition\Domain\Model\FrontendUser $juryMemberCandidateToRemove)
-    {
-        $this->juryMemberCandidate->detach($juryMemberCandidateToRemove);
-    }
 
     /**
      * Returns the juryMemberCandidate
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwCompetition\Domain\Model\FrontendUser>
+     * @return string
      */
     public function getJuryMemberCandidate()
     {
@@ -615,10 +595,10 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the juryMemberCandidate
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\RKW\RkwCompetition\Domain\Model\FrontendUser> $juryMemberCandidate
+     * @param string $juryMemberCandidate
      * @return void
      */
-    public function setJuryMemberCandidate(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $juryMemberCandidate)
+    public function setJuryMemberCandidate(string $juryMemberCandidate)
     {
         $this->juryMemberCandidate = $juryMemberCandidate;
     }

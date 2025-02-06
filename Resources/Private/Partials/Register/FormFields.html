@@ -116,6 +116,7 @@
 			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.sector" />
 			<f:render partial="LabelSuffix" arguments="{field: 'sector', mandatoryFields: settings.mandatoryFields.register}" />
 		</label>
+		<!-- @todo: PleaseChoose locallang -->
 		<f:form.select
 				class="select-field"
 				id="sector"
@@ -146,21 +147,43 @@
 	</div>
 
 	<div class="form__field width100">
-		<f:form.checkbox
+		<label class="form-label" for="remark">
+			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.remark" />
+			<f:render partial="LabelSuffix" arguments="{field: 'remark', mandatoryFields: settings.mandatoryFields.register}" />
+		</label>
+		<f:form.textarea property="remark" id="remark" cols="40" rows="15" />
+	</div>
+
+	<f:comment><!-- ADDITIONAL GROUPWORK STUFF --></f:comment>
+
+	<div class="form__field width100">
+		<label>
+			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.is_group_work" />
+		</label>
+		<f:form.radio
 				class="checkbox"
-				id="isGroupWork"
+				id="isGroupWorkNo"
+				property="isGroupWork"
+				value="0"
+				checked="checked"
+		/>
+		<label for="isGroupWorkNo" class="radio-label">
+			Nein
+		</label>
+		<f:form.radio
+				class="checkbox"
+				id="isGroupWorkYes"
 				property="isGroupWork"
 				value="1"
 		/>
-		<label for="isGroupWork" class="checkbox-label">
-			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.is_group_work" />
+		<label for="isGroupWorkYes" class="radio-label">
+			Ja
 		</label>
 	</div>
 
-	<div class="form__field width50">
+	<div class="form__field width50" id="groupInsurance">
 		<f:form.checkbox
 				class="checkbox"
-				id="groupWorkInsurance"
 				property="groupWorkInsurance"
 				value="1"
 		/>
@@ -170,7 +193,7 @@
 		</label>
 	</div>
 
-	<div class="form__field width100">
+	<div class="form__field width100" id="groupAddPersons">
 		<label class="form-label" for="groupWorkAddPersons">
 			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.group_work_add_persons" />
 			<f:render partial="LabelSuffix" arguments="{field: 'groupWorkAddPersons', mandatoryFields: settings.mandatoryFields.register}" />
@@ -178,19 +201,16 @@
 		<f:form.textarea property="groupWorkAddPersons" id="groupWorkAddPersons" />
 	</div>
 
-	<div class="form__field width100">
-		<label class="form-label" for="remark">
-			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.remark" />
-			<f:render partial="LabelSuffix" arguments="{field: 'remark', mandatoryFields: settings.mandatoryFields.register}" />
-		</label>
-		<f:form.textarea property="remark" id="remark" cols="40" rows="15" />
-	</div>
+
+	<f:comment><!-- DEFAULT STUFF: terms, captcha etc --></f:comment>
 
 
 	<f:comment><!-- terms = "conditionsOfParticipation" --></f:comment>
 	<feRegister:consent type="terms" key="default" />
 	<f:comment><!-- privacy = "privacy" --></f:comment>
 	<feRegister:consent type="privacy" key="default" />
+	<f:comment><!-- privacy = "marketing" --></f:comment>
+	<feRegister:consent type="marketing" />
 
 	<f:comment>
 		<!-- feRegister consent terms -->
@@ -199,5 +219,37 @@
 		</label><br />
 		<f:form.textfield property="conditionsOfParticipation" id="conditionsOfParticipation" /><br />
 	</f:comment>
+
+
+	<script type="text/javascript">
+
+		document.addEventListener("DOMContentLoaded", load);
+
+		function load() {
+
+			// initial: Hide additional fields
+			hideAddGroupFields();
+
+			let buttonYes = document.querySelector("#isGroupWorkYes");
+			buttonYes.addEventListener("click", showAddGroupFields, false);
+			let buttonNo = document.querySelector("#isGroupWorkNo");
+			buttonNo.addEventListener("click", hideAddGroupFields, false);
+		}
+
+		function showAddGroupFields() {
+			let workGroupInsurance = document.getElementById("groupInsurance");
+			workGroupInsurance.style.display = "block";
+			let groupAddPersons = document.getElementById("groupAddPersons");
+			groupAddPersons.style.display = "block";
+		}
+
+		function hideAddGroupFields() {
+			let workGroupInsurance = document.getElementById("groupInsurance");
+			workGroupInsurance.style.display = "none";
+			let groupAddPersons = document.getElementById("groupAddPersons");
+			groupAddPersons.style.display = "none";
+		}
+
+	</script>
 
 </html>

@@ -367,26 +367,10 @@ return [
             'exclude' => true,
             'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.jury_member_candidate',
             'config' => [
-                'type' => 'select',
-                'renderType' => 'selectMultipleSideBySide',
-                'foreign_table' => 'fe_users',
-                'default' => 0,
-                'size' => 10,
-                'autoSizeMax' => 30,
-                'minitems' => 0,
-                'maxitems' => 9999,
-                'multiple' => 0,
-                'fieldControl' => [
-                    'editPopup' => [
-                        'disabled' => false,
-                    ],
-                    'addRecord' => [
-                        'disabled' => false,
-                    ],
-                    'listModule' => [
-                        'disabled' => true,
-                    ],
-                ],
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim, required',
+                'default' => '',
             ],
         ],
         'jury_member_confirmed' => [
