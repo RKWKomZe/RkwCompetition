@@ -20,9 +20,9 @@ namespace RKW\RkwCompetition\Domain\Model;
 class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
-     * @var \DateTime
+     * @var int
      */
-    protected $crdate = null;
+    protected $crdate;
 
     /**
      * salutation

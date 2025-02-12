@@ -79,7 +79,7 @@
 				<source>Is Group Work</source>
 			</trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_register.group_work_insurance">
-				<source>Group Work Insurance (Eidestattliche Versicherung, dass im Namen den anderen Gruppenmitglieder Anmeldung zulässig)</source>
+				<source>Group Work Insurance (Eidesstattliche Versicherung, dass im Namen den anderen Gruppenmitglieder Anmeldung zulässig)</source>
 			</trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_register.group_work_add_persons">
 				<source>Group Work Add Persons (Namen der anderen Gruppenmitglieder (Anrede, Titel, Vorname und Nachname))</source>

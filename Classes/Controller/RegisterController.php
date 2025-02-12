@@ -19,6 +19,7 @@ use RKW\RkwCompetition\Utility\CompetitionUtility;
 use RKW\RkwCompetition\Utility\OwnCloudUtility;
 use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\Log\Logger;
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -99,14 +100,18 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
     }
 
 
-
     /**
      * action new
      *
      * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
-     * @return string|object|null|void
+     * @param Register|null $newRegister
+     * @return void
+     * @throws AspectNotFoundException
      */
-    public function newAction(\RKW\RkwCompetition\Domain\Model\Competition $competition)
+    public function newAction(
+        \RKW\RkwCompetition\Domain\Model\Competition $competition,
+        \RKW\RkwCompetition\Domain\Model\Register $newRegister = null
+    )
     {
 
         // @toDo: Gets $competition via argument
@@ -115,6 +120,7 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
 
         //$this->view->assign('sectorList', $this->sectorRepository->findAll());
         $this->view->assign('competition', $competition);
+        $this->view->assign('newRegister', $newRegister);
         $this->view->assign('frontendUser', $this->getFrontendUser());
 
     }
@@ -134,8 +140,47 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
      */
     public function createAction(\RKW\RkwCompetition\Domain\Model\Register $newRegister)
     {
-        // -> create an additional field inside the RegisterModel for it
-        $newRegister->setUniqueId(uniqid('feuser', false));
+
+        // check if user is already registered
+        $registerCheck = $this->registerRepository->findByCompetitionAndEmail($newRegister->getCompetition(), $newRegister->getEmail());
+        if ($registerCheck instanceof Register) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'registerController.error.exists',
+                    'rkw_competition'
+                ),
+                '',
+                AbstractMessage::WARNING
+            );
+            $this->redirect(
+                'show',
+                'Competition',
+                null,
+                ['competition' => $newRegister->getCompetition()],
+                $this->settings['competitionPid']
+            );
+        }
+
+        // registration still possible?
+        if (!$newRegister->getCompetition()->getRegisterEnd() < time()) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'registerController.error.registrationTime',
+                    'rkw_competition'
+                )
+            );
+            $this->redirect(
+                'show',
+                'Competition',
+                null,
+                ['competition' => $newRegister->getCompetition()],
+                $this->settings['competitionPid']
+            );
+        }
+
+
+        // used as file folder name
+        $newRegister->setUniqueId(uniqid('feuser'));
 
         $newRegister->setPrivacy(time());
         $newRegister->setConditionsOfParticipation(time());

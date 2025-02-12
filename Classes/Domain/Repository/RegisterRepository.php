@@ -7,6 +7,7 @@ namespace RKW\RkwCompetition\Domain\Repository;
 
 use Madj2k\FeRegister\Domain\Model\FrontendUser;
 use RKW\RkwCompetition\Domain\Model\Competition;
+use RKW\RkwCompetition\Domain\Model\Register;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
@@ -36,12 +37,34 @@ class RegisterRepository extends AbstractRepository
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
 
+        // @toDo: getFirst()?
         return $query->matching(
             $query->logicalAnd(
                 $query->equals('frontendUser', $frontendUser),
                 $query->equals('competition', $competition)
             )
         )->execute();
+    }
+
+
+    /**
+     * function findByCompetitionAndEmail
+     *
+     * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
+     * @param string $email
+     * @return object|RKW\RkwCompetition\Domain\Model\Register
+     */
+    public function findByCompetitionAndEmail(Competition $competition, string $email): object
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+
+        return $query->matching(
+            $query->logicalAnd(
+                $query->equals('email', $email),
+                $query->equals('competition', $competition)
+            )
+        )->execute()->getFirst();
     }
 
 

@@ -78,7 +78,7 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_validator.groupWorkInsurance">
                 <source>Group work insurance</source>
-                <target>Eidestattliche Versicherung</target>
+                <target>Eidesstattliche Versicherung</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_validator.groupWorkAddPersons">
                 <source>Group work add persons</source>
@@ -122,6 +122,10 @@
             <trans-unit id="juryController.message.updated">
                 <source>Successfully updated.</source>
                 <target>Das hat funktioniert, Sie sind nun Teil der Jury.</target>
+            </trans-unit>
+            <trans-unit id="juryController.error.tokenAlreadyUsed">
+                <source>Token already used.</source>
+                <target>Dieser einmalige Anmeldelink wurde bereits genutzt.</target>
             </trans-unit>
 
 
@@ -295,6 +299,18 @@
                 <source>Edit</source>
                 <target>Abschicken</target>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_jury_edit.hint">
+                <source>Edit</source>
+                <target><![CDATA[Offenbar haben Sie sich bereits erfolgreich als Jury Mitglied angemeldet und einen speziellen Link für diesen Wettbewerb erhalten. Sollte Ihnen der Link abhanden gekommen sein, helfen wir Ihnen gerne weiter. Bitte wenden Sie sich dafür an den <a href="mailto:service@rkw.de">Support</a>.]]></target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_jury_edit.introduction">
+                <source>Welcome as a new jury member</source>
+                <target>Wir möchten Sie gerne als Jury-Mitglied für diesen Wettbewerb begrüßen. Bevor es logehen kann bitten wir Sie darum, die nachfolgende Verschwiegenheitserklärung zu akzeptieren.</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_jury_edit.guideHint">
+                <source>please read the guidelines carefully</source>
+                <target>Bitte lesen Sie sich alles sorgfältig durch.</target>
+            </trans-unit>
 
             <!-- Templates/Jury/Show.html -->
             <trans-unit id="tx_rkwcompetition_fluid.templates_jury_show.backToList">
@@ -414,7 +430,7 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.group_work_insurance">
                 <source>Group Work Insurance</source>
-                <target>Eidestattliche Versicherung, dass im Namen den anderen Gruppenmitglieder Anmeldung zulässig</target>
+                <target>Eidesstattliche Versicherung, dass im Namen den anderen Gruppenmitglieder Anmeldung zulässig</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.group_work_add_persons">
                 <source>Group Work Add Persons</source>
@@ -789,7 +805,7 @@
             </trans-unit>
             <trans-unit id="partials_email_details.groupWorkInsurance">
                 <source>Group work insurance</source>
-                <target>Eidestattliche Versicherung, dass im Namen den anderen Gruppenmitglieder Anmeldung zulässig</target>
+                <target>Eidesstattliche Versicherung, dass im Namen den anderen Gruppenmitglieder Anmeldung zulässig</target>
             </trans-unit>
             <trans-unit id="partials_email_details.groupWorkAddPersons">
                 <source>Group work add persons</source>

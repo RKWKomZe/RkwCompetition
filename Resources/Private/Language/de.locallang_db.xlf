@@ -108,7 +108,7 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.group_work_insurance">
                 <source>Group Work Insurance</source>
-                <target>Eidestattliche Versicherung, dass im Namen den anderen Gruppenmitglieder Anmeldung zulässig</target>
+                <target>Eidesstattliche Versicherung, dass im Namen den anderen Gruppenmitglieder Anmeldung zulässig</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.group_work_add_persons">
                 <source>Group Work Add Persons</source>

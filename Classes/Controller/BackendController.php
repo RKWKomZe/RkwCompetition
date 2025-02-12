@@ -17,9 +17,11 @@ namespace RKW\RkwCompetition\Controller;
 use Madj2k\CoreExtended\Utility\GeneralUtility;
 use RKW\RkwCompetition\Domain\Model\BackendUser;
 use RKW\RkwCompetition\Domain\Model\Competition;
+use RKW\RkwCompetition\Domain\Model\JuryReference;
 use RKW\RkwCompetition\Domain\Model\Register;
 use RKW\RkwCompetition\Domain\Repository\BackendUserRepository;
 use RKW\RkwCompetition\Service\RkwMailService;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Class BackendController
@@ -59,7 +61,26 @@ class BackendController extends \RKW\RkwCompetition\Controller\AbstractControlle
         $this->view->assign('competitionList', $this->competitionRepository->findAll());
     }
 
+    protected function initFrontend() {
 
+        \Madj2k\CoreExtended\Utility\FrontendSimulatorUtility::simulateFrontendEnvironment(11928);
+
+
+        //Dein ViewHelper - oder direkt Link generieren
+        $juryLoginLink = $this->uriBuilder->reset()
+            ->setArguments(
+                array('tx_rkwcompetition_jury' =>
+                    array('userToken' => 'ea5d278a2feca36ce21ed949ec1b90'),
+                )
+            )
+            ->setCreateAbsoluteUri(true)
+            ->build();
+
+        \Madj2k\CoreExtended\Utility\FrontendSimulatorUtility::resetFrontendEnvironment();
+
+        DebuggerUtility::var_dump($juryLoginLink); exit;
+
+    }
     /**
      * action show
      *
@@ -71,15 +92,36 @@ class BackendController extends \RKW\RkwCompetition\Controller\AbstractControlle
         // @toDo: Liste der vollständigen und zu prüfenden Datensätze gruppiert nach Wettbewerb
         // (via Fluid umsetzen? Einfach wettbewerbe iterieren und registrierungen dazu ausgeben)
 
-
         // @toDo: Count FINISHED registrations by competition
         $registerList = $this->registerRepository->findByCompetition($competition);
 
-       // DebuggerUtility::var_dump($registerList);
 
         $this->view->assign('registerCountTotal', $registerList->count());
         $this->view->assign('registerList', $registerList);
         $this->view->assign('competition', $competition);
+
+
+        // SPECIAL SOLUTION: Create FrontendLinks for Jury-Member
+        \Madj2k\CoreExtended\Utility\FrontendSimulatorUtility::simulateFrontendEnvironment($this->settings['juryPid']);
+        $juryMemberLinkArray = [];
+        /** @var JuryReference $juryReference */
+        foreach ($competition->getJuryMemberConfirmed() as $juryReference) {
+
+            $juryLoginLink = $this->uriBuilder->reset()
+                ->setArguments(
+                    array('tx_rkwcompetition_jury' =>
+                        array('userToken' => $juryReference->getGuestUser()->getUsername()),
+                    )
+                )
+                ->setCreateAbsoluteUri(true)
+                ->build();
+
+            $juryMemberLinkArray[$juryReference->getEmail()] = $juryLoginLink;
+        }
+        //DebuggerUtility::var_dump($juryMemberLinkArray); exit;
+        $this->view->assign('juryMemberLinkArray', $juryMemberLinkArray);
+        \Madj2k\CoreExtended\Utility\FrontendSimulatorUtility::resetFrontendEnvironment();
+
     }
 
 

@@ -7,8 +7,15 @@ namespace RKW\RkwCompetition\Controller;
 
 use Madj2k\CoreExtended\Utility\GeneralUtility;
 use Madj2k\FeRegister\Domain\Model\GuestUser;
+use Madj2k\FeRegister\Domain\Repository\GuestUserRepository;
 use Madj2k\FeRegister\Registration\GuestUserRegistration;
+use Madj2k\FeRegister\Service\GuestUserAuthenticationService;
+use Madj2k\FeRegister\Utility\FrontendUserSessionUtility;
+use RKW\RkwCompetition\Domain\Repository\JuryReferenceRepository;
+use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 
 /**
  * This file is part of the "RKW Competition" Extension for TYPO3 CMS.
@@ -25,14 +32,27 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
  */
 class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
 {
-
     /**
      * juryReferenceRepository
      *
      * @var \RKW\RkwCompetition\Domain\Repository\JuryReferenceRepository
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    protected $juryReferenceRepository = null;
+    protected ?JuryReferenceRepository $juryReferenceRepository = null;
 
+    /**
+     * guestUserRepository
+     *
+     * @var \Madj2k\FeRegister\Domain\Repository\GuestUserRepository
+     * @TYPO3\CMS\Extbase\Annotation\Inject
+     */
+    protected ?GuestUserRepository $guestUserRepository = null;
+
+    /**
+     * @var \Madj2k\FeRegister\Registration\GuestUserRegistration
+     * @TYPO3\CMS\Extbase\Annotation\Inject
+     */
+    protected ?GuestUserRegistration $guestUserRegistration = null;
 
     /**
      * @param \RKW\RkwCompetition\Domain\Repository\JuryReferenceRepository $juryReferenceRepository
@@ -42,10 +62,28 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
         $this->juryReferenceRepository = $juryReferenceRepository;
     }
 
+    /**
+     * @param \Madj2k\FeRegister\Domain\Repository\GuestUserRepository $guestUserRepository
+     */
+    public function injectGuestUserRepository(\Madj2k\FeRegister\Domain\Repository\GuestUserRepository $guestUserRepository)
+    {
+        $this->guestUserRepository = $guestUserRepository;
+    }
+
+    /**
+     * @var \Madj2k\FeRegister\Registration\GuestUserRegistration
+     */
+    public function injectGuestUserRegistration(\Madj2k\FeRegister\Registration\GuestUserRegistration $guestUserRegistration)
+    {
+        $this->guestUserRegistration = $guestUserRegistration;
+    }
+
 
 
     /**
      * action list
+     *
+     * @deprecated Now we have anonymous logins for every competition
      *
      * @return void
      */
@@ -71,15 +109,35 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
     }
 
 
-
     /**
      * action show
      *
-     * @param \RKW\RkwCompetition\Domain\Model\JuryReference $juryReference
-     * @return string|object|null|void
+     * string $userToken
+     * @throws AspectNotFoundException
      */
-    public function showAction(\RKW\RkwCompetition\Domain\Model\JuryReference $juryReference)
+    public function showAction(string $userToken)
     {
+
+
+        $guestUser = $this->guestUserRepository->findOneByUsernameIncludingDisabled($userToken);
+
+        // @toDo: If token does not exists: Forward to login with error message
+
+
+        $juryReference = $this->juryReferenceRepository->findByGuestUser($guestUser)->getFirst();
+
+
+        // @toDo: generate and show login link (absolute link with token)
+        $juryLoginLink = $this->uriBuilder->reset()
+            ->setArguments(
+                array('tx_rkwcompetition_jury' =>
+                    array('userToken' => $guestUser->getUsername()),
+                )
+            )
+            ->setCreateAbsoluteUri(true)
+            ->build();
+
+        $this->view->assign('juryLoginLink', $juryLoginLink);
         $this->view->assign('juryReference', $juryReference);
         $this->view->assign(
             'approvedRegistrations',
@@ -94,12 +152,24 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
      *
      * Hint: The juryReference record is created via cronjob (juryNotify)
      *
-     * @param \RKW\RkwCompetition\Domain\Model\JuryReference $juryReference
-     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("juryReference")
+     * @param string $token
      * @return string|object|null|void
      */
-    public function editAction(\RKW\RkwCompetition\Domain\Model\JuryReference $juryReference)
+    public function editAction(string $token)
     {
+        $juryReference = $this->juryReferenceRepository->findByInviteToken($token)->getFirst();
+
+        DebuggerUtility::var_dump($juryReference);
+
+        // @toDo: Handle if UserReference is not found
+
+        // @toDo: Handle if UserReference is already confirmed (or expired?)
+        if ($juryReference->getGuestUser() instanceof GuestUser) {
+
+            $err = LocalizationUtility::translate('juryController.error.tokenAlreadyUsed', 'rkw_competition');
+            $this->view->assign('errorMessage', $err);
+        }
+
         $this->view->assign('juryReference', $juryReference);
     }
 
@@ -118,10 +188,7 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
     )
     {
 
-        // @toDo: Get Token
-        // @toDo: Create GuestUser
-        // @toDo: Add User to JuryGroup?
-
+        // @toDo: do some security check
 
         $errorMessage = '';
 
@@ -156,15 +223,33 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
 
         $juryReference->setConsentedAt(time());
 
-        // @toDo: Create GuestUser
+        // Create GuestUser
         $newGuestUser = GeneralUtility::makeInstance(GuestUser::class);
-        $guestUserRegistration = GeneralUtility::makeInstance(GuestUserRegistration::class);
+        $this->guestUserRegistration->setFrontendUser($newGuestUser);
+        $this->guestUserRegistration->startRegistration();
+
+    //    DebuggerUtility::var_dump($newGuestUser); exit;
+        $newGuestUser->setDisable(false);
+        // set lifetime (end of competition jury period)
+        $newGuestUser->setEndtime($juryReference->getCompetition()->getJuryAccessEnd()->getTimestamp());
+        $juryReference->setGuestUser($newGuestUser);
 
 
-        // change from "candidate" to "confirmed"
-        //$juryReference->getCompetition()->removeJuryMemberCandidate($juryReference->getFrontendUser());
+        // @toDo: Inhaltlich betrachtet benötigen wir keinen Login. Wir könnten nur mit dem User-Token
+        // -> Jedoch erfolgt wohl auch über "->startRegistration" bereits ein login (wirft Fehler, wenn man bereits eingeloggt ist)
+//        $_POST['logintype'] = 'login';
+//        $_POST['user'] = $newGuestUser->getUsername();
+//        $_POST['pass'] = '';
+//
+//        // authenticate new user
+//        $authService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(FrontendUserAuthentication::class);
+//        $authService->start();
+
+
+        // add as confirmed jury member
         $juryReference->getCompetition()->addJuryMemberConfirmed($juryReference);
         $this->competitionRepository->update($juryReference->getCompetition());
+        $this->juryReferenceRepository->update($juryReference);
 
         $this->addFlashMessage(
             \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
@@ -172,8 +257,9 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
                 'rkw_competition'
             )
         );
-        $this->juryReferenceRepository->update($juryReference);
-        $this->redirect('list');
+
+        // go to campaign view
+        $this->redirect('show', null, null, ['userToken' => $newGuestUser->getUsername()]);
     }
 
 

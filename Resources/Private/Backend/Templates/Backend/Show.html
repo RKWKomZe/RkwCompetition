@@ -1,5 +1,5 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-    xmlns:rkwCheckup="http://typo3.org/ns/RKW/RkwCheckup/ViewHelpers"
+    xmlns:postmaster="http://typo3.org/ns/Madj2k/Postmaster/ViewHelpers"
     data-namespace-typo3-fluid="true">
 
     <f:layout name="Default" />
@@ -33,77 +33,13 @@
                     <br/><br/>
 
 
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>
-                                    Name, Vorname
-                                </th>
-                                <th>
-                                    E-Mail
-                                </th>
-                                <th>
-                                    Titel
-                                </th>
-                                <th>
-                                    Sektor
-                                </th>
-                                <th>
-                                    Status
-                                </th>
-                                <th>
-                                    Aktion
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            <!-- group by sectors -->
-                            <f:for each="{competition.sectors}" as="competitionSector">
-                                <f:for each="{registerList}" as="register" iteration="registerIter">
-
-                                    <f:comment>
-                                        <!-- @toDo: Own table for each sector? -->
-                                        <f:if condition="{registerIter.isFirst}">
-
-                                            <p>
-                                                <strong>{competitionSector.title}</strong>
-                                            </p>
-
-                                        </f:if>
-                                        {competitionSector.uid} == {register.sector.uid}<br>
-                                    </f:comment>
-                                    <f:if condition="{competitionSector.uid} == {register.sector.uid}">
-                                        <tr>
-                                            <td class="center" style="min-width: 30px;">
-                                                {register.lastName}, {register.firstName}
-                                            </td>
-                                            <td>
-                                                {register.email}
-                                            </td>
-                                            <td class="center" style="min-width: 30px;">
-                                                {register.contributionTitle}
-                                            </td>
-                                            <td>
-                                                {register.sector.title}
-                                            </td>
-                                            <td>
-                                                Offen / Abgegeben / Geprüft
-                                            </td>
-                                            <td>
-                                                <f:link.action action="registerDetail" arguments="{register: register}">Show</f:link.action>
-                                            </td>
-                                        </tr>
-                                    </f:if>
+                    <f:render section="competitionTable" arguments="{_all}" />
 
 
-
-                                </f:for>
-                            </f:for>
-                        </tbody>
-                    </table>
-
-
+                    <h1>Bestätigte Jury-Mitglieder</h1>
+                    <p>Neben einer Übersicht über die bisher bestätigten Jury-Mitglieder haben Sie hier außerdem Zugriff auf den individuellen Link jedes Jury-Mitglieds zum Wettbewerb (falls dieser z.B. verloren gegangen ist).</p>
+                    <p><strong>Hinweis:</strong> Jedes Jury-Mitglied hat einen individuellen Link, der mit dessen E-Mail Adresse verknüpft ist. Links verschiedener Jury-Mitglieder sollten daher nicht vertauscht werden.</p>
+                    <f:render section="juryTable" arguments="{_all}" />
 
 
 
@@ -112,4 +48,139 @@
 
         </f:be.container>
     </f:section>
+
+
+
+    <f:section name="competitionTable">
+        <table>
+            <thead>
+            <tr>
+                <th>
+                    Name, Vorname
+                </th>
+                <th>
+                    E-Mail
+                </th>
+                <th>
+                    Titel
+                </th>
+                <th>
+                    Sektor
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    Aktion
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <!-- group by sectors -->
+            <f:for each="{competition.sectors}" as="competitionSector">
+                <f:for each="{registerList}" as="register" iteration="registerIter">
+
+                    <f:comment>
+                        <!-- @toDo: Own table for each sector? -->
+                        <f:if condition="{registerIter.isFirst}">
+
+                            <p>
+                                <strong>{competitionSector.title}</strong>
+                            </p>
+
+                        </f:if>
+                        {competitionSector.uid} == {register.sector.uid}<br>
+                    </f:comment>
+                    <f:if condition="{competitionSector.uid} == {register.sector.uid}">
+                        <tr>
+                            <td class="center" style="min-width: 30px;">
+                                {register.lastName}, {register.firstName}
+                            </td>
+                            <td>
+                                {register.email}
+                            </td>
+                            <td class="center" style="min-width: 30px;">
+                                {register.contributionTitle}
+                            </td>
+                            <td>
+                                {register.sector.title}
+                            </td>
+                            <td>
+                                Offen / Abgegeben / Geprüft
+                            </td>
+                            <td>
+                                <f:link.action action="registerDetail" arguments="{register: register}">Show</f:link.action>
+                            </td>
+                        </tr>
+                    </f:if>
+
+
+
+                </f:for>
+            </f:for>
+            </tbody>
+        </table>
+    </f:section>
+
+
+    <f:section name="juryTable">
+        <table>
+            <thead>
+            <tr>
+                <th>
+                    E-Mail
+                </th>
+                <th>
+                    Einladungsmail erhalten am
+                </th>
+                <th>
+                    Zustimmung zur Teilnahme
+                </th>
+                <th>
+                    Direktlink des Jurymitglieds
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <!-- group by sectors -->
+            <f:for each="{competition.juryMemberConfirmed}" as="juryReference">
+
+                <tr>
+                    <td class="center" style="min-width: 30px;">
+                        {juryReference.email}
+                    </td>
+                    <td class="center" style="min-width: 30px;">
+                        <f:format.date format="d.m.Y">{juryReference.invitationMailTstamp}</f:format.date>
+                    </td>
+                    <td class="center" style="min-width: 30px;">
+                        <f:format.date format="d.m.Y">{juryReference.consentedAt}</f:format.date>
+                    </td>
+                    <td class="center">
+                        <f:if condition="{juryReference.consentedAt}">
+                            <f:then>
+                                <f:comment>
+                                    <postmaster:email.uri.action action='show' controller='Jury' extensionName='RkwCompetition' pluginName='jury' absolute='true' noCacheHash='true' pageUid='{juryPid}' additionalParams='{tx_rkwcompetition_jury: {userToken: juryreference.guestUser.email}}' />
+                                </f:comment>
+                                <f:for each="{juryMemberLinkArray}" as="juryMemberLink" key="juryMemberEmail">
+                                    <f:if condition="{juryMemberEmail} == {juryReference.email}">
+                                        <a href="{juryMemberLink}" target="_blank">
+                                            Individueller Teilnahme-Link
+                                        </a>
+                                    </f:if>
+                                </f:for>
+                            </f:then>
+                            <f:else>
+                                Noch nicht bestätigt
+                            </f:else>
+                        </f:if>
+                    </td>
+                </tr>
+
+            </f:for>
+            </tbody>
+        </table>
+    </f:section>
+
 </html>

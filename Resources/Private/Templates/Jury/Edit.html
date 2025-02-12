@@ -19,17 +19,33 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
     <f:render partial="FormErrors" />
 
-    <f:form action="update" name="juryReference" object="{juryReference}" >
-        <div class="flex-container">
-            <div class="form flex flex-basis-8 full-width-medium space-between">
+    <h3>{juryReference.competition.title}</h3>
+    <f:if condition="{errorMessage}">
+        <f:then>
+            <p><strong>{errorMessage}</strong></p>
+            <f:comment>
+                <!-- @toDo: Hier allgemeinen info@rkw.de Link hinterlegen als Support. Oder E-Mail des Wettbewerb-Admins? -->
+            </f:comment>
+            <p><f:format.raw><f:translate key="tx_rkwcompetition_fluid.templates_jury_edit.hint" /></f:format.raw></p>
+        </f:then>
+        <f:else>
+            <p><f:translate key="tx_rkwcompetition_fluid.templates_jury_edit.introduction" /></p>
 
-                <f:render partial="Jury/FormFields" arguments="{juryReference:juryReference}" />
+            <p><f:translate key="tx_rkwcompetition_fluid.templates_jury_edit.guideHint" /></p>
+            <f:form action="update" name="juryReference" object="{juryReference}" >
+                <div class="flex-container">
+                    <div class="form flex flex-basis-8 full-width-medium space-between">
 
-                <button type="submit" class="btn btn--primary">
-                    <f:translate key="tx_rkwcompetition_fluid.templates_jury_edit.edit" />
-                </button>
-            </div>
-        </div>
-    </f:form>
+                        <f:render partial="Jury/FormFields" arguments="{juryReference:juryReference}" />
+
+                        <button type="submit" class="btn btn--primary">
+                            <f:translate key="tx_rkwcompetition_fluid.templates_jury_edit.edit" />
+                        </button>
+                    </div>
+                </div>
+            </f:form>
+        </f:else>
+    </f:if>
+
 </f:section>
 </html>

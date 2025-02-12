@@ -92,7 +92,6 @@ module.tx_rkwcompetition_web_rkwcompetitionlist {
 # we also need default FE settings for the email-stuff inside backend module
 module.tx_rkwcompetition_web_rkwcompetitionlist.settings < plugin.tx_rkwcompetition.settings
 
-
 # needed for cronjobs
 module.tx_rkwcompetition.settings < plugin.tx_rkwcompetition.settings
 module.tx_rkwcompetition.persistence.storagePid < plugin.tx_rkwcompetition.persistence.storagePid

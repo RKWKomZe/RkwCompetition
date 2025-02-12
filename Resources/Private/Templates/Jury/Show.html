@@ -10,13 +10,14 @@
             <f:link.typolink parameter="{juryReference.competition.linkJuryDeclarationConfident}" />
         </div>
     </div>
-
-    <f:link.action
-            class="btn btn--secondary"
-            action="list"
-    >
-        <f:translate key="tx_rkwcompetition_fluid.templates_jury_show.backToList" />
-    </f:link.action>
+    <f:comment>
+        <f:link.action
+                class="btn btn--secondary"
+                action="list"
+        >
+            <f:translate key="tx_rkwcompetition_fluid.templates_jury_show.backToList" />
+        </f:link.action>
+    </f:comment>
 
     <!-- show competition -->
     <f:link.action
@@ -29,6 +30,9 @@
     >
         <f:translate key="tx_rkwcompetition_fluid.partials_participant_options.competitionShow" />
     </f:link.action>
+
+    <h5>Sie erhalten nur über diesen individuellen Direktlink Zugang zum Wettbewerb, bitte gut aufheben:</h5>
+    <p><strong>{juryLoginLink}</strong></p>
 
     <h3>{juryReference.competition.title}</h3>
 

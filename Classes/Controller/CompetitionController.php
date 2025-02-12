@@ -52,11 +52,6 @@ class CompetitionController extends \RKW\RkwCompetition\Controller\AbstractContr
     public function showAction(\RKW\RkwCompetition\Domain\Model\Competition $competition = null)
     {
 
-//        $newGuestUser = GeneralUtility::makeInstance(GuestUser::class);
-//        $guestUserRegistration = GeneralUtility::makeInstance(GuestUserRegistration::class);
-//        $guestUserRegistration->setFrontendUser($newGuestUser);
-//        $guestUserRegistration->startRegistration();
-
 //
 //        $userId = 8;
 //        $userName = "test" . $userId;

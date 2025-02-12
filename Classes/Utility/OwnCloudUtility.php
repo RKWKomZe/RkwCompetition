@@ -38,7 +38,8 @@ class OwnCloudUtility
      */
     public static function getUserFolderSecret(Register $register): string
     {
-        return md5($register->getFrontendUser()->getUid() . $register->getCrdate()->getTimestamp());
+        // simply "$register->getCrdate()->getTimestamp()" was used before, but lead to issues on using before it's created
+        return md5($register->getFrontendUser()->getUid() . $register->getCompetition()->getCrdate()->getTimestamp());
     }
 
 
