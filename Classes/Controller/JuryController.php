@@ -159,8 +159,6 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
     {
         $juryReference = $this->juryReferenceRepository->findByInviteToken($token)->getFirst();
 
-        DebuggerUtility::var_dump($juryReference);
-
         // @toDo: Handle if UserReference is not found
 
         // @toDo: Handle if UserReference is already confirmed (or expired?)

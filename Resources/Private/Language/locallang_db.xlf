@@ -142,6 +142,9 @@
 			<trans-unit id="tx_rkwcompetition_domain_model_competition.title">
 				<source>Title</source>
 			</trans-unit>
+			 <trans-unit id="tx_rkwcompetition_domain_model_competition.description">
+                <source>Description</source>
+            </trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_competition.register_start">
 				<source>Register Start</source>
 			</trans-unit>

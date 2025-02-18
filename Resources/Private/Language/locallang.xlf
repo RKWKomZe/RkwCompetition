@@ -426,6 +426,9 @@
             <trans-unit id="tx_rkwcompetition_fluid.templates_competition_show.register">
                 <source>Register</source>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_competition_show.regExpired">
+                <source>The registration deadline has expired.</source>
+            </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_competition_show.headline">
                 <source>Competition</source>
             </trans-unit>

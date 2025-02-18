@@ -1,5 +1,6 @@
 CREATE TABLE tx_rkwcompetition_domain_model_competition (
     title varchar(255) NOT NULL DEFAULT '',
+    description text NOT NULL DEFAULT '',
     register_start int(11) NOT NULL DEFAULT '0',
     register_end int(11) NOT NULL DEFAULT '0',
     jury_access_end varchar(255) NOT NULL DEFAULT '',

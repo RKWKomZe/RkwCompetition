@@ -16,12 +16,12 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'title,jury_access_end,record_removal_date,jury_add_data,link_jury_declaration_confident,link_cond_participation,link_privacy',
+        'searchFields' => 'title, description,jury_access_end,record_removal_date,jury_add_data,link_jury_declaration_confident,link_cond_participation,link_privacy',
         'iconfile' => 'EXT:rkw_competition/Resources/Public/Icons/tx_rkwcompetition_domain_model_competition.gif'
     ],
     'types' => [
         '1' => ['showitem' =>
-            'title, --palette--;;startEnd, --palette--;;userInfo, sectors, link_cond_participation, link_privacy, 
+            'title, --palette--;;startEnd, --palette--;;userInfo, sectors, link_cond_participation, link_privacy, description, 
             
             --div--;LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.tab_jury,
             jury_access_end, link_jury_declaration_confident, group_for_jury, jury_member_candidate, jury_member_confirmed, jury_add_data, 
@@ -147,6 +147,22 @@ return [
                 'eval' => 'trim, required',
                 'default' => '',
             ],
+        ],
+        'description' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.description',
+            'config' => [
+                'type' => 'text',
+                'cols' => 40,
+                'rows' => 15,
+                'eval' => 'trim, required',
+                'fieldControl'  => [
+                    'fullScreenRichtext' => [
+                        'disabled' => false,
+                    ],
+                ],
+                'enableRichtext' => true,
+            ]
         ],
         'register_start' => [
             'exclude' => true,
