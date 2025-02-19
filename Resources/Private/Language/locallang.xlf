@@ -1277,35 +1277,35 @@
                 <source>Total data</source>
                 <target>Gesamtdaten</target>
             </trans-unit>
-            <trans-unit id="templates_backend_listtitle">
+            <trans-unit id="templates_backend_list.title">
                 <source>Title</source>
                 <target>Titel</target>
             </trans-unit>
-            <trans-unit id="templates_backend_listreg_start">
+            <trans-unit id="templates_backend_list.reg_start">
                 <source>Reg start</source>
                 <target>Reg start</target>
             </trans-unit>
-            <trans-unit id="templates_backend_listreg_end">
+            <trans-unit id="templates_backend_list.reg_end">
                 <source>Reg end</source>
                 <target>Reg end</target>
             </trans-unit>
-            <trans-unit id="templates_backend_listadmin">
+            <trans-unit id="templates_backend_list.admin">
                 <source>Admin</source>
                 <target>Admin</target>
             </trans-unit>
-            <trans-unit id="templates_backend_listreg_total">
+            <trans-unit id="templates_backend_list.reg_total">
                 <source>Registered Total</source>
                 <target>Registriert total</target>
             </trans-unit>
-            <trans-unit id="templates_backend_listreg_appr">
+            <trans-unit id="templates_backend_list.reg_appr">
                 <source>Registered approved</source>
                 <target>Registrierung genehmigt</target>
             </trans-unit>
-            <trans-unit id="templates_backend_listaction">
+            <trans-unit id="templates_backend_list.action">
                 <source>Action</source>
                 <target>Aktion</target>
             </trans-unit>
-            <trans-unit id="templates_backend_listshow">
+            <trans-unit id="templates_backend_list.show">
                 <source>Show</source>
                 <target>Anzeigen</target>
             </trans-unit>
@@ -1320,9 +1320,17 @@
                 <source>No competition selected</source>
                 <target>Kein Wettbewerb ausgewählt</target>
             </trans-unit>
-            <trans-unit id="templates_backend_show.finishedRegistrationsTotal">
-                <source>Finished registrations total:</source>
-                <target>Abgeschlossene Registrierungen Total:</target>
+            <trans-unit id="templates_backend_show.registrationsTotal">
+                <source>Registrations total:</source>
+                <target>Registrierungen total:</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.finishedRegistrations">
+                <source>Finished registrations:</source>
+                <target>Abgeschlossene Registrierungen:</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.refusedRegistrations">
+                <source>Refused registrations:</source>
+                <target>Abgelehnte Registrierungen:</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.regStart">
                 <source>Reg start:</source>

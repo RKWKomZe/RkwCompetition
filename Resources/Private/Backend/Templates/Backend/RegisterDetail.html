@@ -195,7 +195,10 @@
                             <f:translate key="templates_backend_registerDetail.ownCloudPass" />
                         </td>
                         <td>
-                            <rkw:ownCloudUserFolderPass register='{register}' /> (Test: "publicSecret")
+                            <rkw:ownCloudUserFolderPass register='{register}' />
+                            <f:comment>
+                                (Test: "publicSecret")
+                            </f:comment>
                         </td>
                     </tr>
                     <tr>
@@ -229,17 +232,21 @@
                         </td>
                     </tr>
 
-                    <f:if condition="{register.adminApproved}">
+                    <f:if condition="{register.adminApprovedAt}">
                         <f:then>
                             <tr>
                                 <td>
-                                    <f:translate key="templates_backend_registerDetail.adminApprovedAt" />
+                                    <strong>
+                                        <f:translate key="templates_backend_registerDetail.adminApprovedAt" />
+                                    </strong>
                                 </td>
                                 <td><f:format.date format="d.m.Y">{register.adminApprovedAt}</f:format.date></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <f:translate key="templates_backend_registerDetail.adminApprovedBy" />
+                                    <strong>
+                                        <f:translate key="templates_backend_registerDetail.adminApprovedBy" />
+                                    </strong>
                                 </td>
                                 <td>{register.adminApprovedBy.email}</td>
                             </tr>

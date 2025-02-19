@@ -61,26 +61,7 @@ class BackendController extends \RKW\RkwCompetition\Controller\AbstractControlle
         $this->view->assign('competitionList', $this->competitionRepository->findAll());
     }
 
-    protected function initFrontend() {
 
-        \Madj2k\CoreExtended\Utility\FrontendSimulatorUtility::simulateFrontendEnvironment(11928);
-
-
-        //Dein ViewHelper - oder direkt Link generieren
-        $juryLoginLink = $this->uriBuilder->reset()
-            ->setArguments(
-                array('tx_rkwcompetition_jury' =>
-                    array('userToken' => 'ea5d278a2feca36ce21ed949ec1b90'),
-                )
-            )
-            ->setCreateAbsoluteUri(true)
-            ->build();
-
-        \Madj2k\CoreExtended\Utility\FrontendSimulatorUtility::resetFrontendEnvironment();
-
-        DebuggerUtility::var_dump($juryLoginLink); exit;
-
-    }
     /**
      * action show
      *
@@ -89,16 +70,17 @@ class BackendController extends \RKW\RkwCompetition\Controller\AbstractControlle
      */
     public function showAction(Competition $competition): void
     {
-        // @toDo: Liste der vollständigen und zu prüfenden Datensätze gruppiert nach Wettbewerb
-        // (via Fluid umsetzen? Einfach wettbewerbe iterieren und registrierungen dazu ausgeben)
 
         // @toDo: Count FINISHED registrations by competition
+
+
         $registerList = $this->registerRepository->findByCompetition($competition);
 
-
-        $this->view->assign('registerCountTotal', $registerList->count());
-        $this->view->assign('registerList', $registerList);
         $this->view->assign('competition', $competition);
+        $this->view->assign('registerList', $registerList);
+        $this->view->assign('registerCountTotal', $registerList->count());
+        $this->view->assign('finishedRegisterCount', $this->registerRepository->findApprovedByCompetition($competition)->count());
+        $this->view->assign('refusedRegisterCount', $this->registerRepository->findRefusedByCompetition($competition)->count());
 
 
         // SPECIAL SOLUTION: Create FrontendLinks for Jury-Member
@@ -200,5 +182,6 @@ class BackendController extends \RKW\RkwCompetition\Controller\AbstractControlle
 
         $this->forward('registerDetail', null, null, ['register' => $register]);
     }
+
 
 }

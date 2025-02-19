@@ -8,6 +8,7 @@ namespace RKW\RkwCompetition\Domain\Repository;
 use Madj2k\FeRegister\Domain\Model\FrontendUser;
 use RKW\RkwCompetition\Domain\Model\Competition;
 use RKW\RkwCompetition\Domain\Model\Register;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
@@ -67,6 +68,49 @@ class RegisterRepository extends AbstractRepository
         )->execute()->getFirst();
     }
 
+
+
+    /**
+     * function findApprovedByCompetition
+     *
+     * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @throws InvalidQueryException
+     */
+    public function findApprovedByCompetition(Competition $competition): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+
+        return $query->matching(
+            $query->logicalAnd(
+                $query->equals('competition', $competition),
+                $query->greaterThan('adminApprovedAt', 0)
+            )
+        )->execute();
+    }
+
+
+    /**
+     * function findRefusedByCompetition
+     *
+     * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @throws InvalidQueryException
+     */
+    public function findRefusedByCompetition(Competition $competition): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+
+        return $query->matching(
+            $query->logicalAnd(
+                $query->equals('competition', $competition),
+                $query->greaterThan('adminRefusedAt', 0),
+                $query->equals('adminApprovedAt', 0)
+            )
+        )->execute();
+    }
 
 
     /**

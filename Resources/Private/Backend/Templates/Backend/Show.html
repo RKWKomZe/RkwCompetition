@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:postmaster="http://typo3.org/ns/Madj2k/Postmaster/ViewHelpers"
+    xmlns:rkw="http://typo3.org/ns/RKW/RkwCompetition/ViewHelpers"
     data-namespace-typo3-fluid="true">
 
     <f:layout name="Default" />
@@ -22,8 +23,18 @@
                 </f:else>
                 <f:then>
                     <strong>
-                        <f:translate key="templates_backend_show.finishedRegistrationsTotal" />
+                        <f:translate key="templates_backend_show.registrationsTotal" />
                         {registerCountTotal}
+                    </strong>
+                    <br/>
+                    <strong>
+                        <f:translate key="templates_backend_show.finishedRegistrations" />
+                        {finishedRegisterCount}
+                    </strong>
+                    <br/>
+                    <strong>
+                        <f:translate key="templates_backend_show.refusedRegistrations" />
+                        {refusedRegisterCount}
                     </strong>
                     <br/>
                     <strong>
@@ -67,6 +78,9 @@
             <thead>
             <tr>
                 <th>
+                    ID
+                </th>
+                <th>
                     <f:translate key="templates_backend_show.name" />
                 </th>
                 <th>
@@ -105,6 +119,9 @@
                     </f:comment>
                     <f:if condition="{competitionSector.uid} == {register.sector.uid}">
                         <tr>
+                            <td class="center">
+                                {register.uid}
+                            </td>
                             <td class="center" style="min-width: 30px;">
                                 {register.lastName}, {register.firstName}
                             </td>
@@ -118,7 +135,18 @@
                                 {register.sector.title}
                             </td>
                             <td>
-                                Offen / Abgegeben / Geprüft
+                                <f:if condition="<rkw:registerStatus register='{register}' /> == 500">
+                                    Approved
+                                </f:if>
+                                <f:if condition="<rkw:registerStatus register='{register}' /> == 300">
+                                    Submitted
+                                </f:if>
+                                <f:if condition="<rkw:registerStatus register='{register}' /> == 200">
+                                    Refused
+                                </f:if>
+                                <f:if condition="<rkw:registerStatus register='{register}' /> == 100">
+                                    New
+                                </f:if>
                             </td>
                             <td>
                                 <f:link.action action="registerDetail" arguments="{register: register}">Show</f:link.action>

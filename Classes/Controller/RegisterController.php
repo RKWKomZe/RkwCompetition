@@ -670,7 +670,7 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
         $newRegister->setOwnCloudFolderLink($userShare['url']);
         $this->registerRepository->update($newRegister);
 
-        // @toDo: Move competition folder share to another place? Maybe a competition->create-Hook would be the right place
+        // @toDo: Move following competition folder share to another place? Maybe a competition->create-Hook would be the right place
         // 6.3 create share for jury member & backendUsers to show the whole competition folder (if not already exists)
         if (! $newRegister->getCompetition()->getOwnCloudFolderLink()) {
             $competitionShare = $ownCloud->getShareApi()->createShare(
