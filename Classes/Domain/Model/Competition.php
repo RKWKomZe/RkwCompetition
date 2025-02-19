@@ -60,6 +60,13 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $juryAccessEnd = '';
 
     /**
+     * winnerAnnouncementDate
+     *
+     * @var \DateTime
+     */
+    protected $winnerAnnouncementDate = '';
+
+    /**
      * recordRemovalDate
      *
      * @var \DateTime
@@ -326,6 +333,27 @@ class Competition extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setJuryAccessEnd(\DateTime $juryAccessEnd)
     {
         $this->juryAccessEnd = $juryAccessEnd;
+    }
+
+    /**
+     * Returns the winnerAnnouncementDate
+     *
+     * @return \DateTime
+     */
+    public function getWinnerAnnouncementDate()
+    {
+        return $this->winnerAnnouncementDate;
+    }
+
+    /**
+     * Sets the winnerAnnouncementDate
+     *
+     * @param \DateTime $winnerAnnouncementDate
+     * @return void
+     */
+    public function setWinnerAnnouncementDate(\DateTime $winnerAnnouncementDate)
+    {
+        $this->winnerAnnouncementDate = $winnerAnnouncementDate;
     }
 
     /**

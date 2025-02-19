@@ -7,6 +7,7 @@ CREATE TABLE tx_rkwcompetition_domain_model_competition (
     jury_add_data varchar(255) NOT NULL DEFAULT '',
     link_jury_declaration_confident varchar(255) NOT NULL DEFAULT '',
     allow_team_participation smallint(1) unsigned NOT NULL DEFAULT '0',
+    winner_announcement_date varchar(255) NOT NULL DEFAULT '',
     record_removal_date varchar(255) NOT NULL DEFAULT '',
     reminder_incomplete_mail_tstamp int(11) unsigned DEFAULT '0' NOT NULL,
     reminder_cleanup_mail_tstamp int(11) unsigned DEFAULT '0' NOT NULL,

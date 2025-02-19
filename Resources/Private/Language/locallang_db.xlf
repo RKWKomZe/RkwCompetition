@@ -154,6 +154,9 @@
 			<trans-unit id="tx_rkwcompetition_domain_model_competition.jury_access_end">
 				<source>Jury Access End</source>
 			</trans-unit>
+			<trans-unit id="tx_rkwcompetition_domain_model_competition.winner_announcement_date">
+                <source>Winner announcement date</source>
+            </trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_competition.record_removal_date">
 				<source>Record Removal Date</source>
 			</trans-unit>

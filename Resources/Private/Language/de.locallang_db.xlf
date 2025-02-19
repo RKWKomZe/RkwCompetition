@@ -235,6 +235,10 @@
                 <source>Jury Access End</source>
                 <target>Ende Jury Zugriff</target>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_competition.winner_announcement_date">
+                <source>Winner announcement date</source>
+                <target>Datum Bekanntmachung Gewinner</target>
+            </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_competition.record_removal_date">
                 <source>Record removal date</source>
                 <target>Warnung: An diesem Datum werden alle Daten zum Wettbewerb endgültig gelöscht!</target>
