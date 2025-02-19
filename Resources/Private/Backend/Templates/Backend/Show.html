@@ -6,7 +6,9 @@
 
     <f:section name="content">
 
-        <f:link.action style="text-decoration: underline;" action="list">Zurück zur Liste</f:link.action>
+        <f:link.action style="text-decoration: underline;" action="list">
+            <f:translate key="tx_rkwcompetition_fluid.templates_backend_show.back" />
+        </f:link.action>
 
         <f:be.container includeCssFiles="{0: \"{f:uri.resource(path:'Styles/Backend.css')}\"}">
 
@@ -16,19 +18,22 @@
 
             <f:if condition="{competition}">
                 <f:else>
-                    <f:translate key="templates_backend_show.no_competition_selected" />
+                    <f:translate key="templates_backend_show.noCompetitionSelected" />
                 </f:else>
                 <f:then>
                     <strong>
-                        <f:translate key="templates_backend_show.finished_registrations_total" />: {registerCountTotal}
+                        <f:translate key="templates_backend_show.finishedRegistrationsTotal" />
+                        {registerCountTotal}
                     </strong>
                     <br/>
                     <strong>
-                        Reg start: <f:format.date format="d.m.Y">{competition.registerStart}</f:format.date>
+                        <f:translate key="templates_backend_show.regStart" />
+                        <f:format.date format="d.m.Y">{competition.registerStart}</f:format.date>
                     </strong>
                     <br/>
                     <strong>
-                        Reg end: <f:format.date format="d.m.Y">{competition.registerEnd}</f:format.date>
+                        <f:translate key="templates_backend_show.regEnd" />
+                        <f:format.date format="d.m.Y">{competition.registerEnd}</f:format.date>
                     </strong>
                     <br/><br/>
 
@@ -36,9 +41,15 @@
                     <f:render section="competitionTable" arguments="{_all}" />
 
 
-                    <h1>Bestätigte Jury-Mitglieder</h1>
-                    <p>Neben einer Übersicht über die bisher bestätigten Jury-Mitglieder haben Sie hier außerdem Zugriff auf den individuellen Link jedes Jury-Mitglieds zum Wettbewerb (falls dieser z.B. verloren gegangen ist).</p>
-                    <p><strong>Hinweis:</strong> Jedes Jury-Mitglied hat einen individuellen Link, der mit dessen E-Mail Adresse verknüpft ist. Links verschiedener Jury-Mitglieder sollten daher nicht vertauscht werden.</p>
+                    <h1>
+                        <f:translate key="templates_backend_show.confirmedJuryMember" />
+                    </h1>
+                    <p>
+                        <f:translate key="templates_backend_show.confirmedJuryMemberExplained" />
+                    </p>
+                    <p>
+                        <f:translate key="templates_backend_show.confirmedJuryMemberHint" />
+                    </p>
                     <f:render section="juryTable" arguments="{_all}" />
 
 
@@ -56,22 +67,22 @@
             <thead>
             <tr>
                 <th>
-                    Name, Vorname
+                    <f:translate key="templates_backend_show.name" />
                 </th>
                 <th>
-                    E-Mail
+                    <f:translate key="templates_backend_show.email" />
                 </th>
                 <th>
-                    Titel
+                    <f:translate key="templates_backend_show.title" />
                 </th>
                 <th>
-                    Sektor
+                    <f:translate key="templates_backend_show.sector" />
                 </th>
                 <th>
-                    Status
+                    <f:translate key="templates_backend_show.status" />
                 </th>
                 <th>
-                    Aktion
+                    <f:translate key="templates_backend_show.action" />
                 </th>
             </tr>
             </thead>
@@ -129,16 +140,16 @@
             <thead>
             <tr>
                 <th>
-                    E-Mail
+                    <f:translate key="templates_backend_show.juryEmail" />
                 </th>
                 <th>
-                    Einladungsmail erhalten am
+                    <f:translate key="templates_backend_show.juryInviteMailDate" />
                 </th>
                 <th>
-                    Zustimmung zur Teilnahme
+                    <f:translate key="templates_backend_show.juryAgreement" />
                 </th>
                 <th>
-                    Direktlink des Jurymitglieds
+                    <f:translate key="templates_backend_show.juryLink" />
                 </th>
             </tr>
             </thead>
@@ -166,13 +177,13 @@
                                 <f:for each="{juryMemberLinkArray}" as="juryMemberLink" key="juryMemberEmail">
                                     <f:if condition="{juryMemberEmail} == {juryReference.email}">
                                         <a href="{juryMemberLink}" target="_blank">
-                                            Individueller Teilnahme-Link
+                                            <f:translate key="templates_backend_show.juryIndividualInviteLink" />
                                         </a>
                                     </f:if>
                                 </f:for>
                             </f:then>
                             <f:else>
-                                Noch nicht bestätigt
+                                <f:translate key="templates_backend_show.juryNotConfirmed" />
                             </f:else>
                         </f:if>
                     </td>

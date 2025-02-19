@@ -6,7 +6,9 @@
 
     <f:section name="content">
 
-        <f:link.action style="text-decoration: underline;" action="show" arguments="{competition: register.competition}">Zurück zum Wettbewerb</f:link.action>
+        <f:link.action style="text-decoration: underline;" action="show" arguments="{competition: register.competition}">
+            <f:translate key="templates_backend_registerDetail.back" />
+        </f:link.action>
 
         <f:be.container
             includeCssFiles="{0: '{f:uri.resource(path:\'Styles/Backend.css\')}'}"
@@ -22,7 +24,7 @@
                 <tbody>
                     <tr>
                         <td>
-                            Titel der Arbeit
+                            <f:translate key="templates_backend_registerDetail.titleOfWork" />
                         </td>
                         <td>
                             {register.contributionTitle}
@@ -30,7 +32,7 @@
                     </tr>
                     <tr>
                         <td>
-                            Institution
+                            <f:translate key="templates_backend_registerDetail.institution" />
                         </td>
                         <td>
                             {register.institution}
@@ -38,7 +40,7 @@
                     </tr>
                     <tr>
                         <td>
-                            Wettbewerbsbereich
+                            <f:translate key="templates_backend_registerDetail.sector" />
                         </td>
                         <td>
                             {register.sector.title}
@@ -46,7 +48,7 @@
                     </tr>
                     <tr>
                         <td>
-                            Name Bewerber
+                            <f:translate key="templates_backend_registerDetail.registerName" />
                         </td>
                         <td>
                             {register.title}
@@ -55,7 +57,7 @@
                     </tr>
                     <tr>
                         <td>
-                            Kontakt Bewerber
+                            <f:translate key="templates_backend_registerDetail.registerContact" />
                         </td>
                         <td>
                             {register.email}
@@ -64,7 +66,7 @@
                     </tr>
                     <tr>
                         <td>
-                            Addresse Bewerber
+                            <f:translate key="templates_backend_registerDetail.registerAddress" />
                         </td>
                         <td>
                             {register.address}; {register.zip} {register.city}
@@ -72,7 +74,7 @@
                     </tr>
                     <tr>
                         <td>
-                            Ist Gruppenarbeit
+                            <f:translate key="templates_backend_registerDetail.isGroupWork" />
                         </td>
                         <td>
                             {register.isGroupWork}
@@ -81,7 +83,7 @@
                     <f:if condition="{register.isGroupWork}">
                         <tr>
                             <td>
-                                Eidstattliche Versicherung
+                                <f:translate key="templates_backend_registerDetail.groupWorkInsurance" />
                             </td>
                             <td>
                                 {register.groupWorkInsurance}
@@ -89,7 +91,7 @@
                         </tr>
                         <tr>
                             <td>
-                                Gruppenarbeit weitere Personen
+                                <f:translate key="templates_backend_registerDetail.groupWorkAddPersons" />
                             </td>
                             <td>
                                 {register.groupWorkAddPersons}
@@ -98,7 +100,7 @@
                     </f:if>
                     <tr>
                         <td>
-                            Anmerkung
+                            <f:translate key="templates_backend_registerDetail.remark" />
                         </td>
                         <td>
                             {register.remark}
@@ -106,7 +108,7 @@
                     </tr>
                     <tr>
                         <td>
-                            Nutzungsbedingungen akzeptiert
+                            <f:translate key="templates_backend_registerDetail.conditionsAccepted" />
                         </td>
                         <td>
                             <f:format.date format="d.m.Y H:i">
@@ -116,7 +118,7 @@
                     </tr>
                     <tr>
                         <td>
-                            Datenschutzbestimmungen akzeptiert
+                            <f:translate key="templates_backend_registerDetail.privacyAccepted" />
                         </td>
                         <td>
                             <f:format.date format="d.m.Y H:i">
@@ -126,7 +128,7 @@
                     </tr>
                     <tr>
                         <td>
-                            Kurzfassung PDF (+ Word File?)
+                            <f:translate key="templates_backend_registerDetail.shortPdf" />
                         </td>
                         <td>
                             <f:if condition="{register.upload.abstract.originalResource.publicUrl}">
@@ -142,18 +144,18 @@
                                         <svg class="icon icon--16">
                                             <use xlink:href="#ic-download"/>
                                         </svg>
-                                        Download
+                                        <f:translate key="templates_backend_registerDetail.download" />
                                     </f:link.typolink>
                                 </f:then>
                                 <f:else>
-                                    Keine Datei vorhanden
+                                    <f:translate key="templates_backend_registerDetail.noFile" />
                                 </f:else>
                             </f:if>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            Langfassung PDF (+ Word File?)
+                            <f:translate key="templates_backend_registerDetail.longPdf" />
                         </td>
                         <td>
                             <f:if condition="{register.upload.full.originalResource.publicUrl}">
@@ -169,18 +171,18 @@
                                         <svg class="icon icon--16">
                                             <use xlink:href="#ic-download"/>
                                         </svg>
-                                        Download
+                                        <f:translate key="templates_backend_registerDetail.download" />
                                     </f:link.typolink>
                                 </f:then>
                                 <f:else>
-                                    Keine Datei vorhanden
+                                    <f:translate key="templates_backend_registerDetail.noFile" />
                                 </f:else>
                             </f:if>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            OwnCloud Link
+                            <f:translate key="templates_backend_registerDetail.ownCloudLink" />
                         </td>
                         <td>
                             <a href="{register.ownCloudFolderLink}" target="_blank">
@@ -190,14 +192,16 @@
                     </tr>
                     <tr>
                         <td>
-                            OwnCloud Order Passwort
+                            <f:translate key="templates_backend_registerDetail.ownCloudPass" />
                         </td>
                         <td>
                             <rkw:ownCloudUserFolderPass register='{register}' /> (Test: "publicSecret")
                         </td>
                     </tr>
                     <tr>
-                        <td>Zurückgewiesen am:</td>
+                        <td>
+                            <f:translate key="templates_backend_registerDetail.adminRefusedAt" />
+                        </td>
                         <td>
                             <f:if condition="{register.adminRefusedAt}">
                                 <f:then>
@@ -210,7 +214,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Zurückgewiesen von:</td>
+                        <td>
+                            <f:translate key="templates_backend_registerDetail.adminRefusedBy" />
+                        </td>
                         <td>
                             <f:if condition="{register.adminRefusedBy}">
                                 <f:then>
@@ -226,11 +232,15 @@
                     <f:if condition="{register.adminApproved}">
                         <f:then>
                             <tr>
-                                <td>Genehmigt am:</td>
+                                <td>
+                                    <f:translate key="templates_backend_registerDetail.adminApprovedAt" />
+                                </td>
                                 <td><f:format.date format="d.m.Y">{register.adminApprovedAt}</f:format.date></td>
                             </tr>
                             <tr>
-                                <td>Genehmigt von:</td>
+                                <td>
+                                    <f:translate key="templates_backend_registerDetail.adminApprovedBy" />
+                                </td>
                                 <td>{register.adminApprovedBy.email}</td>
                             </tr>
                         </f:then>
@@ -243,7 +253,9 @@
             </table>
 
             <f:if condition="{register.adminApproved}">
-                <strong>Aufgrund bereits erfolgter Genehmigung ist keine Aktion mehr möglich</strong>
+                <strong>
+                    <f:translate key="templates_backend_registerDetail.alreadyApproved" />
+                </strong>
             </f:if>
 
 
@@ -279,8 +291,9 @@
                                                 value="1"
                                         />
                                         <label for="adminApproved" class="checkbox-label">
-                                            Daten korrekt<br/>
-                                            Hinweis: Mit absenden erhält der Nutzer eine E-Mail mit der Information, dass die Daten erfolgreich geprüft wurden.
+                                            <f:translate key="templates_backend_registerDetail.correctData" />
+                                            <br/>
+                                            <f:translate key="templates_backend_registerDetail.submitHintApprove" />
                                         </label>
                                     </div>
                                     <button
@@ -288,7 +301,7 @@
                                             class="btn btn--primary"
                                             disabled
                                     >
-                                        Freischalten
+                                        <f:translate key="templates_backend_registerDetail.unlock" />
                                     </button>
 
                                 </fieldset>
@@ -322,13 +335,14 @@
                                                 value="1"
                                         />
                                         <label for="adminRefused" class="checkbox-label">
-                                            Daten unvollständig<br/>
-                                            Hinweis: Mit absenden erhält der Nutzer eine E-Mail mit der Information aus dem ausgefüllten Textfeld.
+                                            <f:translate key="templates_backend_registerDetail.incompleteData" />
+                                            <br/>
+                                            <f:translate key="templates_backend_registerDetail.submitHintRefuse" />
                                         </label>
                                     </div>
                                     <br/>
                                     <div class="form__field width100">
-                                        <label class="form-label" for="remark">
+                                        <label class="form-label" for="adminRefusedText">
                                             <f:translate key="tx_rkwcompetition_domain_model_register.adminRefusedText" />
                                         </label>
                                         <br/>
@@ -346,7 +360,7 @@
                                             class="btn btn--primary"
                                             disabled
                                     >
-                                        Zurückweisen
+                                        <f:translate key="templates_backend_registerDetail.refuse" />
                                     </button>
 
                                 </fieldset>

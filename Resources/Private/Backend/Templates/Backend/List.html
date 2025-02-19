@@ -13,25 +13,25 @@
 					<thead>
 					<tr>
 						<th>
-							Title
+							<f:translate key="templates_backend_list.title" />
 						</th>
 						<th>
-							Reg start
+							<f:translate key="templates_backend_list.reg_start" />
 						</th>
 						<th>
-							Reg end
+							<f:translate key="templates_backend_list.reg_end" />
 						</th>
 						<th>
-							Admin(s)
+							<f:translate key="templates_backend_list.admin" />
 						</th>
 						<th>
-							Registered Total
+							<f:translate key="templates_backend_list.reg_total" />
 						</th>
 						<th>
-							Registered Approved
+							<f:translate key="templates_backend_list.reg_appr" />
 						</th>
 						<th>
-							Aktion
+							<f:translate key="templates_backend_list.action" />
 						</th>
 					</tr>
 					</thead>
@@ -63,7 +63,9 @@
 								@toDo count
 							</td>
 							<td>
-								<f:link.action action="show" arguments="{competition: competition}">Show</f:link.action>
+								<f:link.action action="show" arguments="{competition: competition}">
+									<f:translate key="templates_backend_list.show" />
+								</f:link.action>
 							</td>
 						</tr>
 
