@@ -79,13 +79,13 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
     }
 
 
-
     /**
      * action list
      *
+     * @return void
+     * @throws AspectNotFoundException
      * @deprecated Now we have anonymous logins for every competition
      *
-     * @return void
      */
     public function listAction()
     {

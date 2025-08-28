@@ -14,6 +14,7 @@ namespace RKW\RkwCompetition\Api\OwnCloud;
  * The TYPO3 project - inspiring people to share!
  */
 
+use GuzzleHttp\Client;
 use TYPO3\CMS\Core\Log\Logger;
 use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -43,18 +44,18 @@ abstract class AbstractApi implements \TYPO3\CMS\Core\SingletonInterface
     /**
      * @var string
      */
-    protected string $apiBaseUrl = '';
+    public string $apiBaseUrl = '';
 
     /**
      * @var string
      */
-    protected string $apiAdminUsername = '';
+    public string $apiAdminUsername = '';
 
 
     /**
      * @var string
      */
-    protected string $apiAdminPassword = '';
+    public string $apiAdminPassword = '';
 
 
     /**
@@ -65,19 +66,21 @@ abstract class AbstractApi implements \TYPO3\CMS\Core\SingletonInterface
     /**
      * @var string Example options: "DELETE", "GET", "POST" (and other)
      */
-    protected string $apiMethod = '';
+    public string $apiMethod = '';
 
     /**
      * webDav queries have a different response (XML). To handle customized stuff you can work with "$queryType"
      *
      * @var string
      */
-    protected string $queryType = '';
+    public string $queryType = '';
 
     /**
      * @var \TYPO3\CMS\Core\Log\Logger|null
      */
     protected ?Logger $logger = null;
+
+    //protected Client $client;
 
 
     /**
@@ -95,6 +98,19 @@ abstract class AbstractApi implements \TYPO3\CMS\Core\SingletonInterface
         $this->apiAdminPassword = filter_var($settingsDefault['api']['ownCloud']['admin']['password'], FILTER_SANITIZE_STRING);
 
         $this->apiMethod = self::METHOD_POST;
+
+        /*
+        $this->client = $client ?? new Client([
+            'base_uri'        => rtrim($this->apiBaseUrl, '/') . '/',
+            'timeout'         => 5.0,
+            'connect_timeout' => 5.0,
+            'auth'            => [$this->apiAdminUsername, $this->apiAdminPassword],
+            'headers'         => [
+                'Accept'     => 'application/json',
+                'User-Agent' => 'AbstractApi/1.0',
+            ],
+        ]);
+        */
 
 
         // @toDo: We need more than one header type. Not used
@@ -142,85 +158,76 @@ abstract class AbstractApi implements \TYPO3\CMS\Core\SingletonInterface
      * @param array $arguments
      * @return array
      */
-    protected function doApiRequest(string $targetPath, array $arguments = []): array
+    public function doApiRequest(string $targetPath, array $arguments = []): array
     {
-        // &search=Hannes
-        $url = $this->apiBaseUrl . $targetPath . '?format=json';
 
-//        DebuggerUtility::var_dump($arguments);
-//        DebuggerUtility::var_dump($url);
+        $isWebdav = ($this->queryType === 'webdav') || str_contains($targetPath, 'remote.php/webdav');
+        $method   = strtoupper($this->apiMethod ?? 'GET');
 
+        // Build full URL exactly like with cURL
+        $base = rtrim($this->apiBaseUrl, '/') . '/';
+        $url  = $base . ltrim($targetPath, '/');
 
-        if (
-            $this->apiMethod === self::METHOD_GET
-            && $arguments
-        ) {
-            $url .= '&' . http_build_query($arguments);
+        // For OCS (non-WebDAV) always ensure ?format=json like your cURL code
+        $query = [];
+        $headers = [];
+        if (!$isWebdav) {
+            // OCS needs this for JSON/CSRF-safe responses
+            $headers['OCS-APIRequest'] = 'true';
+            $headers['Accept']         = 'application/json';
+            $query['format']           = 'json';
         }
 
+        // GET → put $arguments into query; others → urlencoded body
+        $options = [
+            'auth'            => [$this->apiAdminUsername, $this->apiAdminPassword],
+            'timeout'         => 5,
+            'connect_timeout' => 5,
+            'http_errors'     => false,   // behave like your cURL: don't throw on 4xx/5xx
+            'headers'         => $headers,
+        ];
 
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL, $url);
-
-        curl_setopt($ch, CURLOPT_HTTPHEADER,CURLAUTH_BASIC);
-        curl_setopt($ch, CURLOPT_USERPWD, $this->apiAdminUsername . ':' . $this->apiAdminPassword);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, false);
-
-        // CURLOPT_CUSTOMREQUEST is used below
-        //curl_setopt($ch, CURLOPT_POST, true);
-        if (
-            $arguments
-            && $this->apiMethod != self::METHOD_GET
-        ) {
-            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($arguments));
+        if ($method === 'GET') {
+            $options['query'] = $query + $arguments;
+        } else {
+            $options['query'] = $query;
+            if (!empty($arguments)) {
+                // urlencoded, just like http_build_query in cURL
+                $options['form_params'] = $arguments;
+            }
         }
 
-   //     curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($arguments));
+        // Fire request (no base_uri — we pass the full URL)
+        $client   = GeneralUtility::makeInstance(Client::class);
+        $response = $client->request($method, $url, $options);
 
-//        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
-//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//        curl_setopt($ch, CURLOPT_USERPWD, $this->apiAdminUsername . ':' . $this->apiAdminPassword);  // Set credentials
+        $httpCode = $response->getStatusCode();
+        $body     = (string)$response->getBody();
 
-        // Set the request method (to realize "DELETE" e.g.))
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $this->apiMethod);
-        //curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
-
-        $response = curl_exec($ch);
-        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-
-        // if it's webdav stuff: Return HTTP-code and response message (XML)
-        if ($this->queryType === 'webdav') {
-            return [$http_code => $response];
+        // Keep your WebDAV behavior: return [code => XML/response]
+        if ($isWebdav) {
+            return [$httpCode => $body];
         }
 
+        // For OCS JSON: mirror your previous parsing
+        $decoded = json_decode($body, true);
 
-        // Handle any potential errors
-//        if(curl_error($ch)) {
-//            DebuggerUtility::var_dump('Error:' . curl_error($ch));
-//
-//            exit;
-//        }
-
-        $data = json_decode(curl_exec($ch));
-
-        $array = json_decode((string) json_encode($data), true);
-
-        curl_close($ch);
-//
-//        DebuggerUtility::var_dump($array); exit;
-
-        // @toDo: Question: Return the part we need ($array['ocs']['data'] OR $array['ocs']['meta']), or just return all?
-
-        if ($array['ocs']['meta']['status'] == "failure") {
-            return $array['ocs']['meta'];
+        // If JSON decoding fails (e.g., HTML error), return a compact diagnostic like cURL-debug would give
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return [
+                'http_code' => $httpCode,
+                'raw'       => mb_substr($body, 0, 2000),
+                'error'     => 'Invalid JSON: ' . json_last_error_msg(),
+            ];
         }
-        return $array['ocs']['data'];
 
+        // Keep your old meta/data contract
+        if (($decoded['ocs']['meta']['status'] ?? null) === 'failure') {
+            return $decoded['ocs']['meta'];
+        }
+
+        // Prefer data, otherwise fall back to the whole decoded payload
+        return $decoded['ocs']['data'] ?? $decoded;
     }
 
 

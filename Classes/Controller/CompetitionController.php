@@ -52,61 +52,62 @@ class CompetitionController extends \RKW\RkwCompetition\Controller\AbstractContr
     public function showAction(\RKW\RkwCompetition\Domain\Model\Competition $competition = null)
     {
 
-//
-//        $userId = 8;
-//        $userName = "test" . $userId;
-//
-//        $ownCloud = \Madj2k\CoreExtended\Utility\GeneralUtility::makeInstance(OwnCloud::class);
-//
-//        $competitionFolderName = 'competition_uid_79';
-//        // @toDo: User folder name are cryptic (the jury member have to distinguish them)
-//        $userFolderName = 'feuser_uid_56' . $userId;
-//
-//        // 6.1 create folder
-//        $folderCreatePath = GeneralUtility::trimExplode('/', $this->settings['api']['ownCloud']['folderStructure']['basePath'], true);
-//        $ownCloud->getWebDavApi()->addFolderRecursive(
-//            array_merge($folderCreatePath, [$competitionFolderName], [$userFolderName])
-//        );
-//
-//        // 6.2 create user & get User
-//        //$ownCloud->getUsersApi()->addUser($userName, 'test');
-//
-//        // @toDo: Simply save link & PW inside the database to show it inside the login area?
-//
-//        // 6.3 create share for user to upload stuff to specific folder
-//        $result = $ownCloud->getShareApi()->createShare(
-//            $userFolderName,
-//            array_merge($folderCreatePath, [$competitionFolderName], [$userFolderName]),
-//            3,
-//            '',
-//            true,
-//            'publicSecret',
-//            15,
-//            '2025-02-28'
-//        );
-//
-//
-//        DebuggerUtility::var_dump($result['url']); exit;
-//
+/*
+        $userId = 8;
+        $userName = "test" . $userId;
 
-//        // 6.4 create share for jury member to show the whole competition folder
-//        $ownCloud->getShareApi()->createShare(
-//            $competitionFolderName,
-//            array_merge($folderCreatePath, [$competitionFolderName]),
-//            3,
-//            '',
-//            true,
-//            'publicSecret',
-//            15,
-//            '2025-04-17'
-//        );
+        $ownCloud = \Madj2k\CoreExtended\Utility\GeneralUtility::makeInstance(OwnCloud::class);
+
+        $competitionFolderName = 'competition_uid_79';
+        // @toDo: User folder name are cryptic (the jury member have to distinguish them)
+        $userFolderName = 'feuser_uid_56' . $userId;
+
+        // 6.1 create folder
+        $folderCreatePath = GeneralUtility::trimExplode('/', $this->settings['api']['ownCloud']['folderStructure']['basePath'], true);
+        $ownCloud->getWebDavApi()->addFolderRecursive(
+            array_merge($folderCreatePath, [$competitionFolderName], [$userFolderName])
+        );
+
+        // 6.2 create user & get User
+        //$ownCloud->getUsersApi()->addUser($userName, 'test');
+
+        // @toDo: Simply save link & PW inside the database to show it inside the login area?
+
+        // 6.3 create share for user to upload stuff to specific folder
+        $result = $ownCloud->getShareApi()->createShare(
+            $userFolderName,
+            array_merge($folderCreatePath, [$competitionFolderName], [$userFolderName]),
+            3,
+            '',
+            true,
+            'publicSecret',
+            15,
+            '2026-02-28'
+        );
 
 
+        DebuggerUtility::var_dump($result);
+        DebuggerUtility::var_dump($result['url']); exit;
 
-//        $ownCloud = GeneralUtility::makeInstance(OwnCloud::class);
 
-       // DebuggerUtility::var_dump($ownCloudApi->getUser('Hannes'));
-        //DebuggerUtility::var_dump($ownCloudApi->editUser('Hannes', 'email', 'hannes@rkw.de'));
+        // 6.4 create share for jury member to show the whole competition folder
+        $ownCloud->getShareApi()->createShare(
+            $competitionFolderName,
+            array_merge($folderCreatePath, [$competitionFolderName]),
+            3,
+            '',
+            true,
+            'publicSecret',
+            15,
+            '2025-04-17'
+        );
+*/
+
+
+     //   $ownCloud = GeneralUtility::makeInstance(OwnCloud::class);
+
+        //DebuggerUtility::var_dump($ownCloud->getUsersApi()->getUser('Hannes'));
+        //DebuggerUtility::var_dump($ownCloud->getUsersApi()->editUser('Hannes', 'email', 'hannes@rkw.de'));
 
         //DebuggerUtility::var_dump($ownCloud->getUsersApi()->addUser('Hannes', 'password'));
 

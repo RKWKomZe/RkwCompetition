@@ -66,7 +66,8 @@ class FileUploadUtility
     {
         $mimeTypeExplode = GeneralUtility::trimExplode('/', $file['type']);
 
-        return $mimeTypeExplode[1];
+        // return empty string if there is an issue
+        return $mimeTypeExplode[1] ?: '';
     }
 
 

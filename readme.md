@@ -4,14 +4,18 @@
 
 ## 1. Extension usage for integrators
 
-1. Create or use an existing folder in your TYPO3 Backend
-2. Set up your local TypoScript like the following example:
+1. Add RkwCompetition TypoScript Template to your page
+2. If not happen yet, install hcaptcha
+   - "ddev composer require dreistromland/typo3-hcaptcha"
+   - Add hCaptcha TypoScript Template to your page
+3. Create or use an existing folder in your TYPO3 Backend
+4. Set up your local TypoScript like the following example:
 
 ```typo3_typoscript
 plugin.tx_rkwcompetition {
     persistence {
         # The competition basic folder
-        storagePid = 11923 
+        storagePid = 11923
     }
     settings {
         # The general webPage loginPid
@@ -19,12 +23,12 @@ plugin.tx_rkwcompetition {
         # The side where you've place your competition plugin
         competitionPid = 2547
         # The register PID (could by a subpage of the competitionPid)
-        registerPid = 11924 
+        registerPid = 11924
         # Jury register PID
         juryPid = 11928
         mandatoryFields {
             # set mandatory fields for the register form
-            register = firstName, lastName 
+            register = firstName, lastName
             # additional mandatory fields which only trigger if groupWork is selected
             registerGroupWork = groupWorkInsurance, groupWorkAddPersons
         }
@@ -44,7 +48,7 @@ plugin.tx_rkwcompetition {
 ### 1.1 Create basic records inside a folder of your choice
 
 1. Create a ***FrontendUserGroup*** for FrontendUser ***Participants***
-2. Create a ***FrontendUserGroup*** for FrontendUser ***JuryMember*** 
+2. Create a ***FrontendUserGroup*** for FrontendUser ***JuryMember***
 3. You will need at least ***one FrontendUser*** for the usage as ***Jury-Member*** to create a competition
 4. Create "Sector"-Records ("Bereich") ***before*** creating a competition
 5. Create your first "Competition"-Record ("Wettbewerb")
@@ -52,7 +56,7 @@ plugin.tx_rkwcompetition {
 ### 1.2 Frontend Part One: Competition & Register Plugins
 
 1. Insert the plugin to show the competitions itself on your chosen page ("settings.competitionPid")
-   1. Plugin Name: "RKW Competition: Wettbewerb [rkwcompetition_competition]"   
+   1. Plugin Name: "RKW Competition: Wettbewerb [rkwcompetition_competition]"
    2. Select a competition record inside the FlexForm of the plugin
 2. Insert the register plugin to the other created page ("settings.registerPid")
    1. Plugin Name: "RKW Competition: Anmeldung [rkwcompetition_register]"
@@ -216,7 +220,7 @@ services:
       - HTTP_EXPOSE=8985:8080
       #- HTTPS_EXPOSE=8986:8985
       - OWNCLOUD_DOMAIN=rkw-website.ddev.site:8080, ddev-RKW-Website-owncloud
-      - OWNCLOUD_TRUSTED_DOMAINS=rkw-website.ddev.site, ddev-RKW-Website-owncloud
+      - OWNCLOUD_TRUSTED_DOMAINS=rkw-website.ddev.site, ddev-RKW-Website-owncloud, ddev-rkw-website-owncloud:8080
       - OWNCLOUD_DB_TYPE=mysql
       - OWNCLOUD_DB_NAME=owncloud
       - OWNCLOUD_DB_USERNAME=owncloud
@@ -268,11 +272,22 @@ services:
       - redis:/data
 ```
 
+Restart ddev (if already running):
+```
+ddev restart
+```
+
 Get the browser URL of the "OwnCloud"-Service:
 ```
 ddev describe
 ```
 URL: http://rkw-website.ddev.site:8985
+
+OwnCloud login:
+```
+User: admin
+PW: admin
+```
 
 To work with the API inside the container we have to use the container name as URL (with different port!):
 ```
@@ -291,11 +306,11 @@ api {
 
 Example API queries:
 ```
-Browser:    
+Browser:
 http://rkw-website.ddev.site:8985/ocs/v1.php/cloud/capabilities?format=json
 http://rkw-website.ddev.site:8985/ocs/v1.php/cloud/users?format=json
 
-API:        
+API:
 http://ddev-RKW-Website-owncloud:8080/ocs/v1.php/cloud/capabilities?format=json
 http://ddev-RKW-Website-owncloud:8080/ocs/v1.php/cloud/users?format=json
 ```
@@ -332,6 +347,7 @@ exit;
 ```
 
 ----
+###########################################
 ### DEPRECATED: Independent OwnCloud docker installation (NOT USED: API connection issues)
 
 **Local "OwnCloud" installation; add OwnCloud-Container**
@@ -382,7 +398,7 @@ api {
       baseUrl = http://owncloud.local/
    }
 }
-```   
+```
 9. Stop it
 ```
 docker composer down
