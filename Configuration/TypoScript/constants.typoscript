@@ -9,14 +9,14 @@ plugin.tx_rkwcompetition {
     }
     persistence {
         # cat=plugin.tx_rkwcompetition//a; type=string; label=Default storage PID
-        storagePid = 11923
+        storagePid = 11977
     }
     settings {
 
-        loginPid = 10513
-        competitionPid =
-        registerPid =
-        juryPid =
+        loginPid = 11982
+        competitionPid = 11978
+        registerPid = 11980
+        juryPid = 11979
 
         mandatoryFields {
             register = email, firstName, lastName

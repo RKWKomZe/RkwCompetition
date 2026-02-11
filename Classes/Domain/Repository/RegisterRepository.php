@@ -55,7 +55,7 @@ class RegisterRepository extends AbstractRepository
      * @param string $email
      * @return object|RKW\RkwCompetition\Domain\Model\Register
      */
-    public function findByCompetitionAndEmail(Competition $competition, string $email): object
+    public function findByCompetitionAndEmail(Competition $competition, string $email): ?object
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);

@@ -162,7 +162,7 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
         }
 
         // registration still possible?
-        if (!$newRegister->getCompetition()->getRegisterEnd() < time()) {
+        if (CompetitionUtility::hasRegTimeEnded($newRegister->getCompetition())) {
             $this->addFlashMessage(
                 LocalizationUtility::translate(
                     'registerController.error.registrationTime',
