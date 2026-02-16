@@ -247,6 +247,9 @@
             <trans-unit id="tx_rkwcompetition_validator.expired">
                 <source>Competition expired</source>
             </trans-unit>
+			<trans-unit id="tx_rkwcompetition_validator.email_invalid">
+				<source>Email invalid</source>
+			</trans-unit>
 
             <trans-unit id="tx_rkwcompetition_validator.remark">
                 <source>Remark</source>
@@ -793,7 +796,7 @@
                 <source>Competition closing day</source>
             </trans-unit>
 
-            
+
             <!-- ==================================================================================== -->
             <!-- Partials/Email/Details.html -->
             <trans-unit id="partials_email_details.competitionDetails">
@@ -850,7 +853,7 @@
 
 
             <!-- ==================================================================================== -->
-            
+
             <!-- Templates/Email/FrontendUser/OptIn.html -->
             <trans-unit id="templates_email_frontendUser_optIn.headline">
                 <source>Hello,</source>
@@ -1214,6 +1217,9 @@
                 <source>Approved by:</source>
                 <target>Genehmigt von:</target>
             </trans-unit>
+			<trans-unit id="templates_backend_registerDetail.notSubmittedYet">
+				<source>Not yet submitted by the user</source>
+			</trans-unit>
             <trans-unit id="templates_backend_registerDetail.alreadyApproved">
                 <source>Already approved</source>
                 <target>Aufgrund bereits erfolgter Genehmigung ist keine Aktion mehr möglich</target>
