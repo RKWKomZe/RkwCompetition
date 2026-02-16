@@ -91,7 +91,7 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
 
            // throw new AspectNotFoundException();
 
-            // instead of throwing error simply create and add an Upload object
+            // instead of throwing an error: create and add an Upload object
             $upload = GeneralUtility::makeInstance(Upload::class);
             $register->setUpload($upload);
             $this->registerRepository->update($register);

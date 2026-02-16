@@ -140,7 +140,6 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
      */
     public function createAction(\RKW\RkwCompetition\Domain\Model\Register $newRegister)
     {
-
         // check if user is already registered
         $registerCheck = $this->registerRepository->findByCompetitionAndEmail($newRegister->getCompetition(), $newRegister->getEmail());
         if ($registerCheck instanceof Register) {
@@ -161,13 +160,16 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
             );
         }
 
+
         // registration still possible?
-        if (!$newRegister->getCompetition()->getRegisterEnd() < time()) {
+        if ($newRegister->getCompetition()->getRegisterEnd()->getTimestamp() < time()) {
             $this->addFlashMessage(
                 LocalizationUtility::translate(
                     'registerController.error.registrationTime',
                     'rkw_competition'
-                )
+                ),
+                '',
+                AbstractMessage::WARNING
             );
             $this->redirect(
                 'show',
@@ -665,7 +667,7 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
             $newRegister->getCompetition()->getRegisterEnd()->format('Y-m-d')
         );
 
-        // @toDo: On DEV the link is wrong, because the internal Container-ID is used (ddev-RKW-Website-owncloud:8080)
+        // @toDo: On local DDEV machine the link is wrong, because the internal Container-ID is used (ddev-RKW-Website-owncloud:8080)
 
         $newRegister->setOwnCloudFolderLink($userShare['url']);
         $this->registerRepository->update($newRegister);

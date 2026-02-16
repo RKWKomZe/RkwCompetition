@@ -33,7 +33,7 @@ class FileUploadUtility
     /**
      * checkFileFormUpload
      *
-     * checks if file exists
+     * checks if a file exists
      *
      * @todo : check multiple upload array?
      *

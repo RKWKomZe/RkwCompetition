@@ -41,7 +41,7 @@ class WebDavApi extends AbstractApi
 
     const API_PATH = 'remote.php/webdav/';
 
-    protected string $queryType = 'webdav';
+    public string $queryType = 'webdav';
 
     /**
      * addFolder
