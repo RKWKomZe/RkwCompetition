@@ -252,7 +252,26 @@
                             </tr>
                         </f:then>
                         <f:else>
-                            <f:render section="formArea" arguments="{register: register}" />
+
+                            <!-- Not submitted yet by user -->
+                            <f:if condition="{register.userSubmittedAt}">
+                                <f:then>
+                                    <f:render section="formArea" arguments="{register: register}" />
+                                </f:then>
+                                <f:else>
+                                    <tr>
+                                        <td>
+                                            <strong>
+                                                <br><br>
+                                                <f:translate key="templates_backend_registerDetail.notSubmittedYet" />
+                                                <br><br>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                </f:else>
+                            </f:if>
+
+
                         </f:else>
                     </f:if>
 

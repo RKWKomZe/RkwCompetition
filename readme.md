@@ -1,6 +1,6 @@
 # RkwCompetition
 
-* HowTo: To install you own "OwnCloud" server take a look to the section "Development" below
+* HowTo: To install your own "OwnCloud" server take a look to the section "Development" below
 
 ## 1. Extension usage for integrators
 
@@ -8,8 +8,9 @@
 2. If not happen yet, install hcaptcha
    - "ddev composer require dreistromland/typo3-hcaptcha"
    - Add hCaptcha TypoScript Template to your page
-3. Create or use an existing folder in your TYPO3 Backend
-4. Set up your local TypoScript like the following example:
+3. Create or use an existing page of type "folder" in your TYPO3 Backend
+4. Create the folder path /fileadmin/user_upload/tx_rkwcompetition/ (if not exists)
+5. Set up your local TypoScript like the following example:
 
 ```typo3_typoscript
 plugin.tx_rkwcompetition {
@@ -102,9 +103,9 @@ Hint for initial usage: It is advisable to have ***at least created a registrati
 
 ## 4. Cronjobs
 
-This extension coming with a bunch of cronjobs which are manage the several steps from initial registration until the assignment to the Jury-Member
+This extension comes with a bunch of cronjobs which are manage the several steps from initial registration until the assignment to the Jury-Member
 * rkw_competition:incompleteUserRegistration
-  * Sends notify mails to FrontendUser if they have not submitted their registration yet
+  * Sends notification mails to FrontendUser if they have not submitted their registration yet
 * rkw_competition:removalDeadlineWarningAdmin
   * Only if a data removal date is set: Send a reminder to admins before an expired competition is about to be deleted together with the documents
 * rkw_competition:juryNotify
@@ -122,9 +123,9 @@ This extension coming with a bunch of cronjobs which are manage the several step
 
 # 5. Workflow
 
-A step by step journey with all components through the RkwCompetition after all configuration steps are done (steps 1-4)
+A step-by-step journey with all components through the RkwCompetition after all configuration steps are done (steps 1-4)
 
-HINT: If the tester has to do something manually which should be done automatically ("cronjobs"), this is displayed below as ***TASK***. If the system does something by its own, this will be displayed as ***TRIGGER***.
+HINT: If the tester has to do something manually that should be done automatically ("cronjobs"), this is displayed below as ***TASK***. If the system does something by its own, this will be displayed as ***TRIGGER***.
 
 ## 5.1 Initial register procedure (as a FrontendUser)
 1. Go to the competition page (Plugin: rkwcompetition_competition; CompetitionController->showAction)
@@ -132,7 +133,7 @@ HINT: If the tester has to do something manually which should be done automatica
 3. Fill out the form including all mandatory fields and send it off (RegisterController->createAction)
    1. ***TASK:*** Kick off cronjob "postmaster:send" manually
    2. ***TRIGGER:*** OptIn E-Mail is sent to the register E-Mail Address (RkwMailService->optInRequest)
-4. Go to you E-Mail program and open the E-Mail. Choose one of the both links:
+4. Go to your E-Mail program and open the E-Mail. Choose one of the both links:
    1. Decline: The registration will be removed (RegisterController->optInAction)
    2. Accept: The registration will be executed (RegisterController->optInAction)
       1. ***TASK:*** Kick off cronjob "postmaster:send" manually
@@ -143,7 +144,7 @@ HINT: If the tester has to do something manually which should be done automatica
 
 ## 5.2 Uploads and final submit (as a FrontendUser)
 1. Login to "Mein RKW" with the E-Mail Address of the done registration (@see 5.1)
-2. Go to the sub area "Mein Wettbewerb" (@see 1.3). You should see at least the competition you have registered to (ParticipantController->listAction)
+2. Go to the subarea "Mein Wettbewerb" (@see 1.3). You should see at least the competition you have registered to (ParticipantController->listAction)
 3. Click on the button for file uploads ("Dateien hochladen") (UploadController->editAction)
 4. Now upload at least the abstract ("Kurzfassung") as Word or PDF file
    1. Each other format (.jpg etc) should be thrown an error
@@ -158,7 +159,7 @@ HINT: If the tester has to do something manually which should be done automatica
 ## 5.3 Admin preselection (as a BackendUser)
 1. Click on "RKW Competition" inside "Web"-Area (BackendController->listAction)
 2. Select the desired competition and then the corresponding registration (BackendController->showAction)
-3. Now you can take a look to the registration and choose between two options (BackendController->registerDetailAction)
+3. Now you can take a look at the registration and choose between two options (BackendController->registerDetailAction)
    1. Reject: There is something wrong with the registration? Type in the reason for it and submit (BackendController->refuseAction)
       1. ***TRIGGER:*** Status of Registration is changed to "rejected" (Field: adminRefusedAt)
       2. ***TASK:*** Kick off cronjob "postmaster:send" manually
@@ -172,7 +173,7 @@ HINT: If the tester has to do something manually which should be done automatica
       4. Now the FrontendUser is finished with the registration
 
 ## 5.4 Become a jury member
-1. GIVEN: The competitions date is between "RegisterEnd" and "JuryAccessEnd"
+1. GIVEN: The competition date is between "RegisterEnd" and "JuryAccessEnd"
 2. GIVEN: A FrontendUser is set as "Jury Member Candidate" to the competition
    1. This means that the jury member is a candidate and not a full value jury member
    2. First of all the jury candidate has to agree the terms. If not happen yet, do it now:

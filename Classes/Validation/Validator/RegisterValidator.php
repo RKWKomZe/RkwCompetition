@@ -15,6 +15,7 @@ namespace RKW\RkwCompetition\Validation\Validator;
  */
 
 use Madj2k\CoreExtended\Utility\GeneralUtility as Common;
+use Madj2k\FeRegister\Utility\FrontendUserUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Error\Error;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
@@ -37,6 +38,11 @@ class RegisterValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abstract
      * @var array
      */
     protected $settings = null;
+
+    /**
+     * @var bool
+     */
+    protected bool $isValid = true;
 
     /**
      * validation
@@ -76,8 +82,12 @@ class RegisterValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abstract
                     ), 1736779680
                 )
             );
-            $isValid = false;
+            $this->isValid = false;
         }
+
+
+        // check Email
+        $this->checkEmail($newRegister->getEmail());
 
 
         // 1. Check mandatory fields main person
@@ -104,13 +114,34 @@ class RegisterValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abstract
                                 ), 1731910556
                             )
                         );
-                        $isValid = false;
+                        $this->isValid = false;
                     }
                 }
             }
         }
 
-        return $isValid;
+        return $this->isValid;
+    }
+
+
+    /**
+     * @return void
+     */
+    protected function checkEmail(string $email)
+    {
+        if ($email) {
+            if (! FrontendUserUtility::isEmailValid($email)) {
+                $this->result->forProperty('email')->addError(
+                    new Error(
+                        LocalizationUtility::translate(
+                            'tx_rkwcompetition_validator.email_invalid',
+                            'rkw_competition'
+                        ), 1770815126
+                    )
+                );
+                $this->isValid = false;
+            }
+        }
     }
 
 
@@ -122,7 +153,6 @@ class RegisterValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abstract
      */
     protected function getSettings(): array
     {
-
         if (!$this->settings) {
             $this->settings = Common::getTypoScriptConfiguration('Rkwcompetition');
         }
@@ -130,10 +160,8 @@ class RegisterValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abstract
         if (!$this->settings) {
             return [];
         }
-        //===
 
         return $this->settings;
-        //===
     }
 
 }

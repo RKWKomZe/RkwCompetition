@@ -73,20 +73,22 @@ class WebDavApi extends AbstractApi
     public function addFolderRecursive(array $folderPath): array
     {
         $currentFolderPath = [];
+        $result = [];
+
         foreach ($folderPath as $folder) {
-
-            // set method inside loop because the nested "addFolder" function overrides this value
-            $this->apiMethod = self::METHOD_PROPFIND;
-
-            // build folder chain step by step
             $currentFolderPath[] = $folder;
 
-            // does the currentFolderPath exists?
+            // PROPFIND: exists?
+            $this->apiMethod = self::METHOD_PROPFIND;
             $result = $this->doApiRequest(self::API_PATH . implode('/', $currentFolderPath));
 
-            // folder does NOT exists
-            if (key($result) === 404) {
+            if ((int)key($result) === 404) {
+                // MKCOL
                 $this->addFolder($currentFolderPath);
+
+                // PROPFIND again to return a "stable" exists-result
+                $this->apiMethod = self::METHOD_PROPFIND;
+                $result = $this->doApiRequest(self::API_PATH . implode('/', $currentFolderPath));
             }
         }
 

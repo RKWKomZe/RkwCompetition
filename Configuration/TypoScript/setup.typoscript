@@ -64,9 +64,9 @@ plugin.tx_rkwcompetition {
 
 
 
-plugin.tx_rkwcompetition_register < plugin.tx_competition
-plugin.tx_rkwcompetition_edit < plugin.tx_competition
-plugin.tx_rkwcompetition_jury < plugin.tx_competition
+plugin.tx_rkwcompetition_register < plugin.tx_rkwcompetition
+plugin.tx_rkwcompetition_edit < plugin.tx_rkwcompetition
+plugin.tx_rkwcompetition_jury < plugin.tx_rkwcompetition
 
 
 # Module configuration

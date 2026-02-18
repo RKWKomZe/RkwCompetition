@@ -27,6 +27,10 @@
                 <source>Competition expired</source>
                 <target>Die Registrierungsphase ist leider seit dem %s abgelaufen.</target>
             </trans-unit>
+			<trans-unit id="tx_rkwcompetition_validator.email_invalid">
+				<source>Email invalid</source>
+				<target>Die angegebene E-Mail-Adresse scheint unvollständig zu sein. Bitte überprüfen Sie diese doch noch mal.</target>
+			</trans-unit>
 
             <trans-unit id="tx_rkwcompetition_validator.remark">
                 <source>Remark</source>
@@ -746,7 +750,7 @@
                 <target>Wettbewerb: Registrierungsphase beendet</target>
             </trans-unit>
 
-            
+
             <!-- ==================================================================================== -->
             <!-- Partials/Email/Details.html -->
             <trans-unit id="partials_email_details.competitionDetails">
@@ -819,7 +823,7 @@
 
 
             <!-- ==================================================================================== -->
-            
+
             <!-- Templates/Email/FrontendUser/OptIn.html -->
             <trans-unit id="templates_email_frontendUser_optIn.headline">
                 <source>Hello,</source>
@@ -1154,7 +1158,7 @@
                 <source>Back to Start</source>
                 <target>Zurück zum Anfang</target>
             </trans-unit>
-            
+
             <!-- Templates/Backend/RegisterDetail.html -->
             <trans-unit id="templates_backend_registerDetail.back">
                 <source>Back</source>
@@ -1252,6 +1256,10 @@
                 <source>Approved by:</source>
                 <target>Genehmigt von:</target>
             </trans-unit>
+			<trans-unit id="templates_backend_registerDetail.notSubmittedYet">
+				<source>Not yet submitted by the user</source>
+				<target>Noch nicht vom Nutzer freigegeben</target>
+			</trans-unit>
             <trans-unit id="templates_backend_registerDetail.alreadyApproved">
                 <source>Already approved</source>
                 <target>Aufgrund bereits erfolgter Genehmigung ist keine Aktion mehr möglich</target>

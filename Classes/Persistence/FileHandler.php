@@ -183,10 +183,14 @@ class FileHandler implements SingletonInterface
      */
     public function removeAllFilesOfFolderFromHdd(string $folderIdentifier): bool
     {
-        $folder = $this->resourceFactory->getFolderObjectFromCombinedIdentifier($folderIdentifier);
-        $fileListToRemove = $folder->getFiles();
+        try {
+            $folder = $this->resourceFactory->getFolderObjectFromCombinedIdentifier($folderIdentifier);
+        } catch (\Throwable $e) {
+            // if files do not exist
+            return true;
+        }
 
-        foreach ($fileListToRemove as $fileToRemove) {
+        foreach ($folder->getFiles() as $fileToRemove) {
             $this->removeFileFromHdd($fileToRemove);
         }
 
@@ -204,7 +208,12 @@ class FileHandler implements SingletonInterface
      */
     public function removeFolderFromHddByIdentifier(string $folderIdentifier): bool
     {
-        $folderToRemove = $this->resourceFactory->getFolderObjectFromCombinedIdentifier($folderIdentifier);
+        try {
+            $folderToRemove = $this->resourceFactory->getFolderObjectFromCombinedIdentifier($folderIdentifier);
+        } catch (\Throwable $e) {
+            // if the folder does not exist
+            return true;
+        }
 
         return $this->removeFolderFromHddByFolder($folderToRemove);
     }

@@ -140,7 +140,6 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
      */
     public function createAction(\RKW\RkwCompetition\Domain\Model\Register $newRegister)
     {
-
         // check if user is already registered
         $registerCheck = $this->registerRepository->findByCompetitionAndEmail($newRegister->getCompetition(), $newRegister->getEmail());
         if ($registerCheck instanceof Register) {
@@ -161,13 +160,16 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
             );
         }
 
+
         // registration still possible?
-        if (CompetitionUtility::hasRegTimeEnded($newRegister->getCompetition())) {
+        if ($newRegister->getCompetition()->getRegisterEnd()->getTimestamp() < time()) {
             $this->addFlashMessage(
                 LocalizationUtility::translate(
                     'registerController.error.registrationTime',
                     'rkw_competition'
-                )
+                ),
+                '',
+                AbstractMessage::WARNING
             );
             $this->redirect(
                 'show',
