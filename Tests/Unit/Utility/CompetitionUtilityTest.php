@@ -9,10 +9,19 @@ use RKW\RkwCompetition\Utility\CompetitionUtility;
 class CompetitionUtilityTest extends TestCase
 {
     /**
-     * Tests if hasRegTimeEnded returns true when the registration time has ended
+     * @return void
      */
     public function testHasRegTimeEndedReturnsTrueWhenRegistrationTimeEnded(): void
     {
+        /**
+         * Scenario:
+         *
+         * Given a competition
+         * Given the registration end date lies in the past
+         * When hasRegTimeEnded is called
+         * Then the method returns true
+         */
+
         $competition = $this->createMock(Competition::class);
         $pastDate = new \DateTime('-1 day');
         $competition->method('getRegisterEnd')->willReturn($pastDate);
@@ -23,10 +32,19 @@ class CompetitionUtilityTest extends TestCase
     }
 
     /**
-     * Tests if hasRegTimeEnded returns false when the registration time has not ended
+     * @return void
      */
     public function testHasRegTimeEndedReturnsFalseWhenRegistrationTimeNotEnded(): void
     {
+        /**
+         * Scenario:
+         *
+         * Given a competition
+         * Given the registration end date lies in the future
+         * When hasRegTimeEnded is called
+         * Then the method returns false
+         */
+
         $competition = $this->createMock(Competition::class);
         $futureDate = new \DateTime('+1 day');
         $competition->method('getRegisterEnd')->willReturn($futureDate);
@@ -38,10 +56,19 @@ class CompetitionUtilityTest extends TestCase
 
 
     /**
-     * Tests if hasJuryAccessTimeEnded returns true when the jury access time has ended
+     * @return void
      */
     public function testHasJuryAccessTimeEndedReturnsTrueWhenAccessTimeEnded(): void
     {
+        /**
+         * Scenario:
+         *
+         * Given a competition
+         * Given the jury access end date lies in the past
+         * When hasJuryAccessTimeEnded is called
+         * Then the method returns true
+         */
+
         $competition = $this->createMock(Competition::class);
         $pastDate = new \DateTime('-1 day');
         $competition->method('getJuryAccessEnd')->willReturn($pastDate);
@@ -52,10 +79,19 @@ class CompetitionUtilityTest extends TestCase
     }
 
     /**
-     * Tests if hasJuryAccessTimeEnded returns false when the jury access time has not ended
+     * @return void
      */
     public function testHasJuryAccessTimeEndedReturnsFalseWhenAccessTimeNotEnded(): void
     {
+        /**
+         * Scenario:
+         *
+         * Given a competition
+         * Given the jury access end date lies in the future
+         * When hasJuryAccessTimeEnded is called
+         * Then the method returns false
+         */
+
         $competition = $this->createMock(Competition::class);
         $futureDate = new \DateTime('+1 day');
         $competition->method('getJuryAccessEnd')->willReturn($futureDate);
@@ -63,6 +99,27 @@ class CompetitionUtilityTest extends TestCase
         $result = CompetitionUtility::hasJuryAccessTimeEnded($competition);
 
         $this->assertFalse($result);
+    }
+
+    /**
+     * @return void
+     */
+    public function testHasRegTimeEndedReturnsFalseWhenRegisterEndIsNow(): void
+    {
+        /**
+         * Scenario:
+         *
+         * Given a competition
+         * Given the registration end date is exactly the current timestamp
+         * When hasRegTimeEnded is called
+         * Then the method returns false
+         */
+
+        $competition = $this->createMock(Competition::class);
+        $now = (new \DateTime())->setTimestamp(time());
+        $competition->method('getRegisterEnd')->willReturn($now);
+
+        $this->assertFalse(CompetitionUtility::hasRegTimeEnded($competition));
     }
 
 }

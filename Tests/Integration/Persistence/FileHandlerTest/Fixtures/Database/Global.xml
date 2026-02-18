@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dataset>
+    <pages>
+        <uid>1</uid>
+        <pid>0</pid>
+        <title>Rootpage</title>
+        <doktype>1</doktype>
+        <perms_everybody>15</perms_everybody>
+    </pages>
+    <pages>
+        <uid>2</uid>
+        <pid>1</pid>
+        <title>Subpage</title>
+        <doktype>1</doktype>
+        <perms_everybody>15</perms_everybody>
+    </pages>
+
+    <sys_filemounts>
+        <uid>1</uid>
+        <pid>0</pid>
+        <title>Fileadmin</title>
+        <path>/</path>
+        <base>1</base>
+    </sys_filemounts>
+
+    <be_users>
+        <uid>999</uid>
+        <pid>0</pid>
+        <username>phpunit_admin</username>
+        <password></password>
+        <admin>1</admin>
+        <disable>0</disable>
+        <file_mountpoints>1</file_mountpoints>
+    </be_users>
+
+
+    <!-- FAL Storage (Local fileadmin) -->
+    <sys_file_storage>
+        <uid>1</uid>
+        <pid>0</pid>
+        <name>Local storage</name>
+        <driver>Local</driver>
+        <configuration>
+            {"basePath":"fileadmin/","pathType":"relative"}
+        </configuration>
+        <is_browsable>1</is_browsable>
+        <is_public>1</is_public>
+        <is_writable>1</is_writable>
+        <is_online>1</is_online>
+        <processingfolder>_processed_</processingfolder>
+        <auto_extract_metadata>1</auto_extract_metadata>
+    </sys_file_storage>
+</dataset>

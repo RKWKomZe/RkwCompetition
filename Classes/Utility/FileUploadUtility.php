@@ -64,10 +64,11 @@ class FileUploadUtility
      */
     public static function getShortenedMimeType(array $file) :string
     {
-        $mimeTypeExplode = GeneralUtility::trimExplode('/', $file['type']);
+        $type = (string)($file['type'] ?? '');
+        $parts = GeneralUtility::trimExplode('/', $type);
 
         // return empty string if there is an issue
-        return $mimeTypeExplode[1] ?: '';
+        return $parts[1] ?? '';
     }
 
 

@@ -1,0 +1,14 @@
+plugin.tx_rkwcompetition {
+    settings {
+
+    }
+}
+
+module.tx_rkwcompetition < plugin.tx_rkwcompetition
+
+
+page = PAGE
+page {
+    10 = TEXT
+    10.value = Hallo Welt!
+}
