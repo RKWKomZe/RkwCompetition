@@ -15,6 +15,7 @@ namespace RKW\RkwCompetition\Api\OwnCloud;
  */
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use TYPO3\CMS\Core\Log\Logger;
 use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
@@ -149,14 +150,13 @@ abstract class AbstractApi implements \TYPO3\CMS\Core\SingletonInterface
     }
 
 
-
-
     /**
      * Makes the api request
      *
      * @param string $targetPath The action ("users", "groups", "apps"); can be also more particular like "/users/Frank"
      * @param array $arguments
      * @return array
+     * @throws GuzzleException
      */
     public function doApiRequest(string $targetPath, array $arguments = []): array
     {

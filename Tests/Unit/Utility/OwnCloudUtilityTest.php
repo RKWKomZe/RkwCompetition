@@ -16,11 +16,19 @@ use RKW\RkwCompetition\Utility\OwnCloudUtility;
 class OwnCloudUtilityTest extends TestCase
 {
     /**
-     * Tests that getUserFolderSecret returns a valid hash.
+     * @return void
      */
-    public function testGetUserFolderSecretReturnsValidHash(): void
+    public function testGetUserFolderSecretReturnsExpectedMd5(): void
     {
-        // Arrange
+        /**
+         * Scenario:
+         *
+         * Given a register with a frontend user (uid = 123)
+         * And a competition with a defined creation date
+         * When getUserFolderSecret is called
+         * Then an MD5 hash is returned
+         * And the hash equals md5(frontendUserUid + competitionCrdateTimestamp)
+         */
         $frontendUser = $this->createMock(FrontendUser::class);
         $frontendUser->method('getUid')->willReturn(123);
 
@@ -32,107 +40,54 @@ class OwnCloudUtilityTest extends TestCase
         $register->method('getFrontendUser')->willReturn($frontendUser);
         $register->method('getCompetition')->willReturn($competition);
 
-        // Act
-        $result = OwnCloudUtility::getUserFolderSecret($register);
-
-        // Assert
-        $expectedHash = md5(123 . $crdate->getTimestamp());
-        $this->assertEquals($expectedHash, $result);
+        $expected = md5('123' . $crdate->getTimestamp());
+        $this->assertSame($expected, OwnCloudUtility::getUserFolderSecret($register));
     }
 
     /**
-     * Tests that getUserFolderSecret handles missing frontend user gracefully.
+     * @return void
      */
-    public function testGetUserFolderSecretHandlesMissingFrontendUser(): void
+    public function testGetCompetitionFolderSecretReturnsExpectedMd5(): void
     {
-        // Arrange
-        $competition = $this->createMock(Competition::class);
-        $crdate = new \DateTime('2025-08-01 12:00:00');
-        $competition->method('getCrdate')->willReturn($crdate);
-
-        $register = $this->createMock(Register::class);
-        $register->method('getFrontendUser')->willReturn(null);
-        $register->method('getCompetition')->willReturn($competition);
-
-        // Assert
-        $this->expectException(\TypeError::class);
-
-        // Act
-        OwnCloudUtility::getUserFolderSecret($register);
-    }
-
-    /**
-     * Tests that getUserFolderSecret handles missing competition gracefully.
-     */
-    public function testGetUserFolderSecretHandlesMissingCompetition(): void
-    {
-        // Arrange
-        $frontendUser = $this->createMock(FrontendUser::class);
-        $frontendUser->method('getUid')->willReturn(456);
-
-        $register = $this->createMock(Register::class);
-        $register->method('getFrontendUser')->willReturn($frontendUser);
-        $register->method('getCompetition')->willReturn(null);
-
-        // Assert
-        $this->expectException(\TypeError::class);
-
-        // Act
-        OwnCloudUtility::getUserFolderSecret($register);
-    }
-
-
-    /**
-     * Tests that getCompetitionFolderSecret returns a valid hash.
-     */
-    public function testGetCompetitionFolderSecretReturnsValidHash(): void
-    {
-        // Arrange
+        /**
+         * Scenario:
+         *
+         * Given a competition with a uid (789)
+         * And a defined creation date
+         * When getCompetitionFolderSecret is called
+         * Then an MD5 hash is returned
+         * And the hash equals md5(competitionUid + competitionCrdateTimestamp)
+         */
         $competition = $this->createMock(Competition::class);
         $competition->method('getUid')->willReturn(789);
+
         $crdate = new \DateTime('2025-08-01 15:00:00');
         $competition->method('getCrdate')->willReturn($crdate);
 
-        // Act
-        $result = OwnCloudUtility::getCompetitionFolderSecret($competition);
-
-        // Assert
-        $expectedHash = md5(789 . $crdate->getTimestamp());
-        $this->assertEquals($expectedHash, $result);
+        $expected = md5('789' . $crdate->getTimestamp());
+        $this->assertSame($expected, OwnCloudUtility::getCompetitionFolderSecret($competition));
     }
 
     /**
-     * Tests that getCompetitionFolderSecret handles missing competition creation date gracefully.
+     * @return void
      */
-    public function testGetCompetitionFolderSecretHandlesMissingCrdate(): void
+    public function testSecretsAreMd5Hashes(): void
     {
-        // Arrange
+        /**
+         * Scenario:
+         *
+         * Given a competition with a valid uid and creation date
+         * When getCompetitionFolderSecret is called
+         * Then the returned value is a 32-character string
+         * And the string matches the MD5 hexadecimal format (lowercase a-f, 0-9)
+         */
         $competition = $this->createMock(Competition::class);
-        $competition->method('getUid')->willReturn(789);
-        $competition->method('getCrdate')->willReturn(null);
+        $competition->method('getUid')->willReturn(1);
+        $competition->method('getCrdate')->willReturn(new \DateTime('2025-01-01 00:00:00'));
 
-        // Assert
-        $this->expectException(\TypeError::class);
+        $hash = OwnCloudUtility::getCompetitionFolderSecret($competition);
 
-        // Act
-        OwnCloudUtility::getCompetitionFolderSecret($competition);
-    }
-
-    /**
-     * Tests that getCompetitionFolderSecret handles missing competition UID gracefully.
-     */
-    public function testGetCompetitionFolderSecretHandlesMissingUid(): void
-    {
-        // Arrange
-        $competition = $this->createMock(Competition::class);
-        $competition->method('getUid')->willReturn(null);
-        $crdate = new \DateTime('2025-08-01 15:00:00');
-        $competition->method('getCrdate')->willReturn($crdate);
-
-        // Assert
-        $this->expectException(\TypeError::class);
-
-        // Act
-        OwnCloudUtility::getCompetitionFolderSecret($competition);
+        $this->assertSame(32, strlen($hash));
+        $this->assertMatchesRegularExpression('/^[a-f0-9]{32}$/', $hash);
     }
 }

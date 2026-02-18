@@ -1,0 +1,42 @@
+<?php
+
+declare(strict_types=1);
+
+namespace RKW\RkwCompetition\Tests\Integration\Api\OwnCloud;
+
+use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+
+abstract class AbstractOwnCloudIntegrationTestCase extends FunctionalTestCase
+{
+    protected function skipIfOwnCloudUnavailable(string $baseUrl): void
+    {
+        if ($baseUrl === '') {
+            $this->markTestSkipped(
+                'OwnCloud integration tests require a local OwnCloud instance. ' .
+                'Set OWNCLOUD_URL / configure apiBaseUrl. See README of rkw_competition.'
+            );
+        }
+
+        $parts = parse_url($baseUrl);
+        $host = $parts['host'] ?? null;
+        $scheme = $parts['scheme'] ?? 'http';
+        $port = $parts['port'] ?? ($scheme === 'https' ? 443 : 80);
+
+        if (!$host) {
+            $this->markTestSkipped(
+                'OWNCLOUD_URL is invalid (' . $baseUrl . '). See README of rkw_competition.'
+            );
+        }
+
+        $errno = 0;
+        $errStr = '';
+        $fp = @fsockopen($host, (int)$port, $errno, $errStr, 1.5);
+        if (!$fp) {
+            $this->markTestSkipped(
+                'OwnCloud is not reachable at ' . $host . ':' . $port . '. ' .
+                'Start the OwnCloud container / check DDEV config. See README of rkw_competition.'
+            );
+        }
+        fclose($fp);
+    }
+}

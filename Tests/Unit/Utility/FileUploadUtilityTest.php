@@ -8,20 +8,37 @@ use RKW\RkwCompetition\Utility\FileUploadUtility;
 class FileUploadUtilityTest extends TestCase
 {
     /**
-     * Tests that the method returns false when the input array is empty.
+     * @return void
      */
     public function testCheckFileFormUploadReturnsFalseWhenFileArrayIsEmpty(): void
     {
+        /**
+         * Scenario:
+         *
+         * Given an empty file upload array
+         * When checkFileFormUpload is called
+         * Then the method returns false
+         */
+
         $fileArray = [];
         $result = FileUploadUtility::checkFileFormUpload($fileArray);
         $this->assertFalse($result);
     }
 
     /**
-     * Tests that the method returns false when the 'error' key has the value 4 (no file uploaded).
+     * Tests that the method returns false when the 'error' key has value 4 (no file uploaded).
      */
     public function testCheckFileFormUploadReturnsFalseWhenErrorIsFour(): void
     {
+        /**
+         * Scenario:
+         *
+         * Given a file upload array
+         * Given the error code is 4 (no file uploaded)
+         * When checkFileFormUpload is called
+         * Then the method returns false
+         */
+
         $fileArray = ['error' => 4];
         $result = FileUploadUtility::checkFileFormUpload($fileArray);
         $this->assertFalse($result);
@@ -32,6 +49,15 @@ class FileUploadUtilityTest extends TestCase
      */
     public function testCheckFileFormUploadReturnsTrueForValidFileUpload(): void
     {
+        /**
+         * Scenario:
+         *
+         * Given a valid file upload array
+         * Given the error code is 0
+         * When checkFileFormUpload is called
+         * Then the method returns true
+         */
+
         $fileArray = [
             'name' => 'example.txt',
             'type' => 'text/plain',
@@ -44,10 +70,18 @@ class FileUploadUtilityTest extends TestCase
     }
 
     /**
-     * Tests that getShortenedMimeType returns correct MIME type without "application/".
+     * @return void
      */
     public function testGetShortenedMimeTypeReturnsCorrectType(): void
     {
+        /**
+         * Scenario:
+         *
+         * Given a file array with MIME type "application/json"
+         * When getShortenedMimeType is called
+         * Then the method returns "json"
+         */
+
         $fileArray = [
             'type' => 'application/json',
         ];
@@ -56,10 +90,18 @@ class FileUploadUtilityTest extends TestCase
     }
 
     /**
-     * Tests that getShortenedMimeType returns correct MIME type when "text/" is provided.
+     * @return void
      */
     public function testGetShortenedMimeTypeReturnsCorrectTypeForText(): void
     {
+        /**
+         * Scenario:
+         *
+         * Given a file array with MIME type "text/plain"
+         * When getShortenedMimeType is called
+         * Then the method returns "plain"
+         */
+
         $fileArray = [
             'type' => 'text/plain',
         ];
@@ -68,10 +110,18 @@ class FileUploadUtilityTest extends TestCase
     }
 
     /**
-     * Tests that getShortenedMimeType handles incorrect MIME type format gracefully.
+     * @return void
      */
     public function testGetShortenedMimeTypeHandlesInvalidFormat(): void
     {
+        /**
+         * Scenario:
+         *
+         * Given a file array with an invalid MIME type format without a "/" separator
+         * When getShortenedMimeType is called
+         * Then the method returns an empty string
+         */
+
         $fileArray = [
             'type' => 'invalidFormat',
         ];
