@@ -667,7 +667,7 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
             $newRegister->getCompetition()->getRegisterEnd()->format('Y-m-d')
         );
 
-        // @toDo: On local DDEV machine the link is wrong, because the internal Container-ID is used (ddev-RKW-Website-owncloud:8080)
+        // @toDo: On DEV the link is wrong, because the internal Container-ID is used (ddev-RKW-Website-owncloud:8080)
 
         $newRegister->setOwnCloudFolderLink($userShare['url']);
         $this->registerRepository->update($newRegister);

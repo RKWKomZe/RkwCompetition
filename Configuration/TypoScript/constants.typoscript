@@ -9,14 +9,14 @@ plugin.tx_rkwcompetition {
     }
     persistence {
         # cat=plugin.tx_rkwcompetition//a; type=string; label=Default storage PID
-        storagePid =
+        storagePid = 11977
     }
     settings {
 
-        loginPid = 10513
-        competitionPid =
-        registerPid =
-        juryPid =
+        loginPid = 11982
+        competitionPid = 11978
+        registerPid = 11980
+        juryPid = 11979
 
         mandatoryFields {
             register = email, firstName, lastName
@@ -24,7 +24,6 @@ plugin.tx_rkwcompetition {
         }
 
         upload {
-            // @toDo: ExtensionFolder seems not to be used currently. The FileHandler.php uses /user_upload/tx_rkwcompetition by default
             extensionFolder = rkw_competition
             # .pdf = application/pdf
             # .doc = application/msword
