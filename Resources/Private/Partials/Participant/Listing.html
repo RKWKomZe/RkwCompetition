@@ -47,7 +47,12 @@
                                     </f:if>
                                 </p>
                                 <p>
-                                    OwnCloud-Link: {register.ownCloudFolderLink}
+                                    OwnCloud-Link: <f:link.external
+                                    uri="{register.ownCloudFolderLink}"
+                                    target="_blank"
+                                >
+                                    {register.ownCloudFolderLink}
+                                </f:link.external>
                                 </p>
                                 <p>
                                     OwnCloud-PW: <rkw:ownCloudUserFolderPass register='{register}' />
