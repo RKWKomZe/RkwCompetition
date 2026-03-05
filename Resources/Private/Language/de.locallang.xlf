@@ -1270,7 +1270,7 @@
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.submitHintApprove">
                 <source>Note: Upon submitting, the user will receive an e-mail informing them that the data has been successfully checked.</source>
-                <target>Hinweis: Mit absenden erhält der Nutzer eine E-Mail mit der Information, dass die Daten erfolgreich geprüft wurden.</target>
+                <target>Hinweis: Mit Absenden erhält der Nutzer eine E-Mail mit der Information, dass die Daten erfolgreich geprüft wurden.</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.unlock">
                 <source>Unlock</source>
@@ -1282,7 +1282,7 @@
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.submitHintRefuse">
                 <source>Note: By submitting, the user will receive an e-mail with the information from the completed text field.</source>
-                <target>Hinweis: Mit absenden erhält der Nutzer eine E-Mail mit der Information aus dem ausgefüllten Textfeld.</target>
+                <target>Hinweis: Mit Absenden erhält der Nutzer eine E-Mail mit der Information aus dem ausgefüllten Textfeld.</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.adminRefusedText">
                 <source>Admin refused text</source>
@@ -1297,7 +1297,7 @@
             <!-- Templates/Backend/List.html -->
             <trans-unit id="templates_backend_list.headline">
                 <source>Show results</source>
-                <target>Anzeigen der Wettbewerbe</target>
+                <target>Wettbewerbe</target>
             </trans-unit>
             <trans-unit id="templates_backend_list.intro1">
                 <source>Show results</source>
@@ -1327,21 +1327,21 @@
                 <source>Title</source>
                 <target>Titel</target>
             </trans-unit>
-            <trans-unit id="templates_backend_list.reg_start">
-                <source>Reg start</source>
-                <target>Reg start</target>
-            </trans-unit>
-            <trans-unit id="templates_backend_list.reg_end">
-                <source>Reg end</source>
-                <target>Reg end</target>
-            </trans-unit>
+			<trans-unit id="templates_backend_list.reg_start">
+				<source>Start of registration</source>
+				<target>Beginn der Registrierung</target>
+			</trans-unit>
+			<trans-unit id="templates_backend_list.reg_end">
+				<source>End of registration end</source>
+				<target>Ende der Registrierung</target>
+			</trans-unit>
             <trans-unit id="templates_backend_list.admin">
                 <source>Admin</source>
                 <target>Admin</target>
             </trans-unit>
             <trans-unit id="templates_backend_list.reg_total">
-                <source>Registered Total</source>
-                <target>Registriert total</target>
+                <source>Total regisrations</source>
+                <target>Registrierungen</target>
             </trans-unit>
             <trans-unit id="templates_backend_list.reg_appr">
                 <source>Registered approved</source>
@@ -1368,7 +1368,7 @@
             </trans-unit>
             <trans-unit id="templates_backend_show.registrationsTotal">
                 <source>Registrations total:</source>
-                <target>Registrierungen total:</target>
+                <target>Registrierungen:</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.finishedRegistrations">
                 <source>Finished registrations:</source>
@@ -1379,12 +1379,12 @@
                 <target>Abgelehnte Registrierungen:</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.regStart">
-                <source>Reg start:</source>
-                <target>Reg start:</target>
+                <source>Start of registration:</source>
+                <target>Beginn der Registrierung:</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.regEnd">
-                <source>Reg end:</source>
-                <target>Reg end:</target>
+                <source>End of registration:</source>
+                <target>Start of registration:</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.confirmedJuryMember">
                 <source>Confirmed jury member</source>
@@ -1412,7 +1412,7 @@
             </trans-unit>
             <trans-unit id="templates_backend_show.sector">
                 <source>Sector</source>
-                <target>Sektor</target>
+                <target>Wettbewerbsbereich</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.status">
                 <source>Status</source>
@@ -1437,6 +1437,46 @@
             <trans-unit id="templates_backend_show.juryLink">
                 <source>Direct link of the jury member</source>
                 <target>Direktlink des Jurymitglieds</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.registrations">
+                <source>Registrations</source>
+                <target>Anmeldungen</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.id">
+                <source>ID</source>
+                <target>ID</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.status.approved">
+                <source>Approved</source>
+                <target>Genehmigt</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.status.submitted">
+                <source>Submitted</source>
+                <target>Eingereicht</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.status.refused">
+                <source>Refused</source>
+                <target>Abgelehnt</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.status.new">
+                <source>New</source>
+                <target>Neu</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.show">
+                <source>Show</source>
+                <target>Anzeigen</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.login">
+                <source>Login</source>
+                <target>Anmelden</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.approve">
+                <source>Approve</source>
+                <target>Genehmigen</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.refuse">
+                <source>Refuse</source>
+                <target>Ablehnen</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.juryIndividualInviteLink">
                 <source>Individual participation link</source>
