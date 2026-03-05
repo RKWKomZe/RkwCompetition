@@ -6,20 +6,7 @@
     <f:layout name="Default" />
 
     <f:section name="content">
-        <div id="typo3-docheader">
-            <div class="typo3-docheader-functions">
-                <div class="left">
-                    <f:link.action class="btn btn-default" action="show" arguments="{competition: register.competition}">
-                        <core:icon identifier="actions-view-go-back" /> <f:translate key="templates_backend_registerDetail.back" />
-                    </f:link.action>
-                </div>
-                <div class="right"></div>
-            </div>
-            <div class="typo3-docheader-buttons">
-                <div class="left"></div>
-                <div class="right"></div>
-            </div>
-        </div>
+        <f:render partial="Breadcrumbs" arguments="{_all}" />
 
         <div class="row">
             <div class="col-sm-12">

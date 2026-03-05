@@ -1271,6 +1271,18 @@
             <trans-unit id="tx_rkwcompetition_fluid.templates_backend_show.back">
                 <source>Back</source>
             </trans-unit>
+            <trans-unit id="templates_backend_breadcrumbs.here">
+                <source>You are here:</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_breadcrumbs.list">
+                <source>Competitions</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_breadcrumbs.show">
+                <source>%s</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_breadcrumbs.registerDetail">
+                <source>Competition participants</source>
+            </trans-unit>
             <trans-unit id="templates_backend_show.noCompetitionSelected">
                 <source>No competition selected</source>
             </trans-unit>

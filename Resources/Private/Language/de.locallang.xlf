@@ -1362,6 +1362,22 @@
                 <source>Back</source>
                 <target>Zurück zum Wettbewerb</target>
             </trans-unit>
+            <trans-unit id="templates_backend_breadcrumbs.here">
+                <source>You are here:</source>
+                <target>Sie sind hier:</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_breadcrumbs.list">
+                <source>Competitions</source>
+                <target>Wettbewerbe</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_breadcrumbs.show">
+                <source>%s</source>
+                <target>%s</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_breadcrumbs.registerDetail">
+                <source>Competition participants</source>
+                <target>Wettbewerbsteilnehmer</target>
+            </trans-unit>
             <trans-unit id="templates_backend_show.noCompetitionSelected">
                 <source>No competition selected</source>
                 <target>Kein Wettbewerb ausgewählt</target>
