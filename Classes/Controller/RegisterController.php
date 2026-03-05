@@ -268,6 +268,7 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
         // @toDo: Check for logged in user
 
         $this->view->assign('register', $register);
+        $this->view->assign('competition', $register->getCompetition());
     }
 
 

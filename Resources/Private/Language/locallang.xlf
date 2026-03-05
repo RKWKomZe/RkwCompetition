@@ -37,8 +37,8 @@
 			<trans-unit id="tx_rkwcompetition_domain_model_register.last_name">
 				<source>Last Name</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_register.institution">
-                <source>Institution (Hochschule, Institution, Firma)</source>
+   <trans-unit id="tx_rkwcompetition_domain_model_register.institution">
+                <source>Institution</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.address">
                 <source>Address</source>
@@ -56,10 +56,10 @@
                 <source>Email</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.contribution_title">
-                <source>Contribution Title (Titel des Beitrags)</source>
+                <source>Contribution Title</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.type_of_work">
-                <source>Type Of Work (Art der Arbeit (Einzel- oder Gruppenarbeit))</source>
+                <source>Type Of Work</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.type_of_work.I.99" approved="yes">
                 <source>-- Please select --</source>
@@ -71,25 +71,25 @@
                 <source>Group work</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.sector">
-                <source>Sector (Wettbewerbsbereich)</source>
+                <source>Sector</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.remark">
                 <source>Remark</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.privacy">
-                <source>Privacy (Zustimmung zur Datenschutzerklärung)</source>
+                <source>Privacy</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.conditions_of_participation">
-                <source>Conditions Of Participation (Zustimmung zu Teilnahmebedingungen)</source>
+                <source>Conditions Of Participation</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.is_group_work">
                 <source>Is Group Work</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.group_work_insurance">
-                <source>Group Work Insurance (Eidesstattliche Versicherung, dass im Namen den anderen Gruppenmitglieder Anmeldung zulässig)</source>
+                <source>Group Work Insurance</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.group_work_add_persons">
-                <source>Group Work Add Persons (Namen der anderen Gruppenmitglieder (Anrede, Titel, Vorname und Nachname))</source>
+                <source>Group Work Add Persons</source>
             </trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_register.upload">
 				<source>Upload</source>
@@ -421,7 +421,6 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.please_choose" approved="yes">
                 <source>-- Please select --</source>
-                <target>-- Bitte wählen --</target>
             </trans-unit>
 
             <!-- TEMPLATES -->
@@ -466,7 +465,6 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_jury_edit.hint">
                 <source>Edit</source>
-                <target><![CDATA[Offenbar haben Sie sich bereits erfolgreich als Jury Mitglied angemeldet und einen speziellen Link für diesen Wettbewerb erhalten. Sollte Ihnen der Link abhanden gekommen sein, helfen wir Ihnen gerne weiter. Bitte wenden Sie sich dafür an den <a href="mailto:service@rkw.de">Support</a>.]]></target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_jury_edit.introduction">
                 <source>Welcome as a new jury member</source>
@@ -557,6 +555,9 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.sector">
                 <source>Sector</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.please_choose">
+                <source>Please select</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.remark">
                 <source>Remark</source>
@@ -1117,294 +1118,320 @@
             <!-- Backend/Layouts/Default.html -->
             <trans-unit id="backend_layouts_default.backToStart">
                 <source>Back to Start</source>
-                <target>Zurück zum Anfang</target>
             </trans-unit>
 
             <!-- Templates/Backend/RegisterDetail.html -->
             <trans-unit id="templates_backend_registerDetail.back">
                 <source>Back</source>
-                <target>Zurück zum Wettbewerb</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.section_work">
+                <source>Contribution</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.section_personal">
+                <source>Personal Data</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.section_contact">
+                <source>Contact / Address</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.section_group_work">
+                <source>Group Work</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.section_status_documents">
+                <source>Status &amp; Documents</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.section_admin">
+                <source>Administration</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.salutation">
+                <source>Salutation</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.salutation.I.1">
+                <source>Mr.</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.salutation.I.2">
+                <source>Mrs.</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.salutation.I.3">
+                <source>Mx</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.title">
+                <source>Title</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.firstName">
+                <source>First Name</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.lastName">
+                <source>Last Name</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.email">
+                <source>Email</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.telephone">
+                <source>Telephone</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.address">
+                <source>Street</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.zip">
+                <source>Zip</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.city">
+                <source>City</source>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.titleOfWork">
                 <source>Title of work</source>
-                <target>Titel der Arbeit</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.institution">
                 <source>Institution</source>
-                <target>Institution</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.sector">
                 <source>Sector</source>
-                <target>Wettbewerbsbereich</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.registerName">
                 <source>Register name</source>
-                <target>Name Bewerber</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.registerContact">
                 <source>Register contact</source>
-                <target>Kontakt Bewerber</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.registerAddress">
                 <source>Register address</source>
-                <target>Adresse Bewerber</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.isGroupWork">
                 <source>Is group work</source>
-                <target>Ist Gruppenarbeit</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.groupWorkInsurance">
                 <source>Group work insurance</source>
-                <target>Eidstattliche Versicherung</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.groupWorkAddPersons">
                 <source>Group work additional persons</source>
-                <target>Gruppenarbeit weitere Personen</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.remark">
                 <source>Remark</source>
-                <target>Anmerkung</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.conditionsAccepted">
                 <source>Conditions accepted</source>
-                <target>Nutzungsbedingungen akzeptiert</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.privacyAccepted">
                 <source>Privacy accepted</source>
-                <target>Datenschutzbestimmungen akzeptiert</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.shortPdf">
                 <source>Short version PDF</source>
-                <target>Kurzfassung PDF (+ Word File?)</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.download">
                 <source>Download</source>
-                <target>Herunterladen</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.noFile">
                 <source>No file</source>
-                <target>Keine Datei vorhanden</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.longPdf">
                 <source>Long version PDF</source>
-                <target>Langfassung PDF (+ Word File?)</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.ownCloudLink">
                 <source>OwnCloud link</source>
-                <target>OwnCloud Link</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.ownCloudPass">
                 <source>OwnCloud password</source>
-                <target>OwnCloud Passwort</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.adminRefusedAt">
                 <source>Refused at:</source>
-                <target>Zurückgewiesen am:</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.adminRefusedBy">
                 <source>Refused by:</source>
-                <target>Zurückgewiesen von:</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.adminApprovedAt">
                 <source>Approved at:</source>
-                <target>Genehmigt am:</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.adminApprovedAt">
                 <source>Approved at:</source>
-                <target>Genehmigt am:</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.adminApprovedBy">
                 <source>Approved by:</source>
-                <target>Genehmigt von:</target>
             </trans-unit>
 			<trans-unit id="templates_backend_registerDetail.notSubmittedYet">
 				<source>Not yet submitted by the user</source>
 			</trans-unit>
             <trans-unit id="templates_backend_registerDetail.alreadyApproved">
                 <source>Already approved</source>
-                <target>Aufgrund bereits erfolgter Genehmigung ist keine Aktion mehr möglich</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.correctData">
                 <source>Correct data</source>
-                <target>Daten korrekt</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.submitHintApprove">
                 <source>Note: Upon submitting, the user will receive an e-mail informing them that the data has been successfully checked.</source>
-                <target>Hinweis: Mit absenden erhält der Nutzer eine E-Mail mit der Information, dass die Daten erfolgreich geprüft wurden.</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.unlock">
                 <source>Unlock</source>
-                <target>Freischalten</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.incompleteData">
                 <source>Incomplete data</source>
-                <target>Daten unvollständig</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.submitHintRefuse">
                 <source>Note: By submitting, the user will receive an e-mail with the information from the completed text field.</source>
-                <target>Hinweis: Mit absenden erhält der Nutzer eine E-Mail mit der Information aus dem ausgefüllten Textfeld.</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.adminRefusedText">
                 <source>Admin refused text</source>
-                <target>Erläuterung zur Zurückweisung der Bewerbung. Dieser Text wird dem Bewerber per E-Mail gesendet.</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.refuse">
                 <source>Refuse</source>
-                <target>Zurückweisen</target>
             </trans-unit>
 
 
             <!-- Templates/Backend/List.html -->
             <trans-unit id="templates_backend_list.headline">
                 <source>Show results</source>
-                <target>Anzeigen der Wettbewerbe</target>
             </trans-unit>
             <trans-unit id="templates_backend_list.intro1">
                 <source>Show results</source>
-                <target>Bitte wählen Sie den Wettbewerb aus, von dem Sie weitere Details betrachten wollen.</target>
             </trans-unit>
             <trans-unit id="templates_backend_list.intro2">
                 <source>Existing competitions:</source>
-                <target>Vorhandene Wettbewerbe:</target>
             </trans-unit>
             <trans-unit id="templates_backend_list.intro10">
                 <source>Show optional competition results.</source>
-                <target>Hier können Sie optional ein spezifisches Wettbewerbsergebnis betrachten.</target>
             </trans-unit>
             <trans-unit id="templates_backend_list.no_competition">
                 <source>No competitions available.</source>
-                <target>Keine Wettbewerbe vorhanden.</target>
             </trans-unit>
             <trans-unit id="templates_backend_list.proceed">
                 <source>Proceed</source>
-                <target>Fortfahren</target>
             </trans-unit>
             <trans-unit id="templates_backend_list.total_data">
                 <source>Total data</source>
-                <target>Gesamtdaten</target>
             </trans-unit>
             <trans-unit id="templates_backend_list.title">
                 <source>Title</source>
-                <target>Titel</target>
             </trans-unit>
             <trans-unit id="templates_backend_list.reg_start">
-                <source>Reg start</source>
-                <target>Reg start</target>
+                <source>Start of registration</source>
             </trans-unit>
             <trans-unit id="templates_backend_list.reg_end">
-                <source>Reg end</source>
-                <target>Reg end</target>
+                <source>End of registration end</source>
             </trans-unit>
             <trans-unit id="templates_backend_list.admin">
                 <source>Admin</source>
-                <target>Admin</target>
             </trans-unit>
             <trans-unit id="templates_backend_list.reg_total">
                 <source>Registered Total</source>
-                <target>Registriert total</target>
             </trans-unit>
             <trans-unit id="templates_backend_list.reg_appr">
                 <source>Registered approved</source>
-                <target>Registrierung genehmigt</target>
             </trans-unit>
             <trans-unit id="templates_backend_list.action">
                 <source>Action</source>
-                <target>Aktion</target>
             </trans-unit>
             <trans-unit id="templates_backend_list.show">
                 <source>Show</source>
-                <target>Anzeigen</target>
             </trans-unit>
 
 
             <!-- Templates/Backend/Show.html -->
             <trans-unit id="tx_rkwcompetition_fluid.templates_backend_show.back">
                 <source>Back</source>
-                <target>Zurück zum Wettbewerb</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_breadcrumbs.here">
+                <source>You are here:</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_breadcrumbs.list">
+                <source>Competitions</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_breadcrumbs.show">
+                <source>%s</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_breadcrumbs.registerDetail">
+                <source>Competition participants</source>
             </trans-unit>
             <trans-unit id="templates_backend_show.noCompetitionSelected">
                 <source>No competition selected</source>
-                <target>Kein Wettbewerb ausgewählt</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.registrationsTotal">
                 <source>Registrations total:</source>
-                <target>Registrierungen total:</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.finishedRegistrations">
                 <source>Finished registrations:</source>
-                <target>Abgeschlossene Registrierungen:</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.refusedRegistrations">
                 <source>Refused registrations:</source>
-                <target>Abgelehnte Registrierungen:</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.regStart">
                 <source>Reg start:</source>
-                <target>Reg start:</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.regEnd">
                 <source>Reg end:</source>
-                <target>Reg end:</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.confirmedJuryMember">
                 <source>Confirmed jury member</source>
-                <target>Bestätigte Jury-Mitglieder</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.confirmedJuryMemberExplained">
                 <source>In addition to an overview of the jury members confirmed so far, you also have access to the individual link of each jury member to the competition (in case it has been lost, for example).</source>
-                <target>Neben einer Übersicht über die bisher bestätigten Jury-Mitglieder haben Sie hier außerdem Zugriff auf den individuellen Link jedes Jury-Mitglieds zum Wettbewerb (falls dieser z.B. verloren gegangen ist).</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.confirmedJuryMemberHint">
                 <source>Note: Each jury member has an individual link that is linked to their e-mail address. Links of different jury members should therefore not be interchanged.</source>
-                <target>Hinweis: Jedes Jury-Mitglied hat einen individuellen Link, der mit dessen E-Mail Adresse verknüpft ist. Links verschiedener Jury-Mitglieder sollten daher nicht vertauscht werden.</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.name">
                 <source>Name</source>
-                <target>Name, Vorname</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.email">
                 <source>E-Mail</source>
-                <target>E-Mail</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.title">
                 <source>Title</source>
-                <target>Titel</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.sector">
                 <source>Sector</source>
-                <target>Sektor</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.status">
                 <source>Status</source>
-                <target>Status</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.action">
                 <source>Action</source>
-                <target>Aktion</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.juryEmail">
                 <source>E-Mail</source>
-                <target>E-Mail</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.juryInviteMailDate">
                 <source>Invitation email received on</source>
-                <target>Einladungsmail erhalten am</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.juryAgreement">
                 <source>Consent to participation</source>
-                <target>Zustimmung zur Teilnahme</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.juryLink">
                 <source>Direct link of the jury member</source>
-                <target>Direktlink des Jurymitglieds</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.registrations">
+                <source>Registrations</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.id">
+                <source>ID</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.status.approved">
+                <source>Approved</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.status.submitted">
+                <source>Submitted</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.status.refused">
+                <source>Refused</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.status.new">
+                <source>New</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.show">
+                <source>Show</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.login">
+                <source>Login</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.approve">
+                <source>Approve</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.refuse">
+                <source>Refuse</source>
             </trans-unit>
             <trans-unit id="templates_backend_show.juryIndividualInviteLink">
                 <source>Individual participation link</source>
-                <target>Individueller Teilnahme-Link</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.juryNotConfirmed">
                 <source>Not yet confirmed</source>
-                <target>Noch nicht bestätigt</target>
             </trans-unit>
 
 

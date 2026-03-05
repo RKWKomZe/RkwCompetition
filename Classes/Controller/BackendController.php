@@ -58,6 +58,7 @@ class BackendController extends \RKW\RkwCompetition\Controller\AbstractControlle
     {
         // @toDo: Es werden nur Wettbewerbe angezeigt, für die die Abgabefrist noch nicht abgelaufen ist (siehe #4198 ) UND für die der BE-User als Admin eingetragen ist
 
+        $this->view->assign('action', 'list');
         $this->view->assign('competitionList', $this->competitionRepository->findAll());
     }
 
@@ -73,7 +74,7 @@ class BackendController extends \RKW\RkwCompetition\Controller\AbstractControlle
 
         // @toDo: Count FINISHED registrations by competition
 
-
+        $this->view->assign('action', 'show');
         $registerList = $this->registerRepository->findByCompetition($competition);
 
         $this->view->assign('competition', $competition);
@@ -117,6 +118,8 @@ class BackendController extends \RKW\RkwCompetition\Controller\AbstractControlle
     {
         //DebuggerUtility::var_dump($register->getUpload()->getAbstract()->getOriginalResource()->getOriginalFile()); exit;
 
+        $this->view->assign('action', 'registerDetail');
+        $this->view->assign('competition', $register->getCompetition());
         $this->view->assign('register', $register);
     }
 
