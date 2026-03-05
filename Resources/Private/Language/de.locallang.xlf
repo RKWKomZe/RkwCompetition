@@ -500,6 +500,10 @@
                 <source>Sector</source>
                 <target>Wettbewerbsbereich</target>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.please_choose">
+                <source>Please select</source>
+                <target>Bitte wählen</target>
+            </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.remark">
                 <source>Remark</source>
                 <target>Anmerkung</target>

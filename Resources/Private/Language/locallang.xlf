@@ -556,6 +556,9 @@
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.sector">
                 <source>Sector</source>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.please_choose">
+                <source>Please select</source>
+            </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.remark">
                 <source>Remark</source>
             </trans-unit>

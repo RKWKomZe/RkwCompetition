@@ -123,7 +123,14 @@
                 {register.contributionTitle}
             </td>
             <td>
-                {register.sector.title}
+                <f:if condition="{register.sector}">
+                    <f:then>
+                        {register.sector.title}
+                    </f:then>
+                    <f:else>
+                        -
+                    </f:else>
+                </f:if>
             </td>
             <td>
                 <f:if condition="<rkw:registerStatus register='{register}' /> == 500">

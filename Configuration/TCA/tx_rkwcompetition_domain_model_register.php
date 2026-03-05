@@ -244,11 +244,14 @@ return [
             'exclude' => true,
             'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register.sector',
             'config' => [
-                'type' => 'input',
-                'size' => 4,
-                'eval' => 'int',
-                'default' => 0
-            ]
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'tx_rkwcompetition_domain_model_sector',
+                'items' => [
+                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.none', 0],
+                ],
+                'default' => 0,
+            ],
         ],
         'remark' => [
             'exclude' => true,
@@ -447,6 +450,6 @@ return [
                 'type' => 'passthrough',
             ],
         ],
-    
+
     ],
 ];

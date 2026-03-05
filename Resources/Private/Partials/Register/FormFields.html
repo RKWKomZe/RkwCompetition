@@ -117,7 +117,6 @@
 			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.sector" />
 			<f:render partial="LabelSuffix" arguments="{field: 'sector', mandatoryFields: settings.mandatoryFields.register}" />
 		</label>
-		<!-- @todo: PleaseChoose locallang -->
 		<f:form.select
 				class="select-field"
 				id="sector"
@@ -127,7 +126,7 @@
 				optionValueField="uid"
 				optionLabelField="title"
 				prependOptionValue="0"
-				prependOptionLabel="Bitte wählen"
+				prependOptionLabel="{f:translate(key: 'tx_rkwcompetition_fluid.templates_register_new.please_choose')}"
 		/>
 	</div>
 
@@ -185,6 +184,7 @@
 	<div class="form__field width50" id="groupInsurance">
 		<f:form.checkbox
 				class="checkbox"
+				id="groupWorkInsurance"
 				property="groupWorkInsurance"
 				value="1"
 		/>

@@ -34,7 +34,16 @@
                                         </tr>
                                         <tr>
                                             <th><f:translate key="templates_backend_registerDetail.sector" /></th>
-                                            <td>{register.sector.title}</td>
+                                            <td>
+                                                <f:if condition="{register.sector}">
+                                                    <f:then>
+                                                        {register.sector.title}
+                                                    </f:then>
+                                                    <f:else>
+                                                        -
+                                                    </f:else>
+                                                </f:if>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th><f:translate key="templates_backend_registerDetail.remark" /></th>
