@@ -37,8 +37,8 @@
 			<trans-unit id="tx_rkwcompetition_domain_model_register.last_name">
 				<source>Last Name</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_register.institution">
-                <source>Institution (Hochschule, Institution, Firma)</source>
+   <trans-unit id="tx_rkwcompetition_domain_model_register.institution">
+                <source>Institution</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.address">
                 <source>Address</source>
@@ -56,10 +56,10 @@
                 <source>Email</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.contribution_title">
-                <source>Contribution Title (Titel des Beitrags)</source>
+                <source>Contribution Title</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.type_of_work">
-                <source>Type Of Work (Art der Arbeit (Einzel- oder Gruppenarbeit))</source>
+                <source>Type Of Work</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.type_of_work.I.99" approved="yes">
                 <source>-- Please select --</source>
@@ -71,25 +71,25 @@
                 <source>Group work</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.sector">
-                <source>Sector (Wettbewerbsbereich)</source>
+                <source>Sector</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.remark">
                 <source>Remark</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.privacy">
-                <source>Privacy (Zustimmung zur Datenschutzerklärung)</source>
+                <source>Privacy</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.conditions_of_participation">
-                <source>Conditions Of Participation (Zustimmung zu Teilnahmebedingungen)</source>
+                <source>Conditions Of Participation</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.is_group_work">
                 <source>Is Group Work</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.group_work_insurance">
-                <source>Group Work Insurance (Eidesstattliche Versicherung, dass im Namen den anderen Gruppenmitglieder Anmeldung zulässig)</source>
+                <source>Group Work Insurance</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.group_work_add_persons">
-                <source>Group Work Add Persons (Namen der anderen Gruppenmitglieder (Anrede, Titel, Vorname und Nachname))</source>
+                <source>Group Work Add Persons</source>
             </trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_register.upload">
 				<source>Upload</source>
@@ -1120,6 +1120,60 @@
             <!-- Templates/Backend/RegisterDetail.html -->
             <trans-unit id="templates_backend_registerDetail.back">
                 <source>Back</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.section_work">
+                <source>Contribution</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.section_personal">
+                <source>Personal Data</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.section_contact">
+                <source>Contact / Address</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.section_group_work">
+                <source>Group Work</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.section_status_documents">
+                <source>Status &amp; Documents</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.section_admin">
+                <source>Administration</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.salutation">
+                <source>Salutation</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.salutation.I.1">
+                <source>Mr.</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.salutation.I.2">
+                <source>Mrs.</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.salutation.I.3">
+                <source>Mx</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.title">
+                <source>Title</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.firstName">
+                <source>First Name</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.lastName">
+                <source>Last Name</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.email">
+                <source>Email</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.telephone">
+                <source>Telephone</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.address">
+                <source>Street</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.zip">
+                <source>Zip</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.city">
+                <source>City</source>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.titleOfWork">
                 <source>Title of work</source>

@@ -97,6 +97,78 @@
                 <source>Full</source>
                 <target>Langfassung</target>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.institution">
+                <source>Institution</source>
+                <target>Hochschule, Institution, Firma</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.address">
+                <source>Address</source>
+                <target>Adresse</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.zip">
+                <source>Zip</source>
+                <target>PLZ</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.city">
+                <source>City</source>
+                <target>Ort</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.telephone">
+                <source>Telephone</source>
+                <target>Telefon</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.email">
+                <source>Email</source>
+                <target>E-Mail</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.contribution_title">
+                <source>Contribution Title</source>
+                <target>Titel des Beitrags</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.type_of_work">
+                <source>Type Of Work</source>
+                <target>Art der Arbeit (Einzel- oder Gruppenarbeit)</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.type_of_work.I.99" approved="yes">
+                <source>-- Please select --</source>
+                <target>-- Bitte wählen --</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.type_of_work.I.1" approved="yes">
+                <source>Individual work</source>
+                <target>Einzelarbeit</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.type_of_work.I.2" approved="yes">
+                <source>Group work</source>
+                <target>Gruppenarbeit</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.sector">
+                <source>Sector</source>
+                <target>Wettbewerbsbereich</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.remark">
+                <source>Remark</source>
+                <target>Anmerkung</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.privacy">
+                <source>Privacy</source>
+                <target>Zustimmung zur Datenschutzerklärung</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.conditions_of_participation">
+                <source>Conditions Of Participation</source>
+                <target>Zustimmung zu Teilnahmebedingungen</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.is_group_work">
+                <source>Is Group Work</source>
+                <target>Ist Gruppenarbeit</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.group_work_insurance">
+                <source>Group Work Insurance</source>
+                <target>Eidesstattliche Versicherung, dass im Namen den anderen Gruppenmitglieder Anmeldung zulässig</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.group_work_add_persons">
+                <source>Group Work Add Persons</source>
+                <target>Namen der anderen Gruppenmitglieder (Anrede, Titel, Vorname und Nachname)</target>
+            </trans-unit>
 
 
             <!-- ==================================================================================== -->
@@ -1164,6 +1236,78 @@
                 <source>Back</source>
                 <target>Zurück zum Wettbewerb</target>
             </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.section_work">
+                <source>Contribution</source>
+                <target>Wettbewerbsbeitrag</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.section_personal">
+                <source>Personal Data</source>
+                <target>Persönliche Daten</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.section_contact">
+                <source>Contact / Address</source>
+                <target>Kontaktdaten / Anschrift</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.section_group_work">
+                <source>Group Work</source>
+                <target>Gruppenarbeit</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.section_status_documents">
+                <source>Status &amp; Documents</source>
+                <target>Status &amp; Dokumente</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.section_admin">
+                <source>Administration</source>
+                <target>Administration</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.salutation">
+                <source>Salutation</source>
+                <target>Anrede</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.salutation.I.1">
+                <source>Mr.</source>
+                <target>Herr</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.salutation.I.2">
+                <source>Mrs.</source>
+                <target>Frau</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.salutation.I.3">
+                <source>Mx</source>
+                <target>Divers</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.title">
+                <source>Title</source>
+                <target>Titel</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.firstName">
+                <source>First Name</source>
+                <target>Vorname</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.lastName">
+                <source>Last Name</source>
+                <target>Nachname</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.email">
+                <source>Email</source>
+                <target>E-Mail</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.telephone">
+                <source>Telephone</source>
+                <target>Telefon</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.address">
+                <source>Street</source>
+                <target>Straße</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.zip">
+                <source>Zip</source>
+                <target>PLZ</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.city">
+                <source>City</source>
+                <target>Ort</target>
+            </trans-unit>
             <trans-unit id="templates_backend_registerDetail.titleOfWork">
                 <source>Title of work</source>
                 <target>Titel der Arbeit</target>
@@ -1243,10 +1387,6 @@
             <trans-unit id="templates_backend_registerDetail.adminRefusedBy">
                 <source>Refused by:</source>
                 <target>Zurückgewiesen von:</target>
-            </trans-unit>
-            <trans-unit id="templates_backend_registerDetail.adminApprovedAt">
-                <source>Approved at:</source>
-                <target>Genehmigt am:</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.adminApprovedAt">
                 <source>Approved at:</source>

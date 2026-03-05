@@ -112,7 +112,9 @@
                 {register.uid}
             </td>
             <td>
-                {register.lastName}, {register.firstName}
+                <f:link.action action="registerDetail" arguments="{register: register}">
+                    {register.lastName}, {register.firstName}
+                </f:link.action>
             </td>
             <td>
                 {register.email}
