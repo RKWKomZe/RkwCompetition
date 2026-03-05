@@ -976,20 +976,23 @@
 
 
             <!-- Templates/Email/FrontendUser/Upload.html -->
-            <trans-unit id="templates_email_frontendUser_submit.headline">
+            <trans-unit id="templates_email_frontendUser_upload.headline">
                 <source>Hello %s %s,</source>
             </trans-unit>
-            <trans-unit id="templates_email_frontendUser_submit.text1">
+            <trans-unit id="templates_email_frontendUser_upload.text1">
                 <source>thanks for your registration.</source>
             </trans-unit>
-            <trans-unit id="templates_email_frontendUser_submit.text2">
+            <trans-unit id="templates_email_frontendUser_upload.text2">
                 <source>Please upload your files.</source>
             </trans-unit>
-            <trans-unit id="templates_email_frontendUser_submit.text3">
+            <trans-unit id="templates_email_frontendUser_upload.text3">
                 <source>Login here to take a look to your registration.</source>
             </trans-unit>
-            <trans-unit id="templates_email_frontendUser_submit.showHeadline">
+            <trans-unit id="templates_email_frontendUser_upload.showHeadline">
                 <source>Show registration</source>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_upload.changeDeleteHeadline">
+                <source>Change / Delete</source>
             </trans-unit>
 
             <!-- Templates/Email/FrontendUser/JuryNotify.html -->

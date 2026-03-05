@@ -1,14 +1,22 @@
-{namespace postmaster=Madj2k\Postmaster\ViewHelpers}
-{namespace rkw=RKW\RkwCompetition\ViewHelpers}
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	  xmlns:postmaster="http://typo3.org/ns/Madj2k/Postmaster/ViewHelpers"
+	  xmlns:rkw="http://typo3.org/ns/RKW/RkwCompetition/ViewHelpers"
+	  data-namespace-typo3-fluid="true">
 <f:layout name="Email/{mailType}" />
 
 
 <!-- PLAINTEXT -->
 <f:section name="Plaintext">
+	<postmaster:email.translate key="templates_email_frontendUser_upload.headline" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" arguments="{0 : frontendUser.firstName, 1: frontendUser.lastName}" />
 
-	<!-- Plaintext area -->
-	Plaintext
+	<postmaster:email.translate key="templates_email_frontendUser_upload.text1" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
+	<postmaster:email.translate key="templates_email_frontendUser_upload.text2" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
 
+	<f:translate key="templates_email_frontendUser_upload.showHeadline" extensionName="rkwCompetition" />:
+	<postmaster:email.uri.action absolute="true" pageUid="{competitionPid}" action="show" controller="Competition" extensionName="rkwCompetition" pluginName="competition" additionalParams="{tx_rkwcompetition_competition: {competition: register.competition.uid}}" />
+
+	<postmaster:email.translate key="templates_email_frontendUser_upload.changeDeleteHeadline" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
+	<postmaster:email.uri.page absolute="true" pageUid="{loginPid}" />
 </f:section>
 
 <!-- HTML -->
@@ -20,8 +28,6 @@
 	</p>
 
 	<p>
-		Vielen Dank für Ihre Anmeldung. Bitte laden Sie nun entsprechende Unterlagen hoch.
-		@toDo: Link zu Loginbereich mit Api Link
 		<a href="<postmaster:email.uri.action absolute='true' pageUid='{competitionPid}' action='show' controller='Competition' extensionName='rkwCompetition' pluginName='competition' additionalParams='{tx_rkwcompetition_competition: {competition: register.competition.uid}}' />" target="_blank">
 			{register.competition.title}
 		</a>
@@ -32,3 +38,4 @@
 		<a href="<postmaster:email.uri.page absolute='true' pageUid='{loginPid}' />" target="_blank"><postmaster:email.translate key="templates_email_frontendUser_upload.text3" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" /></a>
 	</p>
 </f:section>
+</html>
