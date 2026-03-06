@@ -130,6 +130,8 @@ class IncompleteUserRegistrationCommand extends Command
 
                     if ($registerList = $this->registerRepository->findUnsubmittedByCompetition($competition)) {
 
+                        $io->note('Unsubmitted registrations found: ' . $registerList->count());
+
                         // send mails
                         /** @var RkwMailService $mailService */
                         $mailService = GeneralUtility::makeInstance(RkwMailService::class);
