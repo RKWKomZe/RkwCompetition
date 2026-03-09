@@ -255,35 +255,38 @@
     <f:section name="formArea">
         <div class="row">
             <div class="col-sm-6">
+                <fieldset id="fieldset-odd">
                     <div class="panel panel-default">
                         <div class="panel-heading"><f:translate key="templates_backend_registerDetail.approve" /></div>
                         <div class="panel-body">
-                            <f:form action="approve" name="register" object="{register}" class="safety-submit">
+                            <f:form action="approve" name="register" object="{register}" class="safety-submit" id="form-odd" additionalAttributes="{data-confirm: '{f:translate(key: \'templates_backend_registerDetail.safety_question_approve\')}'}">
                                 <div class="form-group">
                                     <div class="checkbox">
                                         <label>
-                                            <f:form.checkbox name="adminApproved" property="adminApproved" value="1" />
+                                            <f:form.checkbox name="adminApproved" property="adminApproved" value="1" class="toggle-form-button" />
                                             <strong><f:translate key="templates_backend_registerDetail.correctData" /></strong>
                                         </label>
                                     </div>
                                     <p class="help-block"><f:translate key="templates_backend_registerDetail.submitHintApprove" /></p>
                                 </div>
                                 <button type="submit" class="btn btn-primary" disabled>
-                                    <core:icon identifier="actions-check" /> <f:translate key="templates_backend_registerDetail.unlock" />
+                                    <core:icon identifier="actions-check" /> <f:translate key="templates_backend_registerDetail.approve" />
                                 </button>
                             </f:form>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-6">
+                </fieldset>
+            </div>
+            <div class="col-sm-6">
+                <fieldset id="fieldset-even">
                     <div class="panel panel-danger">
                         <div class="panel-heading"><f:translate key="templates_backend_registerDetail.refuse" /></div>
                         <div class="panel-body">
-                            <f:form action="refuse" name="register" object="{register}" class="safety-submit">
+                            <f:form action="refuse" name="register" object="{register}" class="safety-submit" id="form-even" additionalAttributes="{data-confirm: '{f:translate(key: \'templates_backend_registerDetail.safety_question_refuse\')}'}">
                                 <div class="form-group">
                                     <div class="checkbox">
                                         <label>
-                                            <f:form.checkbox name="adminRefused" property="adminRefused" value="1" />
+                                            <f:form.checkbox name="adminRefused" property="adminRefused" value="1" class="toggle-form-button" />
                                             <strong><f:translate key="templates_backend_registerDetail.incompleteData" /></strong>
                                         </label>
                                     </div>
@@ -296,9 +299,10 @@
                                 <button type="submit" class="btn btn-danger" disabled>
                                     <core:icon identifier="actions-close" /> <f:translate key="templates_backend_registerDetail.refuse" />
                                 </button>
-                            </f:form>
+                                </f:form>
+                            </div>
                         </div>
-                    </div>
+                    </fieldset>
                 </div>
             </div>
     </f:section>

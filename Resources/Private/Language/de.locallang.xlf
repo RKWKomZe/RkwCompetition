@@ -772,7 +772,7 @@
             </trans-unit>
             <trans-unit id="rkwMailService.frontendUser.subject.approved">
                 <source>Registration approved</source>
-                <target>Wettbewerbsregistrierung genehmigt</target>
+                <target>Wettbewerbsregistrierung angenommen</target>
             </trans-unit>
             <trans-unit id="rkwMailService.frontendUser.subject.refused">
                 <source>Registration refused</source>
@@ -964,11 +964,11 @@
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_approved.text1">
                 <source>There is news about a competition organised by RKW.</source>
-                <target>es gibt Neuigkeiten zu einem Wettbewerb des RKW.</target>
+                <target>wir haben Ihren Beitrag zum Wettbewerb %s angenommen. Gemeinsam mit unserer Jury werden wir Ihren Beitrag begutachten und Sie über die getroffenen Entscheidungen benachrichtigen. Wir wünschen Ihnen viel Erfolg!</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_approved.text2">
                 <source>Your registration has been approved:</source>
-                <target>Ihre Registrierung wurde akzeptiert und final genehmigt:</target>
+                <target></target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_approved.text3">
                 <source>Login here to take a look to your registration.</source>
@@ -988,11 +988,11 @@
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_refused.text1">
                 <source>There is news about a competition organised by RKW.</source>
-                <target>es gibt Neuigkeiten zu einem Wettbewerb des RKW.</target>
+                <target>zu unserem Bedauern mussten wir Ihren Beitrag zum Wettbewerb %s ablehnen. Bite entnehmen Sie dem folgenden Text weitere Details:</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_refused.text2">
                 <source>Your registration has been refused:</source>
-                <target>Ihre Registrierung wurde vorläufig abgelehnt:</target>
+                <target></target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_refused.text3">
                 <source>Login here to take a look to your registration.</source>
@@ -1004,7 +1004,7 @@
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_refused.reason">
                 <source>Reason:</source>
-                <target>Begründung:</target>
+                <target></target>
             </trans-unit>
 
 
@@ -1425,8 +1425,8 @@
                 <target>Hinweis: Mit Absenden erhält der Nutzer eine E-Mail mit der Information, dass die Daten erfolgreich geprüft wurden.</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.unlock">
-                <source>Unlock</source>
-                <target>Freischalten</target>
+                <source>Approve</source>
+                <target>Genehmigen</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.incompleteData">
                 <source>Incomplete data</source>
@@ -1442,7 +1442,7 @@
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.refuse">
                 <source>Refuse</source>
-                <target>Zurückweisen</target>
+                <target>Ablehnen</target>
             </trans-unit>
 
 
@@ -1645,6 +1645,14 @@
             <trans-unit id="templates_backend_registerDetail.refuse">
                 <source>Refuse</source>
                 <target>Ablehnen</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.safety_question_approve">
+                <source>Are you sure you want to approve this registration?</source>
+                <target>Sind Sie sicher, dass Sie diese Anmeldung genehmigen möchten? Der Teilnehmer wird darüber per E-Mail informiert.</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.safety_question_refuse">
+                <source>Are you sure you want to refuse this registration?</source>
+                <target>Sind Sie sicher, dass Sie diese Anmeldung ablehnen möchten? Der Teilnehmer wird darüber per E-Mail informiert.</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.juryIndividualInviteLink">
                 <source>Individual participation link</source>

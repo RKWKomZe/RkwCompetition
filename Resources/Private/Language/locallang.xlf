@@ -1266,7 +1266,7 @@
                 <source>Note: Upon submitting, the user will receive an e-mail informing them that the data has been successfully checked.</source>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.unlock">
-                <source>Unlock</source>
+                <source>Approve</source>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.incompleteData">
                 <source>Incomplete data</source>
@@ -1432,6 +1432,12 @@
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.refuse">
                 <source>Refuse</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.safety_question_approve">
+                <source>Are you sure you want to approve this registration?</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.safety_question_refuse">
+                <source>Are you sure you want to refuse this registration?</source>
             </trans-unit>
             <trans-unit id="templates_backend_show.juryIndividualInviteLink">
                 <source>Individual participation link</source>
