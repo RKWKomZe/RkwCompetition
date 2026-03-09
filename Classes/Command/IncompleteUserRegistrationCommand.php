@@ -94,6 +94,13 @@ class IncompleteUserRegistrationCommand extends Command
                 InputOption::VALUE_REQUIRED,
                 'Defines the length of one interval to send e-mails as reminder for the user to complete and submit their registration.',
                 86400
+            )
+            ->addOption(
+                'rootPageUid',
+                'r',
+                InputOption::VALUE_OPTIONAL,
+                'The root page UID to use for loading TypoScript settings.',
+                0
             );
     }
 
@@ -115,6 +122,7 @@ class IncompleteUserRegistrationCommand extends Command
         $io->newLine();
 
         $timeInterval = $input->getOption('timeInterval');
+        $rootPageUid = (int)$input->getOption('rootPageUid');
 
         $result = 0;
         try {
@@ -135,7 +143,7 @@ class IncompleteUserRegistrationCommand extends Command
                         // send mails
                         /** @var RkwMailService $mailService */
                         $mailService = GeneralUtility::makeInstance(RkwMailService::class);
-                        $mailService->incompleteRegisterUser($registerList);
+                        $mailService->incompleteRegisterUser($registerList, $rootPageUid);
 
                         $io->note("\t" . 'competitionUid: ' . $competition->getUid());
 
