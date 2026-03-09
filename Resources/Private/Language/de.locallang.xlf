@@ -1014,14 +1014,18 @@
                 <target>Hallo %s %s,</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_incomplete.text1">
-                <source>This is a reminder about a competition organised by RKW.</source>
-                <target>dies ist eine Erinnerung zu einem Wettbewerb des RKW.</target>
+                <source>This is a reminder about the competition %s you have registered for.</source>
+                <target>dies ist eine Erinnerung zum Wettbewerb %s, zu dem Sie sich angemeldet haben.</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_incomplete.text2">
-                <source>Your registration is unsubmitted yet:</source>
-                <target>Sie haben Ihre Anmeldung bisher nicht finalisiert und eingereicht. Benötigen Sie Hilfe oder haben Sie Fragen?</target>
+                <source>Your registration is unfortunately not yet complete. Please feel free to provide the remaining information and finally submit your registration to us.</source>
+                <target>Ihre Anmeldung ist leider noch nicht vollständig. Machen Sie doch gerne noch die restlichen Angaben und reichen Sie Ihre Anmeldung final bei uns ein.</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_incomplete.text3">
+                <source>If you need help or have any questions, please feel free to reply directly to this email.</source>
+                <target>Sofern Sie Hilfe benötigen oder Fragen haben, antworten Sie gerne direkt auf diese Mail.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_incomplete.text4">
                 <source>Login here to take a look to your registration.</source>
                 <target>Loggen Sie sich hier ein, um Ihre Angaben im Detail anzusehen und Ihre Unterlagen zu aktualisieren.</target>
             </trans-unit>

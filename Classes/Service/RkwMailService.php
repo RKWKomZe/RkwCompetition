@@ -2,6 +2,7 @@
 
 namespace RKW\RkwCompetition\Service;
 
+use Madj2k\CoreExtended\Utility\FrontendSimulatorUtility;
 use Madj2k\CoreExtended\Utility\GeneralUtility as Common;
 use Madj2k\FeRegister\Domain\Model\BackendUser;
 use Madj2k\FeRegister\Domain\Model\FrontendUser;
@@ -10,6 +11,8 @@ use Madj2k\Postmaster\Mail\MailMessage;
 use RKW\RkwCompetition\Domain\Model\JuryReference;
 use RKW\RkwCompetition\Domain\Model\Register;
 use SJBR\StaticInfoTables\Domain\Model\Language;
+use TYPO3\CMS\Core\Log\LogManager;
+use TYPO3\CMS\Core\Log\LogLevel;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
@@ -114,6 +117,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      * Handles incomplete mail for user (unsubmitted registration)
      *
      * @param \TYPO3\CMS\Extbase\Persistence\QueryResultInterface $registerList
+     * @param int $rootPageUid
      * @return void
      * @throws \Madj2k\Postmaster\Exception
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
@@ -121,18 +125,47 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
      */
-    public function incompleteRegisterUser(\TYPO3\CMS\Extbase\Persistence\QueryResultInterface $registerList) :void
+    public function incompleteRegisterUser(\TYPO3\CMS\Extbase\Persistence\QueryResultInterface $registerList, int $rootPageUid = 1) :void
     {
-        /** @var \RKW\RkwCompetition\Domain\Model\Register $register */
-        foreach ($registerList as $register) {
+        if (!$rootPageUid) {
+            $settingsDefault = $this->getSettings();
 
-            // @toDo: Check if frontendUser is set? (It's null if user was deleted)
-
-            // send submitted
-            $this->frontendUserMail($register->getFrontendUser(), $register, 'incomplete');
-
+            //  get RootPageUid for the current site
+            $rootPageUid = (int)($settingsDefault['rootPageUid'] ?? 1);
         }
 
+        try {
+            FrontendSimulatorUtility::simulateFrontendEnvironment($rootPageUid);
+
+            /** @var \RKW\RkwCompetition\Domain\Model\Register $register */
+            foreach ($registerList as $register) {
+
+                try {
+                    $frontendUser = $register->getFrontendUser();
+                    if ($frontendUser instanceof \Madj2k\FeRegister\Domain\Model\FrontendUser) {
+                        // send submitted
+                        $this->frontendUserMail($frontendUser, $register, 'incomplete');
+                    } else {
+                        throw new \Exception(
+                            sprintf('No frontend user found for register %s', $register->getUid()),
+                            1619602353
+                        );
+                    }
+                } catch (\Exception $e) {
+                    GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(
+                        LogLevel::ERROR,
+                        $e->getMessage()
+                    );
+                }
+            }
+        } catch (\Exception $e) {
+            GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(
+                LogLevel::ERROR,
+                $e->getMessage()
+            );
+        } finally {
+            FrontendSimulatorUtility::resetFrontendEnvironment();
+        }
     }
 
 
@@ -157,8 +190,8 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
     ) :void
     {
         // get settings
-        $settings = $this->getSettings(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
         $settingsDefault = $this->getSettings();
+        $settings = $this->getSettings(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 
         if ($settings['view']['templateRootPaths']) {
 
@@ -374,10 +407,11 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
         string $action = ''
     ) :void
     {
-        // get settings
-        $settings = $this->getSettings(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-        $settingsDefault = $this->getSettings();
-        $showPid = intval($settingsDefault['showPid']);
+
+        // 2. Jetzt die Framework-Settings laden - diese werden nun von $rootPageUid gezogen
+        $settings = $this->getSettings(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+        $settingsDefault = $settings['settings'] ?? [];
+        $showPid = (int)($settingsDefault['showPid'] ?? 0);
 
         if ($settings['view']['templateRootPaths']) {
 
@@ -394,11 +428,11 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
                     $classNameUnqualified   => $entity,
                     'frontendUser'          => $frontendUser,
                     'pageUid'               => intval($GLOBALS['TSFE']->id),
-                    'competitionPid'        => intval($settingsDefault['competitionPid']),
-                    'loginPid'              => intval($settingsDefault['loginPid']),
-                    'juryPid'               => intval($settingsDefault['juryPid']),
+                    'competitionPid'        => intval($settingsDefault['competitionPid'] ?? 0),
+                    'loginPid'              => intval($settingsDefault['loginPid'] ?? 0),
+                    'juryPid'               => intval($settingsDefault['juryPid'] ?? 0),
                     'showPid'               => $showPid,
-                    'uniqueKey'             => uniqid(),
+                    'uniqueKey'             => uniqid('', true),
                     'currentTime'           => time(),
                 ],
             ]);
@@ -438,6 +472,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
 
             $mailService->send();
         }
+
     }
 
 
@@ -570,8 +605,8 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
     ) :void
     {
         // get settings
-        $settings = $this->getSettings(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
         $settingsDefault = $this->getSettings();
+        $settings = $this->getSettings(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
         $showPid = intval($settingsDefault['showPid']);
 
         $recipients = [];

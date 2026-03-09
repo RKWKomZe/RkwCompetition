@@ -106,6 +106,9 @@ Hint for initial usage: It is advisable to have ***at least one registration cre
 This extension comes with a bunch of cronjobs which manage the several steps from initial registration until the assignment to the jury member:
 * rkw_competition:incompleteUserRegistration
   * Sends notification emails to FrontendUsers if they have not submitted their registration yet
+  * Options:
+    * `--rootPageUid` (int): The root page UID to use for loading TypoScript settings (optional, default: 1)
+    * `--timeInterval` (int): Defines the length of one interval to send e-mails as reminder for the user to complete and submit their registration (optional, default: 86400)
 * rkw_competition:removalDeadlineWarningAdmin
   * Only if a data removal date is set: Send a reminder to admins before an expired competition is about to be deleted together with the documents
 * rkw_competition:juryNotify

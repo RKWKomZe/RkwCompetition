@@ -944,12 +944,15 @@
                 <source>Hello %s %s,</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_incomplete.text1">
-                <source>This is a reminder about a competition organised by RKW.</source>
+                <source>This is a reminder about the competition %s you have registered for.</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_incomplete.text2">
-                <source>Your registration is unsubmitted yet:</source>
+                <source>Your registration is unfortunately not yet complete. Please feel free to provide the remaining information and finally submit your registration to us.</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_incomplete.text3">
+                <source>If you need help or have any questions, please feel free to reply directly to this email.</source>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_incomplete.text4">
                 <source>Login here to take a look to your registration.</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_incomplete.showHeadline">

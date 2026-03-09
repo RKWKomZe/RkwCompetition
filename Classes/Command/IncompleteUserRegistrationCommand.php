@@ -35,7 +35,7 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
  *
  * @todo #4200: Reminder für Upload der Daten in definierbaren Abständen (via Wettbewerbsdatensatz) bis zum Abgabeschluss, wenn Daten noch nicht eingereicht wurden.
  *
- * Execute on CLI with: 'vendor/bin/typo3 rkw_competition:incompleteUserRegistration'
+ * Execute on CLI with: 'vendor/bin/typo3 rkw_competition:incompleteUserRegistration --rootPageUid=1'
  *
  * @author Maximilian Fäßler <maximilian@faesslerweb.de>
  * @copyright RKW Kompetenzzentrum
@@ -94,6 +94,13 @@ class IncompleteUserRegistrationCommand extends Command
                 InputOption::VALUE_REQUIRED,
                 'Defines the length of one interval to send e-mails as reminder for the user to complete and submit their registration.',
                 86400
+            )
+            ->addOption(
+                'rootPageUid',
+                'r',
+                InputOption::VALUE_OPTIONAL,
+                'The root page UID to use for loading TypoScript settings.',
+                1
             );
     }
 
@@ -115,6 +122,7 @@ class IncompleteUserRegistrationCommand extends Command
         $io->newLine();
 
         $timeInterval = $input->getOption('timeInterval');
+        $rootPageUid = (int)$input->getOption('rootPageUid');
 
         $result = 0;
         try {
@@ -130,10 +138,12 @@ class IncompleteUserRegistrationCommand extends Command
 
                     if ($registerList = $this->registerRepository->findUnsubmittedByCompetition($competition)) {
 
+                        $io->note('Unsubmitted registrations found: ' . $registerList->count());
+
                         // send mails
                         /** @var RkwMailService $mailService */
                         $mailService = GeneralUtility::makeInstance(RkwMailService::class);
-                        $mailService->incompleteRegisterUser($registerList);
+                        $mailService->incompleteRegisterUser($registerList, $rootPageUid);
 
                         $io->note("\t" . 'competitionUid: ' . $competition->getUid());
 
