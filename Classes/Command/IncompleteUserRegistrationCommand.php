@@ -35,7 +35,7 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
  *
  * @todo #4200: Reminder für Upload der Daten in definierbaren Abständen (via Wettbewerbsdatensatz) bis zum Abgabeschluss, wenn Daten noch nicht eingereicht wurden.
  *
- * Execute on CLI with: 'vendor/bin/typo3 rkw_competition:incompleteUserRegistration'
+ * Execute on CLI with: 'vendor/bin/typo3 rkw_competition:incompleteUserRegistration --rootPageUid=1'
  *
  * @author Maximilian Fäßler <maximilian@faesslerweb.de>
  * @copyright RKW Kompetenzzentrum
@@ -100,7 +100,7 @@ class IncompleteUserRegistrationCommand extends Command
                 'r',
                 InputOption::VALUE_OPTIONAL,
                 'The root page UID to use for loading TypoScript settings.',
-                0
+                1
             );
     }
 

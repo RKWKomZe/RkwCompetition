@@ -11,6 +11,8 @@ use Madj2k\Postmaster\Mail\MailMessage;
 use RKW\RkwCompetition\Domain\Model\JuryReference;
 use RKW\RkwCompetition\Domain\Model\Register;
 use SJBR\StaticInfoTables\Domain\Model\Language;
+use TYPO3\CMS\Core\Log\LogManager;
+use TYPO3\CMS\Core\Log\LogLevel;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
@@ -123,18 +125,47 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
      */
-    public function incompleteRegisterUser(\TYPO3\CMS\Extbase\Persistence\QueryResultInterface $registerList, int $rootPageUid = 0) :void
+    public function incompleteRegisterUser(\TYPO3\CMS\Extbase\Persistence\QueryResultInterface $registerList, int $rootPageUid = 1) :void
     {
-        /** @var \RKW\RkwCompetition\Domain\Model\Register $register */
-        foreach ($registerList as $register) {
+        if (!$rootPageUid) {
+            $settingsDefault = $this->getSettings();
 
-            // @toDo: Check if frontendUser is set? (It's null if user was deleted)
-
-            // send submitted
-            $this->frontendUserMail($register->getFrontendUser(), $register, 'incomplete', $rootPageUid);
-
+            //  get RootPageUid for the current site
+            $rootPageUid = (int)($settingsDefault['rootPageUid'] ?? 1);
         }
 
+        try {
+            FrontendSimulatorUtility::simulateFrontendEnvironment($rootPageUid);
+
+            /** @var \RKW\RkwCompetition\Domain\Model\Register $register */
+            foreach ($registerList as $register) {
+
+                try {
+                    $frontendUser = $register->getFrontendUser();
+                    if ($frontendUser instanceof \Madj2k\FeRegister\Domain\Model\FrontendUser) {
+                        // send submitted
+                        $this->frontendUserMail($frontendUser, $register, 'incomplete');
+                    } else {
+                        throw new \Exception(
+                            sprintf('No frontend user found for register %s', $register->getUid()),
+                            1619602353
+                        );
+                    }
+                } catch (\Exception $e) {
+                    GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(
+                        LogLevel::ERROR,
+                        $e->getMessage()
+                    );
+                }
+            }
+        } catch (\Exception $e) {
+            GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(
+                LogLevel::ERROR,
+                $e->getMessage()
+            );
+        } finally {
+            FrontendSimulatorUtility::resetFrontendEnvironment();
+        }
     }
 
 
@@ -364,7 +395,6 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      * @param FrontendUser $frontendUser
      * @param AbstractEntity $entity
      * @param string $action
-     * @param int $rootPageUid
      * @return void
      * @throws Exception
      * @throws IllegalObjectTypeException
@@ -374,22 +404,9 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
     protected function frontendUserMail(
         \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser,
         \TYPO3\CMS\Extbase\DomainObject\AbstractEntity $entity,
-        string $action = '',
-        int $rootPageUid = 0
+        string $action = ''
     ) :void
     {
-        // get settings
-        // Hier fällt der Aufruf immer auf die RootPageUid = 1 (weshalb es bei Extension innerhalb rkw-kompetenzzentrum nie auffiel, bzw. nie auffiel, wenn die gleiche Extension auch im rkw-kompetenzzentrum erhalten war) zurück. Nur, wenn ich
-        //  die Extension auch dort auf RootPage = 1 einbinde, bekomme ich die Settings.
-        //  Wie aber kann ich nun die Settings auf Basis meiner RootPageUid laden?
-        if (!$rootPageUid) {
-            $settingsDefault = $this->getSettings();
-
-            //  get RootPageUid for the current site
-            $rootPageUid = (int)($settingsDefault['rootPageUid'] ?? 0);
-        }
-
-        FrontendSimulatorUtility::simulateFrontendEnvironment($rootPageUid);
 
         // 2. Jetzt die Framework-Settings laden - diese werden nun von $rootPageUid gezogen
         $settings = $this->getSettings(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
@@ -456,7 +473,6 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
             $mailService->send();
         }
 
-        FrontendSimulatorUtility::resetFrontendEnvironment();
     }
 
 
