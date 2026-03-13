@@ -131,7 +131,7 @@
 				<source>Abstract</source>
 			</trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_upload.full">
-				<source>Full</source>
+				<source>Full version</source>
 			</trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_upload.remark">
 				<source>Remark</source>
@@ -620,6 +620,12 @@
             <!-- Templates/Upload/Edit.html -->
             <trans-unit id="tx_rkwcompetition_fluid.templates_upload_edit.headline">
                 <source>File Upload</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_upload_edit.delete">
+                <source>Delete</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_upload_edit.allowed_formats">
+                <source>Allowed file formats: %s</source>
             </trans-unit>
 
             <!-- Templates/Register/Upload.html -->

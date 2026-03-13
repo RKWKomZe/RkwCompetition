@@ -165,6 +165,14 @@
                 <source>Is Group Work</source>
                 <target>Ist Gruppenarbeit</target>
             </trans-unit>
+			<trans-unit id="tx_rkwcompetition_domain_model_upload.abstract">
+				<source>Abstract</source>
+				<target>Kurzfassung</target>
+			</trans-unit>
+			<trans-unit id="tx_rkwcompetition_domain_model_upload.full">
+				<source>Full version</source>
+				<target>Langfassung</target>
+			</trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_register.group_work_insurance">
 				<source>Group Work Insurance</source>
 				<target>Ich versichere hiermit an Eides statt, dass ich die Anmeldung auch im Namen der anderen Gruppenmitglieder ausführen darf.</target>
@@ -584,6 +592,14 @@
             <trans-unit id="tx_rkwcompetition_fluid.templates_upload_edit.headline">
                 <source>File Upload</source>
                 <target>Dateien hochladen</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_upload_edit.delete">
+                <source>Delete</source>
+                <target>Löschen</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_upload_edit.allowed_formats">
+                <source>Allowed file formats: %s</source>
+                <target>Zulässige Dateiformate: %s</target>
             </trans-unit>
 
             <!-- Templates/Register/Upload.html -->

@@ -173,7 +173,7 @@
                 <target>Kurzfassung</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_upload.full">
-                <source>Full</source>
+                <source>Full version</source>
                 <target>Langfassung</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_upload.remark">

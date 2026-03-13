@@ -27,15 +27,22 @@ Otherwise your changes will be overwritten the next time you save the extension 
         object="{register}"
     >
         <div class="flex-container">
-            <div class="form flex flex-basis-12 full-width-medium space-between">
+            <div class="form flex flex-basis-8 full-width-medium space-between">
 
                 <f:form.hidden property="upload" value="{register.upload}" />
 
                 <f:render partial="Upload/FormFields" arguments="{register:register}" />
+                <div class="form__field width100">
+                    <p class="text-small">
+                        <f:translate key="tx_rkwcompetition_fluid.templates_upload_edit.allowed_formats" arguments="{0: 'PDF, DOC, DOCX'}" />
+                    </p>
+                </div>
 
-                <button type="submit" class="btn btn--primary">
-                    <f:translate key="tx_rkwcompetition_fluid.templates_register_upload.submit" />
-                </button>
+                <div class="form__field width100">
+                    <button type="submit" class="btn btn--primary">
+                        <f:translate key="tx_rkwcompetition_fluid.templates_register_upload.submit" />
+                    </button>
+                </div>
             </div>
         </div>
     </f:form>

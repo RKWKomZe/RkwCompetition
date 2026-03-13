@@ -107,7 +107,7 @@
 				<source>Abstract</source>
 			</trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_upload.full">
-				<source>Full</source>
+				<source>Full version</source>
 			</trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_upload.remark">
 				<source>Remark</source>
