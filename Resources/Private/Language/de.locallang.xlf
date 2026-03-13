@@ -429,6 +429,18 @@
             </trans-unit>
 
             <!-- Templates/Register/Edit.html -->
+            <trans-unit id="registerController.message.updated">
+                <source>Registration updated</source>
+                <target>Registrierung aktualisiert</target>
+            </trans-unit>
+            <trans-unit id="registerController.error.notAuthorized">
+                <source>You are not authorized to edit this registration.</source>
+                <target>Sie sind nicht berechtigt, diese Registrierung zu bearbeiten.</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_edit.headline">
+                <source>Edit registration</source>
+                <target>Registrierung bearbeiten</target>
+            </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_edit.submit">
                 <source>Send</source>
                 <target>Abschicken</target>
@@ -1413,7 +1425,7 @@
             </trans-unit>
 			<trans-unit id="templates_backend_registerDetail.notSubmittedYet">
 				<source>Not yet submitted by the user</source>
-				<target>Noch nicht vom Nutzer freigegeben</target>
+				<target>Noch nicht vom Nutzer eingereicht.</target>
 			</trans-unit>
             <trans-unit id="templates_backend_registerDetail.alreadyApproved">
                 <source>Already approved</source>

@@ -277,12 +277,25 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
      * action update
      *
      * @param \RKW\RkwCompetition\Domain\Model\Register $register
+     * @TYPO3\CMS\Extbase\Annotation\Validate("RKW\RkwCompetition\Validation\Validator\RegisterValidator", param="register")
      * @return void
      */
     public function updateAction(\RKW\RkwCompetition\Domain\Model\Register $register)
     {
 
         // @toDo: Check for logged in user
+
+        if ($this->getFrontendUserId() !== $register->getFrontendUser()->getUid()) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'registerController.error.notAuthorized',
+                    'rkw_competition'
+                ),
+                '',
+                AbstractMessage::ERROR
+            );
+            $this->redirect('list', 'Participant');
+        }
 
         $this->addFlashMessage(
             LocalizationUtility::translate(
