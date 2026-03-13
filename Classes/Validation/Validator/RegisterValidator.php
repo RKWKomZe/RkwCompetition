@@ -66,7 +66,8 @@ class RegisterValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abstract
 
         // add further fields if "groupWork" is selected
         if ($newRegister->getIsGroupWork()) {
-            $mandatoryFields = GeneralUtility::trimExplode(",", $this->settings['mandatoryFields']['registerGroupWork']);
+            $mandatoryGroupWorkFields = GeneralUtility::trimExplode(",", $this->settings['mandatoryFields']['registerGroupWork']);
+            $mandatoryFields = array_merge($mandatoryFields, $mandatoryGroupWorkFields);
         }
 
         $isValid = true;

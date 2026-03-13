@@ -24,7 +24,7 @@ plugin.tx_rkwcompetition {
 
         mandatoryFields {
             # cat=plugin.tx_rkwcompetition/basic/100; type=string; label=Mandatory Fields Register
-            register = email, firstName, lastName
+            register = email, firstName, lastName, institution, address, zip, city, telephone, sector, contributionTitle, isGroupWork, remark
             # cat=plugin.tx_rkwcompetition/basic/110; type=string; label=Mandatory Fields Group Work
             registerGroupWork = groupWorkInsurance, groupWorkAddPersons
         }
