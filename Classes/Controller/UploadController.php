@@ -140,12 +140,23 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
             $uploadCounter++;
         }
 
-        $this->addFlashMessage(
-            LocalizationUtility::translate(
-                'updateController.message.uploadSuccess',
-                'rkw_competition'
-            )
-        );
+        if ($uploadCounter > 0) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'updateController.message.uploadSuccess',
+                    'rkw_competition'
+                )
+            );
+        } else {
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'updateController.message.noUploadSelected',
+                    'rkw_competition'
+                ),
+                '',
+                \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO
+            );
+        }
 
         $this->uploadRepository->update($register->getUpload());
 
@@ -192,7 +203,6 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
                 'rkw_competition'
             )
         );
-        $this->addFlashMessage('The file was deleted.');
 
         $this->redirect('edit', 'Upload', null, ['register' => $register]);
     }

@@ -298,6 +298,10 @@
                 <source>The documents have been successfully uploaded.</source>
                 <target>Die Unterlagen wurden erfolgreich hochgeladen.</target>
             </trans-unit>
+            <trans-unit id="updateController.message.noUploadSelected">
+                <source>Please select at least one file to upload.</source>
+                <target>Bitte wählen Sie mindestens eine Datei zum Hochladen aus.</target>
+            </trans-unit>
             <trans-unit id="updateController.message.fileDeleted">
                 <source>The file was successfully deleted.</source>
                 <target>Die Datei wurde erfolgreich gelöscht.</target>

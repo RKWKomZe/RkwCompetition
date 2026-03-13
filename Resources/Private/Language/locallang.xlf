@@ -395,6 +395,9 @@
             <trans-unit id="updateController.message.uploadSuccess">
                 <source>The documents have been successfully uploaded.</source>
             </trans-unit>
+            <trans-unit id="updateController.message.noUploadSelected">
+                <source>Please select at least one file to upload.</source>
+            </trans-unit>
             <trans-unit id="updateController.message.fileDeleted">
                 <source>The file was successfully deleted.</source>
             </trans-unit>
