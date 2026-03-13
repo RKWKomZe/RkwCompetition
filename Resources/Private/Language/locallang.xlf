@@ -131,7 +131,7 @@
 				<source>Abstract</source>
 			</trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_upload.full">
-				<source>Full</source>
+				<source>Full version</source>
 			</trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_upload.remark">
 				<source>Remark</source>
@@ -287,6 +287,9 @@
             <trans-unit id="tx_rkwcompetition_validator.contributionTitle">
                 <source>Contribution title</source>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_validator.isGroupWork">
+                <source>Is group work</source>
+            </trans-unit>
             <trans-unit id="tx_rkwcompetition_validator.groupWorkInsurance">
                 <source>Group work insurance</source>
             </trans-unit>
@@ -392,6 +395,9 @@
             <trans-unit id="updateController.message.uploadSuccess">
                 <source>The documents have been successfully uploaded.</source>
             </trans-unit>
+            <trans-unit id="updateController.message.noUploadSelected">
+                <source>Please select at least one file to upload.</source>
+            </trans-unit>
             <trans-unit id="updateController.message.fileDeleted">
                 <source>The file was successfully deleted.</source>
             </trans-unit>
@@ -482,11 +488,11 @@
             </trans-unit>
 
             <!-- Templates/Register/DeleteQuestion.html -->
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_deletequestion.headline">
+                <source>Delete registration</source>
+            </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_deletequestion.backToList">
                 <source>Back to list</source>
-            </trans-unit>
-            <trans-unit id="tx_rkwcompetition_fluid.templates_register_deletequestion.hint1">
-                <source>Really withdraw your application for the competition?</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_deletequestion.hint2">
                 <source>Your login data will be completely deleted</source>
@@ -499,6 +505,18 @@
             </trans-unit>
 
             <!-- Templates/Register/Edit.html -->
+            <trans-unit id="registerController.message.updated">
+                <source>Registration updated</source>
+            </trans-unit>
+            <trans-unit id="registerController.message.deleted">
+                <source>Registration deleted</source>
+            </trans-unit>
+            <trans-unit id="registerController.error.notAuthorized">
+                <source>You are not authorized to edit this registration.</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_edit.headline">
+                <source>Edit registration</source>
+            </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_edit.submit">
                 <source>Send</source>
             </trans-unit>
@@ -578,7 +596,7 @@
                 <source>Back to list</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.header">
-                <source>Submit an official application</source>
+                <source>Submit an official registration</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.your_checklist">
                 <source>Your checklist</source>
@@ -587,19 +605,39 @@
                 <source>All mandatory fields filled in</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.checkAbstract">
-                <source>Abstract of the application</source>
+                <source>Abstract of the registration</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.checkAbstractUpload">
                 <source>Upload the abstract now</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.checkFull">
-                <source>Long version of the application (optional)</source>
+                <source>Long version of the registration (optional)</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.hint1">
                 <source>Have you thought about using the provided cloud for additional files and images?</source>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.ownCloudLink">
+                <source>OwnCloud-Link</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.ownCloudPass">
+                <source>OwnCloud-PW</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.ownCloudEmpty">
+                <source> Attention: Your cloud folder is still empty!</source>
+            </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.hint2">
                 <source>I understand that information provided and files submitted cannot be changed after submission.</source>
+            </trans-unit>
+
+            <!-- Templates/Upload/Edit.html -->
+            <trans-unit id="tx_rkwcompetition_fluid.templates_upload_edit.headline">
+                <source>File Upload</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_upload_edit.delete">
+                <source>Delete</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_upload_edit.allowed_formats">
+                <source>Allowed file formats: %s</source>
             </trans-unit>
 
             <!-- Templates/Register/Upload.html -->
@@ -1036,7 +1074,7 @@
                 <source>great news!</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_closingDayApproved.text2">
-                <source>Please find below the details of your reservation.</source>
+                <source>Please find below the details of your registration.</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_incomplete.showHeadline">
                 <source>Show registration</source>
@@ -1051,7 +1089,7 @@
                 <source>bad news!</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_closingDayIncomplete.text2">
-                <source>Please find below the details of your reservation.</source>
+                <source>Please find below the details of your registration.</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_closingDayIncomplete.showHeadline">
                 <source>Show registration</source>
@@ -1068,7 +1106,7 @@
                 <source>a registration has been placed.</source>
             </trans-unit>
             <trans-unit id="templates_email_backendUser_confirmation.text2" approved="no">
-                <source>IMPORTANT: The user has already received a confirmation for his reservation. He will also automatically receive a reminder-mail a few days before the event.</source>
+                <source>IMPORTANT: The user has already received a confirmation for his registration. He will also automatically receive a reminder-mail a few days before the event.</source>
             </trans-unit>
 
 
@@ -1100,7 +1138,7 @@
                 <source>a registration has been submitted.</source>
             </trans-unit>
             <trans-unit id="templates_email_backendUser_submit.text2" approved="no">
-                <source>IMPORTANT: The user has already received a confirmation for his reservation. He will also automatically receive a reminder-mail a few days before the event.</source>
+                <source>IMPORTANT: The user has already received a confirmation for his registration. He will also automatically receive a reminder-mail a few days before the event.</source>
             </trans-unit>
 
 

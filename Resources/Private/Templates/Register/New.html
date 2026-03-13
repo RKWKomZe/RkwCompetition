@@ -19,15 +19,6 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 <f:section name="content">
 
-    <f:link.action
-            action="show"
-            controller="Competition"
-            pluginName="Competition"
-            pageUid="{settings.competitionPid}"
-            additionalParams='{tx_rkwcompetition_competition: {competition: competition}}'
-    >
-        <f:translate key="tx_rkwcompetition_fluid.back" />
-    </f:link.action>
 
 
     <f:render partial="FlashMessages" arguments="{_all}" />
@@ -51,9 +42,22 @@ Otherwise your changes will be overwritten the next time you save the extension 
                     <hcap:forms.hcaptcha />
                 </div>
 
-                <button type="submit" class="btn btn--primary">
-                    <f:translate key="tx_rkwcompetition_fluid.templates_register_new.submit" />
-                </button>
+                <div class="btn-list">
+                    <button type="submit" class="btn btn--primary">
+                        <f:translate key="tx_rkwcompetition_fluid.templates_register_new.submit" />
+                    </button>
+
+                    <f:link.action
+                        class="btn btn--secondary"
+                        action="show"
+                        controller="Competition"
+                        pluginName="Competition"
+                        pageUid="{settings.competitionPid}"
+                        additionalParams='{tx_rkwcompetition_competition: {competition: competition}}'
+                    >
+                        <f:translate key="tx_rkwcompetition_fluid.back" />
+                    </f:link.action>
+                </div>
 
             </div>
         </div>

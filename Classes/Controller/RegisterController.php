@@ -277,12 +277,25 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
      * action update
      *
      * @param \RKW\RkwCompetition\Domain\Model\Register $register
+     * @TYPO3\CMS\Extbase\Annotation\Validate("RKW\RkwCompetition\Validation\Validator\RegisterValidator", param="register")
      * @return void
      */
     public function updateAction(\RKW\RkwCompetition\Domain\Model\Register $register)
     {
 
         // @toDo: Check for logged in user
+
+        if ($this->getFrontendUserId() !== $register->getFrontendUser()->getUid()) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'registerController.error.notAuthorized',
+                    'rkw_competition'
+                ),
+                '',
+                AbstractMessage::ERROR
+            );
+            $this->redirect('list', 'Participant');
+        }
 
         $this->addFlashMessage(
             LocalizationUtility::translate(
@@ -324,7 +337,7 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
 
         $this->addFlashMessage(
             LocalizationUtility::translate(
-                'registerController.message.updated',
+                'registerController.message.deleted',
                 'rkw_competition'
             )
         );
@@ -381,7 +394,25 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
     {
         // @toDo: Check for logged in user
 
+        $hasCloudContent = false;
+        try {
+            /** @var \RKW\RkwCompetition\Api\OwnCloud\WebDavApi $webDavApi */
+            $webDavApi = GeneralUtility::makeInstance(\RKW\RkwCompetition\Api\OwnCloud\WebDavApi::class);
+
+            $folderCreatePath = GeneralUtility::trimExplode('/', $this->settings['api']['ownCloud']['folderStructure']['basePath'], true);
+            $pathParts = array_merge($folderCreatePath, [
+                'competition_uid_' . $register->getCompetition()->getUid(),
+                'feuser_uid_' . $register->getFrontendUser()->getUid() . '_' . $register->getFrontendUser()->getEmail()
+            ]);
+
+            $hasCloudContent = $webDavApi->hasContent($pathParts);
+
+        } catch (\Exception $e) {
+            // Just fail silently for now, as it's just a check
+        }
+
         $this->view->assign('register', $register);
+        $this->view->assign('hasCloudContent', $hasCloudContent);
     }
 
 
@@ -405,7 +436,9 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
                 LocalizationUtility::translate(
                     'registerController.message.submitIncomplete',
                     'rkw_competition'
-                )
+                ),
+                '',
+                \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
             );
             $this->redirect(
                 'submitQuestion',
@@ -420,7 +453,9 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
             LocalizationUtility::translate(
                 'registerController.message.submitSuccess',
                 'rkw_competition'
-            )
+            ),
+            '',
+            \TYPO3\CMS\Core\Messaging\AbstractMessage::OK
         );
 
         $register->setUserSubmittedAt(time());
@@ -695,6 +730,12 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
 
         $this->persistenceManager->persistAll();
 
+    }
+
+    protected function getErrorFlashMessage()
+    {
+        // Gibt "false" zurück, damit keine automatische Flash-Message erzeugt wird.
+        return false;
     }
 
 

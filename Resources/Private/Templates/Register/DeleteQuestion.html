@@ -6,34 +6,33 @@
 
     <f:section name="content">
 
+        <f:render partial="FlashMessages" arguments="{_all}" />
+        <h3>
+            <f:translate key="tx_rkwcompetition_fluid.templates_register_deletequestion.headline" />
+        </h3>
 
+        <div class="system-message">
+            <p class="system-message__item system-message__item--severity1">
+                <f:translate key="tx_rkwcompetition_fluid.templates_register_deletequestion.hint2" />
+            </p>
+            <p class="system-message__item system-message__item--severity1">
+                <f:translate key="tx_rkwcompetition_fluid.templates_register_deletequestion.hint3" />
+            </p>
+            <p class="system-message__item system-message__item--severity1">
+                <f:translate key="tx_rkwcompetition_fluid.templates_register_deletequestion.hint4" />
+            </p>
+        </div>
 
-        <table class="responsive-table responsive-table--background" >
-            <tr>
-                <th>
-                    <f:translate key="tx_rkwcompetition_fluid.templates_register_deletequestion.hint1" />
-                </th>
-            </tr>
-            <tr>
-                <td>
-                    <f:translate key="tx_rkwcompetition_fluid.templates_register_deletequestion.hint2" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <f:translate key="tx_rkwcompetition_fluid.templates_register_deletequestion.hint3" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <f:translate key="tx_rkwcompetition_fluid.templates_register_deletequestion.hint4" />
-                </td>
-            </tr>
-        </table>
+        <div class="btn-list">
+            <f:link.action class="btn btn--primary" controller="Register" action="delete" arguments="{register : register}">
+                <f:translate key="tx_rkwcompetition_fluid.partials_participant_options.registerDelete" />
+            </f:link.action>
 
-        <f:link.action class="btn btn--secondary" controller="Register" action="delete" arguments="{register : register}">
-            <f:translate key="tx_rkwcompetition_fluid.partials_participant_options.registerDelete" />
-        </f:link.action>
+            <f:link.action class="btn btn--secondary" controller="Participant" action="list">
+                <f:translate key="tx_rkwcompetition_fluid.templates_register_deletequestion.backToList" />
+            </f:link.action>
+        </div>
+
     </f:section>
 
 </html>

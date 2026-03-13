@@ -10,7 +10,40 @@
                     <f:if condition="{register.competition}">
                         <tr>
                             <td>
-                                <h3 class="h4">{register.competition.title}</h3>
+                                <div class="flex space-between valign-center">
+                                    <h3 class="h4">{register.competition.title}</h3>
+
+                                    <div class="btn-list">
+                                        <f:comment><!-- ViewHelper returns true if reg time for competition is still running --></f:comment>
+                                        <f:if condition="<rkw:isDateWithinDeadline date='{register.competition.registerEnd}' />">
+                                            <f:if condition="<rkw:registerStatus register='{register}' /> < 300">
+                                                <f:link.action
+                                                    class="btn btn--secondary"
+                                                    controller="Register"
+                                                    action="edit"
+                                                    arguments="{register : register}"
+                                                    title="{f:translate(key: 'tx_rkwcompetition_fluid.partials_participant_options.registerEdit')}"
+                                                >
+                                                    <svg class="icon icon--16" aria-hidden="true">
+                                                        <use xlink:href="#ic-clipboard" />
+                                                    </svg>
+                                                </f:link.action>
+
+                                                <f:link.action
+                                                    class="btn btn--secondary"
+                                                    controller="Register"
+                                                    action="deleteQuestion"
+                                                    arguments="{register : register}"
+                                                    title="{f:translate(key: 'tx_rkwcompetition_fluid.partials_participant_options.registerDelete')}"
+                                                >
+                                                    <svg class="icon icon--16" aria-hidden="true">
+                                                        <use xlink:href="#ic-trash" />
+                                                    </svg>
+                                                </f:link.action>
+                                            </f:if>
+                                        </f:if>
+                                    </div>
+                                </div>
                                 <p>
                                     <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.regEnd" />
                                     {register.competition.registerEnd -> f:format.date(format: 'd.m.Y')}

@@ -116,4 +116,53 @@ class WebDavApi extends AbstractApi
     }
 
 
+    /**
+     * hasContent
+     *
+     * Service function which is using PROPFIND. Checks if the folder has content
+     *
+     * @param array $folderPath Folders as sequential array.
+     * @return bool
+     */
+    public function hasContent(array $folderPath): bool
+    {
+        $this->apiMethod = self::METHOD_PROPFIND;
+        $path = self::API_PATH . implode('/', $folderPath);
+        $result = $this->doApiRequest($path);
+
+        if ((int)key($result) === 207) {
+            $xml = current($result);
+
+            // Basic check for contents. OwnCloud PROPFIND returns the folder itself and its contents.
+            // If more than one <d:response> or <D:response> (depending on server) is found, there's content.
+            // Also, we can check for <d:getcontentlength> or <D:getcontentlength> that's not empty/0 for files.
+            // But usually counting responses is enough if we know the first one is the folder itself.
+
+            $dom = new \DOMDocument();
+            // Use LIBXML_NOERROR to suppress warnings from invalid XML or unknown namespaces
+            $dom->loadXML($xml, LIBXML_NOERROR);
+
+            // OwnCloud often uses 'd' or 'D' as prefix, but the namespace is 'DAV:'
+            $responses = $dom->getElementsByTagNameNS('DAV:', 'response');
+
+            if ($responses->length > 1) {
+                return true;
+            }
+
+            // Fallback: check without namespace if the above fails for some reason (though unlikely for DAV:)
+            $responses = $dom->getElementsByTagName('response');
+            if ($responses->length > 1) {
+                return true;
+            }
+
+            // Another fallback: search for 'd:response' or 'D:response' in the raw XML if DOM failed
+            if (preg_match_all('/<[a-zA-Z0-9]*:response/i', $xml) > 1) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
 }
