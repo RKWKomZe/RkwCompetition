@@ -560,8 +560,8 @@
                 <target>Zurück</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.header">
-                <source>Submit an official registration</source>
-                <target>Bewerbung offiziell einreichen</target>
+                <source>Submit registration</source>
+                <target>Bewerbung einreichen</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.your_checklist">
                 <source>Your checklist</source>

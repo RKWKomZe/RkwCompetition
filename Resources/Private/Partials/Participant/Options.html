@@ -4,6 +4,16 @@
 
     <f:if condition="{register.competition}">
 
+        <f:if condition="<rkw:isDateWithinDeadline date='{register.competition.registerEnd}' />">
+            <f:if condition="<rkw:registerStatus register='{register}' /> >= 300">
+                <div class="system-message system-message--scroll" role="alert">
+                    <p class="system-message__item system-message__item--severity0">
+                        <f:translate key="tx_rkwcompetition_fluid.partials_participant_options.registrationComplete" />
+                    </p>
+                </div>
+            </f:if>
+        </f:if>
+
         <div class="flex space-between valign-center">
             <div class="btn-list">
                 <!-- show competition -->
@@ -43,16 +53,6 @@
                             <f:translate key="tx_rkwcompetition_fluid.partials_participant_options.submit" />
                         </f:link.action>
                     </div>
-                </f:if>
-            </f:if>
-
-            <f:comment><!-- ViewHelper returns true if reg time for competition is still running --></f:comment>
-            <f:if condition="<rkw:isDateWithinDeadline date='{register.competition.registerEnd}' />">
-                <f:if condition="<rkw:registerStatus register='{register}' /> >= 300">
-                    <f:comment><!-- Styling --></f:comment>
-                    <ul class="list-primary">
-                        <li><f:translate key="tx_rkwcompetition_fluid.partials_participant_options.registrationComplete" /></li>
-                    </ul>
                 </f:if>
             </f:if>
         </div>
