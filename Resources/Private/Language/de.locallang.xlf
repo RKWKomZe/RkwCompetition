@@ -580,6 +580,12 @@
                 <target>Ich habe verstanden dass nach dem Absenden gemachte Angaben und eingereichte Dateien nicht mehr geändert werden können.</target>
             </trans-unit>
 
+            <!-- Templates/Upload/Edit.html -->
+            <trans-unit id="tx_rkwcompetition_fluid.templates_upload_edit.headline">
+                <source>File Upload</source>
+                <target>Dateien hochladen</target>
+            </trans-unit>
+
             <!-- Templates/Register/Upload.html -->
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_upload.submit">
                 <source>Upload</source>
