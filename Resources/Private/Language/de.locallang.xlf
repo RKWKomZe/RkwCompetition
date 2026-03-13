@@ -565,7 +565,7 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.your_checklist">
                 <source>Your checklist</source>
-                <target>Ihre Checklist</target>
+                <target>Ihre Checkliste</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.checkMandatoryFields">
                 <source>All mandatory fields filled in</source>
@@ -589,7 +589,7 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.hint2">
                 <source>I understand that information provided and files submitted cannot be changed after submission.</source>
-                <target>Ich habe verstanden dass nach dem Absenden gemachte Angaben und eingereichte Dateien nicht mehr geändert werden können.</target>
+                <target>Ich habe verstanden, dass nach dem Absenden die gemachten Angaben und eingereichten Dateien nicht mehr geändert werden können.</target>
             </trans-unit>
 
             <!-- Templates/Upload/Edit.html -->

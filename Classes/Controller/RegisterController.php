@@ -418,7 +418,9 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
                 LocalizationUtility::translate(
                     'registerController.message.submitIncomplete',
                     'rkw_competition'
-                )
+                ),
+                '',
+                \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
             );
             $this->redirect(
                 'submitQuestion',
@@ -433,7 +435,9 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
             LocalizationUtility::translate(
                 'registerController.message.submitSuccess',
                 'rkw_competition'
-            )
+            ),
+            '',
+            \TYPO3\CMS\Core\Messaging\AbstractMessage::OK
         );
 
         $register->setUserSubmittedAt(time());
