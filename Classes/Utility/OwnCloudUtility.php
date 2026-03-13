@@ -53,4 +53,24 @@ class OwnCloudUtility
     {
         return md5($competition->getUid() . $competition->getCrdate()->getTimestamp());
     }
+
+
+    /**
+     * Returns the folder path as array
+     *
+     * @param \RKW\RkwCompetition\Domain\Model\Register $register
+     * @return array
+     */
+    public static function getFolderPathArray(Register $register): array
+    {
+        $basePath = 'rkw_competition';
+        $competitionFolderName = 'competition_uid_' . $register->getCompetition()->getUid();
+        $userFolderName = 'feuser_uid_' . $register->getFrontendUser()->getUid() . '_' . $register->getFrontendUser()->getEmail();
+
+        return [
+            $basePath,
+            $competitionFolderName,
+            $userFolderName
+        ];
+    }
 }

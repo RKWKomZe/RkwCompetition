@@ -1441,6 +1441,14 @@
                 <source>Long version PDF</source>
                 <target>Langfassung PDF (+ Word File?)</target>
             </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.cloudFiles">
+                <source>Files in Cloud</source>
+                <target>Dateien im Cloud-Ordner</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.cloudAdminLink">
+                <source>Cloud Folder (Name)</source>
+                <target>Cloud-Ordner (Name)</target>
+            </trans-unit>
             <trans-unit id="templates_backend_registerDetail.ownCloudLink">
                 <source>OwnCloud link</source>
                 <target>OwnCloud Link</target>

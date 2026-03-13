@@ -181,6 +181,30 @@
                                             </td>
                                         </tr>
                                         <tr>
+                                            <th><f:translate key="templates_backend_registerDetail.cloudFiles" /></th>
+                                            <td>
+                                                <f:variable name="cloudFiles" value="{rkw:ownCloudFilesList(register: register)}" />
+                                                <f:if condition="{cloudFiles}">
+                                                    <f:then>
+                                                        <ul class="list-unstyled">
+                                                            <f:for each="{cloudFiles}" as="file">
+                                                                <li><core:icon identifier="mimetypes-other-other" /> {file}</li>
+                                                            </f:for>
+                                                        </ul>
+                                                    </f:then>
+                                                    <f:else>
+                                                        <f:translate key="templates_backend_registerDetail.noFile" />
+                                                    </f:else>
+                                                </f:if>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th><f:translate key="templates_backend_registerDetail.cloudAdminLink" /></th>
+                                            <td>
+                                                {rkw:ownCloudFolderName(register: register)}
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <th><f:translate key="templates_backend_registerDetail.ownCloudLink" /></th>
                                             <td><a href="{register.ownCloudFolderLink}" target="_blank">{register.ownCloudFolderLink}</a></td>
                                         </tr>
