@@ -710,7 +710,7 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.registrationComplete">
                 <source>Registration complete</source>
-                <target>Die Bewerbung ist vollständig und es sind keine weiteren Aktionen mehr notwendig.</target>
+                <target>Die Bewerbung ist vollständig und es sind keine weiteren Aktionen mehr möglich.</target>
             </trans-unit>
 
 
@@ -873,7 +873,7 @@
             </trans-unit>
             <trans-unit id="rkwMailService.backendUser.subject.submit">
                 <source>Registration has been submitted</source>
-                <target>Eine Wettbewerbsanmeldung wurde eingereicht</target>
+                <target>Bewerbung zum Wettbewerb %s wurde eingereicht</target>
             </trans-unit>
             <trans-unit id="rkwMailService.backendUser.subject.removalReminder">
                 <source>A competition will removed soon</source>
@@ -1099,11 +1099,11 @@
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_submit.text1">
                 <source>There is news about a competition organised by RKW.</source>
-                <target>sie haben Ihre Wettbewerbsanmeldung erfolgreich eingereicht.</target>
+                <target>vielen Dank für Ihr Interesse! Sie haben Ihre Bewerbung für den folgenden Wettbewerb erfolgreich eingereicht:</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_submit.text2">
                 <source>Your registration has been submitted:</source>
-                <target>Wir drücken Ihnen die Daumen:</target>
+                <target>Alle Informationen werden nun von uns geprüft. Wir drücken Ihnen die Daumen!</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_submit.text3">
                 <source>Login here to take a look to your registration.</source>
@@ -1111,7 +1111,7 @@
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_submit.showHeadline">
                 <source>Show registration</source>
-                <target>Wettbewerbsregistrierung ansehen</target>
+                <target>Ihre Bewerbung ansehen</target>
             </trans-unit>
 
 
@@ -1266,7 +1266,7 @@
             </trans-unit>
             <trans-unit id="templates_email_backendUser_submit.text1" approved="no">
                 <source>a registration has been submitted.</source>
-                <target>jemand hat eine Wettbewerbsanmeldung vollständig ausgefüllt und eingereicht. Sie können dem oder der Nutzenden direkt auf diese E-Mail antworten, um etwaige Fragen zu klären.</target>
+                <target>jemand hat eine Bewerbung zum Wettbewerb %s vollständig ausgefüllt und eingereicht. Sie können dem oder der Nutzenden direkt auf diese E-Mail antworten, um etwaige Fragen zu klären.</target>
             </trans-unit>
             <trans-unit id="templates_email_backendUser_submit.text2" approved="no">
                 <source>IMPORTANT: The user has already received a confirmation for his reservation. He will also automatically receive a reminder-mail a few days before the event.</source>

@@ -654,7 +654,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
                         'subject' => LocalizationUtility::translate(
                             'rkwMailService.backendUser.subject.' . strtolower($action),
                             'rkw_competition',
-                            null,
+                            ($entity instanceof Register) ? [$entity->getCompetition()->getTitle()] : null,
                             $recipient->getLang()
                         ),
                     ]);
@@ -675,7 +675,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
                 LocalizationUtility::translate(
                     'rkwMailService.backendUser.subject.' . $action,
                     'rkw_competition',
-                    null,
+                    ($entity instanceof Register) ? [$entity->getCompetition()->getTitle()] : null,
                     'de'
                 )
             );
