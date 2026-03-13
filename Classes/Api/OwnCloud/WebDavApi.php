@@ -117,6 +117,53 @@ class WebDavApi extends AbstractApi
 
 
     /**
+     * getFiles
+     *
+     * Service function which is using PROPFIND. Returns a list of filenames in the folder
+     *
+     * @param array $folderPath Folders as sequential array.
+     * @return array
+     */
+    public function getFiles(array $folderPath): array
+    {
+        $this->apiMethod = self::METHOD_PROPFIND;
+        $path = self::API_PATH . implode('/', $folderPath);
+        $result = $this->doApiRequest($path);
+
+        $fileList = [];
+
+        if ((int)key($result) === 207) {
+            $xml = current($result);
+
+            $dom = new \DOMDocument();
+            $dom->loadXML($xml, LIBXML_NOERROR);
+
+            // OwnCloud uses namespace 'DAV:'
+            $responses = $dom->getElementsByTagNameNS('DAV:', 'response');
+
+            foreach ($responses as $response) {
+                /** @var \DOMElement $response */
+                $hrefElements = $response->getElementsByTagNameNS('DAV:', 'href');
+                if ($hrefElements->length > 0) {
+                    $href = $hrefElements->item(0)->textContent;
+
+                    // The first entry is usually the folder itself.
+                    // Check if it's a file by checking for <getcontentlength>
+                    $contentLengthElements = $response->getElementsByTagNameNS('DAV:', 'getcontentlength');
+                    if ($contentLengthElements->length > 0) {
+                        // It's a file! Extract filename from href
+                        $filename = basename(urldecode($href));
+                        $fileList[] = $filename;
+                    }
+                }
+            }
+        }
+
+        return $fileList;
+    }
+
+
+    /**
      * hasContent
      *
      * Service function which is using PROPFIND. Checks if the folder has content
