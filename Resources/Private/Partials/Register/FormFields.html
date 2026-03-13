@@ -141,7 +141,7 @@
 	<div class="form__field width100">
 		<label class="form-label" for="institution">
 			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.institution" />
-			<f:render partial="LabelSuffix" arguments="{field: 'Institution', mandatoryFields: settings.mandatoryFields.register}" />
+			<f:render partial="LabelSuffix" arguments="{field: 'institution', mandatoryFields: settings.mandatoryFields.register}" />
 		</label>
 		<f:form.textfield property="institution" id="institution" />
 	</div>
@@ -160,6 +160,7 @@
 		<div class="form__field width100">
 			<label>
 				<f:translate key="tx_rkwcompetition_fluid.templates_register_new.is_group_work" />
+				<f:render partial="LabelSuffix" arguments="{field: 'isGroupWork', mandatoryFields: settings.mandatoryFields.register}" />
 			</label>
 			<f:form.radio
 					class="checkbox"
@@ -182,7 +183,7 @@
 			</label>
 		</div>
 
-		<div class="form__field width50" id="groupInsurance">
+		<div class="form__field width100" id="groupInsurance">
 			<f:form.checkbox
 					class="checkbox"
 					id="groupWorkInsurance"
@@ -191,14 +192,14 @@
 			/>
 			<label for="groupWorkInsurance" class="checkbox-label">
 				<f:translate key="tx_rkwcompetition_fluid.templates_register_new.group_work_insurance" />
-				<f:render partial="LabelSuffix" arguments="{field: 'GroupWorkInsurance', mandatoryFields: settings.mandatoryFields.register}" />
-			</label>
-		</div>
+ 			<f:render partial="LabelSuffix" arguments="{field: 'groupWorkInsurance', mandatoryFields: settings.mandatoryFields.registerGroupWork}" />
+ 		</label>
+ 	</div>
 
-		<div class="form__field width100" id="groupAddPersons">
-			<label class="form-label" for="groupWorkAddPersons">
-				<f:translate key="tx_rkwcompetition_fluid.templates_register_new.group_work_add_persons" />
-				<f:render partial="LabelSuffix" arguments="{field: 'groupWorkAddPersons', mandatoryFields: settings.mandatoryFields.register}" />
+ 	<div class="form__field width100" id="groupAddPersons">
+ 		<label class="form-label" for="groupWorkAddPersons">
+ 			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.group_work_add_persons" />
+ 			<f:render partial="LabelSuffix" arguments="{field: 'groupWorkAddPersons', mandatoryFields: settings.mandatoryFields.registerGroupWork}" />
 			</label>
 			<f:form.textarea property="groupWorkAddPersons" id="groupWorkAddPersons" />
 		</div>
@@ -230,11 +231,15 @@
 
 		function load() {
 
-			// initial: Hide additional fields
-			hideAddGroupFields();
-
 			let buttonYes = document.querySelector("#isGroupWorkYes");
 			let buttonNo = document.querySelector("#isGroupWorkNo");
+
+			// Initialer Check: Wenn "Ja" ausgewählt ist, Felder anzeigen, sonst ausblenden
+			if (buttonYes && buttonYes.checked) {
+				showAddGroupFields();
+			} else {
+				hideAddGroupFields();
+			}
 
 			if (buttonYes && buttonNo) {
 				buttonYes.addEventListener("click", showAddGroupFields, false);

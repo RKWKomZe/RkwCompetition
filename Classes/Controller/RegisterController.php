@@ -697,5 +697,11 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
 
     }
 
+    protected function getErrorFlashMessage()
+    {
+        // Gibt "false" zurück, damit keine automatische Flash-Message erzeugt wird.
+        return false;
+    }
+
 
 }

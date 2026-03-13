@@ -80,6 +80,10 @@
                 <source>Contribution title</source>
                 <target>Titel des Beitrags</target>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_validator.isGroupWork">
+                <source>Is group work</source>
+                <target>Gruppenarbeit</target>
+            </trans-unit>
             <trans-unit id="tx_rkwcompetition_validator.groupWorkInsurance">
                 <source>Group work insurance</source>
                 <target>Eidesstattliche Versicherung</target>
@@ -161,14 +165,14 @@
                 <source>Is Group Work</source>
                 <target>Ist Gruppenarbeit</target>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_domain_model_register.group_work_insurance">
-                <source>Group Work Insurance</source>
-                <target>Eidesstattliche Versicherung, dass im Namen den anderen Gruppenmitglieder Anmeldung zulässig</target>
-            </trans-unit>
-            <trans-unit id="tx_rkwcompetition_domain_model_register.group_work_add_persons">
-                <source>Group Work Add Persons</source>
-                <target>Namen der anderen Gruppenmitglieder (Anrede, Titel, Vorname und Nachname)</target>
-            </trans-unit>
+			<trans-unit id="tx_rkwcompetition_domain_model_register.group_work_insurance">
+				<source>Group Work Insurance</source>
+				<target>Ich versichere hiermit an Eides statt, dass ich die Anmeldung auch im Namen der anderen Gruppenmitglieder ausführen darf.</target>
+			</trans-unit>
+			<trans-unit id="tx_rkwcompetition_domain_model_register.group_work_add_persons">
+				<source>Group Work Add Persons</source>
+				<target>Weitere Gruppenmitglieder</target>
+			</trans-unit>
 
 
             <!-- ==================================================================================== -->
@@ -513,12 +517,12 @@
                 <target>Gruppenarbeit</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.group_work_insurance">
-                <source>Group Work Insurance</source>
-                <target>Eidesstattliche Versicherung, dass im Namen den anderen Gruppenmitglieder Anmeldung zulässig</target>
+				<source>Group Work Insurance</source>
+				<target>Ich versichere hiermit an Eides statt, dass ich die Anmeldung auch im Namen der anderen Gruppenmitglieder ausführen darf.</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.group_work_add_persons">
-                <source>Group Work Add Persons</source>
-                <target>Namen der anderen Gruppenmitglieder (Anrede, Titel, Vorname und Nachname)</target>
+				<source>Group Work Add Persons</source>
+				<target>Weitere Gruppenmitglieder</target>
             </trans-unit>
 
 
@@ -888,15 +892,14 @@
                 <source>Is group work</source>
                 <target>Ist Gruppenarbeit</target>
             </trans-unit>
-            <trans-unit id="partials_email_details.groupWorkInsurance">
-                <source>Group work insurance</source>
-                <target>Eidesstattliche Versicherung, dass im Namen den anderen Gruppenmitglieder Anmeldung zulässig</target>
-            </trans-unit>
-            <trans-unit id="partials_email_details.groupWorkAddPersons">
-                <source>Group work add persons</source>
-                <target>Namen der anderen Gruppenmitglieder (Anrede, Titel, Vorname und Nachname)</target>
-            </trans-unit>
-
+			<trans-unit id="partials_email_details.groupWorkInsurance">
+				<source>Group Work Insurance</source>
+				<target>Ich versichere hiermit an Eides statt, dass ich die Anmeldung auch im Namen der anderen Gruppenmitglieder ausführen darf.</target>
+			</trans-unit>
+			<trans-unit id="partials_email_details.groupWorkAddPersons">
+				<source>Group Work Add Persons</source>
+				<target>Weitere Gruppenmitglieder</target>
+			</trans-unit>
 
             <!-- ==================================================================================== -->
 

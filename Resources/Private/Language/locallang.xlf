@@ -287,6 +287,9 @@
             <trans-unit id="tx_rkwcompetition_validator.contributionTitle">
                 <source>Contribution title</source>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_validator.isGroupWork">
+                <source>Is group work</source>
+            </trans-unit>
             <trans-unit id="tx_rkwcompetition_validator.groupWorkInsurance">
                 <source>Group work insurance</source>
             </trans-unit>

@@ -99,7 +99,8 @@ class RegisterValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abstract
                 $getter = 'get' . ucfirst($field);
                 if (method_exists($newRegister, $getter)) {
 
-                    if ( !trim($newRegister->$getter()) ) {
+                    $value = $newRegister->$getter();
+                    if ($value === '' || $value === null || $value === 0) {
 
                         $propertyName = LocalizationUtility::translate(
                             'tx_rkwcompetition_validator.' . lcfirst($field),

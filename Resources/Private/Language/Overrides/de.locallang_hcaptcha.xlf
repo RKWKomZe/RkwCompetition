@@ -4,7 +4,7 @@
         <body>
             <trans-unit id="error_hcaptcha_timeout-or-duplicate">
                 <source>Duplicate submission of form. Please check the captcha again.</source>
-                <target>Doppelte Übermittlung des Formulars. Bitte überprüfen Sie das Captcha erneut.</target>
+                <target>Doppelte Übermittlung des Formulars. Bitte überprüfen Sie die Sicherheitsaufgabe erneut.</target>
             </trans-unit>
             <trans-unit id="error_hcaptcha_invalid-input-secret">
                 <source>Invalid input secret.</source>
@@ -20,11 +20,11 @@
             </trans-unit>
             <trans-unit id="error_hcaptcha_missing-input-response">
                 <source>Missing input.</source>
-                <target>Es muss leider sein: Bitte denken Sie auch an die Captcha eingabe.</target>
+                <target>Es muss leider sein: Bitte lösen Sie auch die Sicherheitsaufgabe.</target>
             </trans-unit>
             <trans-unit id="error_hcaptcha_generic">
                 <source>Validating the captcha failed.</source>
-                <target>Die Validierung des Captcha ist fehlgeschlagen.</target>
+                <target>Die Validierung der Sicherheitsaufgabe ist fehlgeschlagen.</target>
             </trans-unit>
         </body>
     </file>
