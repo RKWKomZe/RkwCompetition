@@ -394,7 +394,25 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
     {
         // @toDo: Check for logged in user
 
+        $hasCloudContent = false;
+        try {
+            /** @var \RKW\RkwCompetition\Api\OwnCloud\WebDavApi $webDavApi */
+            $webDavApi = GeneralUtility::makeInstance(\RKW\RkwCompetition\Api\OwnCloud\WebDavApi::class);
+
+            $folderCreatePath = GeneralUtility::trimExplode('/', $this->settings['api']['ownCloud']['folderStructure']['basePath'], true);
+            $pathParts = array_merge($folderCreatePath, [
+                'competition_uid_' . $register->getCompetition()->getUid(),
+                'feuser_uid_' . $register->getFrontendUser()->getUid() . '_' . $register->getFrontendUser()->getEmail()
+            ]);
+
+            $hasCloudContent = $webDavApi->hasContent($pathParts);
+
+        } catch (\Exception $e) {
+            // Just fail silently for now, as it's just a check
+        }
+
         $this->view->assign('register', $register);
+        $this->view->assign('hasCloudContent', $hasCloudContent);
     }
 
 

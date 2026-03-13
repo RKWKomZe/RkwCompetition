@@ -45,8 +45,13 @@
             </p>
 
 
-            <p class="system-message__item system-message__item--severity1">
+            <p class="system-message__item system-message__item--severity{f:if(condition: '{hasCloudContent}', then: '1', else: '2')}">
                 <f:translate key="tx_rkwcompetition_fluid.templates_register_submitquestion.hint1" />
+                <f:if condition="{hasCloudContent}">
+                    <f:else>
+                        <strong><f:translate key="tx_rkwcompetition_fluid.templates_register_submitquestion.ownCloudEmpty" /></strong>
+                    </f:else>
+                </f:if>
                 <br />
                 <f:translate key="tx_rkwcompetition_fluid.templates_register_submitquestion.ownCloudLink" />: <f:link.external
                     uri="{register.ownCloudFolderLink}"
@@ -56,8 +61,6 @@
                 </f:link.external>
                 <br />
                 <f:translate key="tx_rkwcompetition_fluid.templates_register_submitquestion.ownCloudPass" />: <rkw:ownCloudUserFolderPass register='{register}' />
-                <br />
-                @toDo: Api check if cloud folder has content
             </p>
 
 

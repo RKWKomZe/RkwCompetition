@@ -585,7 +585,7 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.hint1">
                 <source>Have you thought about using the provided cloud for additional files and images?</source>
-                <target>Haben Sie daran gedacht, für zusätzliche Dateien und Bilder die bereitgestellte Cloud zu nutzen?</target>
+                <target>Möchten Sie noch weitere Unterlagen über den bereitgestellen Cloud-Ordner einreichen?</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.ownCloudLink">
                 <source>OwnCloud-Link</source>
@@ -594,6 +594,10 @@
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.ownCloudPass">
                 <source>OwnCloud-PW</source>
                 <target>OwnCloud-PW</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.ownCloudEmpty">
+                <source>Attention: Your cloud folder is still empty!</source>
+                <target>Derzeit ist Ihr Cloud-Ordner noch leer!</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.hint2">
                 <source>I understand that information provided and files submitted cannot be changed after submission.</source>

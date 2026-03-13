@@ -622,6 +622,9 @@
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.ownCloudPass">
                 <source>OwnCloud-PW</source>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.ownCloudEmpty">
+                <source> Attention: Your cloud folder is still empty!</source>
+            </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.hint2">
                 <source>I understand that information provided and files submitted cannot be changed after submission.</source>
             </trans-unit>
