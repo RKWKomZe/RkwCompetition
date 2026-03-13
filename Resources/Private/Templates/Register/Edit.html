@@ -26,9 +26,15 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
                 <f:render partial="Register/FormFields" arguments="{_all}" />
 
-                <button type="submit" class="btn btn--primary">
-                    <f:translate key="tx_rkwcompetition_fluid.templates_register_edit.submit" />
-                </button>
+                <div class="btn-list">
+                    <button type="submit" class="btn btn--primary">
+                        <f:translate key="tx_rkwcompetition_fluid.templates_register_edit.submit" />
+                    </button>
+
+                    <f:link.action class="btn btn--secondary" controller="Participant" action="list">
+                        <f:translate key="tx_rkwcompetition_fluid.back" />
+                    </f:link.action>
+                </div>
             </div>
         </div>
     </f:form>

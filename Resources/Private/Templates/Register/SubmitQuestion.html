@@ -76,18 +76,20 @@
                         </label>
                     </div>
 
-                    <button type="submit" class="btn btn--primary">
-                        <f:translate key="tx_rkwcompetition_fluid.partials_participant_options.registerSubmit" />
-                    </button>
+                    <div class="btn-list">
+                        <button type="submit" class="btn btn--primary">
+                            <f:translate key="tx_rkwcompetition_fluid.partials_participant_options.registerSubmit" />
+                        </button>
 
-                    <f:link.action
-                        class="btn btn--secondary"
-                        controller="Participant"
-                        action="list"
-                        arguments="{register : register}"
-                    >
-                        Zurück
-                    </f:link.action>
+                        <f:link.action
+                            class="btn btn--secondary"
+                            controller="Participant"
+                            action="list"
+                            arguments="{register : register}"
+                        >
+                            <f:translate key="tx_rkwcompetition_fluid.back" />
+                        </f:link.action>
+                    </div>
                 </div>
             </div>
         </f:form>

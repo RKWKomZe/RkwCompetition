@@ -38,10 +38,14 @@ Otherwise your changes will be overwritten the next time you save the extension 
                     </p>
                 </div>
 
-                <div class="form__field width100">
+                <div class="btn-list">
                     <button type="submit" class="btn btn--primary">
                         <f:translate key="tx_rkwcompetition_fluid.templates_register_upload.submit" />
                     </button>
+
+                    <f:link.action class="btn btn--secondary" controller="Participant" action="list">
+                        <f:translate key="tx_rkwcompetition_fluid.back" />
+                    </f:link.action>
                 </div>
             </div>
         </div>
