@@ -17,7 +17,7 @@ in /Configuration/ExtensionBuilder/settings.yaml:
 Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
 <f:section name="content">
-    <h1>Single View for Competition</h1>
+    <h2>{competition.title}</h2>
 
     <f:flashMessages queueIdentifier="extbase.flashmessages.tx_rkwcompetition_register" as="flashMessages">
         <f:if condition="{flashMessages}">
@@ -30,6 +30,8 @@ Otherwise your changes will be overwritten the next time you save the extension 
             </div>
         </f:if>
     </f:flashMessages>
+
+    <f:format.html>{competition.description}</f:format.html>
 
     <f:render partial="Competition/Properties" arguments="{competition:competition}" />
 
