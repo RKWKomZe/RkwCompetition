@@ -488,11 +488,11 @@
             </trans-unit>
 
             <!-- Templates/Register/DeleteQuestion.html -->
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_deletequestion.headline">
+                <source>Delete registration</source>
+            </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_deletequestion.backToList">
                 <source>Back to list</source>
-            </trans-unit>
-            <trans-unit id="tx_rkwcompetition_fluid.templates_register_deletequestion.hint1">
-                <source>Really withdraw your application for the competition?</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_deletequestion.hint2">
                 <source>Your login data will be completely deleted</source>
@@ -596,7 +596,7 @@
                 <source>Back to list</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.header">
-                <source>Submit an official application</source>
+                <source>Submit an official registration</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.your_checklist">
                 <source>Your checklist</source>
@@ -605,13 +605,13 @@
                 <source>All mandatory fields filled in</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.checkAbstract">
-                <source>Abstract of the application</source>
+                <source>Abstract of the registration</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.checkAbstractUpload">
                 <source>Upload the abstract now</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.checkFull">
-                <source>Long version of the application (optional)</source>
+                <source>Long version of the registration (optional)</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.hint1">
                 <source>Have you thought about using the provided cloud for additional files and images?</source>
@@ -1065,7 +1065,7 @@
                 <source>great news!</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_closingDayApproved.text2">
-                <source>Please find below the details of your reservation.</source>
+                <source>Please find below the details of your registration.</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_incomplete.showHeadline">
                 <source>Show registration</source>
@@ -1080,7 +1080,7 @@
                 <source>bad news!</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_closingDayIncomplete.text2">
-                <source>Please find below the details of your reservation.</source>
+                <source>Please find below the details of your registration.</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_closingDayIncomplete.showHeadline">
                 <source>Show registration</source>
@@ -1097,7 +1097,7 @@
                 <source>a registration has been placed.</source>
             </trans-unit>
             <trans-unit id="templates_email_backendUser_confirmation.text2" approved="no">
-                <source>IMPORTANT: The user has already received a confirmation for his reservation. He will also automatically receive a reminder-mail a few days before the event.</source>
+                <source>IMPORTANT: The user has already received a confirmation for his registration. He will also automatically receive a reminder-mail a few days before the event.</source>
             </trans-unit>
 
 
@@ -1129,7 +1129,7 @@
                 <source>a registration has been submitted.</source>
             </trans-unit>
             <trans-unit id="templates_email_backendUser_submit.text2" approved="no">
-                <source>IMPORTANT: The user has already received a confirmation for his reservation. He will also automatically receive a reminder-mail a few days before the event.</source>
+                <source>IMPORTANT: The user has already received a confirmation for his registration. He will also automatically receive a reminder-mail a few days before the event.</source>
             </trans-unit>
 
 
