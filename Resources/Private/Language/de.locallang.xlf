@@ -433,6 +433,10 @@
                 <source>Registration updated</source>
                 <target>Registrierung aktualisiert</target>
             </trans-unit>
+            <trans-unit id="registerController.message.deleted">
+                <source>Registration deleted</source>
+                <target>Registrierung gelöscht</target>
+            </trans-unit>
             <trans-unit id="registerController.error.notAuthorized">
                 <source>You are not authorized to edit this registration.</source>
                 <target>Sie sind nicht berechtigt, diese Registrierung zu bearbeiten.</target>

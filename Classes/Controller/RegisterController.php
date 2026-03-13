@@ -337,7 +337,7 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
 
         $this->addFlashMessage(
             LocalizationUtility::translate(
-                'registerController.message.updated',
+                'registerController.message.deleted',
                 'rkw_competition'
             )
         );

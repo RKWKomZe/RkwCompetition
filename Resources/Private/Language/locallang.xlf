@@ -505,6 +505,9 @@
             <trans-unit id="registerController.message.updated">
                 <source>Registration updated</source>
             </trans-unit>
+            <trans-unit id="registerController.message.deleted">
+                <source>Registration deleted</source>
+            </trans-unit>
             <trans-unit id="registerController.error.notAuthorized">
                 <source>You are not authorized to edit this registration.</source>
             </trans-unit>
