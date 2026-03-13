@@ -587,6 +587,14 @@
                 <source>Have you thought about using the provided cloud for additional files and images?</source>
                 <target>Haben Sie daran gedacht, für zusätzliche Dateien und Bilder die bereitgestellte Cloud zu nutzen?</target>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.ownCloudLink">
+                <source>OwnCloud-Link</source>
+                <target>OwnCloud-Link</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.ownCloudPass">
+                <source>OwnCloud-PW</source>
+                <target>OwnCloud-PW</target>
+            </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.hint2">
                 <source>I understand that information provided and files submitted cannot be changed after submission.</source>
                 <target>Ich habe verstanden, dass nach dem Absenden die gemachten Angaben und eingereichten Dateien nicht mehr geändert werden können.</target>
