@@ -32,7 +32,7 @@ CREATE TABLE tx_rkwcompetition_domain_model_sector (
 
 CREATE TABLE tx_rkwcompetition_domain_model_register (
 	salutation varchar(255) NOT NULL DEFAULT '',
-	title int(11) NOT NULL DEFAULT '0',
+	title varchar(255) NOT NULL DEFAULT '',
 	first_name varchar(255) NOT NULL DEFAULT '',
 	last_name varchar(255) NOT NULL DEFAULT '',
 	institution varchar(255) NOT NULL DEFAULT '',

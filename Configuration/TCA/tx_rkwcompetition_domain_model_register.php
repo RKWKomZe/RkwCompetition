@@ -134,9 +134,9 @@ return [
             'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register.title',
             'config' => [
                 'type' => 'input',
-                'size' => 4,
-                'eval' => 'int',
-                'default' => 0
+                'size' => 30,
+                'eval' => 'trim',
+                'default' => ''
             ]
         ],
         'first_name' => [

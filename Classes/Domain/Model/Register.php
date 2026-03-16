@@ -34,9 +34,9 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * title
      *
-     * @var int
+     * @var string
      */
-    protected $title = 0;
+    protected $title = '';
 
     /**
      * firstName
@@ -283,7 +283,7 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the title
      *
-     * @return int
+     * @return string
      */
     public function getTitle()
     {
@@ -293,12 +293,12 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the title
      *
-     * @param int|null $title
+     * @param string|null $title
      * @return void
      */
-    public function setTitle(int $title = null)
+    public function setTitle(string $title = null)
     {
-        $this->title = (int) $title;
+        $this->title = $title;
     }
 
     /**
