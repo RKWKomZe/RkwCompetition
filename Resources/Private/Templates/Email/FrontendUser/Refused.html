@@ -8,8 +8,11 @@
 	<postmaster:email.translate key="templates_email_frontendUser_refused.headline" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" arguments="{0 : frontendUser.firstName, 1: frontendUser.lastName}" />
 
 	<postmaster:email.translate key="templates_email_frontendUser_refused.text1" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" arguments="{0 : register.competition.title}" />
-
-	{register.adminRefusedText}
+	<f:if condition="{register.adminRefusedText}">
+		<br />
+		<strong><postmaster:email.translate key="templates_email_frontendUser.commentPrefix" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" /></strong>
+		{register.adminRefusedText}
+	</f:if>
 
 	=============================================================
 	<postmaster:email.translate key="templates_email_frontendUser_refused.showHeadline" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
@@ -23,9 +26,12 @@
 	<p>
 		<postmaster:email.translate key="templates_email_frontendUser_refused.text1" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" arguments="{0 : register.competition.title}" />
 	</p>
-	<p>
-		<f:format.nl2br>{register.adminRefusedText}</f:format.nl2br>
-	</p>
+	<f:if condition="{register.adminRefusedText}">
+		<p>
+			<strong><postmaster:email.translate key="templates_email_frontendUser.commentPrefix" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" /></strong><br />
+			<f:format.nl2br>{register.adminRefusedText}</f:format.nl2br>
+		</p>
+	</f:if>
 
 	<h2><postmaster:email.translate key="templates_email_frontendUser_refused.showHeadline" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" /></h2>
 	<p>

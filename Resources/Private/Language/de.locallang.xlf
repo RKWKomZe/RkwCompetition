@@ -1069,6 +1069,10 @@
                 <source>Your submission for the competition "%s" was returned for revision. You can update your submission and resubmit it.</source>
                 <target>Ihre Anmeldung für den Wettbewerb "%s" wurde zur Nachbesserung zurückgegeben. Sie können Ihre Angaben überarbeiten und erneut einreichen.</target>
             </trans-unit>
+            <trans-unit id="templates_email_frontendUser.commentPrefix">
+                <source>Comment:</source>
+                <target>Anmerkung:</target>
+            </trans-unit>
             <trans-unit id="templates_email_frontendUser_returned.showHeadline">
                 <source>Next steps</source>
                 <target>Nächste Schritte</target>
@@ -1798,7 +1802,7 @@
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.adminReturnedText">
                 <source>Comment for revision</source>
-                <target>Anmerkung zur Nachbesserung</target>
+                <target>Anmerkung:</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.juryIndividualInviteLink">
                 <source>Individual participation link</source>

@@ -980,6 +980,9 @@
             <trans-unit id="templates_email_frontendUser_returned.text1">
                 <source>Your submission for the competition "%s" was returned for revision. You can update your submission and resubmit it.</source>
             </trans-unit>
+            <trans-unit id="templates_email_frontendUser.commentPrefix">
+                <source>Comment:</source>
+            </trans-unit>
             <trans-unit id="templates_email_frontendUser_returned.showHeadline">
                 <source>Next steps</source>
             </trans-unit>
