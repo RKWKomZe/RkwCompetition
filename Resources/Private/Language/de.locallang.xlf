@@ -704,6 +704,10 @@
                 <source>Upload files</source>
                 <target>Dateien hochladen</target>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.registerUploadEdit">
+                <source>Edit uploaded files</source>
+                <target>Hochgeladene Dateien bearbeiten</target>
+            </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.registerDelete">
                 <source>Delete registration</source>
                 <target>Bewerbung löschen</target>

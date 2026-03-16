@@ -13,10 +13,14 @@
                                 <div class="flex space-between valign-center">
                                     <h3 class="h4">{register.competition.title}</h3>
 
+                                    <f:variable name="regStatus" value="<rkw:registerStatus register='{register}' />" />
                                     <div class="btn-list">
+
+                                        <div><span class="tile__label"><f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.status.{regStatus}" /></span> </div>
+
+
                                         <f:comment><!-- ViewHelper returns true if reg time for competition is still running --></f:comment>
                                         <f:if condition="<rkw:isDateWithinDeadline date='{register.competition.registerEnd}' />">
-                                            <f:variable name="regStatus" value="<rkw:registerStatus register='{register}' />" />
                                             <f:if condition="{regStatus} < 300 || {regStatus} == 400">
                                                 <f:link.action
                                                     class="btn btn--secondary"
@@ -48,10 +52,6 @@
                                 <p>
                                     <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.regEnd" />
                                     {register.competition.registerEnd -> f:format.date(format: 'd.m.Y')}
-                                </p>
-                                <p>
-                                    <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.status" />
-                                    <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.status.{regStatus}" />
                                 </p>
                                 <f:if condition="{regStatus} == 200">
                                     <p>
