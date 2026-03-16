@@ -132,15 +132,15 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.admin_approved">
                 <source>Admin approved</source>
-                <target>Genehmigt am</target>
+                <target>Angenommen</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.admin_approved_by">
                 <source>Admin approved by</source>
-                <target>Genehmigt von</target>
+                <target>Angenommen von</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.admin_approved_at">
                 <source>Admin approved at</source>
-                <target>Genehmigt am</target>
+                <target>Angenommen am</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.admin_refused">
                 <source>Admin refused</source>

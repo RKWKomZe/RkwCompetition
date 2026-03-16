@@ -21,6 +21,7 @@ use RKW\RkwCompetition\Domain\Model\JuryReference;
 use RKW\RkwCompetition\Domain\Model\Register;
 use RKW\RkwCompetition\Domain\Repository\BackendUserRepository;
 use RKW\RkwCompetition\Service\RkwMailService;
+use RKW\RkwCompetition\Utility\RegisterUtility;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
@@ -82,6 +83,7 @@ class BackendController extends \RKW\RkwCompetition\Controller\AbstractControlle
         $this->view->assign('registerCountTotal', $registerList->count());
         $this->view->assign('finishedRegisterCount', $this->registerRepository->findApprovedByCompetition($competition)->count());
         $this->view->assign('refusedRegisterCount', $this->registerRepository->findRefusedByCompetition($competition)->count());
+        $this->view->assign('returnedRegisterCount', $this->registerRepository->findReturnedByCompetition($competition)->count());
 
 
         // SPECIAL SOLUTION: Create FrontendLinks for Jury-Member
@@ -125,66 +127,85 @@ class BackendController extends \RKW\RkwCompetition\Controller\AbstractControlle
 
 
     /**
-     * action approve
+     * action processStatus
      *
      * @param \RKW\RkwCompetition\Domain\Model\Register $register
+     * @param int $adminStatus
+     * @param string $adminComment
      * @return void
      */
-    public function approveAction(Register $register): void
+    public function processStatusAction(Register $register, int $adminStatus, string $adminComment = ''): void
     {
         /** @var BackendUser $currentBackendUser */
         $currentBackendUser = $this->backendUserRepository->findByUid(intval($GLOBALS['BE_USER']->user['uid']));
-
-        $register->setAdminApprovedBy($currentBackendUser);
-        $register->setAdminApprovedAt(time());
-
-        $this->registerRepository->update($register);
-
         $emailService = GeneralUtility::makeInstance(RkwMailService::class);
-        $emailService->approvedRegisterUser($register->getFrontendUser(), $register);
 
-        $this->addFlashMessage(
-            \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-                'backendController.message.approved',
-                'rkw_competition'
-            )
-        );
+        switch ($adminStatus) {
+            case RegisterUtility::STATUS_APPROVED:
+                $register->setAdminApprovedBy($currentBackendUser);
+                $register->setAdminApprovedAt(time());
+                // Reset others just in case
+                $register->setAdminRefusedAt(0);
+                $register->setAdminReturnedAt(0);
+
+                $this->registerRepository->update($register);
+                $this->persistenceManager->persistAll();
+                $emailService->approvedRegisterUser($register->getFrontendUser(), $register);
+
+                $this->addFlashMessage(
+                    \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                        'backendController.message.approved',
+                        'rkw_competition'
+                    )
+                );
+                break;
+
+            case RegisterUtility::STATUS_REFUSED:
+                $register->setAdminRefusedBy($currentBackendUser);
+                $register->setAdminRefusedAt(time());
+                $register->setAdminRefusedText($adminComment);
+                // Reset others
+                $register->setAdminApprovedAt(0);
+                $register->setAdminReturnedAt(0);
+
+                $this->registerRepository->update($register);
+                $this->persistenceManager->persistAll();
+                $emailService->refusedRegisterUser($register->getFrontendUser(), $register);
+
+                $this->addFlashMessage(
+                    \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                        'backendController.message.declined',
+                        'rkw_competition'
+                    )
+                );
+                break;
+
+            case RegisterUtility::STATUS_RETURNED:
+                $register->setAdminReturnedBy($currentBackendUser);
+                $register->setAdminReturnedAt(time());
+                $register->setAdminReturnedText($adminComment);
+                // Reset others
+                $register->setAdminApprovedAt(0);
+                $register->setAdminRefusedAt(0);
+
+                // IMPORTANT: Allow user to edit again by resetting submission timestamp
+                $register->setUserSubmittedAt(0);
+
+                $this->registerRepository->update($register);
+                $this->persistenceManager->persistAll();
+
+                // We need to implement this method in MailService
+                $emailService->returnedRegisterUser($register->getFrontendUser(), $register);
+
+                $this->addFlashMessage(
+                    \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
+                        'backendController.message.returned',
+                        'rkw_competition'
+                    )
+                );
+                break;
+        }
 
         $this->forward('registerDetail', null, null, ['register' => $register]);
     }
-
-
-
-    /**
-     * action refuse
-     *
-     * @param \RKW\RkwCompetition\Domain\Model\Register $register
-     * @return void
-     */
-    public function refuseAction(Register $register): void
-    {
-
-        /** @var BackendUser $currentBackendUser */
-        $currentBackendUser = $this->backendUserRepository->findByUid(intval($GLOBALS['BE_USER']->user['uid']));
-
-        $register->setAdminRefusedBy($currentBackendUser);
-        $register->setAdminRefusedAt(time());
-
-        $this->registerRepository->update($register);
-        $this->persistenceManager->persistAll();
-
-        $emailService = GeneralUtility::makeInstance(RkwMailService::class);
-        $emailService->refusedRegisterUser($register->getFrontendUser(), $register);
-
-        $this->addFlashMessage(
-            \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
-                'backendController.message.declined',
-                'rkw_competition'
-            )
-        );
-
-        $this->forward('registerDetail', null, null, ['register' => $register]);
-    }
-
-
 }
