@@ -13,10 +13,14 @@
                                 <div class="flex space-between valign-center">
                                     <h3 class="h4">{register.competition.title}</h3>
 
+                                    <f:variable name="regStatus" value="<rkw:registerStatus register='{register}' />" />
                                     <div class="btn-list">
+
+                                        <div><span class="tile__label"><f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.status.{regStatus}" /></span> </div>
+
+
                                         <f:comment><!-- ViewHelper returns true if reg time for competition is still running --></f:comment>
                                         <f:if condition="<rkw:isDateWithinDeadline date='{register.competition.registerEnd}' />">
-                                            <f:variable name="regStatus" value="<rkw:registerStatus register='{register}' />" />
                                             <f:if condition="{regStatus} < 300 || {regStatus} == 400">
                                                 <f:link.action
                                                     class="btn btn--secondary"
@@ -49,41 +53,46 @@
                                     <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.regEnd" />
                                     {register.competition.registerEnd -> f:format.date(format: 'd.m.Y')}
                                 </p>
-                                <p>
-                                    <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.status" />
-                                    <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.status.{regStatus}" />
-                                </p>
-                                <f:if condition="{regStatus} == 200">
+                                <f:if condition="{regStatus} == 200 && {register.adminRefusedText}">
                                     <p>
                                         <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.reason" />
                                         {register.adminRefusedText}
                                     </p>
                                 </f:if>
-                                <f:if condition="{regStatus} == 400">
+                                <f:if condition="{regStatus} == 400 && {register.adminReturnedText}">
                                     <p>
                                         <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.reason" />
                                         {register.adminReturnedText}
                                     </p>
                                 </f:if>
                                 <p>
-                                    <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.projectDescription" />
-                                    <f:if condition="{register.upload.abstract} && {register.upload.full}">
+                                    <strong><f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.projectDescription" /></strong><br />
+
+                                    <!-- Abstract / Kurzfassung -->
+                                    <f:if condition="{register.upload.abstract}">
                                         <f:then>
-                                            <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.complete" />
+                                            <a href="{register.upload.abstract.originalResource.publicUrl}" target="_blank">
+                                                <svg class="icon icon--16" aria-hidden="true"><use xlink:href="#ic-download" /></svg>
+                                                {register.upload.abstract.originalResource.name}
+                                            </a>
                                         </f:then>
                                         <f:else>
-                                            <f:if condition="{register.upload.abstract}">
-                                                <f:else>
-                                                    <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.abstractMissing" />
-                                                </f:else>
-                                            </f:if>
-                                            <f:if condition="{register.upload.full}">
-                                                <f:else>
-                                                    <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.fullVersionMissing" />
-                                                </f:else>
-                                            </f:if>
+                                            <span class="text-error"><f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.abstractMissing" /></span>
                                         </f:else>
+                                    </f:if>
+                                    <br />
 
+                                    <!-- Langfassung -->
+                                    <f:if condition="{register.upload.full}">
+                                        <f:then>
+                                            <a href="{register.upload.full.originalResource.publicUrl}" target="_blank">
+                                                <svg class="icon icon--16" aria-hidden="true"><use xlink:href="#ic-download" /></svg>
+                                                {register.upload.full.originalResource.name}
+                                            </a>
+                                        </f:then>
+                                        <f:else>
+                                            <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.fullVersionMissing" />
+                                        </f:else>
                                     </f:if>
                                 </p>
                                 <p>

@@ -702,7 +702,11 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.registerUpload">
                 <source>Upload files</source>
-                <target>Dateien hochladen</target>
+                <target>Projektbeschreibung hochladen</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.registerUploadEdit">
+                <source>Edit uploaded files</source>
+                <target>Projektbeschreibung bearbeiten</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.registerDelete">
                 <source>Delete registration</source>
