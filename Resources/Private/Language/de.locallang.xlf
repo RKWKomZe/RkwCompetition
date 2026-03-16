@@ -975,8 +975,8 @@
 
             <!-- Templates/Email/FrontendUser/OptIn.html -->
             <trans-unit id="templates_email_frontendUser_optIn.headline">
-                <source>Hello,</source>
-                <target>Hallo,</target>
+                <source>Hello %s %s,</source>
+                <target>Hallo %s %s,</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_optIn.text1">
                 <source>thank you for your interest.</source>
@@ -1057,13 +1057,13 @@
             <!-- Templates/Email/FrontendUser/Refused.html -->
             <trans-unit id="templates_email_frontendUser_refused.headline">
                 <source>Dear %s %s,</source>
-                <target>Sehr geehrte/r %s %s,</target>
+                <target>Hallo %s %s,</target>
             </trans-unit>
 
             <!-- Templates/Email/FrontendUser/Returned.html -->
             <trans-unit id="templates_email_frontendUser_returned.headline">
                 <source>Dear %s %s,</source>
-                <target>Sehr geehrte/r %s %s,</target>
+                <target>Hallo %s %s,</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_returned.text1">
                 <source>Your submission for the competition "%s" was returned for revision. You can update your submission and resubmit it.</source>

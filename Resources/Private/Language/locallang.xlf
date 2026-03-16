@@ -907,7 +907,7 @@
 
             <!-- Templates/Email/FrontendUser/OptIn.html -->
             <trans-unit id="templates_email_frontendUser_optIn.headline">
-                <source>Hello,</source>
+                <source>Hello %s %s,</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_optIn.text1">
                 <source>thank you for your interest.</source>
