@@ -99,6 +99,15 @@
             <trans-unit id="tx_rkwcompetition_domain_model_register.own_cloud_folder_link">
                 <source>OwnCloud Link</source>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.admin_returned_by">
+                <source>Admin: Returned by</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.admin_returned_at">
+                <source>Admin: Returned at</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.admin_returned_text">
+                <source>Admin: Returned text</source>
+            </trans-unit>
 
 			<trans-unit id="tx_rkwcompetition_domain_model_upload">
 				<source>Upload</source>

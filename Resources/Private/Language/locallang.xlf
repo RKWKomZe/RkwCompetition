@@ -316,6 +316,9 @@
             <trans-unit id="backendController.message.declined">
                 <source>Declined</source>
             </trans-unit>
+            <trans-unit id="backendController.message.returned">
+                <source>Returned for revision</source>
+            </trans-unit>
 
 
             <!-- JuryController -->
@@ -660,6 +663,9 @@
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.status.300">
                 <source>Submitted</source>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.status.400">
+                <source>Returned</source>
+            </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.status.500">
                 <source>Approved</source>
             </trans-unit>
@@ -797,6 +803,9 @@
             </trans-unit>
             <trans-unit id="rkwMailService.frontendUser.subject.refused" approved="yes">
                 <source>Registration refused</source>
+            </trans-unit>
+            <trans-unit id="rkwMailService.frontendUser.subject.returned" approved="yes">
+                <source>Your submission was returned for revision</source>
             </trans-unit>
             <trans-unit id="rkwMailService.frontendUser.subject.delete" approved="yes">
                 <source>Your registration has been canceled</source>
@@ -957,6 +966,24 @@
 
 
             <!-- Templates/Email/FrontendUser/Refused.html -->
+            <trans-unit id="templates_email_frontendUser_refused.headline">
+                <source>Dear %s %s,</source>
+            </trans-unit>
+
+            <!-- Templates/Email/FrontendUser/Returned.html -->
+            <trans-unit id="templates_email_frontendUser_returned.headline">
+                <source>Dear %s %s,</source>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_returned.text1">
+                <source>Your submission for the competition "%s" was returned for revision. You can update your submission and resubmit it.</source>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_returned.showHeadline">
+                <source>Next steps</source>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_returned.text3">
+                <source>Log in to your account to edit and resubmit your entry.</source>
+            </trans-unit>
+
             <trans-unit id="templates_email_frontendUser_refused.headline">
                 <source>Hello %s %s,</source>
             </trans-unit>
@@ -1357,6 +1384,9 @@
             <trans-unit id="templates_backend_list.reg_total">
                 <source>Registered Total</source>
             </trans-unit>
+            <trans-unit id="templates_backend_list.reg_returned">
+                <source>Returned</source>
+            </trans-unit>
             <trans-unit id="templates_backend_list.reg_appr">
                 <source>Registered approved</source>
             </trans-unit>
@@ -1395,6 +1425,9 @@
             </trans-unit>
             <trans-unit id="templates_backend_show.refusedRegistrations">
                 <source>Refused registrations:</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.returnedRegistrations">
+                <source>Returned registrations:</source>
             </trans-unit>
             <trans-unit id="templates_backend_show.regStart">
                 <source>Reg start:</source>
@@ -1453,6 +1486,9 @@
             <trans-unit id="templates_backend_show.status.submitted">
                 <source>Submitted</source>
             </trans-unit>
+            <trans-unit id="templates_backend_show.status.returned">
+                <source>Returned</source>
+            </trans-unit>
             <trans-unit id="templates_backend_show.status.refused">
                 <source>Refused</source>
             </trans-unit>
@@ -1471,11 +1507,35 @@
             <trans-unit id="templates_backend_registerDetail.refuse">
                 <source>Refuse</source>
             </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.return">
+                <source>Return</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.submit">
+                <source>Submit</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.comment">
+                <source>Comment (required for "Refuse" and "Return")</source>
+            </trans-unit>
             <trans-unit id="templates_backend_registerDetail.safety_question_approve">
                 <source>Are you sure you want to approve this registration?</source>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.safety_question_refuse">
                 <source>Are you sure you want to refuse this registration?</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.safety_question_return">
+                <source>Are you sure you want to return this registration for revision?</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.safety_question_submit">
+                <source>Are you sure you want to process this status change?</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.adminReturnedAt">
+                <source>Returned at</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.adminReturnedBy">
+                <source>Returned by</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.adminReturnedText">
+                <source>Comment for revision</source>
             </trans-unit>
             <trans-unit id="templates_backend_show.juryIndividualInviteLink">
                 <source>Individual participation link</source>
@@ -1485,6 +1545,12 @@
             </trans-unit>
 
 
+            <trans-unit id="templates_backend_registerDetail.approvedInfo">
+                <source>This registration has been approved and cannot be edited anymore.</source>
+            </trans-unit>
+            <trans-unit id="registerController.error.alreadyApproved">
+                <source>This registration has already been approved and cannot be modified anymore.</source>
+            </trans-unit>
 		</body>
 	</file>
 </xliff>

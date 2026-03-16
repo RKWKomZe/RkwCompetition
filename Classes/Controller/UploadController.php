@@ -8,7 +8,9 @@ namespace RKW\RkwCompetition\Controller;
 use RKW\RkwCompetition\Domain\Model\Upload;
 use RKW\RkwCompetition\Persistence\FileHandler;
 use RKW\RkwCompetition\Utility\FileUploadUtility;
+use RKW\RkwCompetition\Utility\RegisterUtility;
 use Solarium\Component\Debug;
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
@@ -86,6 +88,18 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
      */
     public function editAction(\RKW\RkwCompetition\Domain\Model\Register $register)
     {
+        if (RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_APPROVED) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'registerController.error.alreadyApproved',
+                    'rkw_competition'
+                ),
+                '',
+                AbstractMessage::ERROR
+            );
+            $this->redirect('list', 'Participant');
+        }
+
         // check if "Upload"-Entity exists
         if (!$register->getUpload() instanceof Upload) {
 
@@ -112,6 +126,18 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
      */
     public function updateAction(\RKW\RkwCompetition\Domain\Model\Register $register)
     {
+
+        if (RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_APPROVED) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'registerController.error.alreadyApproved',
+                    'rkw_competition'
+                ),
+                '',
+                AbstractMessage::ERROR
+            );
+            $this->redirect('list', 'Participant');
+        }
 
         // @toDo: Validation mimeType stuff
         // https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/13.3/Feature-103511-IntroduceExtbaseFileUploadHandling.html#83749-validationkeys
@@ -160,6 +186,12 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
 
         $this->uploadRepository->update($register->getUpload());
 
+        // Reset returned status if it was returned before
+        if ($register->getAdminReturnedAt()) {
+            $register->setAdminReturnedAt(0);
+            $this->registerRepository->update($register);
+        }
+
         $this->redirect('edit', 'Upload', null, ['register' => $register]);
     }
 
@@ -182,6 +214,18 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
     )
     {
 
+        if (RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_APPROVED) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'registerController.error.alreadyApproved',
+                    'rkw_competition'
+                ),
+                '',
+                AbstractMessage::ERROR
+            );
+            $this->redirect('list', 'Participant');
+        }
+
         $unset = 'unset' . ucfirst($property);
         $register->getUpload()->$unset();
 
@@ -196,6 +240,12 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
 
         // remove fileReference from repo (with "cascadeRemove")
         $this->fileReferenceRepository->remove($fileReference);
+
+        // Reset returned status if it was returned before
+        if ($register->getAdminReturnedAt()) {
+            $register->setAdminReturnedAt(0);
+            $this->registerRepository->update($register);
+        }
 
         $this->addFlashMessage(
             LocalizationUtility::translate(

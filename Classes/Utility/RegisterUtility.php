@@ -32,11 +32,13 @@ class RegisterUtility
 {
     const STATUS_NEW = 100;
 
-    const STATUS_REFUSED = 200;
-
     const STATUS_SUBMITTED = 300;
 
+    const STATUS_RETURNED = 400;
+
     const STATUS_APPROVED = 500;
+
+    const STATUS_REFUSED = 200;
 
 
     /**
@@ -55,6 +57,11 @@ class RegisterUtility
         if ($register->getAdminApprovedAt()) {
             // approved (500)
             return self::STATUS_APPROVED;
+        }
+
+        if ($register->getAdminReturnedAt()) {
+            // returned (400)
+            return self::STATUS_RETURNED;
         }
 
         if ($register->getAdminRefusedAt()) {

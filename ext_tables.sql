@@ -63,11 +63,15 @@ CREATE TABLE tx_rkwcompetition_domain_model_register (
     admin_refused_text text NOT NULL DEFAULT '',
     admin_refused_at int(11) unsigned NOT NULL DEFAULT '0',
 
+    admin_returned_by int(11) NOT NULL DEFAULT '0',
+    admin_returned_text text NOT NULL DEFAULT '',
+    admin_returned_at int(11) unsigned NOT NULL DEFAULT '0',
+
 	upload int(11) unsigned DEFAULT '0',
 
     sector int(11) NOT NULL DEFAULT '0',
 	competition int(11) unsigned DEFAULT '0' NOT NULL,
-    frontend_user int(11) unsigned DEFAULT '0' NOT NULL,
+    frontend_user int(11) unsigned DEFAULT '0' NOT NULL
 );
 
 CREATE TABLE tx_rkwcompetition_domain_model_upload (
@@ -82,7 +86,7 @@ CREATE TABLE tx_rkwcompetition_domain_model_juryreference (
     competition int(11) unsigned DEFAULT '0' NOT NULL,
     guest_user int(11) unsigned DEFAULT '0' NOT NULL,
     email varchar(255) DEFAULT '' NOT NULL,
-    invite_token varchar(255) DEFAULT '' NOT NULL,
+    invite_token varchar(255) DEFAULT '' NOT NULL
 
 );
 

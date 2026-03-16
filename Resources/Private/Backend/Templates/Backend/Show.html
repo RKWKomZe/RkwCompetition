@@ -38,6 +38,10 @@
                                             <td>{refusedRegisterCount}</td>
                                         </tr>
                                         <tr>
+                                            <th><f:translate key="templates_backend_show.returnedRegistrations" /></th>
+                                            <td>{returnedRegisterCount}</td>
+                                        </tr>
+                                        <tr>
                                             <th><f:translate key="templates_backend_show.regStart" /></th>
                                             <td><f:format.date format="d.m.Y">{competition.registerStart}</f:format.date></td>
                                         </tr>
@@ -135,6 +139,9 @@
             <td>
                 <f:if condition="<rkw:registerStatus register='{register}' /> == 500">
                     <f:translate key="templates_backend_show.status.approved" />
+                </f:if>
+                <f:if condition="<rkw:registerStatus register='{register}' /> == 400">
+                    <f:translate key="templates_backend_show.status.returned" />
                 </f:if>
                 <f:if condition="<rkw:registerStatus register='{register}' /> == 300">
                     <f:translate key="templates_backend_show.status.submitted" />

@@ -190,11 +190,15 @@
             <!-- BackendController -->
             <trans-unit id="backendController.message.approved">
                 <source>Approved</source>
-                <target>Die Bewerbung wurde genehmigt und wird damit am Wettbewerb teilnehmen.</target>
+                <target>Die Bewerbung wurde angenommen und wird damit am Wettbewerb teilnehmen.</target>
             </trans-unit>
             <trans-unit id="backendController.message.declined">
                 <source>Declined</source>
                 <target>Die Bewerbung wurde abgelehnt.</target>
+            </trans-unit>
+            <trans-unit id="backendController.message.returned">
+                <source>Returned for revision</source>
+                <target>Die Bewerbung wurde zur Nachbesserung zurückgegeben.</target>
             </trans-unit>
 
 
@@ -647,6 +651,10 @@
                 <source>Approved</source>
                 <target>Akzeptiert</target>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.status.400">
+                <source>Returned</source>
+                <target>Zurückgegeben (Überarbeitung möglich)</target>
+            </trans-unit>
 
 
             <!-- Partials/Jury/Listing.html -->
@@ -790,12 +798,12 @@
                 <target>Anmerkung</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.abstract">
-                <source>Abstract PDF</source>
-                <target>Kurzfassung PDF (+ Word File?)</target>
+                <source>Abstract</source>
+                <target>Kurzfassung</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.full">
-                <source>Full PDF</source>
-                <target>Langfassung PDF (+ Word File?)</target>
+                <source>Long description</source>
+                <target>Langfassung</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.noFile">
                 <source>No file available</source>
@@ -834,7 +842,11 @@
             </trans-unit>
             <trans-unit id="rkwMailService.frontendUser.subject.refused">
                 <source>Registration refused</source>
-                <target>Wettbewerbsregistrierung abgelehnt</target>
+                <target>Ihre Bewerbung wurde abgelehnt</target>
+            </trans-unit>
+            <trans-unit id="rkwMailService.frontendUser.subject.returned">
+                <source>Your submission was returned for revision</source>
+                <target>Ihre Bewerbung wurde zur Nachbesserung zurückgegeben</target>
             </trans-unit>
             <trans-unit id="rkwMailService.frontendUser.subject.delete">
                 <source>Your registration has been canceled</source>
@@ -1039,6 +1051,29 @@
 
 
             <!-- Templates/Email/FrontendUser/Refused.html -->
+            <trans-unit id="templates_email_frontendUser_refused.headline">
+                <source>Dear %s %s,</source>
+                <target>Sehr geehrte/r %s %s,</target>
+            </trans-unit>
+
+            <!-- Templates/Email/FrontendUser/Returned.html -->
+            <trans-unit id="templates_email_frontendUser_returned.headline">
+                <source>Dear %s %s,</source>
+                <target>Sehr geehrte/r %s %s,</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_returned.text1">
+                <source>Your submission for the competition "%s" was returned for revision. You can update your submission and resubmit it.</source>
+                <target>Ihre Bewerbung für den Wettbewerb "%s" wurde zur Nachbesserung zurückgegeben. Sie können Ihre Angaben überarbeiten und erneut einreichen.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_returned.showHeadline">
+                <source>Next steps</source>
+                <target>Nächste Schritte</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_returned.text3">
+                <source>Log in to your account to edit and resubmit your entry.</source>
+                <target>Melden Sie sich in Ihrem Benutzerkonto an, um Ihre Bewerbung zu überarbeiten und erneut einzureichen.</target>
+            </trans-unit>
+
             <trans-unit id="templates_email_frontendUser_refused.headline">
                 <source>Hello %s %s,</source>
                 <target>Hallo %s %s,</target>
@@ -1426,8 +1461,8 @@
                 <target>Datenschutzbestimmungen akzeptiert</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.shortPdf">
-                <source>Short version PDF</source>
-                <target>Kurzfassung PDF (+ Word File?)</target>
+                <source>Abstract</source>
+                <target>Kurzfassung</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.download">
                 <source>Download</source>
@@ -1438,8 +1473,8 @@
                 <target>Keine Datei vorhanden</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.longPdf">
-                <source>Long version PDF</source>
-                <target>Langfassung PDF (+ Word File?)</target>
+                <source>Long description</source>
+                <target>Langfassung</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.cloudFiles">
                 <source>Files in Cloud</source>
@@ -1467,11 +1502,11 @@
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.adminApprovedAt">
                 <source>Approved at:</source>
-                <target>Genehmigt am:</target>
+                <target>Angenommen am:</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.adminApprovedBy">
                 <source>Approved by:</source>
-                <target>Genehmigt von:</target>
+                <target>Angenommen von:</target>
             </trans-unit>
 			<trans-unit id="templates_backend_registerDetail.notSubmittedYet">
 				<source>Not yet submitted by the user</source>
@@ -1560,9 +1595,13 @@
                 <source>Total regisrations</source>
                 <target>Bewerbungen</target>
             </trans-unit>
+            <trans-unit id="templates_backend_list.reg_returned">
+                <source>Returned</source>
+                <target>Zurückgegeben</target>
+            </trans-unit>
             <trans-unit id="templates_backend_list.reg_appr">
                 <source>Registered approved</source>
-                <target>Bewerbung genehmigt</target>
+                <target>Bewerbung angenommen</target>
             </trans-unit>
             <trans-unit id="templates_backend_list.action">
                 <source>Action</source>
@@ -1608,8 +1647,10 @@
                 <target>Abgeschlossene Bewerbungen:</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.refusedRegistrations">
-                <source>Refused registrations:</source>
                 <target>Abgelehnte Bewerbungen:</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.returnedRegistrations">
+                <target>Zurückgegebene Bewerbungen:</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.regStart">
                 <source>Start of registration:</source>
@@ -1617,7 +1658,7 @@
             </trans-unit>
             <trans-unit id="templates_backend_show.regEnd">
                 <source>End of registration:</source>
-                <target>Start of registration:</target>
+                <target>Ende der Bewerbungsphase:</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.confirmedJuryMember">
                 <source>Confirmed jury member</source>
@@ -1681,11 +1722,15 @@
             </trans-unit>
             <trans-unit id="templates_backend_show.status.approved">
                 <source>Approved</source>
-                <target>Genehmigt</target>
+                <target>Angenommen</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.status.submitted">
                 <source>Submitted</source>
                 <target>Eingereicht</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.status.returned">
+                <source>Returned</source>
+                <target>Zurückgegeben</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.status.refused">
                 <source>Refused</source>
@@ -1719,6 +1764,38 @@
                 <source>Are you sure you want to refuse this registration?</source>
                 <target>Sind Sie sicher, dass Sie diese Anmeldung ablehnen möchten? Der Teilnehmer wird darüber per E-Mail informiert.</target>
             </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.return">
+                <source>Return for revision</source>
+                <target>Zurückgeben</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.submit">
+                <source>Submit</source>
+                <target>Absenden</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.comment">
+                <source>Comment (required for "Refuse" and "Return")</source>
+                <target>Kommentar (Pflichtfeld bei "Ablehnen" und "Zurückgeben")</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.safety_question_return">
+                <source>Are you sure you want to return this registration for revision?</source>
+                <target>Sind Sie sicher, dass Sie diese Anmeldung zur Nachbesserung zurückgeben möchten? Der Teilnehmer wird darüber per E-Mail informiert.</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.safety_question_submit">
+                <source>Are you sure you want to process this status change?</source>
+                <target>Sind Sie sicher, dass Sie diesen Status verarbeiten möchten?</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.adminReturnedAt">
+                <source>Returned at</source>
+                <target>Zurückgegeben am</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.adminReturnedBy">
+                <source>Returned by</source>
+                <target>Zurückgegeben von</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.adminReturnedText">
+                <source>Comment for revision</source>
+                <target>Anmerkung zur Nachbesserung</target>
+            </trans-unit>
             <trans-unit id="templates_backend_show.juryIndividualInviteLink">
                 <source>Individual participation link</source>
                 <target>Individueller Teilnahme-Link</target>
@@ -1729,6 +1806,14 @@
             </trans-unit>
 
 
+            <trans-unit id="templates_backend_registerDetail.approvedInfo">
+                <source>This registration has been approved and cannot be edited anymore.</source>
+                <target>Diese Anmeldung wurde bereits freigegeben und kann nicht mehr bearbeitet werden.</target>
+            </trans-unit>
+            <trans-unit id="registerController.error.alreadyApproved">
+                <source>This registration has already been approved and cannot be modified anymore.</source>
+                <target>Diese Anmeldung wurde bereits freigegeben und kann nicht mehr verändert werden.</target>
+            </trans-unit>
 		</body>
 	</file>
 </xliff>

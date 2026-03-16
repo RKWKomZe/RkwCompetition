@@ -269,6 +269,26 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
         $this->frontendUserMail($frontendUser, $register, 'refused');
     }
 
+    /**
+     * Handles returned (for revision) mail for user
+     *
+     * @param \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser
+     * @param \RKW\RkwCompetition\Domain\Model\Register $register
+     * @return void
+     * @throws \Madj2k\Postmaster\Exception
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
+     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     */
+    public function returnedRegisterUser(
+        \Madj2k\FeRegister\Domain\Model\FrontendUser $frontendUser,
+        \RKW\RkwCompetition\Domain\Model\Register $register
+    ) :void
+    {
+        $this->frontendUserMail($frontendUser, $register, 'returned');
+    }
+
 
     /**
      * Handles confirm mail for user

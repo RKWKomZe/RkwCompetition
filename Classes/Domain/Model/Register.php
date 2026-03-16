@@ -193,6 +193,20 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $adminRefusedText = '';
 
     /**
+     * adminReturnedAt
+     *
+     * @var int
+     */
+    protected $adminReturnedAt = 0;
+
+    /**
+     * adminReturnedText
+     *
+     * @var string
+     */
+    protected $adminReturnedText = '';
+
+    /**
      * uniqueId
      *
      * @var string
@@ -248,6 +262,13 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var \RKW\RkwCompetition\Domain\Model\BackendUser
      */
     protected $adminRefusedBy = null;
+
+    /**
+     * adminReturnedBy
+     *
+     * @var \RKW\RkwCompetition\Domain\Model\BackendUser
+     */
+    protected $adminReturnedBy = null;
 
     /**
      * Returns the creation date
@@ -933,5 +954,67 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $this->adminRefusedBy = $adminRefusedBy;
     }
 
+    /**
+     * Returns the adminReturnedBy
+     *
+     * @return \RKW\RkwCompetition\Domain\Model\BackendUser $adminReturnedBy
+     */
+    public function getAdminReturnedBy()
+    {
+        return $this->adminReturnedBy;
+    }
+
+    /**
+     * Sets the adminReturnedBy
+     *
+     * @param \RKW\RkwCompetition\Domain\Model\BackendUser $adminReturnedBy
+     * @return void
+     */
+    public function setAdminReturnedBy(\RKW\RkwCompetition\Domain\Model\BackendUser $adminReturnedBy)
+    {
+        $this->adminReturnedBy = $adminReturnedBy;
+    }
+
+    /**
+     * Returns the adminReturnedAt
+     *
+     * @return int $adminReturnedAt
+     */
+    public function getAdminReturnedAt()
+    {
+        return $this->adminReturnedAt;
+    }
+
+    /**
+     * Sets the adminReturnedAt
+     *
+     * @param int $adminReturnedAt
+     * @return void
+     */
+    public function setAdminReturnedAt(int $adminReturnedAt)
+    {
+        $this->adminReturnedAt = $adminReturnedAt;
+    }
+
+    /**
+     * Returns the adminReturnedText
+     *
+     * @return string $adminReturnedText
+     */
+    public function getAdminReturnedText()
+    {
+        return $this->adminReturnedText;
+    }
+
+    /**
+     * Sets the adminReturnedText
+     *
+     * @param string $adminReturnedText
+     * @return void
+     */
+    public function setAdminReturnedText(string $adminReturnedText)
+    {
+        $this->adminReturnedText = $adminReturnedText;
+    }
 
 }

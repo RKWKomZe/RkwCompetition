@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
 	xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+    xmlns:rkw="http://typo3.org/ns/RKW/RkwCompetition/ViewHelpers"
 	data-namespace-typo3-fluid="true">
 
 <f:layout name="Default" />
@@ -30,6 +31,9 @@
 									<f:translate key="templates_backend_list.reg_total" />
 								</th>
 								<th class="nowrap">
+									<f:translate key="templates_backend_list.reg_returned" />
+								</th>
+								<th class="nowrap">
 									<f:translate key="templates_backend_list.action" />
 								</th>
 							</tr>
@@ -56,6 +60,9 @@
 									</td>
 									<td>
 										<f:count>{competition.register}</f:count>
+									</td>
+									<td>
+										<rkw:registerStatusCount competition="{competition}" status="400" />
 									</td>
 									<td>
 										<f:link.action class="btn btn-default" action="show" arguments="{competition: competition}">
