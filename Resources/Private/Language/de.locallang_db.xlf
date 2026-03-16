@@ -225,11 +225,11 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_competition.register_start">
                 <source>Register Start</source>
-                <target>Beginn Anmeldungsperiode</target>
+                <target>Beginn Anmeldezeitrraum</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_competition.register_end">
                 <source>Register End</source>
-                <target>Ende Anmeldungsperiode</target>
+                <target>Ende Anmeldezeitrraum</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_competition.jury_access_end">
                 <source>Jury Access End</source>
@@ -257,7 +257,7 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_competition.reminder_incomplete_mail_tstamp">
                 <source>Reminder Incomplete Tstamp</source>
-                <target>Erinnerungsmail für unvollständige Bewerbungen</target>
+                <target>Erinnerungsmail für unvollständige Anmeldungen</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_competition.reminder_cleanup_mail_tstamp">
                 <source>Reminder Cleanup Interval</source>

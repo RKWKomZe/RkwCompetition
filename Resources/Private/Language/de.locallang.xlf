@@ -25,7 +25,7 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_validator.expired">
                 <source>Competition expired</source>
-                <target>Die Bewerbungsphase ist leider seit dem %s abgelaufen.</target>
+                <target>Der Anmeldezeitraum ist leider seit dem %s vergangen.</target>
             </trans-unit>
 			<trans-unit id="tx_rkwcompetition_validator.email_invalid">
 				<source>Email invalid</source>
@@ -190,15 +190,15 @@
             <!-- BackendController -->
             <trans-unit id="backendController.message.approved">
                 <source>Approved</source>
-                <target>Die Bewerbung wurde angenommen und wird damit am Wettbewerb teilnehmen.</target>
+                <target>Die Anmeldung wurde angenommen und wird damit am Wettbewerb teilnehmen.</target>
             </trans-unit>
             <trans-unit id="backendController.message.declined">
-                <source>Declined</source>
-                <target>Die Bewerbung wurde abgelehnt.</target>
+                <source>Refused</source>
+                <target>Die Anmeldung wurde abgelehnt.</target>
             </trans-unit>
             <trans-unit id="backendController.message.returned">
                 <source>Returned for revision</source>
-                <target>Die Bewerbung wurde zur Nachbesserung zurückgegeben.</target>
+                <target>Die Anmeldung wurde zur Nachbesserung zurückgegeben.</target>
             </trans-unit>
 
 
@@ -258,7 +258,7 @@
             </trans-unit>
             <trans-unit id="registerController.error.optInDisabled">
                 <source>The OptIn is diabled! Please look for another way for registration</source>
-                <target>Upps! Die interne Bewerbung für der Wettbewerb wurde deaktiviert. Bitte überprüfen Sie die angebotenen Möglichkeiten, um sich anderweitig zu bewerben.</target>
+                <target>Upps! Die interne Anmeldung für der Wettbewerb wurde deaktiviert. Bitte überprüfen Sie die angebotenen Möglichkeiten, um sich anderweitig zu bewerben.</target>
             </trans-unit>
             <trans-unit id="registerController.error.exists">
                 <source>Registration already exists!</source>
@@ -270,15 +270,15 @@
             </trans-unit>
             <trans-unit id="registerController.message.registrationCanceled">
                 <source>Registration was canceled.</source>
-                <target>Schade! Die Wettbewerbsanmeldung wurde, wie gewünscht, abgebrochen. Sie können sich aber erneut bewerber.</target>
+                <target>Schade! Die Anmeldung wurde, wie gewünscht, abgebrochen. Sie können sich aber erneut bewerber.</target>
             </trans-unit>
             <trans-unit id="registerController.error.registrationError">
                 <source>An error occurred. Please try again.</source>
-                <target>Upps, da ist wohl etwas schief gelaufen. Haben Sie die Bewerbung möglicherweise bereits bestätigt?</target>
+                <target>Upps, da ist wohl etwas schief gelaufen. Haben Sie die Anmeldung möglicherweise bereits bestätigt?</target>
             </trans-unit>
             <trans-unit id="registerController.error.registrationTime">
                 <source>Unfortunately a registration is no longer possible.</source>
-                <target>Leider ist eine Anmeldung an diesem Wettbewerb nicht mehr möglich. Vermutlich ist die Anmeldefrist abgelaufen oder der Wettbewerb ist bereits beendet.</target>
+                <target>Leider ist eine Anmeldung zu diesem Wettbewerb nicht mehr möglich. Vermutlich ist die Anmeldefrist abgelaufen oder der Wettbewerb ist bereits beendet.</target>
             </trans-unit>
             <trans-unit id="registerController.message.updated">
                 <source>Successfully updated.</source>
@@ -425,7 +425,7 @@
             <!-- Templates/Register/DeleteQuestion.html -->
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_deletequestion.headline">
                 <source>Delete registration</source>
-                <target>Bewerbung löschen</target>
+                <target>Anmeldung löschen</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_deletequestion.backToList">
                 <source>Back to list</source>
@@ -447,19 +447,19 @@
             <!-- Templates/Register/Edit.html -->
             <trans-unit id="registerController.message.updated">
                 <source>Registration updated</source>
-                <target>Bewerbung aktualisiert</target>
+                <target>Anmeldung aktualisiert</target>
             </trans-unit>
             <trans-unit id="registerController.message.deleted">
                 <source>Registration deleted</source>
-                <target>Bewerbung gelöscht</target>
+                <target>Anmeldung gelöscht</target>
             </trans-unit>
             <trans-unit id="registerController.error.notAuthorized">
                 <source>You are not authorized to edit this registration.</source>
-                <target>Sie sind nicht berechtigt, diese Bewerbung zu bearbeiten.</target>
+                <target>Sie sind nicht berechtigt, diese Anmeldung zu bearbeiten.</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_edit.headline">
                 <source>Edit registration</source>
-                <target>Bewerbung bearbeiten</target>
+                <target>Anmeldung bearbeiten</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_edit.submit">
                 <source>Send</source>
@@ -565,7 +565,7 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.header">
                 <source>Submit registration</source>
-                <target>Bewerbung einreichen</target>
+                <target>Anmeldung einreichen</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.your_checklist">
                 <source>Your checklist</source>
@@ -577,7 +577,7 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.checkAbstract">
                 <source>Abstract of the registration</source>
-                <target>Kurzfassung der Bewerbung</target>
+                <target>Kurzfassung der Projektbeschreibung</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.checkAbstractUpload">
                 <source>Upload the abstract now</source>
@@ -585,7 +585,7 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.checkFull">
                 <source>Long version of the registration (optional)</source>
-                <target>Langfassung der Bewerbung (optional)</target>
+                <target>Langfassung der Projektbeschreibung (optional)</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.hint1">
                 <source>Have you thought about using the provided cloud for additional files and images?</source>
@@ -633,7 +633,7 @@
             <!-- Partials/Participant/Listing.html -->
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.noCompetitionPlanned">
                 <source>No competition planned</source>
-                <target>Derzeit liegen keine Bewerbungen für Wettbewerbe vor.</target>
+                <target>Derzeit liegen keine Anmeldungen für Wettbewerbe vor.</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.status.100">
                 <source>New</source>
@@ -641,7 +641,7 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.status.200">
                 <source>Refused</source>
-                <target>Zurückgewiesen</target>
+                <target>Abgelehnt</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.status.300">
                 <source>Submitted</source>
@@ -649,11 +649,11 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.status.500">
                 <source>Approved</source>
-                <target>Akzeptiert</target>
+                <target>Angenommen</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.status.400">
                 <source>Returned</source>
-                <target>Zurückgegeben (Überarbeitung möglich)</target>
+                <target>Zurückgegeben</target>
             </trans-unit>
 
 
@@ -694,11 +694,11 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.registerShow">
                 <source>Show registration</source>
-                <target>Bewerbung ansehen</target>
+                <target>Anmeldung ansehen</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.registerEdit">
                 <source>Edit registration</source>
-                <target>Bewerbung bearbeiten</target>
+                <target>Anmeldung bearbeiten</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.registerUpload">
                 <source>Upload files</source>
@@ -710,11 +710,11 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.registerDelete">
                 <source>Delete registration</source>
-                <target>Bewerbung löschen</target>
+                <target>Anmeldung löschen</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.registerSubmit">
                 <source>Submit registration</source>
-                <target>Bewerbung einreichen</target>
+                <target>Anmeldung einreichen</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.submit">
                 <source>Submit</source>
@@ -722,7 +722,7 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.registrationComplete">
                 <source>Registration complete</source>
-                <target>Die Bewerbung ist vollständig und es sind keine weiteren Aktionen mehr möglich.</target>
+                <target>Die Anmeldung ist vollständig und es sind keine weiteren Aktionen mehr möglich.</target>
             </trans-unit>
 
 
@@ -846,23 +846,23 @@
             </trans-unit>
             <trans-unit id="rkwMailService.frontendUser.subject.refused">
                 <source>Registration refused</source>
-                <target>Ihre Bewerbung wurde abgelehnt</target>
+                <target>Ihre Anmeldung wurde abgelehnt</target>
             </trans-unit>
             <trans-unit id="rkwMailService.frontendUser.subject.returned">
                 <source>Your submission was returned for revision</source>
-                <target>Ihre Bewerbung wurde zur Nachbesserung zurückgegeben</target>
+                <target>Ihre Anmeldung wurde zur Nachbesserung zurückgegeben</target>
             </trans-unit>
             <trans-unit id="rkwMailService.frontendUser.subject.delete">
                 <source>Your registration has been canceled</source>
-                <target>Ihre Bewerbung wurde zurückgezogen</target>
+                <target>Ihre Anmeldung wurde zurückgezogen</target>
             </trans-unit>
             <trans-unit id="rkwMailService.frontendUser.subject.submit">
                 <source>Your registration has been submitted</source>
-                <target>Ihre Bewerbung wurde eingereicht</target>
+                <target>Ihre Anmeldung wurde eingereicht</target>
             </trans-unit>
             <trans-unit id="rkwMailService.frontendUser.subject.incomplete">
                 <source>Your registration is still incomplete</source>
-                <target>Bitte vervollständigen Sie Ihre Bewerbung</target>
+                <target>Bitte vervollständigen Sie Ihre Anmeldung</target>
             </trans-unit>
             <trans-unit id="rkwMailService.frontendUser.subject.juryNotify">
                 <source>Confirm your role as a jury member</source>
@@ -885,11 +885,11 @@
             </trans-unit>
             <trans-unit id="rkwMailService.backendUser.subject.delete">
                 <source>Registration has been canceled</source>
-                <target>Eine Wettbewerbsanmeldung wurde zurückgezogen</target>
+                <target>Eine Anmeldung wurde zurückgezogen</target>
             </trans-unit>
             <trans-unit id="rkwMailService.backendUser.subject.submit">
                 <source>Registration has been submitted</source>
-                <target>Bewerbung zum Wettbewerb %s wurde eingereicht</target>
+                <target>Anmeldung zum Wettbewerb %s wurde eingereicht</target>
             </trans-unit>
             <trans-unit id="rkwMailService.backendUser.subject.removalReminder">
                 <source>A competition will removed soon</source>
@@ -897,7 +897,7 @@
             </trans-unit>
             <trans-unit id="rkwMailService.backendUser.subject.closingDay">
                 <source>Competition closing day</source>
-                <target>Wettbewerb: Bewerbungsphase beendet</target>
+                <target>Wettbewerb: Anmeldezeitraum beendet</target>
             </trans-unit>
 
 
@@ -984,11 +984,11 @@
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_optIn.text2">
                 <source>Please check and confirm your request below.</source>
-                <target>Bitte prüfen Sie Ihre Bewerbung auf Richtigkeit und bestätigen Sie sie über den untenstehenden Link. Bei Rückfragen können Sie einfach direkt auf diese E-Mail antworten.</target>
+                <target>Bitte prüfen Sie Ihre Anmeldung auf Richtigkeit und bestätigen Sie sie über den untenstehenden Link. Bei Rückfragen können Sie einfach direkt auf diese E-Mail antworten.</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_optIn.textOptIn" approved="no">
                 <source>Click here to confirm your request:</source>
-                <target>Bitte klicken Sie hier, um die Bewerbung zu bestätigen. Um Ihnen zukünftige Wettbewerbe zu erleichtern, wird automatisch ein kostenloser Account erstellt, falls Sie nicht schon als Nutzender registriert sind. Das Passwort erhalten Sie in einer weiteren E-Mail.</target>
+                <target>Bitte klicken Sie hier, um die Anmeldung zu bestätigen. Um Ihnen zukünftige Wettbewerbe zu erleichtern, wird automatisch ein kostenloser Account erstellt, falls Sie nicht schon als Nutzender registriert sind. Das Passwort erhalten Sie in einer weiteren E-Mail.</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_optIn.textOptOut">
                 <source>Click here to cancel your request:</source>
@@ -1067,7 +1067,7 @@
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_returned.text1">
                 <source>Your submission for the competition "%s" was returned for revision. You can update your submission and resubmit it.</source>
-                <target>Ihre Bewerbung für den Wettbewerb "%s" wurde zur Nachbesserung zurückgegeben. Sie können Ihre Angaben überarbeiten und erneut einreichen.</target>
+                <target>Ihre Anmeldung für den Wettbewerb "%s" wurde zur Nachbesserung zurückgegeben. Sie können Ihre Angaben überarbeiten und erneut einreichen.</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_returned.showHeadline">
                 <source>Next steps</source>
@@ -1075,7 +1075,7 @@
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_returned.text3">
                 <source>Log in to your account to edit and resubmit your entry.</source>
-                <target>Melden Sie sich in Ihrem Benutzerkonto an, um Ihre Bewerbung zu überarbeiten und erneut einzureichen.</target>
+                <target>Melden Sie sich in Ihrem Benutzerkonto an, um Ihre Anmeldung zu überarbeiten und erneut einzureichen.</target>
             </trans-unit>
 
             <trans-unit id="templates_email_frontendUser_refused.headline">
@@ -1096,11 +1096,11 @@
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_refused.showHeadline">
                 <source>Show registration</source>
-                <target>Wettbewerbsanmeldungen ansehen</target>
+                <target>Anmeldungen ansehen</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_refused.reason">
                 <source>Reason:</source>
-                <target></target>
+                <target>Grund</target>
             </trans-unit>
 
 
@@ -1127,7 +1127,7 @@
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_incomplete.showHeadline">
                 <source>Show registration</source>
-                <target>Wettbewerbsanmeldungen ansehen</target>
+                <target>Anmeldungen ansehen</target>
             </trans-unit>
 
 
@@ -1138,7 +1138,7 @@
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_submit.text1">
                 <source>There is news about a competition organised by RKW.</source>
-                <target>vielen Dank für Ihr Interesse! Sie haben Ihre Bewerbung für den folgenden Wettbewerb erfolgreich eingereicht:</target>
+                <target>vielen Dank für Ihr Interesse! Sie haben Ihre Anmeldung für den folgenden Wettbewerb erfolgreich eingereicht:</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_submit.text2">
                 <source>Your registration has been submitted:</source>
@@ -1150,7 +1150,7 @@
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_submit.showHeadline">
                 <source>Show registration</source>
-                <target>Ihre Bewerbung ansehen</target>
+                <target>Ihre Anmeldung ansehen</target>
             </trans-unit>
 
 
@@ -1214,7 +1214,7 @@
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_delete.text2">
                 <source>Please find below the details of your canceled reservation.</source>
-                <target>Untenstehend finden Sie die Details Ihrer zurückgezogenen Bewerbung. Bei Rückfragen können Sie einfach direkt auf diese E-Mail antworten.</target>
+                <target>Untenstehend finden Sie die Details Ihrer zurückgezogenen Anmeldung. Bei Rückfragen können Sie einfach direkt auf diese E-Mail antworten.</target>
             </trans-unit>
 
 
@@ -1225,15 +1225,15 @@
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_closingDayApproved.text1">
                 <source>great news!</source>
-                <target>Tolle Neuigkeiten! Die Bewerbungsphase ist beendet und der Ball liegt nun bei der Jury.</target>
+                <target>Tolle Neuigkeiten! Der Anmeldezeitraum ist beendet und der Ball liegt nun bei der Jury.</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_closingDayApproved.text2">
                 <source>Please find below the details of your reservation.</source>
-                <target>Untenstehend finden Sie die Details Ihrer Bewerbung. Bei Rückfragen können Sie einfach direkt auf diese E-Mail antworten.</target>
+                <target>Untenstehend finden Sie die Details Ihrer Anmeldung. Bei Rückfragen können Sie einfach direkt auf diese E-Mail antworten.</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_incomplete.showHeadline">
                 <source>Show registration</source>
-                <target>Bewerbung ansehen</target>
+                <target>Anmeldung ansehen</target>
             </trans-unit>
 
 
@@ -1244,15 +1244,15 @@
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_closingDayIncomplete.text1">
                 <source>bad news!</source>
-                <target>Schade! Die Bewerbungsphase ist beendet und wir konnten Ihren Beitrag leider nicht berücksichtigen.</target>
+                <target>Schade! Der Anmeldezeitraum ist beendet und wir konnten Ihren Beitrag leider nicht berücksichtigen.</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_closingDayIncomplete.text2">
                 <source>Please find below the details of your reservation.</source>
-                <target>Untenstehend finden Sie die Details Ihrer Bewerbung. Bei Rückfragen können Sie einfach direkt auf diese E-Mail antworten.</target>
+                <target>Untenstehend finden Sie die Details Ihrer Anmeldung. Bei Rückfragen können Sie einfach direkt auf diese E-Mail antworten.</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_closingDayIncomplete.showHeadline">
                 <source>Show registration</source>
-                <target>Bewerbung ansehen</target>
+                <target>Anmeldung ansehen</target>
             </trans-unit>
 
 
@@ -1280,7 +1280,7 @@
             </trans-unit>
             <trans-unit id="templates_email_backendUser_delete.text1" approved="no">
                 <source>a registration has been canceled.</source>
-                <target phase-name="approval-1" state="final">jemand hat über die Website seine Bewerbung zu einem Wettbewerb zurückgezogen. Sie können dem oder der Nutzenden direkt auf diese E-Mail antworten, um etwaige Fragen zu klären.</target>
+                <target phase-name="approval-1" state="final">jemand hat über die Website seine Anmeldung zu einem Wettbewerb zurückgezogen. Sie können dem oder der Nutzenden direkt auf diese E-Mail antworten, um etwaige Fragen zu klären.</target>
             </trans-unit>
 
 
@@ -1305,7 +1305,7 @@
             </trans-unit>
             <trans-unit id="templates_email_backendUser_submit.text1" approved="no">
                 <source>a registration has been submitted.</source>
-                <target>jemand hat eine Bewerbung zum Wettbewerb %s vollständig ausgefüllt und eingereicht. Sie können dem oder der Nutzenden direkt auf diese E-Mail antworten, um etwaige Fragen zu klären.</target>
+                <target>jemand hat eine Anmeldung zum Wettbewerb %s vollständig ausgefüllt und eingereicht. Sie können dem oder der Nutzenden direkt auf diese E-Mail antworten, um etwaige Fragen zu klären.</target>
             </trans-unit>
             <trans-unit id="templates_email_backendUser_submit.text2" approved="no">
                 <source>IMPORTANT: The user has already received a confirmation for his reservation. He will also automatically receive a reminder-mail a few days before the event.</source>
@@ -1320,11 +1320,11 @@
             </trans-unit>
             <trans-unit id="templates_email_backendUser_closingDay.text1" approved="no">
                 <source>a competition register period comes to it's end.</source>
-                <target>Die Bewerbungsphase eines Wettbewerbs ist beendet.</target>
+                <target>Der Anmeldezeitaum eines Wettbewerbs ist beendet.</target>
             </trans-unit>
             <trans-unit id="templates_email_backendUser_closingDay.text2" approved="no">
                 <source>IMPORTANT: You found downloadable content inside the TYPO3 backend module.</source>
-                <target>WICHTIG: Im zugehörigen Backend Module finden Sie nun herunterladbare Informationen zu den jeweiligen Bewerbungen.</target>
+                <target>WICHTIG: Im zugehörigen Backend Module finden Sie nun herunterladbare Informationen zu den jeweiligen Anmeldungen.</target>
             </trans-unit>
 
 
@@ -1498,11 +1498,11 @@
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.adminRefusedAt">
                 <source>Refused at:</source>
-                <target>Zurückgewiesen am:</target>
+                <target>Abgelehnt am:</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.adminRefusedBy">
                 <source>Refused by:</source>
-                <target>Zurückgewiesen von:</target>
+                <target>Abgelehnt von:</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.adminApprovedAt">
                 <source>Approved at:</source>
@@ -1542,7 +1542,7 @@
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.adminRefusedText">
                 <source>Admin refused text</source>
-                <target>Erläuterung zur Ablehnung der Bewerbung. Dieser Text wird der/dem Bewerbenden per E-Mail gesendet.</target>
+                <target>Erläuterung zur Ablehnung der Anmeldung. Dieser Text wird der/dem Bewerbenden per E-Mail gesendet.</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.refuse">
                 <source>Refuse</source>
@@ -1585,11 +1585,11 @@
             </trans-unit>
 			<trans-unit id="templates_backend_list.reg_start">
 				<source>Start of registration</source>
-				<target>Beginn der Bewerbungsphase</target>
+				<target>Beginn des Anmeldezeitraums</target>
 			</trans-unit>
 			<trans-unit id="templates_backend_list.reg_end">
 				<source>End of registration end</source>
-				<target>Ende der Bewerbungsphase</target>
+				<target>Ende des Anmeldezeitraums</target>
 			</trans-unit>
             <trans-unit id="templates_backend_list.admin">
                 <source>Admin</source>
@@ -1597,7 +1597,7 @@
             </trans-unit>
             <trans-unit id="templates_backend_list.reg_total">
                 <source>Total regisrations</source>
-                <target>Bewerbungen</target>
+                <target>Anmeldungen</target>
             </trans-unit>
             <trans-unit id="templates_backend_list.reg_returned">
                 <source>Returned</source>
@@ -1605,7 +1605,7 @@
             </trans-unit>
             <trans-unit id="templates_backend_list.reg_appr">
                 <source>Registered approved</source>
-                <target>Bewerbung angenommen</target>
+                <target>Anmeldung angenommen</target>
             </trans-unit>
             <trans-unit id="templates_backend_list.action">
                 <source>Action</source>
@@ -1644,25 +1644,25 @@
             </trans-unit>
             <trans-unit id="templates_backend_show.registrationsTotal">
                 <source>Registrations total:</source>
-                <target>Bewerbungen:</target>
+                <target>Anmeldungen:</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.finishedRegistrations">
                 <source>Finished registrations:</source>
-                <target>Abgeschlossene Bewerbungen:</target>
+                <target>Abgeschlossene Anmeldungen:</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.refusedRegistrations">
-                <target>Abgelehnte Bewerbungen:</target>
+                <target>Abgelehnte Anmeldungen:</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.returnedRegistrations">
-                <target>Zurückgegebene Bewerbungen:</target>
+                <target>Zurückgegebene Anmeldungen:</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.regStart">
                 <source>Start of registration:</source>
-                <target>Beginn der Bewerbungsphase:</target>
+                <target>Beginn des Anmeldezeitraums:</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.regEnd">
                 <source>End of registration:</source>
-                <target>Ende der Bewerbungsphase:</target>
+                <target>Ende des Anmeldezeitraums:</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.confirmedJuryMember">
                 <source>Confirmed jury member</source>
@@ -1762,7 +1762,7 @@
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.safety_question_approve">
                 <source>Are you sure you want to approve this registration?</source>
-                <target>Sind Sie sicher, dass Sie diese Anmeldung genehmigen möchten? Der Teilnehmer wird darüber per E-Mail informiert.</target>
+                <target>Sind Sie sicher, dass Sie diese Anmeldung annehmen möchten? Der Teilnehmer wird darüber per E-Mail informiert.</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.safety_question_refuse">
                 <source>Are you sure you want to refuse this registration?</source>
@@ -1812,11 +1812,11 @@
 
             <trans-unit id="templates_backend_registerDetail.approvedInfo">
                 <source>This registration has been approved and cannot be edited anymore.</source>
-                <target>Diese Anmeldung wurde bereits freigegeben und kann nicht mehr bearbeitet werden.</target>
+                <target>Diese Anmeldung wurde bereits angenommen und kann nicht mehr bearbeitet werden.</target>
             </trans-unit>
             <trans-unit id="registerController.error.alreadyApproved">
                 <source>This registration has already been approved and cannot be modified anymore.</source>
-                <target>Diese Anmeldung wurde bereits freigegeben und kann nicht mehr verändert werden.</target>
+                <target>Diese Anmeldung wurde bereits angenommen und kann nicht mehr verändert werden.</target>
             </trans-unit>
 		</body>
 	</file>
