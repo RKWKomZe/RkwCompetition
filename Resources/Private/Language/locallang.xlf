@@ -1559,6 +1559,9 @@
             <trans-unit id="registerController.error.alreadyApproved">
                 <source>This registration has already been approved and cannot be modified anymore.</source>
             </trans-unit>
+            <trans-unit id="registerController.error.notEditable">
+                <source>This registration cannot be edited anymore (already approved or refused).</source>
+            </trans-unit>
 		</body>
 	</file>
 </xliff>
