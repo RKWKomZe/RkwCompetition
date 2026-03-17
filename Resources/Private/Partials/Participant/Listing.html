@@ -2,124 +2,139 @@
     xmlns:rkw="http://typo3.org/ns/RKW/RkwCompetition/ViewHelpers"
     data-namespace-typo3-fluid="true">
 
-    <!-- upcoming events -->
-    <f:if condition="{registerList}">
-        <f:then>
-            <table class="responsive-table responsive-table--background" >
-                <f:for each="{registerList}" as="register">
-                    <f:if condition="{register.competition}">
-                        <tr>
-                            <td>
-                                <div class="flex space-between valign-center">
-                                    <h3 class="h4">{register.competition.title}</h3>
+<f:if condition="{registerList}">
+    <f:then>
+        <f:for each="{registerList}" as="register">
+            <f:if condition="{register.competition}">
+                <div class="flex space-between valign-center">
+                    <div class="flex-basis-9">
+                        <h3 class="h4">
+                            <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.headline" arguments="{0: register.competition.title}" />
+                        </h3>
+                    </div>
 
-                                    <f:variable name="regStatus" value="<rkw:registerStatus register='{register}' />" />
-                                    <div class="btn-list">
+                    <f:variable name="regStatus" value="<rkw:registerStatus register='{register}' />"/>
+                    <f:variable name="statusClass">
+                        <f:switch expression="{regStatus}">
+                            <f:case value="100">badge--secondary</f:case>
+                            <f:case value="300">badge--primary</f:case>
+                            <f:case value="400">badge--warning</f:case>
+                            <f:case value="500">badge--success</f:case>
+                            <f:case value="200">badge--danger</f:case>
+                            <f:defaultCase>badge--secondary</f:defaultCase>
+                        </f:switch>
+                    </f:variable>
+                    <div class="flex-basis-3 pt-1 flex flex-end valign-center">
+                                        <span class="badge {statusClass}">
+                                            <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.status.{regStatus}"/>
+                                        </span>
 
-                                        <div><span class="tile__label"><f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.status.{regStatus}" /></span> </div>
-
-
-                                        <f:comment><!-- ViewHelper returns true if reg time for competition is still running --></f:comment>
-                                        <f:if condition="<rkw:isDateWithinDeadline date='{register.competition.registerEnd}' />">
-                                            <f:if condition="{regStatus} < 300 || {regStatus} == 400">
-                                                <f:link.action
-                                                    class="btn btn--secondary"
-                                                    controller="Register"
-                                                    action="edit"
-                                                    arguments="{register : register}"
-                                                    title="{f:translate(key: 'tx_rkwcompetition_fluid.partials_participant_options.registerEdit')}"
-                                                >
-                                                    <svg class="icon icon--16" aria-hidden="true">
-                                                        <use xlink:href="#ic-clipboard" />
-                                                    </svg>
-                                                </f:link.action>
-
-                                                <f:link.action
-                                                    class="btn btn--secondary"
-                                                    controller="Register"
-                                                    action="deleteQuestion"
-                                                    arguments="{register : register}"
-                                                    title="{f:translate(key: 'tx_rkwcompetition_fluid.partials_participant_options.registerDelete')}"
-                                                >
-                                                    <svg class="icon icon--16" aria-hidden="true">
-                                                        <use xlink:href="#ic-trash" />
-                                                    </svg>
-                                                </f:link.action>
-                                            </f:if>
-                                        </f:if>
-                                    </div>
-                                </div>
-                                <p>
-                                    <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.regEnd" />
-                                    {register.competition.registerEnd -> f:format.date(format: 'd.m.Y')}
-                                </p>
-                                <f:if condition="{regStatus} == 200 && {register.adminRefusedText}">
-                                    <p>
-                                        <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.reason" />
-                                        {register.adminRefusedText}
-                                    </p>
-                                </f:if>
-                                <f:if condition="{regStatus} == 400 && {register.adminReturnedText}">
-                                    <p>
-                                        <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.reason" />
-                                        {register.adminReturnedText}
-                                    </p>
-                                </f:if>
-                                <p>
-                                    <strong><f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.projectDescription" /></strong><br />
-
-                                    <!-- Abstract / Kurzfassung -->
-                                    <f:if condition="{register.upload.abstract}">
-                                        <f:then>
-                                            <a href="{register.upload.abstract.originalResource.publicUrl}" target="_blank">
-                                                <svg class="icon icon--16" aria-hidden="true"><use xlink:href="#ic-download" /></svg>
-                                                {register.upload.abstract.originalResource.name}
-                                            </a>
-                                        </f:then>
-                                        <f:else>
-                                            <span class="text-error"><f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.abstractMissing" /></span>
-                                        </f:else>
-                                    </f:if>
-                                    <br />
-
-                                    <!-- Langfassung -->
-                                    <f:if condition="{register.upload.full}">
-                                        <f:then>
-                                            <a href="{register.upload.full.originalResource.publicUrl}" target="_blank">
-                                                <svg class="icon icon--16" aria-hidden="true"><use xlink:href="#ic-download" /></svg>
-                                                {register.upload.full.originalResource.name}
-                                            </a>
-                                        </f:then>
-                                        <f:else>
-                                            <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.fullVersionMissing" />
-                                        </f:else>
-                                    </f:if>
-                                </p>
-                                <p>
-                                    OwnCloud-Link: <f:link.external
-                                    uri="{register.ownCloudFolderLink}"
-                                    target="_blank"
+                        <f:comment><!-- ViewHelper returns true if reg time for competition is still running --></f:comment>
+                        <f:if condition="<rkw:isDateWithinDeadline date='{register.competition.registerEnd}' />">
+                            <f:if condition="{regStatus} < 300 || {regStatus} == 400">
+                                <f:link.action
+                                    class="text-secondary ml-025"
+                                    controller="Register"
+                                    action="edit"
+                                    arguments="{register : register}"
+                                    title="{f:translate(key: 'tx_rkwcompetition_fluid.partials_participant_options.registerEdit')}"
                                 >
-                                    {register.ownCloudFolderLink}
-                                </f:link.external>
-                                </p>
-                                <p>
-                                    OwnCloud-PW: <rkw:ownCloudUserFolderPass register='{register}' />
-                                </p>
-                                <f:render partial="Participant/Options" arguments="{_all}" />
-                            </td>
-                        </tr>
-                    </f:if>
-                </f:for>
-            </table>
-        </f:then>
-        <f:else>
-            <div class="system-message" role="alert">
-                <div class="system-message__item system-message__item--severity0">
-                    <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.noCompetitionPlanned" />
+                                    <svg class="icon icon--24" aria-hidden="true">
+                                        <use xlink:href="#ic-cog"/>
+                                    </svg>
+                                </f:link.action>
+
+                                <f:link.action
+                                    class="text-secondary ml-025"
+                                    controller="Register"
+                                    action="deleteQuestion"
+                                    arguments="{register : register}"
+                                    title="{f:translate(key: 'tx_rkwcompetition_fluid.partials_participant_options.registerDelete')}"
+                                >
+                                    <svg class="icon icon--24" aria-hidden="true">
+                                        <use xlink:href="#ic-trash"/>
+                                    </svg>
+                                </f:link.action>
+                            </f:if>
+                        </f:if>
+                    </div>
                 </div>
+                <p>
+                    <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.regEnd"/>
+                    {register.competition.registerEnd -> f:format.date(format: 'd.m.Y')}
+                </p>
+                <f:if condition="{regStatus} == 200 && {register.adminRefusedText}">
+                    <p>
+                        <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.reason"/>
+                        {register.adminRefusedText}
+                    </p>
+                </f:if>
+                <f:if condition="{regStatus} == 400 && {register.adminReturnedText}">
+                    <p>
+                        <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.reason"/>
+                        {register.adminReturnedText}
+                    </p>
+                </f:if>
+                <p>
+                    <strong>
+                        <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.projectDescription"/>
+                    </strong><br/>
+
+                    <!-- Abstract / Kurzfassung -->
+                    <f:if condition="{register.upload.abstract}">
+                        <f:then>
+                            <a href="{register.upload.abstract.originalResource.publicUrl}" target="_blank">
+                                <svg class="icon icon--16" aria-hidden="true">
+                                    <use xlink:href="#ic-download"/>
+                                </svg>
+                                {register.upload.abstract.originalResource.name}
+                            </a>
+                        </f:then>
+                        <f:else>
+                            <span class="text-error"><f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.abstractMissing"/></span>
+                        </f:else>
+                    </f:if>
+                    <br/>
+
+                    <!-- Langfassung -->
+                    <f:if condition="{register.upload.full}">
+                        <f:then>
+                            <a href="{register.upload.full.originalResource.publicUrl}" target="_blank">
+                                <svg class="icon icon--16" aria-hidden="true">
+                                    <use xlink:href="#ic-download"/>
+                                </svg>
+                                {register.upload.full.originalResource.name}
+                            </a>
+                        </f:then>
+                        <f:else>
+                            <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.fullVersionMissing"/>
+                        </f:else>
+                    </f:if>
+                </p>
+                <p>
+                    OwnCloud-Link:
+                    <f:link.external
+                        uri="{register.ownCloudFolderLink}"
+                        target="_blank"
+                    >
+                        {register.ownCloudFolderLink}
+                    </f:link.external>
+                </p>
+                <p>
+                    OwnCloud-PW:
+                    <rkw:ownCloudUserFolderPass register='{register}'/>
+                </p>
+                <f:render partial="Participant/Options" arguments="{_all}"/>
+            </f:if>
+        </f:for>
+    </f:then>
+    <f:else>
+        <div class="system-message" role="alert">
+            <div class="system-message__item system-message__item--severity0">
+                <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.noCompetitionPlanned"/>
             </div>
-        </f:else>
-    </f:if>
+        </div>
+    </f:else>
+</f:if>
 
 </html>
