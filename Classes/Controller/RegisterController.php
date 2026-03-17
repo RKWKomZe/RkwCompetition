@@ -268,10 +268,12 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
 
         // @toDo: Check for logged in user
 
-        if (RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_APPROVED) {
+        if (RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_APPROVED
+            || RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_REFUSED
+        ) {
             $this->addFlashMessage(
                 LocalizationUtility::translate(
-                    'registerController.error.alreadyApproved',
+                    'registerController.error.notEditable',
                     'rkw_competition'
                 ),
                 '',
@@ -310,10 +312,12 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
             $this->redirect('list', 'Participant');
         }
 
-        if (RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_APPROVED) {
+        if (RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_APPROVED
+            || RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_REFUSED
+        ) {
             $this->addFlashMessage(
                 LocalizationUtility::translate(
-                    'registerController.error.alreadyApproved',
+                    'registerController.error.notEditable',
                     'rkw_competition'
                 ),
                 '',
@@ -366,10 +370,12 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
     {
         // @toDo: Check for logged in user
 
-        if (RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_APPROVED) {
+        if (RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_APPROVED
+            || RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_REFUSED
+        ) {
             $this->addFlashMessage(
                 LocalizationUtility::translate(
-                    'registerController.error.alreadyApproved',
+                    'registerController.error.notEditable',
                     'rkw_competition'
                 ),
                 '',
@@ -473,10 +479,12 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
     {
         // @toDo: Check for logged in user
 
-        if (RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_APPROVED) {
+        if (RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_APPROVED
+            || RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_REFUSED
+        ) {
             $this->addFlashMessage(
                 LocalizationUtility::translate(
-                    'registerController.error.alreadyApproved',
+                    'registerController.error.notEditable',
                     'rkw_competition'
                 ),
                 '',

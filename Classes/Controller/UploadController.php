@@ -88,10 +88,12 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
      */
     public function editAction(\RKW\RkwCompetition\Domain\Model\Register $register)
     {
-        if (RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_APPROVED) {
+        if (RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_APPROVED
+            || RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_REFUSED
+        ) {
             $this->addFlashMessage(
                 LocalizationUtility::translate(
-                    'registerController.error.alreadyApproved',
+                    'registerController.error.notEditable',
                     'rkw_competition'
                 ),
                 '',
@@ -127,10 +129,12 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
     public function updateAction(\RKW\RkwCompetition\Domain\Model\Register $register)
     {
 
-        if (RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_APPROVED) {
+        if (RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_APPROVED
+            || RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_REFUSED
+        ) {
             $this->addFlashMessage(
                 LocalizationUtility::translate(
-                    'registerController.error.alreadyApproved',
+                    'registerController.error.notEditable',
                     'rkw_competition'
                 ),
                 '',
@@ -214,10 +218,12 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
     )
     {
 
-        if (RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_APPROVED) {
+        if (RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_APPROVED
+            || RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_REFUSED
+        ) {
             $this->addFlashMessage(
                 LocalizationUtility::translate(
-                    'registerController.error.alreadyApproved',
+                    'registerController.error.notEditable',
                     'rkw_competition'
                 ),
                 '',

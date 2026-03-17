@@ -1825,6 +1825,10 @@
                 <source>This registration has already been approved and cannot be modified anymore.</source>
                 <target>Diese Anmeldung wurde bereits angenommen und kann nicht mehr verändert werden.</target>
             </trans-unit>
+            <trans-unit id="registerController.error.notEditable">
+                <source>This registration cannot be edited anymore (already approved or refused).</source>
+                <target>Diese Anmeldung kann nicht mehr bearbeitet werden (bereits angenommen oder abgelehnt).</target>
+            </trans-unit>
 		</body>
 	</file>
 </xliff>
