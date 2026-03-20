@@ -9,60 +9,58 @@ plugin.tx_rkwcompetition {
     }
     persistence {
         # cat=plugin.tx_rkwcompetition/persistence/010; type=string; label=Default storage PID
-        storagePid = 11977
+        storagePid =
     }
     settings {
 
-        # cat=plugin.tx_rkwcompetition/pids/010; type=int+; label=Login Page ID
-        loginPid = 11982
-        # cat=plugin.tx_rkwcompetition/pids/020; type=int+; label=Competition Page ID
-        competitionPid = 11978
-        # cat=plugin.tx_rkwcompetition/pids/030; type=int+; label=Register Page ID
-        registerPid = 11980
-        # cat=plugin.tx_rkwcompetition/pids/040; type=int+; label=Jury Page ID
-        juryPid = 11979
-
+        # cat=plugin.tx_rkwcompetition/basic/010; type=int; label=Login Page ID
+        loginPid =
+        # cat=plugin.tx_rkwcompetition/basic/020; type=int; label=Register Page ID
+        registerPid =
         mandatoryFields {
-            # cat=plugin.tx_rkwcompetition/basic/100; type=string; label=Mandatory Fields Register
+            # cat=plugin.tx_rkwcompetition/basic/030; type=string; label=Mandatory Fields Register
             register = email, firstName, lastName, institution, address, zip, city, telephone, sector, contributionTitle, remark
-            # cat=plugin.tx_rkwcompetition/basic/110; type=string; label=Mandatory Fields Group Work
-            registerGroupWork = groupWorkInsurance, groupWorkAddPersons
         }
 
-        upload {
-            # cat=plugin.tx_rkwcompetition/upload/100; type=string; label=Upload Folder
-            extensionFolder = rkw_competition
-            # .pdf = application/pdf
-            # .doc = application/msword
-            # .docx = application/vnd.openxmlformats-officedocument.wordprocessingml.document
-            # cat=plugin.tx_rkwcompetition/upload/110; type=string; label=Allowed File Types (Extensions)
-            allowedFileTypes = pdf, msword, vnd.openxmlformats-officedocument.wordprocessingml.document
+        # cat=plugin.tx_rkwcompetition/basic/040; type=int; label=Competition Page ID
+        competitionPid =
+        # cat=plugin.tx_rkwcompetition/basic/050; type=int; label=Jury Page ID
+        juryPid =
+        mandatoryFields {
+            # cat=plugin.tx_rkwcompetition/basic/060; type=string; label=Mandatory Fields Group Work
+            registerGroupWork = groupWorkInsurance, groupWorkAddPersons
         }
 
         api {
             ownCloud {
-                # cat=plugin.tx_rkwcompetition/api/010; type=string; label=BaseUrl
+                # cat=plugin.tx_rkwcompetition/basic/070; type=string; label=OwnCloud - Base URL
                 baseUrl =
                 admin {
-                    # cat=plugin.tx_rkwcompetition/api/020; type=string; label=username
+                    # cat=plugin.tx_rkwcompetition/basic/080; type=string; label=OwnCloud - Admin Username
                     username =
-                    # cat=plugin.tx_rkwcompetition/api/030; type=string; label=password
+                    # cat=plugin.tx_rkwcompetition/basic/090; type=string; label=OwnCloud - Admin Password
                     password =
                 }
-                # @toDo: Is proxy needed? (ask SK)
-                # cat=plugin.tx_rkwcompetition/api/040; type=string; label=Proxy
-                proxy =
-                # cat=plugin.tx_rkwcompetition/api/050; type=string; label=Proxy Username
-                proxyUsername =
-                # cat=plugin.tx_rkwcompetition/api/060; type=string; label=Proxy Password
-                proxyPassword =
-
                 folderStructure {
-                    # folder depth are possible (example: rkw_competition/competition/)
-                    # cat=plugin.tx_rkwcompetition/api/070; type=string; label=Base Path in Cloud
+                    # nesting folders is possible (example: rkw_competition/competition/)
+                    # cat=plugin.tx_rkwcompetition/basic/100; type=string; label=OwnCloud - Base Path for Uploads
                     basePath = rkw_competition
                 }
+
+                # cat=plugin.tx_rkwcompetition/basic/110; type=string; label=Proxy
+                proxy =
+                # cat=plugin.tx_rkwcompetition/basic/120; type=string; label=Proxy Username
+                proxyUsername =
+                # cat=plugin.tx_rkwcompetition/basic/130; type=string; label=Proxy Password
+                proxyPassword =
             }
+        }
+
+        upload {
+            # cat=plugin.tx_rkwcompetition/basic/140; type=string; label=Allowed File Types (Extensions)
+            allowedFileTypes = pdf, msword, vnd.openxmlformats-officedocument.wordprocessingml.document
+            # cat=plugin.tx_rkwcompetition/basic/150; type=string; label=Upload Folder
+            extensionFolder = rkw_competition
         }
     }
 }
