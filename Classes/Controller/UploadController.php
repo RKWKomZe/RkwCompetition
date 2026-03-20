@@ -82,11 +82,12 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
      * -> upload is part of register. So we're technically editing the register object here
      *
      * @param \RKW\RkwCompetition\Domain\Model\Register $register
+     * @param bool $redirectToList
      * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("register")
      * @return void
      * @throws AspectNotFoundException
      */
-    public function editAction(\RKW\RkwCompetition\Domain\Model\Register $register)
+    public function editAction(\RKW\RkwCompetition\Domain\Model\Register $register, bool $redirectToList = false)
     {
         if (RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_APPROVED
             || RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_REFUSED
@@ -115,6 +116,7 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
         }
 
         $this->view->assign('register', $register);
+        $this->view->assign('redirectToList', $redirectToList);
     }
 
 
@@ -123,10 +125,11 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
      * action update
      *
      * @param \RKW\RkwCompetition\Domain\Model\Register $register
+     * @param bool $redirectToList
      * @TYPO3\CMS\Extbase\Annotation\Validate("RKW\RkwCompetition\Validation\Validator\FileValidator", param="register")
      * @return void
      */
-    public function updateAction(\RKW\RkwCompetition\Domain\Model\Register $register)
+    public function updateAction(\RKW\RkwCompetition\Domain\Model\Register $register, bool $redirectToList = false)
     {
 
         if (RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_APPROVED
@@ -196,6 +199,10 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
             $this->registerRepository->update($register);
         }
 
+        if ($redirectToList) {
+            $this->redirect('list', 'Participant');
+        }
+
         $this->redirect('edit', 'Upload', null, ['register' => $register]);
     }
 
@@ -206,15 +213,17 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
      *
      * -> because cascadeRemove in model does not work on edit with null (via checkbox)
      *
-     * @param \RKW\RkwCompetition\Domain\Model\Upload $upload
+     * @param \RKW\RkwCompetition\Domain\Model\Register $register
      * @param string $property
      * @param \Madj2k\CoreExtended\Domain\Model\FileReference $fileReference
+     * @param bool $redirectToList
      * @return string|object|null|void
      */
     public function deleteAction(
         \RKW\RkwCompetition\Domain\Model\Register $register,
         string $property,
-        \Madj2k\CoreExtended\Domain\Model\FileReference $fileReference
+        \Madj2k\CoreExtended\Domain\Model\FileReference $fileReference,
+        bool $redirectToList = false
     )
     {
 
@@ -259,6 +268,10 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
                 'rkw_competition'
             )
         );
+
+        if ($redirectToList) {
+            $this->redirect('list', 'Participant');
+        }
 
         $this->redirect('edit', 'Upload', null, ['register' => $register]);
     }

@@ -103,9 +103,33 @@
                                 </svg>
                                 {register.upload.abstract.originalResource.name}
                             </a>
+
+                            <f:if condition="<rkw:isDateWithinDeadline date='{register.competition.registerEnd}' />">
+                                <f:if condition="{regStatus} == 100 || {regStatus} == 400">
+                                    <f:link.action
+                                        controller="Upload"
+                                        action="delete"
+                                        arguments="{register: register, property: 'abstract', fileReference: register.upload.abstract, redirectToList: 1}"
+                                        title="{f:translate(key: 'tx_rkwcompetition_fluid.partials_participant_listing.abstractDelete')}"
+                                        class="text-secondary ml-025"
+                                    >
+                                        <svg class="icon icon--16" aria-hidden="true">
+                                            <use xlink:href="#ic-trash"/>
+                                        </svg>
+                                    </f:link.action>
+                                </f:if>
+                            </f:if>
                         </f:then>
                         <f:else>
                             <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.abstractMissing"/>
+
+                            <f:if condition="<rkw:isDateWithinDeadline date='{register.competition.registerEnd}' />">
+                                <f:if condition="{regStatus} == 100 || {regStatus} == 400">
+                                    <f:link.action controller="Upload" action="edit" arguments="{register: register, redirectToList: 1}" class="btn btn--secondary btn--small ml-05">
+                                        <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.upload"/>
+                                    </f:link.action>
+                                </f:if>
+                            </f:if>
                         </f:else>
                     </f:if>
                     <br/>
@@ -119,9 +143,33 @@
                                 </svg>
                                 {register.upload.full.originalResource.name}
                             </a>
+
+                            <f:if condition="<rkw:isDateWithinDeadline date='{register.competition.registerEnd}' />">
+                                <f:if condition="{regStatus} == 100 || {regStatus} == 400">
+                                    <f:link.action
+                                        controller="Upload"
+                                        action="delete"
+                                        arguments="{register: register, property: 'full', fileReference: register.upload.full, redirectToList: 1}"
+                                        title="{f:translate(key: 'tx_rkwcompetition_fluid.partials_participant_listing.fullVersionDelete')}"
+                                        class="text-secondary ml-025"
+                                    >
+                                        <svg class="icon icon--16" aria-hidden="true">
+                                            <use xlink:href="#ic-trash"/>
+                                        </svg>
+                                    </f:link.action>
+                                </f:if>
+                            </f:if>
                         </f:then>
                         <f:else>
                             <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.fullVersionMissing"/>
+
+                            <f:if condition="<rkw:isDateWithinDeadline date='{register.competition.registerEnd}' />">
+                                <f:if condition="{regStatus} == 100 || {regStatus} == 400">
+                                    <f:link.action controller="Upload" action="edit" arguments="{register: register, redirectToList: 1}" class="btn btn--secondary btn--small ml-05">
+                                        <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.upload"/>
+                                    </f:link.action>
+                                </f:if>
+                            </f:if>
                         </f:else>
                     </f:if>
                 </p>

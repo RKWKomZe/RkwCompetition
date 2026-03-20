@@ -685,9 +685,21 @@
                 <source>Please upload an abstract of your project description.</source>
                 <target>Bitte fügen Sie eine Kurzfassung Ihrer Projektbeschreibung hinzu.</target>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.abstractDelete">
+                <source>Delete abstract</source>
+                <target>Kurzfassung löschen</target>
+            </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.fullVersionMissing">
                 <source>You are welcome to add a full version of your project description.</source>
                 <target>Gerne können Sie uns zusätzlich auch eine Langfassung Ihrer Projektbeschreibung hinzufügen.</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.fullVersionDelete">
+                <source>Delete full version</source>
+                <target>Langfassung löschen</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.upload">
+                <source>Upload</source>
+                <target>Hochladen</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.intro">
                 <source>We are delighted that you would like to take part in our competition %s. Before we can evaluate your registration, we need further information from you, such as a summary of your project description and also other materials. You can upload your project description directly here; for further materials, we would ask you to use the access to our cloud provided below. Please remember to submit your registration with all required documents by %s at the latest.</source>
