@@ -31,7 +31,7 @@ plugin.tx_rkwcompetition {
             # set mandatory fields for the register form
             register = firstName, lastName
             # additional mandatory fields which only trigger if groupWork is selected
-            registerGroupWork = groupWorkInsurance, groupWorkAddPersons
+            registerGroupWork = groupWorkAuthorization, groupWorkAddPersons
         }
         api {
             ownCloud {

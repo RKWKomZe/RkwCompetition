@@ -137,11 +137,11 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $isGroupWork = 0;
 
     /**
-     * groupWorkInsurance
+     * groupWorkAuthorization
      *
      * @var int
      */
-    protected $groupWorkInsurance = 0;
+    protected $groupWorkAuthorization = 0;
 
     /**
      * groupWorkAddPersons
@@ -617,24 +617,24 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Returns the groupWorkInsurance
+     * Returns the groupWorkAuthorization
      *
      * @return int
      */
-    public function getGroupWorkInsurance()
+    public function getGroupWorkAuthorization()
     {
-        return $this->groupWorkInsurance;
+        return $this->groupWorkAuthorization;
     }
 
     /**
-     * Sets the groupWorkInsurance
+     * Sets the groupWorkAuthorization
      *
-     * @param int $groupWorkInsurance
+     * @param int $groupWorkAuthorization
      * @return void
      */
-    public function setGroupWorkInsurance(int $groupWorkInsurance = null)
+    public function setGroupWorkAuthorization(int $groupWorkAuthorization = null)
     {
-        $this->groupWorkInsurance = (int) $groupWorkInsurance;
+        $this->groupWorkAuthorization = (int) $groupWorkAuthorization;
     }
 
     /**

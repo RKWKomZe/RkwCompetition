@@ -182,16 +182,16 @@
 			</label>
 		</div>
 
-		<div class="form__field width100" id="groupInsurance">
+		<div class="form__field width100" id="groupAuthorization">
 			<f:form.checkbox
 					class="checkbox"
-					id="groupWorkInsurance"
-					property="groupWorkInsurance"
+					id="groupWorkAuthorization"
+					property="groupWorkAuthorization"
 					value="1"
 			/>
-			<label for="groupWorkInsurance" class="checkbox-label">
-				<f:translate key="tx_rkwcompetition_fluid.templates_register_new.group_work_insurance" />
- 			<f:render partial="LabelSuffix" arguments="{field: 'groupWorkInsurance', mandatoryFields: settings.mandatoryFields.registerGroupWork}" />
+			<label for="groupWorkAuthorization" class="checkbox-label">
+				<f:translate key="tx_rkwcompetition_fluid.templates_register_new.group_work_authorization" />
+ 			<f:render partial="LabelSuffix" arguments="{field: 'groupWorkAuthorization', mandatoryFields: settings.mandatoryFields.registerGroupWork}" />
  		</label>
  	</div>
 
@@ -247,15 +247,15 @@
 		}
 
 		function showAddGroupFields() {
-			let workGroupInsurance = document.getElementById("groupInsurance");
-			workGroupInsurance.style.display = "block";
+			let workGroupAuthorization = document.getElementById("groupAuthorization");
+			workGroupAuthorization.style.display = "block";
 			let groupAddPersons = document.getElementById("groupAddPersons");
 			groupAddPersons.style.display = "block";
 		}
 
 		function hideAddGroupFields() {
-			let workGroupInsurance = document.getElementById("groupInsurance");
-			workGroupInsurance.style.display = "none";
+			let workGroupAuthorization = document.getElementById("groupAuthorization");
+			workGroupAuthorization.style.display = "none";
 			let groupAddPersons = document.getElementById("groupAddPersons");
 			groupAddPersons.style.display = "none";
 		}

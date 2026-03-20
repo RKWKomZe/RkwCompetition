@@ -85,8 +85,8 @@
             <trans-unit id="tx_rkwcompetition_domain_model_register.is_group_work">
                 <source>Is Group Work</source>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_domain_model_register.group_work_insurance">
-                <source>Group Work Insurance</source>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.group_work_authorization">
+                <source>Group Work Authorization</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.group_work_add_persons">
                 <source>Group Work Add Persons</source>
@@ -290,8 +290,8 @@
             <trans-unit id="tx_rkwcompetition_validator.isGroupWork">
                 <source>Is group work</source>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_validator.groupWorkInsurance">
-                <source>Group work insurance</source>
+            <trans-unit id="tx_rkwcompetition_validator.groupWorkAuthorization">
+                <source>Group work authorization</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_validator.groupWorkAddPersons">
                 <source>Group work add persons</source>
@@ -554,7 +554,7 @@
                 <source>Last Name</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.institution">
-                <source>Institution (Hochschule, Institution, Firma)</source>
+                <source>Institution (University, company, ...)</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.address">
                 <source>Address</source>
@@ -586,8 +586,8 @@
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.is_group_work">
                 <source>Is Group Work</source>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.group_work_insurance">
-                <source>Group Work Insurance</source>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.group_work_authorization">
+                <source>Group Work Authorization</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.group_work_add_persons">
                 <source>Group Work Add Persons</source>
@@ -763,8 +763,8 @@
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.isGroupWork">
                 <source>Is group work</source>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.affidavit">
-                <source>Affidavit</source>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.groupWorkAuthorization">
+                <source>Group work authorization</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.participatingPersons">
                 <source>Affidavit</source>
@@ -897,8 +897,8 @@
             <trans-unit id="partials_email_details.isGroupWork">
                 <source>Is group work</source>
             </trans-unit>
-            <trans-unit id="partials_email_details.groupWorkInsurance">
-                <source>Group work insurance</source>
+            <trans-unit id="partials_email_details.group_work_authorization">
+                <source>Group work authorization</source>
             </trans-unit>
             <trans-unit id="partials_email_details.groupWorkAddPersons">
                 <source>Group work add persons</source>
@@ -1278,8 +1278,8 @@
             <trans-unit id="templates_backend_registerDetail.isGroupWork">
                 <source>Is group work</source>
             </trans-unit>
-            <trans-unit id="templates_backend_registerDetail.groupWorkInsurance">
-                <source>Group work insurance</source>
+            <trans-unit id="templates_backend_registerDetail.groupWorkAuthorization">
+                <source>Group work authorization</source>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.groupWorkAddPersons">
                 <source>Group work additional persons</source>

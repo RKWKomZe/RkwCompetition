@@ -44,7 +44,7 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.institution">
                 <source>Institution</source>
-                <target>Institution (Hochschule, Institution, Firma)</target>
+                <target>Institution (Hochschule, Firma, o. ä.)</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.address">
                 <source>Address</source>
@@ -106,9 +106,9 @@
                 <source>Is Group Work</source>
                 <target>Ist Gruppenarbeit</target>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_domain_model_register.group_work_insurance">
-                <source>Group Work Insurance</source>
-                <target>Ich versichere hiermit an Eides statt, dass ich die Anmeldung auch im Namen der anderen Gruppenmitglieder ausführen darf.</target>
+            <trans-unit id="tx_rkwcompetition_domain_model_register.group_work_authorization">
+                <source>Group Work Authorization</source>
+                <target>Ich bestätige, dass ich dazu berechtigt bin, die Anmeldung im Namen aller weiteren Gruppenmitglieder vorzunehmen.</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.group_work_add_persons">
                 <source>Group Work Add Persons</source>

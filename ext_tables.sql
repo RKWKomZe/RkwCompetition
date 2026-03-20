@@ -47,7 +47,7 @@ CREATE TABLE tx_rkwcompetition_domain_model_register (
 	privacy int(11) NOT NULL DEFAULT '0',
 	conditions_of_participation int(11) NOT NULL DEFAULT '0',
 	is_group_work int(11) NOT NULL DEFAULT '0',
-	group_work_insurance int(11) NOT NULL DEFAULT '0',
+	group_work_authorization int(11) NOT NULL DEFAULT '0',
 	group_work_add_persons text NOT NULL DEFAULT '',
     unique_id varchar(255) NOT NULL DEFAULT '',
     own_cloud_folder_link varchar(255) NOT NULL DEFAULT '',

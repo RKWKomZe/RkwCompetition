@@ -28,7 +28,7 @@ plugin.tx_rkwcompetition {
         juryPid =
         mandatoryFields {
             # cat=plugin.tx_rkwcompetition/basic/060; type=string; label=Mandatory Fields Group Work
-            registerGroupWork = groupWorkInsurance, groupWorkAddPersons
+            registerGroupWork = groupWorkAuthorization, groupWorkAddPersons
         }
 
         api {

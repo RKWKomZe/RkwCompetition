@@ -31,7 +31,7 @@
 				<source>Last Name</source>
 			</trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_register.institution">
-				<source>Institution (Hochschule, Institution, Firma)</source>
+				<source>Institution (University, company, ...)</source>
 			</trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_register.address">
 				<source>Address</source>
@@ -78,8 +78,8 @@
 			<trans-unit id="tx_rkwcompetition_domain_model_register.is_group_work">
 				<source>Is Group Work</source>
 			</trans-unit>
-			<trans-unit id="tx_rkwcompetition_domain_model_register.group_work_insurance">
-				<source>Group Work Insurance</source>
+			<trans-unit id="tx_rkwcompetition_domain_model_register.group_work_authorization">
+				<source>Group Work Authorization</source>
 			</trans-unit>
 			<trans-unit id="tx_rkwcompetition_domain_model_register.group_work_add_persons">
 				<source>Group Work Add Persons</source>
