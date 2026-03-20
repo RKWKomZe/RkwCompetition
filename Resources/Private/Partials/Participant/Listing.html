@@ -6,10 +6,23 @@
     <f:then>
         <f:for each="{registerList}" as="register">
             <f:if condition="{register.competition}">
+                <f:variable name="competitionLink">
+                    <f:link.action
+                        pageUid="{settings.competitionPid}"
+                        target="_blank"
+                        controller="Competition"
+                        action="show"
+                        arguments="{competition : register.competition}"
+                    >
+                        {register.competition.title}
+                    </f:link.action>
+                </f:variable>
                 <div class="flex space-between valign-center">
                     <div class="flex-basis-9">
-                        <h3 class="h4">
-                            <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.headline" arguments="{0: register.competition.title}" />
+                        <h3 class="h3">
+                            <f:format.raw>
+                                <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.headline" arguments="{0: competitionLink, 1: '{register.competition.registerEnd -> f:format.date(format: \'d.m.Y\')}'}" />
+                            </f:format.raw>
                         </h3>
                     </div>
 
@@ -59,10 +72,6 @@
                         </f:if>
                     </div>
                 </div>
-                <p>
-                    <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.regEnd"/>
-                    {register.competition.registerEnd -> f:format.date(format: 'd.m.Y')}
-                </p>
                 <f:if condition="{regStatus} == 200 && {register.adminRefusedText}">
                     <p>
                         <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.reason"/>
@@ -76,10 +85,15 @@
                     </p>
                 </f:if>
                 <p>
-                    <strong>
-                        <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.projectDescription"/>
-                    </strong><br/>
+                    <f:format.raw>
+                        <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.intro" arguments="{0: competitionLink, 1: '{register.competition.registerEnd -> f:format.date(format: \'d.m.Y\')}'}" />
+                    </f:format.raw>
+                </p>
+                <h4>
+                    <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.projectDescription"/>
+                </h4>
 
+                <p>
                     <!-- Abstract / Kurzfassung -->
                     <f:if condition="{register.upload.abstract}">
                         <f:then>
@@ -91,7 +105,7 @@
                             </a>
                         </f:then>
                         <f:else>
-                            <span class="text-error"><f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.abstractMissing"/></span>
+                            <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.abstractMissing"/>
                         </f:else>
                     </f:if>
                     <br/>
@@ -111,17 +125,20 @@
                         </f:else>
                     </f:if>
                 </p>
+                <h4>
+                    <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.cloudHeadline"/>
+                </h4>
                 <p>
-                    OwnCloud-Link:
+                    <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.cloudUrl"/>:
                     <f:link.external
                         uri="{register.ownCloudFolderLink}"
                         target="_blank"
                     >
                         {register.ownCloudFolderLink}
                     </f:link.external>
-                </p>
-                <p>
-                    OwnCloud-PW:
+                    <br>
+
+                    <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.cloudPassword"/>:
                     <rkw:ownCloudUserFolderPass register='{register}'/>
                 </p>
                 <f:render partial="Participant/Options" arguments="{_all}"/>

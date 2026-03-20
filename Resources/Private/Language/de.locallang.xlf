@@ -632,7 +632,7 @@
             <!-- PARTIALS -->
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.headline">
                 <source>Your application for the competition "%s"</source>
-                <target>Ihre Bewerbung zum Wettbewerb "%s"</target>
+                <target>Ihre Anmeldung zum Wettbewerb "%s"</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.noCompetitionPlanned">
                 <source>No competition planned</source>
@@ -662,8 +662,8 @@
 
             <!-- Partials/Jury/Listing.html -->
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.regEnd">
-                <source>Registration deadline:</source>
-                <target>Anmeldeschluss:</target>
+                <source>Your documents must be submitted in full by %s at the latest.</source>
+                <target>Ihre Unterlagen müssen bis spätestens %s vollständig eingereicht sein.</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.status">
                 <source>Status:</source>
@@ -674,20 +674,39 @@
                 <target>Grund:</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.projectDescription">
-                <source>Project description:</source>
-                <target>Projektbeschreibung:</target>
+                <source>Project description</source>
+                <target>Projektbeschreibung</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.complete">
                 <source>Complete</source>
                 <target>Komplett</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.abstractMissing">
-                <source>Abstract missing</source>
-                <target>Abstract fehlt</target>
+                <source>Please upload an abstract of your project description.</source>
+                <target>Bitte fügen Sie eine Kurzfassung Ihrer Projektbeschreibung hinzu.</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.fullVersionMissing">
-                <source>Full version missing (optional)</source>
-                <target>Langfassung fehlt (optional)</target>
+                <source>You are welcome to add a full version of your project description.</source>
+                <target>Gerne können Sie uns zusätzlich auch eine Langfassung Ihrer Projektbeschreibung hinzufügen.</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.intro">
+                <source>We are delighted that you would like to take part in our competition %s. Before we can evaluate your registration, we need further information from you, such as a summary of your project description and also other materials. You can upload your project description directly here; for further materials, we would ask you to use the access to our cloud provided below. Please remember to submit your registration with all required documents by %s at the latest.</source>
+                <target><![CDATA[Schön, dass Sie an unserem Wettbewerb %s teilnehmen wollen.<br /><br />
+                Bevor wir Ihre Anmeldung bewerten können, benötigen wir noch weitere Informationen von Ihnen wie beispielsweise eine Kurfassung Ihrer Projektbeschreibung und gerne auch weitere Materialien.<br /><br />
+                Ihre Projektbeschreibung können Sie direkt hier hochladen, für weitere Materialien möchten wir Sie bitten, den weiter unten bereitgestellten Zugang zu unserer Cloud zu nutzen.<br /><br />
+                Bitte denken Sie daran, Ihre Anmeldung mit allen erforderlichen Unterlagen bis spätestens %s bei uns einzureichen.]]></target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.cloudHeadline">
+                <source>Access data to our cloud</source>
+                <target>Zugangsdaten zu unserer Cloud</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.cloudUrl">
+                <source>Url</source>
+                <target>Ihr Link</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.cloudPassword">
+                <source>Your password</source>
+                <target>Ihr Passwort</target>
             </trans-unit>
 
             <!-- Partials/Participant/Options.html -->
@@ -721,7 +740,7 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.submit">
                 <source>Submit</source>
-                <target>Einreichen</target>
+                <target>Anmeldung einreichen</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.registrationComplete">
                 <source>Registration complete</source>
