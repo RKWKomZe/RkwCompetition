@@ -569,7 +569,7 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.your_checklist">
                 <source>Your checklist</source>
-                <target>Ihre Checkliste</target>
+                <target>Bitte prüfen Sie ein letztes Mal Ihre Unterlagen, bevor Sie Ihre Anmeldung einreichen. Wir haben Ihnen dazu eine kleine Checkliste bereitgestellt.</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.checkMandatoryFields">
                 <source>All mandatory fields filled in</source>
