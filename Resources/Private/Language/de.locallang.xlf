@@ -480,15 +480,15 @@
                 <source>Salutation</source>
                 <target>Anrede</target>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.salutation.I.1" approved="yes">
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.salutation.I.0" approved="yes">
                 <source>Mr.</source>
                 <target>Herr</target>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.salutation.I.2" approved="yes">
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.salutation.I.1" approved="yes">
                 <source>Mrs.</source>
                 <target>Frau</target>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.salutation.I.3" approved="yes">
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.salutation.I.2" approved="yes">
                 <source>Mx</source>
                 <target>Divers</target>
             </trans-unit>
@@ -1379,15 +1379,15 @@
                 <source>Salutation</source>
                 <target>Anrede</target>
             </trans-unit>
-            <trans-unit id="templates_backend_registerDetail.salutation.I.1">
+            <trans-unit id="templates_backend_registerDetail.salutation.I.0">
                 <source>Mr.</source>
                 <target>Herr</target>
             </trans-unit>
-            <trans-unit id="templates_backend_registerDetail.salutation.I.2">
+            <trans-unit id="templates_backend_registerDetail.salutation.I.1">
                 <source>Mrs.</source>
                 <target>Frau</target>
             </trans-unit>
-            <trans-unit id="templates_backend_registerDetail.salutation.I.3">
+            <trans-unit id="templates_backend_registerDetail.salutation.I.2">
                 <source>Mx</source>
                 <target>Divers</target>
             </trans-unit>

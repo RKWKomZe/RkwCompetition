@@ -62,9 +62,9 @@
                                             <th style="width: 300px;"><f:translate key="templates_backend_registerDetail.salutation" /></th>
                                             <td>
                                                 <f:switch expression="{register.salutation}">
+                                                    <f:case value="0"><f:translate key="templates_backend_registerDetail.salutation.I.0" /></f:case>
                                                     <f:case value="1"><f:translate key="templates_backend_registerDetail.salutation.I.1" /></f:case>
                                                     <f:case value="2"><f:translate key="templates_backend_registerDetail.salutation.I.2" /></f:case>
-                                                    <f:case value="3"><f:translate key="templates_backend_registerDetail.salutation.I.3" /></f:case>
                                                     <f:defaultCase>{register.salutation}</f:defaultCase>
                                                 </f:switch>
                                             </td>
