@@ -6,9 +6,16 @@
         {
             "name": "Maximilian F\u00e4\u00dfler",
             "role": "Developer"
-        }
+        },
+		{
+			"name": "Christian Dilger",
+			"email": "c.dilger@addorange.de",
+			"role": "Developer"
+		}
     ],
-    "license": "GPL-2.0-or-later",
+	"license": [
+		"GPL-2.0+"
+	],
     "require": {
         "typo3/cms-core": "^10.4"
     },
