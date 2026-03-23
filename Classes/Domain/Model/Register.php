@@ -34,9 +34,9 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * title
      *
-     * @var int
+     * @var string
      */
-    protected $title = 0;
+    protected $title = '';
 
     /**
      * firstName
@@ -137,11 +137,11 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $isGroupWork = 0;
 
     /**
-     * groupWorkInsurance
+     * groupWorkAuthorization
      *
      * @var int
      */
-    protected $groupWorkInsurance = 0;
+    protected $groupWorkAuthorization = 0;
 
     /**
      * groupWorkAddPersons
@@ -191,6 +191,20 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string
      */
     protected $adminRefusedText = '';
+
+    /**
+     * adminReturnedAt
+     *
+     * @var int
+     */
+    protected $adminReturnedAt = 0;
+
+    /**
+     * adminReturnedText
+     *
+     * @var string
+     */
+    protected $adminReturnedText = '';
 
     /**
      * uniqueId
@@ -250,6 +264,13 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $adminRefusedBy = null;
 
     /**
+     * adminReturnedBy
+     *
+     * @var \RKW\RkwCompetition\Domain\Model\BackendUser
+     */
+    protected $adminReturnedBy = null;
+
+    /**
      * Returns the creation date
      *
      * @return \DateTime $crdate
@@ -283,7 +304,7 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the title
      *
-     * @return int
+     * @return string
      */
     public function getTitle()
     {
@@ -293,12 +314,12 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the title
      *
-     * @param int|null $title
+     * @param string|null $title
      * @return void
      */
-    public function setTitle(int $title = null)
+    public function setTitle(string $title = null)
     {
-        $this->title = (int) $title;
+        $this->title = $title;
     }
 
     /**
@@ -596,24 +617,24 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Returns the groupWorkInsurance
+     * Returns the groupWorkAuthorization
      *
      * @return int
      */
-    public function getGroupWorkInsurance()
+    public function getGroupWorkAuthorization()
     {
-        return $this->groupWorkInsurance;
+        return $this->groupWorkAuthorization;
     }
 
     /**
-     * Sets the groupWorkInsurance
+     * Sets the groupWorkAuthorization
      *
-     * @param int $groupWorkInsurance
+     * @param int $groupWorkAuthorization
      * @return void
      */
-    public function setGroupWorkInsurance(int $groupWorkInsurance = null)
+    public function setGroupWorkAuthorization(int $groupWorkAuthorization = null)
     {
-        $this->groupWorkInsurance = (int) $groupWorkInsurance;
+        $this->groupWorkAuthorization = (int) $groupWorkAuthorization;
     }
 
     /**
@@ -933,5 +954,67 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $this->adminRefusedBy = $adminRefusedBy;
     }
 
+    /**
+     * Returns the adminReturnedBy
+     *
+     * @return \RKW\RkwCompetition\Domain\Model\BackendUser $adminReturnedBy
+     */
+    public function getAdminReturnedBy()
+    {
+        return $this->adminReturnedBy;
+    }
+
+    /**
+     * Sets the adminReturnedBy
+     *
+     * @param \RKW\RkwCompetition\Domain\Model\BackendUser $adminReturnedBy
+     * @return void
+     */
+    public function setAdminReturnedBy(\RKW\RkwCompetition\Domain\Model\BackendUser $adminReturnedBy)
+    {
+        $this->adminReturnedBy = $adminReturnedBy;
+    }
+
+    /**
+     * Returns the adminReturnedAt
+     *
+     * @return int $adminReturnedAt
+     */
+    public function getAdminReturnedAt()
+    {
+        return $this->adminReturnedAt;
+    }
+
+    /**
+     * Sets the adminReturnedAt
+     *
+     * @param int $adminReturnedAt
+     * @return void
+     */
+    public function setAdminReturnedAt(int $adminReturnedAt)
+    {
+        $this->adminReturnedAt = $adminReturnedAt;
+    }
+
+    /**
+     * Returns the adminReturnedText
+     *
+     * @return string $adminReturnedText
+     */
+    public function getAdminReturnedText()
+    {
+        return $this->adminReturnedText;
+    }
+
+    /**
+     * Sets the adminReturnedText
+     *
+     * @param string $adminReturnedText
+     * @return void
+     */
+    public function setAdminReturnedText(string $adminReturnedText)
+    {
+        $this->adminReturnedText = $adminReturnedText;
+    }
 
 }

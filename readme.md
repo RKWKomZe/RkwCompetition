@@ -1,15 +1,16 @@
 # RkwCompetition
 
-* HowTo: To install you own "OwnCloud" server take a look to the section "Development" below
+* HowTo: To install your own "OwnCloud" server take a look to the section "Development" below
 
 ## 1. Extension usage for integrators
 
-1. Add RkwCompetition TypoScript Template to your page
-2. If not happen yet, install hcaptcha
-   - "ddev composer require dreistromland/typo3-hcaptcha"
-   - Add hCaptcha TypoScript Template to your page
-3. Create or use an existing folder in your TYPO3 Backend
-4. Set up your local TypoScript like the following example:
+1. Add RkwCompetition TypoScript template to your page
+2. If it hasn't happened yet, install hCaptcha:
+   - `ddev composer require dreistromland/typo3-hcaptcha`
+   - Add hCaptcha TypoScript template to your page
+3. Create or use an existing page of type "folder" in your TYPO3 Backend
+4. Create the folder path /fileadmin/user_upload/tx_rkwcompetition/ (if not exists)
+5. Set up your local TypoScript like the following example:
 
 ```typo3_typoscript
 plugin.tx_rkwcompetition {
@@ -20,9 +21,9 @@ plugin.tx_rkwcompetition {
     settings {
         # The general webPage loginPid
         loginPid = 10513
-        # The side where you've place your competition plugin
+        # The page where you've placed your competition plugin
         competitionPid = 2547
-        # The register PID (could by a subpage of the competitionPid)
+        # The register PID (could be a subpage of the competitionPid)
         registerPid = 11924
         # Jury register PID
         juryPid = 11928
@@ -30,7 +31,7 @@ plugin.tx_rkwcompetition {
             # set mandatory fields for the register form
             register = firstName, lastName
             # additional mandatory fields which only trigger if groupWork is selected
-            registerGroupWork = groupWorkInsurance, groupWorkAddPersons
+            registerGroupWork = groupWorkAuthorization, groupWorkAddPersons
         }
         api {
             ownCloud {
@@ -47,144 +48,147 @@ plugin.tx_rkwcompetition {
 
 ### 1.1 Create basic records inside a folder of your choice
 
-1. Create a ***FrontendUserGroup*** for FrontendUser ***Participants***
-2. Create a ***FrontendUserGroup*** for FrontendUser ***JuryMember***
-3. You will need at least ***one FrontendUser*** for the usage as ***Jury-Member*** to create a competition
-4. Create "Sector"-Records ("Bereich") ***before*** creating a competition
-5. Create your first "Competition"-Record ("Wettbewerb")
+1. Create a ***FrontendUserGroup*** for FrontendUser ***participants***
+2. Create a ***FrontendUserGroup*** for FrontendUser ***jury members***
+3. You will need at least ***one FrontendUser*** for usage as a ***jury member*** to create a competition
+4. Create "Sector" records ("Bereich") ***before*** creating a competition
+5. Create your first "Competition" record ("Wettbewerb")
 
 ### 1.2 Frontend Part One: Competition & Register Plugins
 
-1. Insert the plugin to show the competitions itself on your chosen page ("settings.competitionPid")
+1. Insert the plugin to show the competitions themselves on your chosen page (`settings.competitionPid`)
    1. Plugin Name: "RKW Competition: Wettbewerb [rkwcompetition_competition]"
    2. Select a competition record inside the FlexForm of the plugin
-2. Insert the register plugin to the other created page ("settings.registerPid")
+2. Insert the register plugin to the other created page (`settings.registerPid`)
    1. Plugin Name: "RKW Competition: Anmeldung [rkwcompetition_register]"
 
 ### 1.3 Frontend Part Two: Plugins for Participants & Jury-Member (Login Area)
 
 1. Create new page "Mein Wettbewerb"
    1. Plugin Name: "RKW Competition: Teilnehmer (Login-Bereich)"
-   2. Set the page access rights for specific FrontendUserGroup of ***Participants***
+   2. Set the page access rights for specific FrontendUserGroup of ***participants***
 2. Create new page "Meine Jurytätigkeit"
    1. Plugin Name: "RKW Competition: Jury (Login-Bereich)"
-   2. Set the page access rights for specific FrontendUserGroup of ***Jury-Member***
+   2. Set the page access rights for specific FrontendUserGroup of ***jury members***
 
 ***
 
 ## 2. The Jury
 
-Jury-Member are basically normal FrontendUsers with a certain FrontendUserGroup.
+Jury members are basically normal FrontendUsers with a certain FrontendUserGroup.
 
-They can be added to a ***Competition*** as a ***candidate*** ("jury_member_candidate"). They do not belong to any particular FrontendUserGroup at this time. Through a Cronjob ("JuryNotifyCommand") they will get E-Mails with deadline information and invitation to accept the membership.
+They can be added to a ***Competition*** as a ***candidate*** ("jury_member_candidate"). They do not belong to any particular FrontendUserGroup at this time. Through a cronjob ("JuryNotifyCommand"), they will get emails with deadline information and an invitation to accept the membership.
 
-If a FrontendUser and Candidate is accepting the membership, the FrontendUser get the defined FrontendUserGroup for JuryMembers and will be added as a ***confirmed jury member*** to the ***competition***.
+If a FrontendUser and candidate accepts the membership, the FrontendUser gets the defined FrontendUserGroup for jury members and will be added as a ***confirmed jury member*** to the ***competition***.
 
-***@toDo: Do we need a function for Admins to notify them if a jury member does not accept the invitation?***
+***@toDo: Do we need a function for admins to notify them if a jury member does not accept the invitation?***
 
 ***
 
 ## 3. Explore the Backend Module
 
-The Backend Module is used by BackendUsers (also called "Admins") to take a first look the documents of the registrations.
+The backend module is used by BackendUsers (also called "Admins") to take a first look at the documents of the registrations.
 
-The Admins have the ***task*** of ***accepting*** registrations in the first instance or ***rejecting*** them with reasons. This is an important part of the extension functionality.
+The admins have the ***task*** of ***accepting*** registrations in the first instance or ***refusing*** them with reasons. This is an important part of the extension's functionality.
 
-Hint for initial usage: It is advisable to have ***at least created a registration*** before the backend module is assessed for ***test purpose***.
+Hint for initial usage: It is advisable to have ***at least one registration created*** before the backend module is accessed for ***test purposes***.
 
-1. Click on "RKW Competition" inside "Web"-Area
-2. A list of ***competitions*** shows up as a table. Select one by using the show link on the right
-3. This leads to a list of ***registrations*** is shown. You can show into by using the show link
-4. Now an Admin can get a ***detailed overview*** of the registration including a ***file download***
-5. The Admin can determine to ***accept*** or to ***reject*** the registration
+1. Click on "RKW Competition" inside the "Web" area
+2. A list of ***competitions*** shows up as a table. Select one by using the "show" link on the right
+3. This leads to a list of ***registrations***. You can view them by using the "show" link
+4. Now an admin can get a ***detailed overview*** of the registration including a ***file download***
+5. The admin can determine whether to ***accept*** or to ***refuse*** the registration
 
 ***
 
 ## 4. Cronjobs
 
-This extension coming with a bunch of cronjobs which are manage the several steps from initial registration until the assignment to the Jury-Member
+This extension comes with a bunch of cronjobs which manage the several steps from initial registration until the assignment to the jury member:
 * rkw_competition:incompleteUserRegistration
-  * Sends notify mails to FrontendUser if they have not submitted their registration yet
+  * Sends notification emails to FrontendUsers if they have not submitted their registration yet
+  * Options:
+    * `--rootPageUid` (int): The root page UID to use for loading TypoScript settings (optional, default: 1)
+    * `--timeInterval` (int): Defines the length of one interval to send e-mails as reminder for the user to complete and submit their registration (optional, default: 86400)
 * rkw_competition:removalDeadlineWarningAdmin
   * Only if a data removal date is set: Send a reminder to admins before an expired competition is about to be deleted together with the documents
 * rkw_competition:juryNotify
-  * Sends notify mails to Jury-Member when a register period ends (and their work starts)
-  * Sends also reminder messages to Jury-Member which does not have accepted the Jury-Member-Terms yet
+  * Sends notification emails to jury members when a registration period ends (and their work starts)
+  * Sends also reminder messages to jury members who have not accepted the jury member terms yet
 * rkw_competition:closingDay
-  * Triggers on the closing day of the register period of a competition
-  * Sends E-Mails to Admins with reference to the possibility of downloading all submitted documents in the Backend
-  * Info (success; accepted to participation) E-Mail to participants with complete and verified data
-  * Info (failed; excluded from competition) E-Mail to participants with incomplete or incorrect data
+  * Triggers on the closing day of the registration period of a competition
+  * Sends emails to admins with a reference to the possibility of downloading all submitted documents in the backend
+  * Info (success; accepted for participation) email to participants with complete and verified data
+  * Info (failed; excluded from competition) email to participants with incomplete or incorrect data
 * rkw_competition:cleanup
-  * Removes Competitions with their Registration records (+ with uploaded stuff) from HD
+  * Removes competitions with their registration records (+ uploaded files) from HD
 
 ***
 
 # 5. Workflow
 
-A step by step journey with all components through the RkwCompetition after all configuration steps are done (steps 1-4)
+A step-by-step journey with all components through the RkwCompetition after all configuration steps are done (steps 1-4).
 
-HINT: If the tester has to do something manually which should be done automatically ("cronjobs"), this is displayed below as ***TASK***. If the system does something by its own, this will be displayed as ***TRIGGER***.
+HINT: If the tester has to do something manually that should be done automatically ("cronjobs"), this is displayed below as ***TASK***. If the system does something on its own, this will be displayed as ***TRIGGER***.
 
-## 5.1 Initial register procedure (as a FrontendUser)
+## 5.1 Initial registration procedure (as a FrontendUser)
 1. Go to the competition page (Plugin: rkwcompetition_competition; CompetitionController->showAction)
 2. Click the link to the registration page (Plugin: rkwcompetition_register; RegisterController->newAction)
-3. Fill out the form including all mandatory fields and send it off (RegisterController->createAction)
+3. Fill out the form including all mandatory fields and send it (RegisterController->createAction)
    1. ***TASK:*** Kick off cronjob "postmaster:send" manually
-   2. ***TRIGGER:*** OptIn E-Mail is sent to the register E-Mail Address (RkwMailService->optInRequest)
-4. Go to you E-Mail program and open the E-Mail. Choose one of the both links:
+   2. ***TRIGGER:*** Opt-In email is sent to the registered email address (RkwMailService->optInRequest)
+4. Go to your email program and open the email. Choose one of the two links:
    1. Decline: The registration will be removed (RegisterController->optInAction)
    2. Accept: The registration will be executed (RegisterController->optInAction)
       1. ***TASK:*** Kick off cronjob "postmaster:send" manually
-      2. ***TRIGGER:*** Confirmation E-Mail is sent to FrontendUser (RkwMailService->confirmRegisterUser)
-      3. ***TRIGGER:*** Notify E-Mail is sent to FrontendUser ("Upload") (RkwMailService->uploadDocumentsUser)
-      4. ***TRIGGER:*** Notify E-Mail to Admin ("New Competition register") (RkwMailService->confirmRegisterAdmin)
-      5. ***TRIGGER:*** OwnCloud folder created; Access links persisted (Register-Model; Competition-Model)
+      2. ***TRIGGER:*** Confirmation email is sent to FrontendUser (RkwMailService->confirmRegisterUser)
+      3. ***TRIGGER:*** Notification email is sent to FrontendUser ("Upload") (RkwMailService->uploadDocumentsUser)
+      4. ***TRIGGER:*** Notification email to admin ("New competition registration") (RkwMailService->confirmRegisterAdmin)
+      5. ***TRIGGER:*** OwnCloud folder created; access links persisted (Register-Model; Competition-Model)
 
 ## 5.2 Uploads and final submit (as a FrontendUser)
-1. Login to "Mein RKW" with the E-Mail Address of the done registration (@see 5.1)
-2. Go to the sub area "Mein Wettbewerb" (@see 1.3). You should see at least the competition you have registered to (ParticipantController->listAction)
+1. Login to "Mein RKW" with the email address of the completed registration (@see 5.1)
+2. Go to the subarea "Mein Wettbewerb" (@see 1.3). You should see at least the competition you have registered for (ParticipantController->listAction)
 3. Click on the button for file uploads ("Dateien hochladen") (UploadController->editAction)
-4. Now upload at least the abstract ("Kurzfassung") as Word or PDF file
-   1. Each other format (.jpg etc) should be thrown an error
+4. Now upload at least the abstract ("Kurzfassung") as a Word or PDF file
+   1. Any other format (.jpg etc.) should throw an error
 5. Go back to "Mein Wettbewerb" (@see 1.3) and click the button on the right ("Submit"; "Einreichen")
-6. A page shows up with a last checklist and hints for the user before commit (RegisterController->submitQuestionAction)
+6. A page shows up with a last checklist and hints for the user before committing (RegisterController->submitQuestionAction)
 7. Select the checkbox and submit (RegisterController->submitAction)
-   1. ***TRIGGER:*** Status of Registration is changed to "submitted" (Field: userSubmittedAt)
+   1. ***TRIGGER:*** Status of registration is changed to "submitted" (Field: userSubmittedAt)
    2. ***TASK:*** Kick off cronjob "postmaster:send" manually
-   3. ***TRIGGER:*** Confirmation E-Mail is sent to FrontendUser (RkwMailService->submitRegisterUser)
-   4. ***TRIGGER:*** Notify E-Mail to Admin ("Registration submitted") (RkwMailService->submitRegisterAdmin)
+   3. ***TRIGGER:*** Confirmation email is sent to FrontendUser (RkwMailService->submitRegisterUser)
+   4. ***TRIGGER:*** Notification email to admin ("Registration submitted") (RkwMailService->submitRegisterAdmin)
 
 ## 5.3 Admin preselection (as a BackendUser)
-1. Click on "RKW Competition" inside "Web"-Area (BackendController->listAction)
+1. Click on "RKW Competition" inside the "Web" area (BackendController->listAction)
 2. Select the desired competition and then the corresponding registration (BackendController->showAction)
-3. Now you can take a look to the registration and choose between two options (BackendController->registerDetailAction)
-   1. Reject: There is something wrong with the registration? Type in the reason for it and submit (BackendController->refuseAction)
-      1. ***TRIGGER:*** Status of Registration is changed to "rejected" (Field: adminRefusedAt)
+3. Now you can take a look at the registration and choose between two options (BackendController->registerDetailAction)
+   1. Refuse: Something is wrong with the registration? Type in the reason for it and submit (BackendController->refuseAction)
+      1. ***TRIGGER:*** Status of registration is changed to "refused" (Field: adminRefusedAt)
       2. ***TASK:*** Kick off cronjob "postmaster:send" manually
-      3. ***TRIGGER:*** Rejection E-Mail is sent to FrontendUser (RkwMailService->refusedRegisterUser)
-      4. The reason for rejection is shown to the user inside the E-Mail and in the list "Mein Wettbewerb"
-      5. Now the user can change things and submit his registration again
+      3. ***TRIGGER:*** Refusal email is sent to FrontendUser (RkwMailService->refusedRegisterUser)
+      4. The reason for refusal is shown to the user inside the email and in the list "Mein Wettbewerb"
+      5. Now the user can change things and submit the registration again
    2. Accept: Everything looks good? Approve it! (BackendController->approveAction)
-      1. ***TRIGGER:*** Status of Registration is changed to "approved" (Field: adminApprovedAt)
+      1. ***TRIGGER:*** Status of registration is changed to "approved" (Field: adminApprovedAt)
       2. ***TASK:*** Kick off cronjob "postmaster:send" manually
-      3. ***TRIGGER:*** Success E-Mail is sent to FrontendUser (RkwMailService->approvedRegisterUser)
+      3. ***TRIGGER:*** Success email is sent to FrontendUser (RkwMailService->approvedRegisterUser)
       4. Now the FrontendUser is finished with the registration
 
 ## 5.4 Become a jury member
-1. GIVEN: The competitions date is between "RegisterEnd" and "JuryAccessEnd"
-2. GIVEN: A FrontendUser is set as "Jury Member Candidate" to the competition
-   1. This means that the jury member is a candidate and not a full value jury member
-   2. First of all the jury candidate has to agree the terms. If not happen yet, do it now:
+1. GIVEN: The competition date is between "RegisterEnd" and "JuryAccessEnd"
+2. GIVEN: A FrontendUser is set as "Jury Member Candidate" for the competition
+   1. This means that the jury member is a candidate and not a full-fledged jury member
+   2. First of all, the jury candidate has to agree to the terms. If this has not happened yet, do it now:
       1. ***TASK:*** Kick off cronjob "rkw_competition:juryNotify" manually (RkwMailService->juryNotifyUser)
       2. ***TASK:*** Kick off cronjob "postmaster:send" manually
-      3. ***TRIGGER:*** Notify E-Mail is sent to FrontendUser to confirm the role as a jury member
+      3. ***TRIGGER:*** Notification email is sent to FrontendUser to confirm the role as a jury member
    3. Login with your FrontendUser (the "jury candidate") to "Mein RKW"
    4. Go to "Meine Jurytätigkeit" (@see 1.3)
    5. Click the button to agree ("Einwilligen")
-   6. The FrontendUser is now a full qualified jury member for this competition and can take a look to the registrations
+   6. The FrontendUser is now a fully qualified jury member for this competition and can view the registrations
 
-Hint: To repeat the jury member process for test purpose, you have to delete the "juryReference" record and to reset the field "reminder_jury_mail_tstamp" inside the competition record
+Hint: To repeat the jury member process for testing purposes, you have to delete the "juryReference" record and reset the field "reminder_jury_mail_tstamp" inside the competition record.
 
 
 ## Development
@@ -315,10 +319,10 @@ http://ddev-RKW-Website-owncloud:8080/ocs/v1.php/cloud/capabilities?format=json
 http://ddev-RKW-Website-owncloud:8080/ocs/v1.php/cloud/users?format=json
 ```
 
-You have to be logged in with credentials (admin / admin) before see any response from this example queries.
+You have to be logged in with credentials (admin / admin) before seeing any response from these example queries.
 
-Example API query with credentials and debug info (this query returns a user list of given OwnCloud instance):
-```
+Example API query with credentials and debug info (this query returns a user list of the given OwnCloud instance):
+```php
 $credentials = [
    'admin',
    'admin'
@@ -327,8 +331,7 @@ $credentials = [
 $url = 'http://ddev-RKW-Website-owncloud:8080/ocs/v1.php/cloud/users?format=json';
 
 $ch = curl_init($url);
-curl_setopt($ch, CURLOPT_HTTPHEADER,CURLAUTH_BASIC);
-curl_setopt($ch, CURLOPT_USERPWD, implode(':', $credentials));
+curl_setopt($ch, CURLOPT_HTTPHEADER, ['Authorization: Basic ' . base64_encode(implode(':', $credentials))]);
 curl_setopt($ch, CURLOPT_TIMEOUT, 5);
 curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -337,11 +340,13 @@ curl_setopt($ch, CURLOPT_HEADER, false);
 $data = curl_exec($ch);
 $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-print curl_error($ch);
+if (curl_errno($ch)) {
+    print curl_error($ch);
+}
 
 curl_close($ch);
 
-DebuggerUtility::var_dump($httpcode);
+\TYPO3\CMS\Core\Utility\DebugUtility::var_dump($httpcode);
 var_dump($data);
 exit;
 ```
@@ -401,7 +406,7 @@ api {
 ```
 9. Stop it
 ```
-docker composer down
+docker-compose down
 ```
-Learn API-Stuff here:
+Learn API stuff here:
 https://doc.owncloud.com/server/next/developer_manual/core/apis/provisioning-api.html#introduction

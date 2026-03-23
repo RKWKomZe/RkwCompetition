@@ -32,11 +32,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
     for (j = 0; j < safetySubmit.length; j++) {
         safetySubmit[j].addEventListener("submit", function(event) {
 
-            if(!confirm("Wirklich abschicken?")) {
+            var confirmMessage = this.getAttribute("data-confirm");
+            if (!confirmMessage) {
+                confirmMessage = "Wirklich abschicken?";
+            }
+
+            if(!confirm(confirmMessage)) {
                 event.preventDefault()
                 return false;
             }
-            this.form.submit();
 
         });
     }

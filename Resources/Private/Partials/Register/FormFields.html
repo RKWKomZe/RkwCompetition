@@ -11,14 +11,13 @@
 				class="select-field"
 				id="salutation"
 				property="salutation"
-				options="{0: '{f:translate(key: \'tx_rkwcompetition_fluid.please_choose\')}', 1: '{f:translate(key: \'tx_rkwcompetition_fluid.templates_register_new.salutation.I.1\')}', 2: '{f:translate(key: \'tx_rkwcompetition_fluid.templates_register_new.salutation.I.2\')}', 3: '{f:translate(key: \'tx_rkwcompetition_fluid.templates_register_new.salutation.I.3\')}'}"
+				options="{99: '{f:translate(key: \'tx_rkwcompetition_fluid.templates_register_new.please_choose\')}', 0: '{f:translate(key: \'tx_rkwcompetition_fluid.templates_register_new.salutation.I.0\')}', 1: '{f:translate(key: \'tx_rkwcompetition_fluid.templates_register_new.salutation.I.1\')}', 2: '{f:translate(key: \'tx_rkwcompetition_fluid.templates_register_new.salutation.I.2\')}'}"
 				value="{frontendUser.txFeregisterGender}"
 		/>
 	</div>
 
 	<div class="form__field width50">
 		<label class="form-label" for="title">
-			@toDo: Christian fragen für Title-Tabelle
 			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.title" />
 			<f:render partial="LabelSuffix" arguments="{field: 'title', mandatoryFields: settings.mandatoryFields.register}" />
 		</label>
@@ -117,7 +116,6 @@
 			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.sector" />
 			<f:render partial="LabelSuffix" arguments="{field: 'sector', mandatoryFields: settings.mandatoryFields.register}" />
 		</label>
-		<!-- @todo: PleaseChoose locallang -->
 		<f:form.select
 				class="select-field"
 				id="sector"
@@ -127,7 +125,7 @@
 				optionValueField="uid"
 				optionLabelField="title"
 				prependOptionValue="0"
-				prependOptionLabel="Bitte wählen"
+				prependOptionLabel="{f:translate(key: 'tx_rkwcompetition_fluid.templates_register_new.please_choose')}"
 		/>
 	</div>
 
@@ -142,7 +140,7 @@
 	<div class="form__field width100">
 		<label class="form-label" for="institution">
 			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.institution" />
-			<f:render partial="LabelSuffix" arguments="{field: 'Institution', mandatoryFields: settings.mandatoryFields.register}" />
+			<f:render partial="LabelSuffix" arguments="{field: 'institution', mandatoryFields: settings.mandatoryFields.register}" />
 		</label>
 		<f:form.textfield property="institution" id="institution" />
 	</div>
@@ -157,50 +155,54 @@
 
 	<f:comment><!-- ADDITIONAL GROUPWORK STUFF --></f:comment>
 
-	<div class="form__field width100">
-		<label>
-			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.is_group_work" />
-		</label>
-		<f:form.radio
-				class="checkbox"
-				id="isGroupWorkNo"
-				property="isGroupWork"
-				value="0"
-				checked="checked"
-		/>
-		<label for="isGroupWorkNo" class="radio-label">
-			Nein
-		</label>
-		<f:form.radio
-				class="checkbox"
-				id="isGroupWorkYes"
-				property="isGroupWork"
-				value="1"
-		/>
-		<label for="isGroupWorkYes" class="radio-label">
-			Ja
-		</label>
-	</div>
+	<f:if condition="{competition.allowTeamParticipation}">
+		<div class="form__field width100">
+			<label>
+				<f:translate key="tx_rkwcompetition_fluid.templates_register_new.is_group_work" />
+				<f:render partial="LabelSuffix" arguments="{field: 'isGroupWork', mandatoryFields: settings.mandatoryFields.register}" />
+			</label>
+			<f:form.radio
+					class="checkbox"
+					id="isGroupWorkNo"
+					property="isGroupWork"
+					value="0"
+					checked="checked"
+			/>
+			<label for="isGroupWorkNo" class="radio-label">
+				Nein
+			</label>
+			<f:form.radio
+					class="checkbox"
+					id="isGroupWorkYes"
+					property="isGroupWork"
+					value="1"
+			/>
+			<label for="isGroupWorkYes" class="radio-label">
+				Ja
+			</label>
+		</div>
 
-	<div class="form__field width50" id="groupInsurance">
-		<f:form.checkbox
-				class="checkbox"
-				property="groupWorkInsurance"
-				value="1"
-		/>
-		<label for="groupWorkInsurance" class="checkbox-label">
-			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.group_work_insurance" />
-			<f:render partial="LabelSuffix" arguments="{field: 'GroupWorkInsurance', mandatoryFields: settings.mandatoryFields.register}" />
-		</label>
-	</div>
+		<div class="form__field width100" id="groupAuthorization">
+			<f:form.checkbox
+					class="checkbox"
+					id="groupWorkAuthorization"
+					property="groupWorkAuthorization"
+					value="1"
+			/>
+			<label for="groupWorkAuthorization" class="checkbox-label">
+				<f:translate key="tx_rkwcompetition_fluid.templates_register_new.group_work_authorization" />
+ 			<f:render partial="LabelSuffix" arguments="{field: 'groupWorkAuthorization', mandatoryFields: settings.mandatoryFields.registerGroupWork}" />
+ 		</label>
+ 	</div>
 
-	<div class="form__field width100" id="groupAddPersons">
-		<label class="form-label" for="groupWorkAddPersons">
-			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.group_work_add_persons" />
-			<f:render partial="LabelSuffix" arguments="{field: 'groupWorkAddPersons', mandatoryFields: settings.mandatoryFields.register}" />
-		</label>
-		<f:form.textarea property="groupWorkAddPersons" id="groupWorkAddPersons" />
-	</div>
+ 	<div class="form__field width100" id="groupAddPersons">
+ 		<label class="form-label" for="groupWorkAddPersons">
+ 			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.group_work_add_persons" />
+ 			<f:render partial="LabelSuffix" arguments="{field: 'groupWorkAddPersons', mandatoryFields: settings.mandatoryFields.registerGroupWork}" />
+			</label>
+			<f:form.textarea property="groupWorkAddPersons" id="groupWorkAddPersons" />
+		</div>
+	</f:if>
 
 
 	<f:comment><!-- DEFAULT STUFF: terms, captcha etc --></f:comment>
@@ -228,25 +230,32 @@
 
 		function load() {
 
-			// initial: Hide additional fields
-			hideAddGroupFields();
-
 			let buttonYes = document.querySelector("#isGroupWorkYes");
-			buttonYes.addEventListener("click", showAddGroupFields, false);
 			let buttonNo = document.querySelector("#isGroupWorkNo");
-			buttonNo.addEventListener("click", hideAddGroupFields, false);
+
+			// Initialer Check: Wenn "Ja" ausgewählt ist, Felder anzeigen, sonst ausblenden
+			if (buttonYes && buttonYes.checked) {
+				showAddGroupFields();
+			} else {
+				hideAddGroupFields();
+			}
+
+			if (buttonYes && buttonNo) {
+				buttonYes.addEventListener("click", showAddGroupFields, false);
+				buttonNo.addEventListener("click", hideAddGroupFields, false);
+			}
 		}
 
 		function showAddGroupFields() {
-			let workGroupInsurance = document.getElementById("groupInsurance");
-			workGroupInsurance.style.display = "block";
+			let workGroupAuthorization = document.getElementById("groupAuthorization");
+			workGroupAuthorization.style.display = "block";
 			let groupAddPersons = document.getElementById("groupAddPersons");
 			groupAddPersons.style.display = "block";
 		}
 
 		function hideAddGroupFields() {
-			let workGroupInsurance = document.getElementById("groupInsurance");
-			workGroupInsurance.style.display = "none";
+			let workGroupAuthorization = document.getElementById("groupAuthorization");
+			workGroupAuthorization.style.display = "none";
 			let groupAddPersons = document.getElementById("groupAddPersons");
 			groupAddPersons.style.display = "none";
 		}

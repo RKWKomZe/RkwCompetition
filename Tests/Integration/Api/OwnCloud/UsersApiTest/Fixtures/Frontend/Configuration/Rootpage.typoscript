@@ -1,0 +1,22 @@
+plugin.tx_rkwcompetition {
+    settings {
+        api {
+            ownCloud {
+                baseUrl = http://ddev-RKW-Website-owncloud:8080/
+                admin {
+                    username = admin
+                    password = admin
+                }
+            }
+        }
+    }
+}
+
+module.tx_rkwcompetition < plugin.tx_rkwcompetition
+
+
+page = PAGE
+page {
+    10 = TEXT
+    10.value = Hallo Welt!
+}

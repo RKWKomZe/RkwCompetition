@@ -18,11 +18,11 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'searchFields' => 'salutation,first_name,last_name,institution,address,city,telephone,email,contribution_title,remark,conditions_of_participation,group_work_insurance,group_work_add_persons,competition,user_submitted_at,admin_approved,admin_approved_by,admin_approved_at,admin_refused,admin_refused_by,admin_refused_at,admin_refused_text,unique_id',
+        'searchFields' => 'salutation,first_name,last_name,institution,address,city,telephone,email,contribution_title,remark,conditions_of_participation,group_work_authorization,group_work_add_persons,competition,user_submitted_at,admin_approved,admin_approved_by,admin_approved_at,admin_refused,admin_refused_by,admin_refused_at,admin_refused_text,admin_returned_by,admin_returned_at,admin_returned_text,unique_id',
         'iconfile' => 'EXT:rkw_competition/Resources/Public/Icons/tx_rkwcompetition_domain_model_register.gif'
     ],
     'types' => [
-        '1' => ['showitem' => 'salutation, title, first_name, last_name, institution, address, zip, city, telephone, email, contribution_title, type_of_work, sector, remark, privacy, conditions_of_participation, is_group_work, group_work_insurance, group_work_add_persons, upload, competition, user_submitted_at, admin_approved, admin_approved_by, admin_approved_at, admin_refused_by, admin_refused_at, admin_refused_text, unique_id, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, sys_language_uid, l10n_parent, l10n_diffsource, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'],
+        '1' => ['showitem' => 'salutation, title, first_name, last_name, institution, address, zip, city, telephone, email, contribution_title, type_of_work, sector, remark, privacy, conditions_of_participation, is_group_work, group_work_authorization, group_work_add_persons, upload, competition, user_submitted_at, admin_approved, admin_approved_by, admin_approved_at, admin_refused_by, admin_refused_at, admin_refused_text, admin_returned_by, admin_returned_at, admin_returned_text, unique_id, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, sys_language_uid, l10n_parent, l10n_diffsource, --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, hidden, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -134,9 +134,9 @@ return [
             'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register.title',
             'config' => [
                 'type' => 'input',
-                'size' => 4,
-                'eval' => 'int',
-                'default' => 0
+                'size' => 30,
+                'eval' => 'trim',
+                'default' => ''
             ]
         ],
         'first_name' => [
@@ -244,11 +244,14 @@ return [
             'exclude' => true,
             'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register.sector',
             'config' => [
-                'type' => 'input',
-                'size' => 4,
-                'eval' => 'int',
-                'default' => 0
-            ]
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'tx_rkwcompetition_domain_model_sector',
+                'items' => [
+                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.none', 0],
+                ],
+                'default' => 0,
+            ],
         ],
         'remark' => [
             'exclude' => true,
@@ -292,9 +295,9 @@ return [
                 'default' => 0
             ]
         ],
-        'group_work_insurance' => [
+        'group_work_authorization' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register.group_work_insurance',
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register.group_work_authorization',
             'config' => [
                 'type' => 'input',
                 'size' => 4,
@@ -393,6 +396,38 @@ return [
                 'default' => ''
             ]
         ],
+        'admin_returned_by' => [
+            'exclude' => 0,
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register.admin_returned_by',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'be_users',
+                'foreign_table_where' => 'AND be_users.deleted = 0 AND be_users.disable = 0 AND be_users.email != "" ORDER BY be_users.username',
+            ],
+        ],
+        'admin_returned_at' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register.admin_returned_at',
+            'config' => [
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'size' => 4,
+                'eval' => 'time',
+                'default' => 0
+            ]
+        ],
+        'admin_returned_text' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register.admin_returned_text',
+            'config' => [
+                'type' => 'text',
+                'cols' => 40,
+                'rows' => 15,
+                'eval' => 'trim',
+                'default' => ''
+            ]
+        ],
         'unique_id' => [
             'exclude' => true,
             'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register.unique_id',
@@ -447,6 +482,6 @@ return [
                 'type' => 'passthrough',
             ],
         ],
-    
+
     ],
 ];

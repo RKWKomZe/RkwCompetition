@@ -14,9 +14,9 @@ in /Configuration/ExtensionBuilder/settings.yaml:
 Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
 <f:section name="content">
-    <h1>Edit Register</h1>
+    <h2><f:translate key="tx_rkwcompetition_fluid.templates_register_edit.headline" /></h2>
 
-    <f:flashMessages />
+    <f:render partial="FlashMessages" arguments="{_all}" />
 
     <f:render partial="FormErrors" />
 
@@ -24,11 +24,17 @@ Otherwise your changes will be overwritten the next time you save the extension 
         <div class="flex-container">
             <div class="form flex flex-basis-8 full-width-medium space-between">
 
-                <f:render partial="Register/FormFields" arguments="{register:register}" />
+                <f:render partial="Register/FormFields" arguments="{_all}" />
 
-                <button type="submit" class="btn btn--primary">
-                    <f:translate key="tx_rkwcompetition_fluid.templates_register_edit.send" />
-                </button>
+                <div class="btn-list">
+                    <button type="submit" class="btn btn--primary">
+                        <f:translate key="tx_rkwcompetition_fluid.templates_register_edit.submit" />
+                    </button>
+
+                    <f:link.action class="btn btn--secondary" controller="Participant" action="list">
+                        <f:translate key="tx_rkwcompetition_fluid.back" />
+                    </f:link.action>
+                </div>
             </div>
         </div>
     </f:form>

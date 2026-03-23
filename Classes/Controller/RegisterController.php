@@ -17,6 +17,7 @@ use RKW\RkwCompetition\Persistence\FileHandler;
 use RKW\RkwCompetition\Service\RkwMailService;
 use RKW\RkwCompetition\Utility\CompetitionUtility;
 use RKW\RkwCompetition\Utility\OwnCloudUtility;
+use RKW\RkwCompetition\Utility\RegisterUtility;
 use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\Log\Logger;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
@@ -140,7 +141,6 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
      */
     public function createAction(\RKW\RkwCompetition\Domain\Model\Register $newRegister)
     {
-
         // check if user is already registered
         $registerCheck = $this->registerRepository->findByCompetitionAndEmail($newRegister->getCompetition(), $newRegister->getEmail());
         if ($registerCheck instanceof Register) {
@@ -161,13 +161,16 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
             );
         }
 
+
         // registration still possible?
-        if (!$newRegister->getCompetition()->getRegisterEnd() < time()) {
+        if ($newRegister->getCompetition()->getRegisterEnd()->getTimestamp() < time()) {
             $this->addFlashMessage(
                 LocalizationUtility::translate(
                     'registerController.error.registrationTime',
                     'rkw_competition'
-                )
+                ),
+                '',
+                AbstractMessage::WARNING
             );
             $this->redirect(
                 'show',
@@ -265,7 +268,22 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
 
         // @toDo: Check for logged in user
 
+        if (RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_APPROVED
+            || RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_REFUSED
+        ) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'registerController.error.notEditable',
+                    'rkw_competition'
+                ),
+                '',
+                AbstractMessage::ERROR
+            );
+            $this->redirect('list', 'Participant');
+        }
+
         $this->view->assign('register', $register);
+        $this->view->assign('competition', $register->getCompetition());
     }
 
 
@@ -274,6 +292,7 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
      * action update
      *
      * @param \RKW\RkwCompetition\Domain\Model\Register $register
+     * @TYPO3\CMS\Extbase\Annotation\Validate("RKW\RkwCompetition\Validation\Validator\RegisterValidator", param="register")
      * @return void
      */
     public function updateAction(\RKW\RkwCompetition\Domain\Model\Register $register)
@@ -281,12 +300,44 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
 
         // @toDo: Check for logged in user
 
+        if ($this->getFrontendUserId() !== $register->getFrontendUser()->getUid()) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'registerController.error.notAuthorized',
+                    'rkw_competition'
+                ),
+                '',
+                AbstractMessage::ERROR
+            );
+            $this->redirect('list', 'Participant');
+        }
+
+        if (RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_APPROVED
+            || RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_REFUSED
+        ) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'registerController.error.notEditable',
+                    'rkw_competition'
+                ),
+                '',
+                AbstractMessage::ERROR
+            );
+            $this->redirect('list', 'Participant');
+        }
+
         $this->addFlashMessage(
             LocalizationUtility::translate(
                 'registerController.message.updated',
                 'rkw_competition'
             )
         );
+
+        // Reset returned status if it was returned before
+        if ($register->getAdminReturnedAt()) {
+            $register->setAdminReturnedAt(0);
+        }
+
         $this->registerRepository->update($register);
         $this->redirect('list', 'Participant');
     }
@@ -319,9 +370,23 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
     {
         // @toDo: Check for logged in user
 
+        if (RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_APPROVED
+            || RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_REFUSED
+        ) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'registerController.error.notEditable',
+                    'rkw_competition'
+                ),
+                '',
+                AbstractMessage::ERROR
+            );
+            $this->redirect('list', 'Participant');
+        }
+
         $this->addFlashMessage(
             LocalizationUtility::translate(
-                'registerController.message.updated',
+                'registerController.message.deleted',
                 'rkw_competition'
             )
         );
@@ -378,7 +443,25 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
     {
         // @toDo: Check for logged in user
 
+        $hasCloudContent = false;
+        try {
+            /** @var \RKW\RkwCompetition\Api\OwnCloud\WebDavApi $webDavApi */
+            $webDavApi = GeneralUtility::makeInstance(\RKW\RkwCompetition\Api\OwnCloud\WebDavApi::class);
+
+            $folderCreatePath = GeneralUtility::trimExplode('/', $this->settings['api']['ownCloud']['folderStructure']['basePath'], true);
+            $pathParts = array_merge($folderCreatePath, [
+                'competition_uid_' . $register->getCompetition()->getUid(),
+                'feuser_uid_' . $register->getFrontendUser()->getUid() . '_' . $register->getFrontendUser()->getEmail()
+            ]);
+
+            $hasCloudContent = $webDavApi->hasContent($pathParts);
+
+        } catch (\Exception $e) {
+            // Just fail silently for now, as it's just a check
+        }
+
         $this->view->assign('register', $register);
+        $this->view->assign('hasCloudContent', $hasCloudContent);
     }
 
 
@@ -396,13 +479,29 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
     {
         // @toDo: Check for logged in user
 
+        if (RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_APPROVED
+            || RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_REFUSED
+        ) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'registerController.error.notEditable',
+                    'rkw_competition'
+                ),
+                '',
+                AbstractMessage::ERROR
+            );
+            $this->redirect('list', 'Participant');
+        }
+
         if (!$submitConfirm) {
 
             $this->addFlashMessage(
                 LocalizationUtility::translate(
                     'registerController.message.submitIncomplete',
                     'rkw_competition'
-                )
+                ),
+                '',
+                \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
             );
             $this->redirect(
                 'submitQuestion',
@@ -417,10 +516,13 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
             LocalizationUtility::translate(
                 'registerController.message.submitSuccess',
                 'rkw_competition'
-            )
+            ),
+            '',
+            \TYPO3\CMS\Core\Messaging\AbstractMessage::OK
         );
 
         $register->setUserSubmittedAt(time());
+        $register->setAdminReturnedAt(0);
 
         $this->registerRepository->update($register);
 
@@ -692,6 +794,12 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
 
         $this->persistenceManager->persistAll();
 
+    }
+
+    protected function getErrorFlashMessage()
+    {
+        // Gibt "false" zurück, damit keine automatische Flash-Message erzeugt wird.
+        return false;
     }
 
 

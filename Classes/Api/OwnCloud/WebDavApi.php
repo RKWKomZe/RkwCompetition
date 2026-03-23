@@ -41,7 +41,7 @@ class WebDavApi extends AbstractApi
 
     const API_PATH = 'remote.php/webdav/';
 
-    protected string $queryType = 'webdav';
+    public string $queryType = 'webdav';
 
     /**
      * addFolder
@@ -73,20 +73,22 @@ class WebDavApi extends AbstractApi
     public function addFolderRecursive(array $folderPath): array
     {
         $currentFolderPath = [];
+        $result = [];
+
         foreach ($folderPath as $folder) {
-
-            // set method inside loop because the nested "addFolder" function overrides this value
-            $this->apiMethod = self::METHOD_PROPFIND;
-
-            // build folder chain step by step
             $currentFolderPath[] = $folder;
 
-            // does the currentFolderPath exists?
+            // PROPFIND: exists?
+            $this->apiMethod = self::METHOD_PROPFIND;
             $result = $this->doApiRequest(self::API_PATH . implode('/', $currentFolderPath));
 
-            // folder does NOT exists
-            if (key($result) === 404) {
+            if ((int)key($result) === 404) {
+                // MKCOL
                 $this->addFolder($currentFolderPath);
+
+                // PROPFIND again to return a "stable" exists-result
+                $this->apiMethod = self::METHOD_PROPFIND;
+                $result = $this->doApiRequest(self::API_PATH . implode('/', $currentFolderPath));
             }
         }
 
@@ -111,6 +113,102 @@ class WebDavApi extends AbstractApi
         $this->apiMethod = self::METHOD_DELETE;
 
         return $this->doApiRequest(self::API_PATH . implode('/', $existingFolderPath));
+    }
+
+
+    /**
+     * getFiles
+     *
+     * Service function which is using PROPFIND. Returns a list of filenames in the folder
+     *
+     * @param array $folderPath Folders as sequential array.
+     * @return array
+     */
+    public function getFiles(array $folderPath): array
+    {
+        $this->apiMethod = self::METHOD_PROPFIND;
+        $path = self::API_PATH . implode('/', $folderPath);
+        $result = $this->doApiRequest($path);
+
+        $fileList = [];
+
+        if ((int)key($result) === 207) {
+            $xml = current($result);
+
+            $dom = new \DOMDocument();
+            $dom->loadXML($xml, LIBXML_NOERROR);
+
+            // OwnCloud uses namespace 'DAV:'
+            $responses = $dom->getElementsByTagNameNS('DAV:', 'response');
+
+            foreach ($responses as $response) {
+                /** @var \DOMElement $response */
+                $hrefElements = $response->getElementsByTagNameNS('DAV:', 'href');
+                if ($hrefElements->length > 0) {
+                    $href = $hrefElements->item(0)->textContent;
+
+                    // The first entry is usually the folder itself.
+                    // Check if it's a file by checking for <getcontentlength>
+                    $contentLengthElements = $response->getElementsByTagNameNS('DAV:', 'getcontentlength');
+                    if ($contentLengthElements->length > 0) {
+                        // It's a file! Extract filename from href
+                        $filename = basename(urldecode($href));
+                        $fileList[] = $filename;
+                    }
+                }
+            }
+        }
+
+        return $fileList;
+    }
+
+
+    /**
+     * hasContent
+     *
+     * Service function which is using PROPFIND. Checks if the folder has content
+     *
+     * @param array $folderPath Folders as sequential array.
+     * @return bool
+     */
+    public function hasContent(array $folderPath): bool
+    {
+        $this->apiMethod = self::METHOD_PROPFIND;
+        $path = self::API_PATH . implode('/', $folderPath);
+        $result = $this->doApiRequest($path);
+
+        if ((int)key($result) === 207) {
+            $xml = current($result);
+
+            // Basic check for contents. OwnCloud PROPFIND returns the folder itself and its contents.
+            // If more than one <d:response> or <D:response> (depending on server) is found, there's content.
+            // Also, we can check for <d:getcontentlength> or <D:getcontentlength> that's not empty/0 for files.
+            // But usually counting responses is enough if we know the first one is the folder itself.
+
+            $dom = new \DOMDocument();
+            // Use LIBXML_NOERROR to suppress warnings from invalid XML or unknown namespaces
+            $dom->loadXML($xml, LIBXML_NOERROR);
+
+            // OwnCloud often uses 'd' or 'D' as prefix, but the namespace is 'DAV:'
+            $responses = $dom->getElementsByTagNameNS('DAV:', 'response');
+
+            if ($responses->length > 1) {
+                return true;
+            }
+
+            // Fallback: check without namespace if the above fails for some reason (though unlikely for DAV:)
+            $responses = $dom->getElementsByTagName('response');
+            if ($responses->length > 1) {
+                return true;
+            }
+
+            // Another fallback: search for 'd:response' or 'D:response' in the raw XML if DOM failed
+            if (preg_match_all('/<[a-zA-Z0-9]*:response/i', $xml) > 1) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 

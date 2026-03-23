@@ -7,9 +7,7 @@
 <f:section name="Plaintext">
 <postmaster:email.translate key="templates_email_frontendUser_approved.headline" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" arguments="{0 : frontendUser.firstName, 1: frontendUser.lastName}" />
 
-<postmaster:email.translate key="templates_email_frontendUser_approved.text1" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
-<postmaster:email.translate key="templates_email_frontendUser_approved.text2" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
-{register.title}
+<postmaster:email.translate key="templates_email_frontendUser_approved.text1" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" arguments="{0 : register.competition.title}" />
 
 =============================================================
 <postmaster:email.translate key="templates_email_frontendUser_approved.showHeadline" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
@@ -21,9 +19,7 @@
 <f:section name="Html">
 	<h1><postmaster:email.translate key="templates_email_frontendUser_approved.headline" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" arguments="{0 : frontendUser.firstName, 1: frontendUser.lastName}" /></h1>
 	<p>
-		<postmaster:email.translate key="templates_email_frontendUser_approved.text1" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" /><br>
-		<postmaster:email.translate key="templates_email_frontendUser_approved.text2" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" /><br>
-		<strong>{register.competition.title}</strong>
+		<postmaster:email.translate key="templates_email_frontendUser_approved.text1" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" arguments="{0 : register.competition.title}" />
 	</p>
 
 	<h2><postmaster:email.translate key="templates_email_frontendUser_approved.showHeadline" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" /></h2>

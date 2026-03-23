@@ -53,19 +53,22 @@ class RegisterRepository extends AbstractRepository
      *
      * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
      * @param string $email
-     * @return object|RKW\RkwCompetition\Domain\Model\Register
+     * @return \RKW\RkwCompetition\Domain\Model\Register|null
      */
-    public function findByCompetitionAndEmail(Competition $competition, string $email): object
+    public function findByCompetitionAndEmail(Competition $competition, string $email): ?Register
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
 
-        return $query->matching(
+        /** @var Register|null $result */
+        $result = $query->matching(
             $query->logicalAnd(
                 $query->equals('email', $email),
                 $query->equals('competition', $competition)
             )
         )->execute()->getFirst();
+
+        return $result;
     }
 
 
@@ -107,6 +110,29 @@ class RegisterRepository extends AbstractRepository
             $query->logicalAnd(
                 $query->equals('competition', $competition),
                 $query->greaterThan('adminRefusedAt', 0),
+                $query->equals('adminApprovedAt', 0),
+                $query->equals('adminReturnedAt', 0)
+            )
+        )->execute();
+    }
+
+
+    /**
+     * function findReturnedByCompetition
+     *
+     * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @throws InvalidQueryException
+     */
+    public function findReturnedByCompetition(Competition $competition): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+
+        return $query->matching(
+            $query->logicalAnd(
+                $query->equals('competition', $competition),
+                $query->greaterThan('adminReturnedAt', 0),
                 $query->equals('adminApprovedAt', 0)
             )
         )->execute();
@@ -151,6 +177,26 @@ class RegisterRepository extends AbstractRepository
                 $query->logicalNot(
                     $query->equals('adminApprovedAt', 0)
                 )
+            )
+        )->execute();
+    }
+
+
+    /**
+     * function findUnsubmittedByCompetition
+     *
+     * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findUnsubmittedByCompetition(Competition $competition): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+
+        return $query->matching(
+            $query->logicalAnd(
+                $query->equals('competition', $competition),
+                $query->equals('user_submitted_at', 0)
             )
         )->execute();
     }

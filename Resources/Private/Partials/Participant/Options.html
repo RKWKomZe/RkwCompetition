@@ -4,59 +4,41 @@
 
     <f:if condition="{register.competition}">
 
-        <div class="space-between">
+        <div class="flex space-between valign-center">
             <div class="btn-list">
-
-                <!-- show competition -->
-                <f:link.action
-                    pageUid="{settings.competitionPid}"
-                    target="_blank"
-                    class="btn btn--primary"
-                    controller="Competition"
-                    action="show"
-                    arguments="{competition : register.competition}"
-                >
-                    <f:translate key="tx_rkwcompetition_fluid.partials_participant_options.competitionShow" />
-                </f:link.action>
-
-
                 <f:comment><!-- ViewHelper returns true if reg time for competition is still running --></f:comment>
                 <f:if condition="<rkw:isDateWithinDeadline date='{register.competition.registerEnd}' />">
 
-                    <f:if condition="<rkw:registerStatus register='{register}' /> < 300">
-                        <f:then>
-                            <f:link.action class="btn btn--primary" controller="Upload" action="edit" arguments="{register : register}">
-                                <f:translate key="tx_rkwcompetition_fluid.partials_participant_options.registerUpload" />
-                            </f:link.action>
-
-                            <f:link.action class="btn btn--secondary" controller="Register" action="edit" arguments="{register : register}">
-                                <f:translate key="tx_rkwcompetition_fluid.partials_participant_options.registerEdit" />
-                            </f:link.action>
-
-                            <f:link.action class="btn btn--secondary" controller="Register" action="deleteQuestion" arguments="{register : register}">
-                                <f:translate key="tx_rkwcompetition_fluid.partials_participant_options.registerDelete" />
-                            </f:link.action>
-
-                            <f:link.action
-                                    style="margin-left: auto;"
-                                    class="btn btn--primary"
-                                    controller="Register"
-                                    action="submitQuestion"
-                                    arguments="{register : register}"
-                            >
-                                <f:translate key="tx_rkwcompetition_fluid.partials_participant_options.submit" />
-                            </f:link.action>
-                        </f:then>
-                        <f:else>
-                            @toDo: Styling
-                            <ul class="list-primary">
-                                <li><f:translate key="tx_rkwcompetition_fluid.partials_participant_options.registrationComplete" /></li>
-                            </ul>
-                        </f:else>
+                    <f:if condition="{regStatus} == 100 || {regStatus} == 400">
+                        <f:link.action class="btn btn--secondary" controller="Upload" action="edit" arguments="{register : register}">
+                            <f:if condition="{register.upload.abstract} || {register.upload.full}">
+                                <f:then>
+                                    <f:translate key="tx_rkwcompetition_fluid.partials_participant_options.registerUploadEdit" />
+                                </f:then>
+                                <f:else>
+                                    <f:translate key="tx_rkwcompetition_fluid.partials_participant_options.registerUpload" />
+                                </f:else>
+                            </f:if>
+                        </f:link.action>
                     </f:if>
-
                 </f:if>
-
             </div>
+
+            <f:comment><!-- ViewHelper returns true if reg time for competition is still running --></f:comment>
+            <f:if condition="<rkw:isDateWithinDeadline date='{register.competition.registerEnd}' />">
+                <f:if condition="{regStatus} == 100 || {regStatus} == 400">
+                    <div class="btn-list">
+                        <f:link.action
+                                class="btn btn--primary"
+                                controller="Register"
+                                action="submitQuestion"
+                                arguments="{register : register}"
+                        >
+                            <f:translate key="tx_rkwcompetition_fluid.partials_participant_options.submit" />
+                        </f:link.action>
+                    </div>
+                </f:if>
+            </f:if>
+        </div>
     </f:if>
 </html>

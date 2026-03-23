@@ -1,73 +1,65 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 
-	<table class="responsive-table responsive-table--background">
-		<tr>
-			<td>
-				Kurzfassung
-			</td>
-			<f:if condition="{register.upload.abstract}">
-				<f:then>
-					<td>
-						<f:link.typolink
-								parameter="{register.upload.abstract.originalResource.publicUrl}"
-								target="_blank"
-								title="Download"
-								absolute="true"
-						>
-							{register.upload.abstract.originalResource.name}
-						</f:link.typolink>
-					</td>
-					<td>
-						<f:link.action
-								action="delete"
-								arguments="{register: register, property: 'abstract', fileReference: register.upload.abstract}"
-						>
-							Löschen
-						</f:link.action>
-					</td>
-				</f:then>
-				<f:else>
-					<td>
-						<f:form.upload property="upload.fileAbstractUploadArray" />
-					</td>
-				</f:else>
-			</f:if>
-		</tr>
+	<div class="form__field width100">
+		<label class="form-label" for="abstract">
+			<f:translate key="tx_rkwcompetition_domain_model_upload.abstract" />
+		</label>
 
-		<tr>
-			<td>
-				Langfassung
-			</td>
-			<f:if condition="{register.upload.full}">
-				<f:then>
+		<f:if condition="{register.upload.abstract}">
+			<f:then>
+				<div class="form__field-file-info">
+					<f:link.typolink
+							parameter="{register.upload.abstract.originalResource.publicUrl}"
+							target="_blank"
+							title="Download"
+							absolute="true"
+					>
+						{register.upload.abstract.originalResource.name}
+					</f:link.typolink>
+					<f:link.action
+							class="text-secondary ml-05"
+							action="delete"
+							arguments="{register: register, property: 'abstract', fileReference: register.upload.abstract}"
+					>
+						<svg class="icon icon--16" aria-hidden="true"><use xlink:href="#ic-trash" /></svg>
+					</f:link.action>
+				</div>
+			</f:then>
+			<f:else>
+				<f:form.upload property="upload.fileAbstractUploadArray" id="abstract" additionalAttributes="{accept: '.pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document'}" />
+			</f:else>
+		</f:if>
+	</div>
 
-					<td>
-						<f:link.typolink
-								parameter="{register.upload.full.originalResource.publicUrl}"
-								target="_blank"
-								title="Download"
-								absolute="true"
-						>
+	<div class="form__field width100">
+		<label class="form-label" for="full">
+			<f:translate key="tx_rkwcompetition_domain_model_upload.full" />
+		</label>
+
+		<f:if condition="{register.upload.full}">
+			<f:then>
+				<div class="form__field-file-info">
+					<f:link.typolink
+							parameter="{register.upload.full.originalResource.publicUrl}"
+							target="_blank"
+							title="Download"
+							absolute="true"
+					>
 						{register.upload.full.originalResource.name}
-						</f:link.typolink>
-					</td>
-					<td>
-						<f:link.action
-								action="delete"
-								arguments="{register: register, property: 'full', fileReference: register.upload.full}"
-						>
-							Löschen
-						</f:link.action>
-					</td>
-				</f:then>
-				<f:else>
-					<td>
-						<f:form.upload property="upload.fileFullUploadArray" />
-					</td>
-				</f:else>
-			</f:if>
-		</tr>
-
-	</table>
+					</f:link.typolink>
+					<f:link.action
+                            class="text-secondary ml-05"
+							action="delete"
+							arguments="{register: register, property: 'full', fileReference: register.upload.full}"
+					>
+						<svg class="icon icon--16" aria-hidden="true"><use xlink:href="#ic-trash" /></svg>
+					</f:link.action>
+				</div>
+			</f:then>
+			<f:else>
+				<f:form.upload property="upload.fileFullUploadArray" id="full" additionalAttributes="{accept: '.pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document'}" />
+			</f:else>
+		</f:if>
+	</div>
 
 </html>

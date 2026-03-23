@@ -8,7 +8,9 @@ namespace RKW\RkwCompetition\Controller;
 use RKW\RkwCompetition\Domain\Model\Upload;
 use RKW\RkwCompetition\Persistence\FileHandler;
 use RKW\RkwCompetition\Utility\FileUploadUtility;
+use RKW\RkwCompetition\Utility\RegisterUtility;
 use Solarium\Component\Debug;
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
@@ -80,18 +82,33 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
      * -> upload is part of register. So we're technically editing the register object here
      *
      * @param \RKW\RkwCompetition\Domain\Model\Register $register
+     * @param bool $redirectToList
      * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("register")
      * @return void
      * @throws AspectNotFoundException
      */
-    public function editAction(\RKW\RkwCompetition\Domain\Model\Register $register)
+    public function editAction(\RKW\RkwCompetition\Domain\Model\Register $register, bool $redirectToList = false)
     {
+        if (RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_APPROVED
+            || RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_REFUSED
+        ) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'registerController.error.notEditable',
+                    'rkw_competition'
+                ),
+                '',
+                AbstractMessage::ERROR
+            );
+            $this->redirect('list', 'Participant');
+        }
+
         // check if "Upload"-Entity exists
         if (!$register->getUpload() instanceof Upload) {
 
            // throw new AspectNotFoundException();
 
-            // instead of throwing error simply create and add an Upload object
+            // instead of throwing an error: create and add an Upload object
             $upload = GeneralUtility::makeInstance(Upload::class);
             $register->setUpload($upload);
             $this->registerRepository->update($register);
@@ -99,6 +116,7 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
         }
 
         $this->view->assign('register', $register);
+        $this->view->assign('redirectToList', $redirectToList);
     }
 
 
@@ -107,11 +125,26 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
      * action update
      *
      * @param \RKW\RkwCompetition\Domain\Model\Register $register
+     * @param bool $redirectToList
      * @TYPO3\CMS\Extbase\Annotation\Validate("RKW\RkwCompetition\Validation\Validator\FileValidator", param="register")
      * @return void
      */
-    public function updateAction(\RKW\RkwCompetition\Domain\Model\Register $register)
+    public function updateAction(\RKW\RkwCompetition\Domain\Model\Register $register, bool $redirectToList = false)
     {
+
+        if (RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_APPROVED
+            || RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_REFUSED
+        ) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'registerController.error.notEditable',
+                    'rkw_competition'
+                ),
+                '',
+                AbstractMessage::ERROR
+            );
+            $this->redirect('list', 'Participant');
+        }
 
         // @toDo: Validation mimeType stuff
         // https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/13.3/Feature-103511-IntroduceExtbaseFileUploadHandling.html#83749-validationkeys
@@ -140,14 +173,35 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
             $uploadCounter++;
         }
 
-        $this->addFlashMessage(
-            LocalizationUtility::translate(
-                'updateController.message.uploadSuccess',
-                'rkw_competition'
-            )
-        );
+        if ($uploadCounter > 0) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'updateController.message.uploadSuccess',
+                    'rkw_competition'
+                )
+            );
+        } else {
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'updateController.message.noUploadSelected',
+                    'rkw_competition'
+                ),
+                '',
+                \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO
+            );
+        }
 
         $this->uploadRepository->update($register->getUpload());
+
+        // Reset returned status if it was returned before
+        if ($register->getAdminReturnedAt()) {
+            $register->setAdminReturnedAt(0);
+            $this->registerRepository->update($register);
+        }
+
+        if ($redirectToList) {
+            $this->redirect('list', 'Participant');
+        }
 
         $this->redirect('edit', 'Upload', null, ['register' => $register]);
     }
@@ -159,17 +213,33 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
      *
      * -> because cascadeRemove in model does not work on edit with null (via checkbox)
      *
-     * @param \RKW\RkwCompetition\Domain\Model\Upload $upload
+     * @param \RKW\RkwCompetition\Domain\Model\Register $register
      * @param string $property
      * @param \Madj2k\CoreExtended\Domain\Model\FileReference $fileReference
+     * @param bool $redirectToList
      * @return string|object|null|void
      */
     public function deleteAction(
         \RKW\RkwCompetition\Domain\Model\Register $register,
         string $property,
-        \Madj2k\CoreExtended\Domain\Model\FileReference $fileReference
+        \Madj2k\CoreExtended\Domain\Model\FileReference $fileReference,
+        bool $redirectToList = false
     )
     {
+
+        if (RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_APPROVED
+            || RegisterUtility::registerStatus($register) === RegisterUtility::STATUS_REFUSED
+        ) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate(
+                    'registerController.error.notEditable',
+                    'rkw_competition'
+                ),
+                '',
+                AbstractMessage::ERROR
+            );
+            $this->redirect('list', 'Participant');
+        }
 
         $unset = 'unset' . ucfirst($property);
         $register->getUpload()->$unset();
@@ -186,13 +256,22 @@ class UploadController extends \RKW\RkwCompetition\Controller\AbstractController
         // remove fileReference from repo (with "cascadeRemove")
         $this->fileReferenceRepository->remove($fileReference);
 
+        // Reset returned status if it was returned before
+        if ($register->getAdminReturnedAt()) {
+            $register->setAdminReturnedAt(0);
+            $this->registerRepository->update($register);
+        }
+
         $this->addFlashMessage(
             LocalizationUtility::translate(
                 'updateController.message.fileDeleted',
                 'rkw_competition'
             )
         );
-        $this->addFlashMessage('The file was deleted.');
+
+        if ($redirectToList) {
+            $this->redirect('list', 'Participant');
+        }
 
         $this->redirect('edit', 'Upload', null, ['register' => $register]);
     }

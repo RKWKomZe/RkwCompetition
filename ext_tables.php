@@ -10,7 +10,7 @@ defined('TYPO3_MODE') || die();
         'list',
         '',
         [
-            Backend::class => 'list, show, registerDetail, approve, refuse',
+            Backend::class => 'list, show, registerDetail, processStatus, approve, refuse',
         ],
         [
             'access' => 'user,group',

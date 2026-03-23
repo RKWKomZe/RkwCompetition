@@ -1,0 +1,41 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+    data-namespace-typo3-fluid="true">
+
+<div class="typo3-docheader-functions" style="margin-top: 20px;">
+    <div class="left">
+        <p>
+            <strong><f:translate key="templates_backend_breadcrumbs.here" /></strong>
+            <f:if condition="{action} == 'list'">
+                <f:then>
+                    <f:translate key="templates_backend_breadcrumbs.list" />
+                </f:then>
+                <f:else>
+                    <f:link.action action="list">
+                        <f:translate key="templates_backend_breadcrumbs.list" />
+                    </f:link.action>
+                </f:else>
+            </f:if>
+
+            <f:if condition="{competition}">
+                &raquo;
+                <f:if condition="{action} == 'show'">
+                    <f:then>
+                        <f:translate key="templates_backend_breadcrumbs.show" arguments="{0: competition.title}" />
+                    </f:then>
+                    <f:else>
+                        <f:link.action action="show" arguments="{competition: competition}">
+                            <f:translate key="templates_backend_breadcrumbs.show" arguments="{0: competition.title}" />
+                        </f:link.action>
+                    </f:else>
+                </f:if>
+            </f:if>
+
+            <f:if condition="{register}">
+                &raquo;
+                <f:translate key="templates_backend_breadcrumbs.registerDetail" />
+            </f:if>
+        </p>
+    </div>
+</div>
+</html>

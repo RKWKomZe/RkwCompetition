@@ -10,12 +10,10 @@
             <f:translate key="tx_rkwcompetition_fluid.templates_register_submitquestion.header" />
         </h3>
 
-        <f:flashMessages />
+        <f:render partial="FlashMessages" arguments="{_all}" />
 
         <div class="mb-1">
-            <strong>
-                <f:translate key="tx_rkwcompetition_fluid.templates_register_submitquestion.your_checklist" />
-            </strong>
+            <f:translate key="tx_rkwcompetition_fluid.templates_register_submitquestion.your_checklist" />
         </div>
 
         <div class="system-message">
@@ -45,12 +43,22 @@
             </p>
 
 
-            <p class="system-message__item system-message__item--severity1">
+            <p class="system-message__item system-message__item--severity{f:if(condition: '{hasCloudContent}', then: '1', else: '2')}">
                 <f:translate key="tx_rkwcompetition_fluid.templates_register_submitquestion.hint1" />
+                <f:if condition="{hasCloudContent}">
+                    <f:else>
+                        <strong><f:translate key="tx_rkwcompetition_fluid.templates_register_submitquestion.ownCloudEmpty" /></strong>
+                    </f:else>
+                </f:if>
                 <br />
-                @toDo: cloudlink
+                <f:translate key="tx_rkwcompetition_fluid.templates_register_submitquestion.ownCloudLink" />: <f:link.external
+                    uri="{register.ownCloudFolderLink}"
+                    target="_blank"
+                >
+                    {register.ownCloudFolderLink}
+                </f:link.external>
                 <br />
-                @toDo: Api check if cloud folder has content
+                <f:translate key="tx_rkwcompetition_fluid.templates_register_submitquestion.ownCloudPass" />: <rkw:ownCloudUserFolderPass register='{register}' />
             </p>
 
 
@@ -76,18 +84,20 @@
                         </label>
                     </div>
 
-                    <button type="submit" class="btn btn--primary">
-                        <f:translate key="tx_rkwcompetition_fluid.partials_participant_options.registerSubmit" />
-                    </button>
+                    <div class="btn-list">
+                        <button type="submit" class="btn btn--primary">
+                            <f:translate key="tx_rkwcompetition_fluid.partials_participant_options.registerSubmit" />
+                        </button>
 
-                    <f:link.action
-                        class="btn btn--secondary"
-                        controller="Participant"
-                        action="list"
-                        arguments="{register : register}"
-                    >
-                        Zurück
-                    </f:link.action>
+                        <f:link.action
+                            class="btn btn--secondary"
+                            controller="Participant"
+                            action="list"
+                            arguments="{register : register}"
+                        >
+                            <f:translate key="tx_rkwcompetition_fluid.back" />
+                        </f:link.action>
+                    </div>
                 </div>
             </div>
         </f:form>
