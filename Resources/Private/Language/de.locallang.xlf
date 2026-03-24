@@ -368,7 +368,7 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_competition_show.register_end">
                 <source>Register End</source>
-                <target>Anmeldenende</target>
+                <target>Anmeldeschluss</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_competition_show.allow_team_participation">
                 <source>Allow Team Participation</source>
