@@ -249,7 +249,7 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_competition.link_jury_declaration_confident">
                 <source>Jury Declaration Confident</source>
-                <target>Jury Verschwiegendheitserklärung</target>
+             			<target>Jury Verschwiegenheitserklärung</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_competition.allow_team_participation">
                 <source>Allow Team Participation</source>
@@ -325,14 +325,17 @@
             </trans-unit>
 
             <!-- TCA -->
-			<trans-unit id="tx_rkwcompetition_domain_model_competition.tab_jury">
+   <trans-unit id="tx_rkwcompetition_domain_model_competition.tab_jury">
                 <source>Jury</source>
+                <target>Jury</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_competition.tab_register">
                 <source>Register</source>
+                <target>Anmeldungen</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_competition.tab_admin">
                 <source>Admin</source>
+                <target>Admin</target>
             </trans-unit>
 
             <!-- FLEXFORM -->

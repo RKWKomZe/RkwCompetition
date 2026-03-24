@@ -5,6 +5,7 @@ return [
         'title' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register',
         'label' => 'last_name',
         'label_alt' => 'first_name',
+        'label_userFunc' => \RKW\RkwCompetition\UserFunctions\TcaLabel::class . '->getRegisterLabel',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
@@ -271,8 +272,8 @@ return [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
                 'size' => 4,
-                'eval' => 'time',
-                'default' => time()
+                'eval' => 'datetime,int',
+                'default' => 0
             ]
         ],
         'conditions_of_participation' => [
@@ -280,18 +281,16 @@ return [
             'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register.conditions_of_participation',
             'config' => [
                 'type' => 'input',
-                'size' => 30,
-                'eval' => 'trim',
-                'default' => ''
+                'renderType' => 'inputDateTime',
+                'eval' => 'datetime,int',
+                'default' => 0
             ],
         ],
         'is_group_work' => [
             'exclude' => true,
             'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register.is_group_work',
             'config' => [
-                'type' => 'input',
-                'size' => 4,
-                'eval' => 'int',
+                'type' => 'check',
                 'default' => 0
             ]
         ],
@@ -299,9 +298,7 @@ return [
             'exclude' => true,
             'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_register.group_work_authorization',
             'config' => [
-                'type' => 'input',
-                'size' => 4,
-                'eval' => 'int',
+                'type' => 'check',
                 'default' => 0
             ],
         ],
@@ -322,9 +319,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
-                'size' => 4,
-                'eval' => 'time',
-                'default' => time()
+                'eval' => 'datetime,int',
+                'default' => 0
             ]
         ],
         'admin_approved' => [
@@ -351,9 +347,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
-                'size' => 4,
-                'eval' => 'time',
-                'default' => time()
+                'eval' => 'datetime,int',
+                'default' => 0
             ]
         ],
         'admin_refused' => [
@@ -380,9 +375,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
-                'size' => 4,
-                'eval' => 'time',
-                'default' => time()
+                'eval' => 'datetime,int',
+                'default' => 0
             ]
         ],
         'admin_refused_text' => [
@@ -412,8 +406,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
-                'size' => 4,
-                'eval' => 'time',
+                'eval' => 'datetime,int',
                 'default' => 0
             ]
         ],
