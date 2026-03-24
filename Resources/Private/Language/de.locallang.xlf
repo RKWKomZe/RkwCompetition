@@ -248,10 +248,6 @@
                 <source>An e-mail has been send to you. Please click the link in the e-mail to confirm your request.</source>
                 <target><![CDATA[Fast geschafft! Eine E-Mail mit einem Bestätigungslink ist auf dem Weg zu Ihnen. Sollten Sie innerhalb der nächsten 2-3 Minuten keine E-Mail von uns erhalten, prüfen Sie Ihren Spam-Filter. Selbstverständlich steht Ihnen aber auch unser <a href="mailto:service@rkw.de">Support</a> bei Problemen jederzeit gerne zur Verfügung.]]></target>
             </trans-unit>
-            <trans-unit id="registerController.message.registrationCreated">
-                <source>Registration successfully created.</source>
-                <target>Woohoo! Sie sind nun für den Wettbewerb angemeldet. In Kürze erhalten Sie eine Bestätigung per E-Mail.</target>
-            </trans-unit>
             <trans-unit id="registerController.error.somethingWentWrong">
                 <source>Something went wrong with the given competition!</source>
                 <target>Leider scheint hier etwas nicht zu stimmen. Überprüfen Sie, ob der Wettbewerb noch existiert.</target>

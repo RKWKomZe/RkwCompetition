@@ -357,9 +357,6 @@
             <trans-unit id="registerController.message.registrationCreatedEmail">
                 <source>An e-mail has been send to you. Please click the link in the e-mail to confirm your request.</source>
             </trans-unit>
-            <trans-unit id="registerController.message.registrationCreated">
-                <source>Registration successfully created.</source>
-            </trans-unit>
             <trans-unit id="registerController.error.somethingWentWrong" approved="yes">
                 <source>Something went wrong with the given competition!</source>
             </trans-unit>
