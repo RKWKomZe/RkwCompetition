@@ -21,21 +21,21 @@ return [
     ],
     'types' => [
         '1' => ['showitem' =>
-            'title, --palette--;;startEnd, --palette--;;winnerAndRemoval, --palette--;;userInfo, sectors, link_cond_participation, link_privacy, description, 
-            
+            'title, --palette--;;startEnd, --palette--;;winnerAndRemoval, --palette--;;userInfo, sectors, link_cond_participation, link_privacy, description,
+
             --div--;LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.tab_jury,
-            jury_access_end, link_jury_declaration_confident, group_for_jury, jury_member_candidate, jury_member_confirmed, jury_add_data, 
-            
+            jury_access_end, link_jury_declaration_confident, group_for_jury, jury_member_candidate, jury_member_confirmed, jury_add_data,
+
              --div--;LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.tab_admin,
-            admin_member, 
-            
+            admin_member,
+
             --div--;LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.tab_register,
             register,
-            
-            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language, 
-            sys_language_uid, l10n_parent, l10n_diffsource, 
-            
-            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access, 
+
+            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,
+            sys_language_uid, l10n_parent, l10n_diffsource,
+
+            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,
             hidden, starttime, endtime
         '],
     ],
@@ -472,29 +472,28 @@ return [
             'exclude' => true,
             'label' => 'LLL:EXT:rkw_competition/Resources/Private/Language/locallang_db.xlf:tx_rkwcompetition_domain_model_competition.register',
             'config' => [
-                'type' => 'select',
-                'renderType' => 'selectMultipleSideBySide',
+                'type' => 'inline',
                 'foreign_table' => 'tx_rkwcompetition_domain_model_register',
                 'foreign_field' => 'competition',
-                'default' => 0,
-                'size' => 10,
-                'autoSizeMax' => 30,
                 'maxitems' => 9999,
-                'multiple' => 0,
-                'fieldControl' => [
-                    'editPopup' => [
-                        'disabled' => false,
-                    ],
-                    'addRecord' => [
-                        'disabled' => false,
-                    ],
-                    'listModule' => [
-                        'disabled' => true,
+                'appearance' => [
+                    'collapseAll' => 1,
+                    'levelLinksPosition' => 'none',
+                    'showSynchronizationLink' => 1,
+                    'showPossibleLocalizationRecords' => 1,
+                    'showAllLocalizationLink' => 1,
+                    'enabledControls' => [
+                        'info' => true,
+                        'new' => false,
+                        'dragdrop' => false,
+                        'sort' => false,
+                        'hide' => false,
+                        'delete' => false,
+                        'localize' => false,
                     ],
                 ],
             ],
-
         ],
-    
+
     ],
 ];

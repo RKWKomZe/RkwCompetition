@@ -405,7 +405,7 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_jury_edit.introduction">
                 <source>Welcome as a new jury member</source>
-                <target>Wir möchten Sie gerne als Jury-Mitglied für diesen Wettbewerb begrüßen. Bevor es logehen kann bitten wir Sie darum, die nachfolgende Verschwiegenheitserklärung zu akzeptieren.</target>
+                <target>Wir möchten Sie gerne als Jury-Mitglied für diesen Wettbewerb begrüßen. Bevor es losgehen kann bitten wir Sie darum, die nachfolgende Verschwiegenheitserklärung zu akzeptieren.</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_jury_edit.guideHint">
                 <source>please read the guidelines carefully</source>
@@ -763,7 +763,7 @@
             <!-- Partials/Jury/FormFields.html -->
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_formfields.consent">
                 <source>I agree to the declaration of confidentiality</source>
-                <target>Ich stimme der Verschwiegendheitserklärung zu</target>
+             			<target>Ich stimme der Verschwiegenheitserklärung zu</target>
             </trans-unit>
 
             <!-- Partials/Jury/Listing.html -->
