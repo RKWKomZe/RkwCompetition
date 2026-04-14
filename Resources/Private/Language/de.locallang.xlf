@@ -92,6 +92,14 @@
                 <source>Group work add persons</source>
                 <target>Namen der anderen Gruppenmitglieder</target>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_validator.conditionsOfParticipation">
+                <source>Conditions of participation</source>
+                <target>Teilnahmebedingungen</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_validator.conditionsOfParticipation_not_accepted">
+                <source>Please accept the conditions of participation to be able to participate in the competition.</source>
+                <target>Bitte akzeptieren Sie die Teilnahmebedingungen, um am Wettbewerb teilnehmen zu können.</target>
+            </trans-unit>
 
             <trans-unit id="tx_rkwcompetition_validator.upload.abstract">
                 <source>Abstract</source>
@@ -552,7 +560,18 @@
 				<source>Group Work Add Persons</source>
 				<target>Weitere Gruppenmitglieder</target>
             </trans-unit>
-
+			<trans-unit id="tx_rkwcompetition_fluid.templates_register_new.conditions_of_participation.partOne">
+				<source>I accept the</source>
+				<target>Ich akzeptiere die</target>
+			</trans-unit>
+			<trans-unit id="tx_rkwcompetition_fluid.templates_register_new.conditions_of_participation.partTwo">
+				<source>conditions of participation</source>
+				<target>Teilnahmebedingungen</target>
+			</trans-unit>
+			<trans-unit id="tx_rkwcompetition_fluid.templates_register_new.conditions_of_participation.partThree">
+				<source>.</source>
+				<target>.</target>
+			</trans-unit>
 
             <!-- Templates/Register/SubmitQuestion.html -->
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.backToList">
@@ -1492,7 +1511,7 @@
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.conditionsAccepted">
                 <source>Conditions accepted</source>
-                <target>Nutzungsbedingungen akzeptiert</target>
+                <target>Teilnahmebedingungen akzeptiert</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.privacyAccepted">
                 <source>Privacy accepted</source>

@@ -102,20 +102,31 @@ class RegisterValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abstract
                     $value = $newRegister->$getter();
                     if ($value === '' || $value === null || $value === 0) {
 
-                        $propertyName = LocalizationUtility::translate(
-                            'tx_rkwcompetition_validator.' . lcfirst($field),
-                            'rkw_competition'
-                        );
+                        if ($field === 'conditionsOfParticipation') {
+                            $this->result->forProperty(lcfirst($field))->addError(
+                                new Error(
+                                    LocalizationUtility::translate(
+                                        'tx_rkwcompetition_validator.conditionsOfParticipation_not_accepted',
+                                        'rkw_competition'
+                                    ), 1731910556
+                                )
+                            );
+                        } else {
+                            $propertyName = LocalizationUtility::translate(
+                                'tx_rkwcompetition_validator.' . lcfirst($field),
+                                'rkw_competition'
+                            );
 
-                        $this->result->forProperty(lcfirst($field))->addError(
-                            new Error(
-                                LocalizationUtility::translate(
-                                    'tx_rkwcompetition_validator.not_filled',
-                                    'rkw_competition',
-                                    [$propertyName]
-                                ), 1731910556
-                            )
-                        );
+                            $this->result->forProperty(lcfirst($field))->addError(
+                                new Error(
+                                    LocalizationUtility::translate(
+                                        'tx_rkwcompetition_validator.not_filled',
+                                        'rkw_competition',
+                                        [$propertyName]
+                                    ), 1731910556
+                                )
+                            );
+                        }
                         $this->isValid = false;
                     }
                 }

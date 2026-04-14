@@ -296,6 +296,12 @@
             <trans-unit id="tx_rkwcompetition_validator.groupWorkAddPersons">
                 <source>Group work add persons</source>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_validator.conditionsOfParticipation">
+                <source>Conditions of participation</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_validator.conditionsOfParticipation_not_accepted">
+                <source>Please accept the conditions of participation to be able to participate in the competition.</source>
+            </trans-unit>
 
             <trans-unit id="tx_rkwcompetition_validator.upload.abstract">
                 <source>Abstract</source>
@@ -589,6 +595,15 @@
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_new.group_work_add_persons">
                 <source>Group Work Add Persons</source>
             </trans-unit>
+			<trans-unit id="tx_rkwcompetition_fluid.templates_register_new.conditions_of_participation.partOne">
+				<source>I accept the</source>
+			</trans-unit>
+			<trans-unit id="tx_rkwcompetition_fluid.templates_register_new.conditions_of_participation.partTwo">
+				<source>conditions of participation</source>
+			</trans-unit>
+			<trans-unit id="tx_rkwcompetition_fluid.templates_register_new.conditions_of_participation.partThree">
+				<source>.</source>
+			</trans-unit>
 
 
             <!-- Templates/Register/SubmitQuestion.html -->
