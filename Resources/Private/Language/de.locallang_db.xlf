@@ -8,7 +8,7 @@
             <!-- ==================================================================================== -->
             <trans-unit id="tx_rkwcompetition_domain_model_register">
                 <source>Register</source>
-                <target>Anmeldung</target>
+                <target>RKW Competition: Anmeldung</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.salutation">
                 <source>Salutation</source>
@@ -166,7 +166,7 @@
 
             <trans-unit id="tx_rkwcompetition_domain_model_upload">
                 <source>Upload</source>
-                <target>Upload</target>
+                <target>RKW Competition: Upload</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_upload.abstract">
                 <source>Abstract</source>
@@ -183,7 +183,7 @@
 
             <trans-unit id="tx_rkwcompetition_domain_model_juryreference">
                 <source>Jury Reference</source>
-                <target>Jury Verknüpfung</target>
+                <target>RKW Competition: Juryverknüpfung</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_juryreference.invitation_mail_tstamp">
                 <source>Invitation Mail Tstamp</source>
@@ -213,7 +213,7 @@
 
             <trans-unit id="tx_rkwcompetition_domain_model_competition">
                 <source>Competition</source>
-                <target>Wettbewerb</target>
+                <target>RKW Competition: Wettbewerb</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_competition.title">
                 <source>Title</source>
@@ -309,7 +309,7 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_sector">
                 <source>Sector</source>
-                <target>Bereich</target>
+                <target>RKW Competition: Bereich</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_sector.title">
                 <source>Title</source>
