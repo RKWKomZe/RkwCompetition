@@ -17,19 +17,20 @@ plugin.tx_rkwcompetition {
         loginPid =
         # cat=plugin.tx_rkwcompetition/basic/020; type=int; label=Register Page ID
         registerPid =
+        # cat=plugin.tx_rkwcompetition/basic/050; type=int; label=Jury Page ID
+        juryPid =
+
         mandatoryFields {
             # cat=plugin.tx_rkwcompetition/basic/030; type=string; label=Mandatory Fields Register
-            register = email, firstName, lastName, institution, address, zip, city, telephone, sector, contributionTitle, remark
+            register = email, firstName, lastName, institution, address, zip, city, telephone, sector, contributionTitle, remark, conditionsOfParticipation
+            # cat=plugin.tx_rkwcompetition/basic/060; type=string; label=Mandatory Fields Group Work
+            registerGroupWork = groupWorkAuthorization, groupWorkAddPersons
         }
 
         # cat=plugin.tx_rkwcompetition/basic/040; type=int; label=Competition Page ID
         competitionPid =
-        # cat=plugin.tx_rkwcompetition/basic/050; type=int; label=Jury Page ID
-        juryPid =
-        mandatoryFields {
-            # cat=plugin.tx_rkwcompetition/basic/060; type=string; label=Mandatory Fields Group Work
-            registerGroupWork = groupWorkAuthorization, groupWorkAddPersons
-        }
+        # cat=plugin.tx_rkwcompetition/basic/055; type=int; label=Conditions of Participation Page ID
+        conditionsOfParticipationPid =
 
         api {
             ownCloud {
