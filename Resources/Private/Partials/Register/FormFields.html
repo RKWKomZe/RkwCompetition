@@ -204,25 +204,43 @@
 		</div>
 	</f:if>
 
+    <f:comment>
+        <!-- feRegister consent terms -->
+        <label for="conditionsOfParticipation">
+            <f:translate key="tx_rkwcompetition_fluid.templates_register_new.conditions_of_participation" />
+        </label><br />
+        <f:form.textfield property="conditionsOfParticipation" id="conditionsOfParticipation" /><br />
+    </f:comment>
+
+
+    <div class="form__field width100">
+        <f:form.checkbox
+            class="checkbox"
+            id="conditionsOfParticipation"
+            property="conditionsOfParticipation"
+            value="1"
+        />
+
+        <label for="conditionsOfParticipation"
+            class="checkbox-label">
+            <span class="text-smaller">
+                <f:format.raw>
+                    <f:format.raw><f:translate key="tx_rkwcompetition_fluid.templates_register_new.conditions_of_participation.partOne" arguments="{0: companyName, 1: companyEmail}" /></f:format.raw>
+                    <f:link.page pageUid="{settings.conditionsOfParticipationPid}" target="_blank"><f:format.raw><f:translate key="tx_rkwcompetition_fluid.templates_register_new.conditions_of_participation.partTwo" /></f:format.raw></f:link.page>
+                    <f:format.raw><f:translate key="tx_rkwcompetition_fluid.templates_register_new.conditions_of_participation.partThree"/></f:format.raw>
+                </f:format.raw>
+            </span>
+        </label>
+    </div>
 
 	<f:comment><!-- DEFAULT STUFF: terms, captcha etc --></f:comment>
 
-
-	<f:comment><!-- terms = "conditionsOfParticipation" --></f:comment>
+	<f:comment><!-- terms = "terms" --></f:comment>
 	<feRegister:consent type="terms" key="default" />
 	<f:comment><!-- privacy = "privacy" --></f:comment>
 	<feRegister:consent type="privacy" key="default" />
 	<f:comment><!-- privacy = "marketing" --></f:comment>
 	<feRegister:consent type="marketing" />
-
-	<f:comment>
-		<!-- feRegister consent terms -->
-		<label for="conditionsOfParticipation">
-			<f:translate key="tx_rkwcompetition_fluid.templates_register_new.conditions_of_participation" />
-		</label><br />
-		<f:form.textfield property="conditionsOfParticipation" id="conditionsOfParticipation" /><br />
-	</f:comment>
-
 
 	<script type="text/javascript">
 

@@ -587,12 +587,12 @@ class Register extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the conditionsOfParticipation
      *
-     * @param int $conditionsOfParticipation
+     * @param int|null $conditionsOfParticipation
      * @return void
      */
-    public function setConditionsOfParticipation(int $conditionsOfParticipation)
+    public function setConditionsOfParticipation(int $conditionsOfParticipation = null)
     {
-        $this->conditionsOfParticipation = $conditionsOfParticipation;
+        $this->conditionsOfParticipation = (int) $conditionsOfParticipation;
     }
 
     /**
