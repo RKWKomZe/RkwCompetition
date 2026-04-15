@@ -604,7 +604,7 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.hint1">
                 <source>Have you thought about using the provided cloud for additional files and images?</source>
-                <target>Möchten Sie noch weitere Unterlagen über den bereitgestellen Cloud-Ordner einreichen?</target>
+                <target>Möchten Sie noch weitere Unterlagen über den bereitgestellten Cloud-Ordner einreichen?</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.ownCloudLink">
                 <source>OwnCloud-Link</source>
@@ -619,8 +619,8 @@
                 <target>Derzeit ist Ihr Cloud-Ordner noch leer!</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.hint2">
-                <source>I understand that information provided and files submitted cannot be changed after submission.</source>
-                <target>Ich habe verstanden, dass nach dem Absenden die gemachten Angaben und eingereichten Dateien nicht mehr geändert werden können.</target>
+                <source>I understand that information provided and files submitted cannot be changed after submission. The option to manage files in our cloud will remain until end of registration.</source>
+                <target>Ich habe verstanden, dass nach dem Absenden die gemachten Angaben und eingereichten Dateien nicht mehr geändert werden können. Die Möglichkeit, Dateien über den Cloud-Zugang zu verwalten, bleibt hingegen bis zum Anmeldeschluss bestehen.</target>
             </trans-unit>
 
             <!-- Templates/Upload/Edit.html -->

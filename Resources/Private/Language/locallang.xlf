@@ -641,7 +641,7 @@
                 <source> Attention: Your cloud folder is still empty!</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.hint2">
-                <source>I understand that information provided and files submitted cannot be changed after submission.</source>
+                <source>I understand that information provided and files submitted cannot be changed after submission. The option to manage files in our cloud will remain until end of registration.</source>
             </trans-unit>
 
             <!-- Templates/Upload/Edit.html -->
