@@ -79,7 +79,7 @@ class RegisterValidator extends \TYPO3\CMS\Extbase\Validation\Validator\Abstract
                     \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
                         'tx_rkwcompetition_validator.expired',
                         'rkw_competition',
-                        [date('d.m.Y', $newRegister->getCompetition()->getRegisterEnd()->getTimestamp())]
+                        [date('d.m.Y H:i', $newRegister->getCompetition()->getRegisterEnd()->getTimestamp())]
                     ), 1736779680
                 )
             );
