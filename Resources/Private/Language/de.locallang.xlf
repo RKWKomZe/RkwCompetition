@@ -1318,7 +1318,7 @@
             </trans-unit>
             <trans-unit id="templates_email_backendUser_confirmation.text1" approved="no">
                 <source>a registration has been placed.</source>
-                <target>jemand hat sich über die Website an einen Wettbewerbs angemeldet. Sie können dem oder der Nutzenden direkt auf diese E-Mail antworten, um etwaige Fragen zu klären.</target>
+                <target>jemand hat sich über die Website für einen Wettbewerb angemeldet. Sie können dem oder der Nutzenden direkt auf diese E-Mail antworten, um etwaige Fragen zu klären.</target>
             </trans-unit>
             <trans-unit id="templates_email_backendUser_confirmation.text2" approved="no">
                 <source>IMPORTANT: The user has already received a confirmation for his reservation. He will also automatically receive a reminder-mail a few days before the event.</source>
