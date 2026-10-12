@@ -366,6 +366,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      *
      * @param array $registerList Register records inside an array
      * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
+     * @param int $rootPageUid
      * @return void
      * @throws \Madj2k\Postmaster\Exception
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
@@ -375,12 +376,50 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      */
     public function closingDayIncompleteUser(
         array $registerList,
-        \RKW\RkwCompetition\Domain\Model\Competition $competition
+        \RKW\RkwCompetition\Domain\Model\Competition $competition,
+        int $rootPageUid = 1
     ) :void
     {
-        /** @var Register $register */
-        foreach ($registerList as $register) {
-            $this->frontendUserMail($register->getFrontendUser(), $competition, 'closingDayIncomplete');
+        if (!$rootPageUid) {
+            $settingsDefault = $this->getSettings();
+
+            //  get RootPageUid for the current site
+            $rootPageUid = (int)($settingsDefault['rootPageUid'] ?? 1);
+        }
+
+        try {
+            FrontendSimulatorUtility::simulateFrontendEnvironment($rootPageUid);
+
+            /** @var Register $register */
+            foreach ($registerList as $register) {
+
+                try {
+                    $frontendUser = $register->getFrontendUser();
+
+                    if ($frontendUser instanceof \Madj2k\FeRegister\Domain\Model\FrontendUser) {
+                        $this->frontendUserMail($frontendUser, $competition, 'closingDayIncomplete');
+                    } else {
+                        throw new \Exception(
+                            sprintf('No frontend user found for register %s', $register->getUid()),
+                            1619602353
+                        );
+                    }
+
+                } catch (\Exception $e) {
+                    GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(
+                        LogLevel::ERROR,
+                        $e->getMessage()
+                    );
+                }
+            }
+
+        } catch (\Exception $e) {
+            GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(
+                LogLevel::ERROR,
+                $e->getMessage()
+            );
+        } finally {
+            FrontendSimulatorUtility::resetFrontendEnvironment();
         }
     }
 
@@ -390,6 +429,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      *
      * @param array $registerList Register records inside an array
      * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
+     * @param int $rootPageUid
      * @return void
      * @throws \Madj2k\Postmaster\Exception
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
@@ -399,12 +439,50 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      */
     public function closingDayApprovedUser(
         array $registerList,
-        \RKW\RkwCompetition\Domain\Model\Competition $competition
+        \RKW\RkwCompetition\Domain\Model\Competition $competition,
+        int $rootPageUid = 1
     ) :void
     {
-        /** @var Register $register */
-        foreach ($registerList as $register) {
-            $this->frontendUserMail($register->getFrontendUser(), $competition, 'closingDayApproved');
+        if (!$rootPageUid) {
+            $settingsDefault = $this->getSettings();
+
+            //  get RootPageUid for the current site
+            $rootPageUid = (int)($settingsDefault['rootPageUid'] ?? 1);
+        }
+
+        try {
+            FrontendSimulatorUtility::simulateFrontendEnvironment($rootPageUid);
+
+            /** @var Register $register */
+            foreach ($registerList as $register) {
+
+                try {
+                    $frontendUser = $register->getFrontendUser();
+
+                    if ($frontendUser instanceof \Madj2k\FeRegister\Domain\Model\FrontendUser) {
+                        $this->frontendUserMail($frontendUser, $competition, 'closingDayApproved');
+                    } else {
+                    throw new \Exception(
+                        sprintf('No frontend user found for register %s', $register->getUid()),
+                        1619602353
+                    );
+                }
+
+                } catch (\Exception $e) {
+                    GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(
+                        LogLevel::ERROR,
+                        $e->getMessage()
+                    );
+                }
+            }
+
+        } catch (\Exception $e) {
+            GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(
+                LogLevel::ERROR,
+                $e->getMessage()
+            );
+        } finally {
+            FrontendSimulatorUtility::resetFrontendEnvironment();
         }
     }
 

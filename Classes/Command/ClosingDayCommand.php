@@ -19,6 +19,7 @@ use RKW\RkwCompetition\Domain\Repository\RegisterRepository;
 use RKW\RkwCompetition\Service\RkwMailService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use TYPO3\CMS\Core\Log\Logger;
@@ -90,7 +91,14 @@ class ClosingDayCommand extends Command
      */
     protected function configure(): void
     {
-        $this->setDescription('Send several mails to user and admins after register period is over.');
+        $this->setDescription('Send several mails to user and admins after register period is over.')
+            ->addOption(
+                'rootPageUid',
+                'r',
+                InputOption::VALUE_OPTIONAL,
+                'The root page UID to use for loading TypoScript settings.',
+                1
+            );
     }
 
 
@@ -110,6 +118,7 @@ class ClosingDayCommand extends Command
         $io->title($this->getDescription());
         $io->newLine();
 
+        $rootPageUid = (int)$input->getOption('rootPageUid');
 
         $result = 0;
         try {
@@ -148,7 +157,7 @@ class ClosingDayCommand extends Command
                         // send mails
                         /** @var RkwMailService $mailService */
                         $mailService = GeneralUtility::makeInstance(RkwMailService::class);
-                        $mailService->closingDayIncompleteUser($registerListRejected->toArray(), $competition);
+                        $mailService->closingDayIncompleteUser($registerListRejected->toArray(), $competition, $rootPageUid);
 
                         $io->note("\t" . 'competitionUid: ' . $competition->getUid());
 
@@ -168,7 +177,7 @@ class ClosingDayCommand extends Command
                         // send mails
                         /** @var RkwMailService $mailService */
                         $mailService = GeneralUtility::makeInstance(RkwMailService::class);
-                        $mailService->closingDayApprovedUser($registerListApproved->toArray(), $competition);
+                        $mailService->closingDayApprovedUser($registerListApproved->toArray(), $competition, $rootPageUid);
 
                         $registerNumber++;
 
