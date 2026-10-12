@@ -1126,7 +1126,7 @@
             <trans-unit id="templates_email_frontendUser_closingDayApproved.text2">
                 <source>Please find below the details of your registration.</source>
             </trans-unit>
-            <trans-unit id="templates_email_frontendUser_incomplete.showHeadline">
+            <trans-unit id="templates_email_frontendUser_closingDayApproved.showHeadline">
                 <source>Show registration</source>
             </trans-unit>
 

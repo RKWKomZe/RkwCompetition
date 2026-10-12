@@ -397,7 +397,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
                     $frontendUser = $register->getFrontendUser();
 
                     if ($frontendUser instanceof \Madj2k\FeRegister\Domain\Model\FrontendUser) {
-                        $this->frontendUserMail($frontendUser, $competition, 'closingDayIncomplete');
+                        $this->frontendUserMail($frontendUser, $register, 'closingDayIncomplete');
                     } else {
                         throw new \Exception(
                             sprintf('No frontend user found for register %s', $register->getUid()),
@@ -460,13 +460,13 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
                     $frontendUser = $register->getFrontendUser();
 
                     if ($frontendUser instanceof \Madj2k\FeRegister\Domain\Model\FrontendUser) {
-                        $this->frontendUserMail($frontendUser, $competition, 'closingDayApproved');
+                        $this->frontendUserMail($frontendUser, $register, 'closingDayApproved');
                     } else {
-                    throw new \Exception(
-                        sprintf('No frontend user found for register %s', $register->getUid()),
-                        1619602353
-                    );
-                }
+                        throw new \Exception(
+                            sprintf('No frontend user found for register %s', $register->getUid()),
+                            1619602353
+                        );
+                    }
 
                 } catch (\Exception $e) {
                     GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(

@@ -1284,7 +1284,7 @@
                 <source>Please find below the details of your reservation.</source>
                 <target>Untenstehend finden Sie die Details Ihrer Anmeldung. Bei Rückfragen können Sie einfach direkt auf diese E-Mail antworten.</target>
             </trans-unit>
-            <trans-unit id="templates_email_frontendUser_incomplete.showHeadline">
+            <trans-unit id="templates_email_frontendUser_closingDayApproved.showHeadline">
                 <source>Show registration</source>
                 <target>Anmeldung ansehen</target>
             </trans-unit>
