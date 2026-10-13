@@ -110,8 +110,17 @@
 					<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.nameOfApplicant" />
 				</td>
 				<td>
-					{register.title}
-					{register.salutation} {register.firstName} {register.lastName}
+					<f:if condition="{register.salutation} < 99">
+						<f:switch expression="{register.salutation}">
+							<f:case value="0"><f:translate key="tx_rkwcompetition_fluid.templates_register_new.salutation.I.0" /> </f:case>
+							<f:case value="1"><f:translate key="tx_rkwcompetition_fluid.templates_register_new.salutation.I.1" /> </f:case>
+							<f:case value="2"><f:translate key="tx_rkwcompetition_fluid.templates_register_new.salutation.I.2" /> </f:case>
+						</f:switch>
+					</f:if>
+					<f:if condition="{register.title}">
+						{register.title}
+					</f:if>
+					{register.firstName} {register.lastName}
 				</td>
 			</tr>
 			<tr>
@@ -119,7 +128,14 @@
 					<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.isGroupWork" />
 				</td>
 				<td>
-					{register.isGroupWork}
+					<f:if condition="{register.isGroupWork}">
+						<f:then>
+							<f:translate key="tx_rkwcompetition_fluid.yes" />
+						</f:then>
+						<f:else>
+							<f:translate key="tx_rkwcompetition_fluid.no" />
+						</f:else>
+					</f:if>
 				</td>
 			</tr>
 			<f:if condition="{register.isGroupWork}">
