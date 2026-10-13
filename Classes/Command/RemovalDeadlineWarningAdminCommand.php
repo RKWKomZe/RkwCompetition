@@ -92,6 +92,13 @@ class RemovalDeadlineWarningAdminCommand extends Command
                 InputOption::VALUE_REQUIRED,
                 'Set days to sent last reminder to admins before the project will deleted with all files. Triggers only if a removal deadline is set.',
                 14
+            )
+            ->addOption(
+                'rootPageUid',
+                'r',
+                InputOption::VALUE_OPTIONAL,
+                'The root page UID to use for loading TypoScript settings.',
+                1
             );
     }
 
@@ -113,6 +120,7 @@ class RemovalDeadlineWarningAdminCommand extends Command
         $io->newLine();
 
         $daysUntilRemoval = $input->getOption('daysUntilRemoval');
+        $rootPageUid = (int)$input->getOption('rootPageUid');
 
         $result = 0;
         try {
@@ -131,7 +139,8 @@ class RemovalDeadlineWarningAdminCommand extends Command
                     $mailService = GeneralUtility::makeInstance(RkwMailService::class);
                     $mailService->removalOfCompetitionAdmin(
                         $competition->getAdminMember(),
-                        $competition
+                        $competition,
+                        $rootPageUid
                     );
 
                     $io->note("\t" . 'competitionUid: ' . $competition->getUid());

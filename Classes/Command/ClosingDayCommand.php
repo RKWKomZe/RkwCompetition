@@ -139,7 +139,8 @@ class ClosingDayCommand extends Command
                         $mailService = GeneralUtility::makeInstance(RkwMailService::class);
                         $mailService->closingDayAdmin(
                             $adminMember,
-                            $competition
+                            $competition,
+                            $rootPageUid
                         );
 
                         $io->note("\t" . 'competitionUid: ' . $competition->getUid());

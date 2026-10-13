@@ -348,15 +348,34 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
      */
     public function juryNotifyUser(
-        array $juryReferenceList
+        array $juryReferenceList,
+        int $rootPageUid = 1
     ) :void
     {
-        /** @var JuryReference $juryReference */
-        foreach ($juryReferenceList as $juryReference) {
+        if (!$rootPageUid) {
+            $settingsDefault = $this->getSettings();
 
-            $frontendUser = GeneralUtility::makeInstance(FrontendUser::class);
-            $frontendUser->setEmail($juryReference->getEmail());
-            $this->frontendUserMail($frontendUser, $juryReference, 'juryNotify');
+            //  get RootPageUid for the current site
+            $rootPageUid = (int)($settingsDefault['rootPageUid'] ?? 1);
+        }
+
+        try {
+            FrontendSimulatorUtility::simulateFrontendEnvironment($rootPageUid);
+
+            /** @var JuryReference $juryReference */
+            foreach ($juryReferenceList as $juryReference) {
+
+                $frontendUser = GeneralUtility::makeInstance(FrontendUser::class);
+                $frontendUser->setEmail($juryReference->getEmail());
+                $this->frontendUserMail($frontendUser, $juryReference, 'juryNotify');
+            }
+        } catch (\Exception $e) {
+            GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(
+                LogLevel::ERROR,
+                $e->getMessage()
+            );
+        } finally {
+            FrontendSimulatorUtility::resetFrontendEnvironment();
         }
     }
 
@@ -654,10 +673,28 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      */
     public function removalOfCompetitionAdmin(
         $backendUser,
-        \RKW\RkwCompetition\Domain\Model\Competition $competition
+        \RKW\RkwCompetition\Domain\Model\Competition $competition,
+        int $rootPageUid = 1
     ) :void
     {
-        $this->backendUserMail($backendUser, $competition, 'removalReminder');
+        if (!$rootPageUid) {
+            $settingsDefault = $this->getSettings();
+
+            //  get RootPageUid for the current site
+            $rootPageUid = (int)($settingsDefault['rootPageUid'] ?? 1);
+        }
+
+        try {
+            FrontendSimulatorUtility::simulateFrontendEnvironment($rootPageUid);
+            $this->backendUserMail($backendUser, $competition, 'removalReminder');
+        } catch (\Exception $e) {
+            GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(
+                LogLevel::ERROR,
+                $e->getMessage()
+            );
+        } finally {
+            FrontendSimulatorUtility::resetFrontendEnvironment();
+        }
     }
 
 
@@ -675,10 +712,28 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      */
     public function closingDayAdmin(
         $backendUser,
-        \RKW\RkwCompetition\Domain\Model\Competition $competition
+        \RKW\RkwCompetition\Domain\Model\Competition $competition,
+        int $rootPageUid = 1
     ) :void
     {
-        $this->backendUserMail($backendUser, $competition, 'closingDay');
+        if (!$rootPageUid) {
+            $settingsDefault = $this->getSettings();
+
+            //  get RootPageUid for the current site
+            $rootPageUid = (int)($settingsDefault['rootPageUid'] ?? 1);
+        }
+
+        try {
+            FrontendSimulatorUtility::simulateFrontendEnvironment($rootPageUid);
+            $this->backendUserMail($backendUser, $competition, 'closingDay');
+        } catch (\Exception $e) {
+            GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(
+                LogLevel::ERROR,
+                $e->getMessage()
+            );
+        } finally {
+            FrontendSimulatorUtility::resetFrontendEnvironment();
+        }
     }
 
 
