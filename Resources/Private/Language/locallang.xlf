@@ -805,6 +805,18 @@
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.download">
                 <source>Download</source>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.typeOfWork">
+                <source>Type of work</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.submissionDate">
+                <source>Submission date</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.zipAndCity">
+                <source>ZIP / City</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.ownCloudFolderLink">
+                <source>Project folder (OwnCloud)</source>
+            </trans-unit>
 
 
             <!-- ==================================================================================== -->
