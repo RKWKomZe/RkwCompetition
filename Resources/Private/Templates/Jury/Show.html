@@ -10,6 +10,8 @@
             <f:link.typolink parameter="{juryReference.competition.linkJuryDeclarationConfident}" />
         </div>
     </div>
+
+    <f:render partial="FlashMessages" arguments="{_all}" />
     <f:comment>
         <f:link.action
                 class="btn btn--secondary"
@@ -30,8 +32,6 @@
             {juryReference.competition.juryAddData}
         </f:format.raw>
     </p>
-
-    <f:render partial="FlashMessages" arguments="{_all}" />
 
     <f:render partial="Jury/Properties" arguments="{_all}" />
 
