@@ -837,7 +837,7 @@
                 <source>Your registration is still incomplete</source>
             </trans-unit>
             <trans-unit id="rkwMailService.frontendUser.subject.juryNotify" approved="yes">
-                <source>Confirm your role as a jury member</source>
+                <source>Confirm your role in the jury for the competition %s</source>
             </trans-unit>
             <trans-unit id="rkwMailService.frontendUser.subject.closingDayIncomplete" approved="yes">
                 <source>Closing day imcomplete</source>
@@ -1091,10 +1091,10 @@
                 <source>Hello %s %s,</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_juryNotify.text1">
-                <source>you have been selected.</source>
+                <source>You have been selected to participate as a jury member in the RKW competition %s.</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_juryNotify.text2">
-                <source>Please agree to our terms to participate.</source>
+                <source>For this, we still need your consent and confidentiality agreement.</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_juryNotify.text3">
                 <source>Login here to take a look to the competitions.</source>

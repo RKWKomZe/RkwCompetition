@@ -914,8 +914,8 @@
                 <target>Bitte vervollständigen Sie Ihre Anmeldung</target>
             </trans-unit>
             <trans-unit id="rkwMailService.frontendUser.subject.juryNotify">
-                <source>Confirm your role as a jury member</source>
-                <target>Bestätigen Sie Ihre Rolle in der Jury</target>
+                <source>Confirm your role in the jury for the competition %s</source>
+                <target>Bestätigen Sie Ihre Rolle in der Jury zum Wettbewerb %s</target>
             </trans-unit>
             <trans-unit id="rkwMailService.frontendUser.subject.closingDayIncomplete">
                 <source>Closing day imcomplete</source>
@@ -1239,11 +1239,11 @@
                 <target>Hallo %s %s,</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_juryNotify.text1">
-                <source>you have been selected.</source>
-                <target>Sie wurden ausgewählt, als Jury-Mitglied an einem Wettbewerb des RKW teilzunehmen.</target>
+                <source>You have been selected to participate as a jury member in the following RKW competition:</source>
+                <target>Sie wurden ausgewählt, als Jury-Mitglied am Wettbewerb %s des RKW teilzunehmen.</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_juryNotify.text2">
-                <source>Please agree to our terms to participate.</source>
+                <source>For this, we still need your consent and confidentiality agreement.</source>
                 <target>Dafür benötigen wir jedoch noch Ihre Einverständnis- und Verschwiegenheitserklärung.</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_juryNotify.text3">

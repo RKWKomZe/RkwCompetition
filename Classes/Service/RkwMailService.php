@@ -234,7 +234,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
                     'rkwMailService.frontendUser.subject.optIn',
                     'rkw_competition',
                     null,
-                    $frontendUser->getTxFeregisterLanguageKey()
+                    $frontendUser->getTxFeregisterLanguageKey() ?: 'de'
                 )
             );
 
@@ -367,6 +367,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
 
                 $frontendUser = GeneralUtility::makeInstance(FrontendUser::class);
                 $frontendUser->setEmail($juryReference->getEmail());
+                $frontendUser->setTxFeregisterLanguageKey('de');
                 $this->frontendUserMail($frontendUser, $juryReference, 'juryNotify');
             }
         } catch (\Exception $e) {
@@ -576,8 +577,8 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
                 LocalizationUtility::translate(
                     'rkwMailService.frontendUser.subject.' . $action,
                     'rkw_competition',
-                    null,
-                    $frontendUser->getTxFeregisterLanguageKey()
+                    (method_exists($entity, 'getCompetition') && $entity->getCompetition()) ? [$entity->getCompetition()->getTitle()] : null,
+                    $frontendUser->getTxFeregisterLanguageKey() ?: 'de'
                 )
             );
 
