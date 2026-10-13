@@ -262,6 +262,15 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
         $emailService = GeneralUtility::makeInstance(RkwMailService::class);
         $emailService->juryConsentUser($juryReference);
 
+        // send notification mail to admins
+        if ($adminMember = $juryReference->getCompetition()->getAdminMember()) {
+            $adminMails = [];
+            foreach ($adminMember as $backendUser) {
+                $adminMails[] = $backendUser;
+            }
+            $emailService->juryConsentAdmin($adminMails, $juryReference);
+        }
+
         $this->addFlashMessage(
             \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(
                 'juryController.message.updated',

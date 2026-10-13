@@ -976,6 +976,10 @@
                 <source>Competition closing day</source>
                 <target>Wettbewerb: Anmeldezeitraum beendet</target>
             </trans-unit>
+            <trans-unit id="rkwMailService.backendUser.subject.juryConsent">
+                <source>Competition %s: Jury member registration completed</source>
+                <target>Wettbewerb %s: Jurymitglied hat sich vollständig registriert</target>
+            </trans-unit>
 
 
             <!-- ==================================================================================== -->
@@ -1429,6 +1433,21 @@
             <trans-unit id="templates_email_backendUser_closingDay.text2" approved="no">
                 <source>IMPORTANT: You found downloadable content inside the TYPO3 backend module.</source>
                 <target>WICHTIG: Im zugehörigen Backend Module finden Sie nun herunterladbare Informationen zu den jeweiligen Anmeldungen.</target>
+            </trans-unit>
+
+
+            <!-- Templates/Email/BackendUser/JuryConsent.html -->
+            <trans-unit id="templates_email_backendUser_juryConsent.headline">
+                <source>Hello %s,</source>
+                <target>Hallo %s,</target>
+            </trans-unit>
+            <trans-unit id="templates_email_backendUser_juryConsent.text1">
+                <source>A jury member has successfully registered and consented for the competition "%s".</source>
+                <target>Ein Jurymitglied hat sich für den Wettbewerb "%s" erfolgreich registriert und die Teilnahme bestätigt.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_backendUser_juryConsent.text2">
+                <source>Juror: %s %s (%s)</source>
+                <target>Juror/in: %s %s (%s)</target>
             </trans-unit>
 
 

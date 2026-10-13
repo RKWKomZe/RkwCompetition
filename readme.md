@@ -236,6 +236,7 @@ The system sends various notification and confirmation emails to participants (f
 * **Admin Deletion Notification** (`RkwMailService->deleteRegisterAdmin`): Notification sent to project admins when a registration is deleted.
 * **Removal Deadline Warning** (`RkwMailService->removalOfCompetitionAdmin` via cronjob `rkw_competition:removalDeadlineWarningAdmin`): Warning sent to project admins before an expired competition is deleted, reminding them to download documents.
 * **Closing Day Admin Notification** (`RkwMailService->closingDayAdmin` via cronjob `rkw_competition:closingDay`): Notification sent to project admins on the closing day with instructions and references for downloading all submitted documents in the backend.
+* **Jury Consent Admin Notification** (`RkwMailService->juryConsentAdmin`): Notification sent to project admins when a jury member successfully completes registration and consents.
 
 
 ## Development

@@ -884,6 +884,9 @@
             <trans-unit id="rkwMailService.backendUser.subject.closingDay" approved="yes">
                 <source>Competition closing day</source>
             </trans-unit>
+            <trans-unit id="rkwMailService.backendUser.subject.juryConsent" approved="yes">
+                <source>Competition %s: Jury member registration completed</source>
+            </trans-unit>
 
 
             <!-- ==================================================================================== -->
@@ -1240,6 +1243,18 @@
             </trans-unit>
             <trans-unit id="templates_email_backendUser_closingDay.text2" approved="no">
                 <source>IMPORTANT: You found downloadable content inside the TYPO3 backend module.</source>
+            </trans-unit>
+
+
+            <!-- Templates/Email/BackendUser/JuryConsent.html -->
+            <trans-unit id="templates_email_backendUser_juryConsent.headline">
+                <source>Hello %s,</source>
+            </trans-unit>
+            <trans-unit id="templates_email_backendUser_juryConsent.text1" approved="no">
+                <source>A jury member has successfully registered and consented for the competition "%s".</source>
+            </trans-unit>
+            <trans-unit id="templates_email_backendUser_juryConsent.text2" approved="no">
+                <source>Juror: %s %s (%s)</source>
             </trans-unit>
 
 

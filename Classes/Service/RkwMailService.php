@@ -782,6 +782,46 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
 
 
     /**
+     * Handles jury consent admin notification mails
+     *
+     * @param BackendUser|array $backendUser
+     * @param \RKW\RkwCompetition\Domain\Model\JuryReference $juryReference
+     * @param int $rootPageUid
+     * @return void
+     * @throws \Madj2k\Postmaster\Exception
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
+     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     */
+    public function juryConsentAdmin(
+        $backendUser,
+        \RKW\RkwCompetition\Domain\Model\JuryReference $juryReference,
+        int $rootPageUid = 1
+    ) :void
+    {
+        if (!$rootPageUid) {
+            $settingsDefault = $this->getSettings();
+
+            //  get RootPageUid for the current site
+            $rootPageUid = (int)($settingsDefault['rootPageUid'] ?? 1);
+        }
+
+        try {
+            FrontendSimulatorUtility::simulateFrontendEnvironment($rootPageUid);
+            $this->backendUserMail($backendUser, $juryReference, 'juryConsent', $juryReference->getGuestUser());
+        } catch (\Exception $e) {
+            GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(
+                LogLevel::ERROR,
+                $e->getMessage()
+            );
+        } finally {
+            FrontendSimulatorUtility::resetFrontendEnvironment();
+        }
+    }
+
+
+    /**
      * Sends an E-Mail to an Admin
      *
      * @param BackendUser|array $backendUser
@@ -851,7 +891,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
                         'subject' => LocalizationUtility::translate(
                             'rkwMailService.backendUser.subject.' . strtolower($action),
                             'rkw_competition',
-                            ($entity instanceof Register) ? [$entity->getCompetition()->getTitle()] : null,
+                            ($entity instanceof Register || $entity instanceof JuryReference) ? [$entity->getCompetition()->getTitle()] : null,
                             $recipient->getLang()
                         ),
                     ]);
@@ -872,7 +912,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
                 LocalizationUtility::translate(
                     'rkwMailService.backendUser.subject.' . $action,
                     'rkw_competition',
-                    ($entity instanceof Register) ? [$entity->getCompetition()->getTitle()] : null,
+                    ($entity instanceof Register || $entity instanceof JuryReference) ? [$entity->getCompetition()->getTitle()] : null,
                     'de'
                 )
             );

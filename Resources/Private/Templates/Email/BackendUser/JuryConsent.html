@@ -1,0 +1,25 @@
+{namespace postmaster=Madj2k\Postmaster\ViewHelpers}
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:postmaster="http://typo3.org/ns/Madj2k/Postmaster/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+<f:layout name="Email/{mailType}" />
+
+
+<!-- PLAINTEXT -->
+<f:section name="Plaintext">
+<postmaster:email.translate key="templates_email_backendUser_juryConsent.headline" languageKey="{language}" extensionName="rkwCompetition" arguments="{0 : fullName}" />
+
+<postmaster:email.translate key="templates_email_backendUser_juryConsent.text1" languageKey="{language}" extensionName="rkwCompetition" arguments="{0: juryreference.competition.title}" />
+
+<postmaster:email.translate key="templates_email_backendUser_juryConsent.text2" languageKey="{language}" extensionName="rkwCompetition" arguments="{0: frontendUser.firstName, 1: frontendUser.lastName, 2: frontendUser.email}" />
+
+</f:section>
+
+<!-- HTML -->
+<f:section name="Html">
+	<h1><postmaster:email.translate key="templates_email_backendUser_juryConsent.headline" languageKey="{language}" extensionName="rkwCompetition" arguments="{0 : fullName}" /></h1>
+	<p><postmaster:email.translate key="templates_email_backendUser_juryConsent.text1" languageKey="{language}" extensionName="rkwCompetition" arguments="{0: juryreference.competition.title}" /></p>
+    <p class="important"><postmaster:email.translate key="templates_email_backendUser_juryConsent.text2" languageKey="{language}" extensionName="rkwCompetition" arguments="{0: frontendUser.firstName, 1: frontendUser.lastName, 2: frontendUser.email}" /></p>
+
+</f:section>
+</html>
