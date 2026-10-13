@@ -230,7 +230,15 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
         $newGuestUser->setDisable(false);
         // set lifetime (end of competition jury period)
         $newGuestUser->setEndtime($juryReference->getCompetition()->getJuryAccessEnd()->getTimestamp());
+
+        // add userGroup for jury
+        if ($juryReference->getCompetition()->getGroupForJury()) {
+            $newGuestUser->addUsergroup($juryReference->getCompetition()->getGroupForJury());
+            $this->guestUserRepository->update($newGuestUser);
+        }
+
         $juryReference->setGuestUser($newGuestUser);
+        $this->persistenceManager->persistAll();
 
 
         // @toDo: Inhaltlich betrachtet benötigen wir keinen Login. Wir könnten nur mit dem User-Token
