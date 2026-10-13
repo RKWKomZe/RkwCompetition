@@ -226,7 +226,7 @@ return [
                 'type' => 'text',
                 'cols' => 40,
                 'rows' => 15,
-                'eval' => 'trim, required',
+                'eval' => 'trim',
                 'fieldControl'  => [
                     'fullScreenRichtext' => [
                         'disabled' => false,
