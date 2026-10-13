@@ -12,6 +12,7 @@ use Madj2k\FeRegister\Registration\GuestUserRegistration;
 use Madj2k\FeRegister\Service\GuestUserAuthenticationService;
 use Madj2k\FeRegister\Utility\FrontendUserSessionUtility;
 use RKW\RkwCompetition\Domain\Repository\JuryReferenceRepository;
+use RKW\RkwCompetition\Service\RkwMailService;
 use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -225,8 +226,8 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
         $newGuestUser = GeneralUtility::makeInstance(GuestUser::class);
         $this->guestUserRegistration->setFrontendUser($newGuestUser);
         $this->guestUserRegistration->startRegistration();
+        $newGuestUser->setEmail($juryReference->getEmail());
 
-    //    DebuggerUtility::var_dump($newGuestUser); exit;
         $newGuestUser->setDisable(false);
         // set lifetime (end of competition jury period)
         $newGuestUser->setEndtime($juryReference->getCompetition()->getJuryAccessEnd()->getTimestamp());
@@ -256,6 +257,10 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
         $juryReference->getCompetition()->addJuryMemberConfirmed($juryReference);
         $this->competitionRepository->update($juryReference->getCompetition());
         $this->juryReferenceRepository->update($juryReference);
+
+        // send confirmation mail with direct link
+        $emailService = GeneralUtility::makeInstance(RkwMailService::class);
+        $emailService->juryConsentUser($juryReference);
 
         $this->addFlashMessage(
             \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate(

@@ -382,6 +382,49 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
 
 
     /**
+     * Handles jury consent confirmation mails
+     *
+     * @param JuryReference $juryReference
+     * @param int $rootPageUid
+     * @return void
+     * @throws \Madj2k\Postmaster\Exception
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
+     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     */
+    public function juryConsentUser(
+        \RKW\RkwCompetition\Domain\Model\JuryReference $juryReference,
+        int $rootPageUid = 1
+    ) :void
+    {
+        if (!$rootPageUid) {
+            $settingsDefault = $this->getSettings();
+
+            //  get RootPageUid for the current site
+            $rootPageUid = (int)($settingsDefault['rootPageUid'] ?? 1);
+        }
+
+        try {
+            FrontendSimulatorUtility::simulateFrontendEnvironment($rootPageUid);
+
+            $frontendUser = $juryReference->getGuestUser();
+            if ($frontendUser instanceof \Madj2k\FeRegister\Domain\Model\FrontendUser) {
+                $frontendUser->setTxFeregisterLanguageKey('de');
+                $this->frontendUserMail($frontendUser, $juryReference, 'juryConsent');
+            }
+        } catch (\Exception $e) {
+            GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(
+                LogLevel::ERROR,
+                $e->getMessage()
+            );
+        } finally {
+            FrontendSimulatorUtility::resetFrontendEnvironment();
+        }
+    }
+
+
+    /**
      * Handles closing day mails for user without approved registrations (rejections)
      *
      * @param array $registerList Register records inside an array

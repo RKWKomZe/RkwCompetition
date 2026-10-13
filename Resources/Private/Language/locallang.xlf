@@ -857,6 +857,9 @@
             <trans-unit id="rkwMailService.frontendUser.subject.juryNotify" approved="yes">
                 <source>Confirm your role in the jury for the competition %s</source>
             </trans-unit>
+            <trans-unit id="rkwMailService.frontendUser.subject.juryConsent" approved="yes">
+                <source>Competition %s: Confirmation of your jury membership</source>
+            </trans-unit>
             <trans-unit id="rkwMailService.frontendUser.subject.closingDayIncomplete" approved="yes">
                 <source>Closing day imcomplete</source>
             </trans-unit>
@@ -1119,6 +1122,24 @@
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_juryNotify.showHeadline">
                 <source>Show registration</source>
+            </trans-unit>
+
+
+            <!-- Templates/Email/FrontendUser/JuryConsent.html -->
+            <trans-unit id="templates_email_frontendUser_juryConsent.headline">
+                <source>Hello %s %s,</source>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_juryConsent.text1">
+                <source>thank you for your consent. You are now officially registered as a jury member for the competition %s.</source>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_juryConsent.text2">
+                <source>You can access the protected jury area at any time via the following direct link to view and evaluate the submitted contributions:</source>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_juryConsent.showHeadline">
+                <source>Direct link to the jury area</source>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_juryConsent.text3">
+                <source>View nominations</source>
             </trans-unit>
 
 

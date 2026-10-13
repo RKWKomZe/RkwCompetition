@@ -941,6 +941,10 @@
                 <source>Confirm your role in the jury for the competition %s</source>
                 <target>Bestätigen Sie Ihre Rolle in der Jury zum Wettbewerb %s</target>
             </trans-unit>
+            <trans-unit id="rkwMailService.frontendUser.subject.juryConsent">
+                <source>Competition %s: Confirmation of your jury membership</source>
+                <target>Wettbewerb %s: Bestätigung Ihrer Jury-Mitgliedschaft</target>
+            </trans-unit>
             <trans-unit id="rkwMailService.frontendUser.subject.closingDayIncomplete">
                 <source>Closing day imcomplete</source>
                 <target>Leider konnten wir Sie aus formalen Gründen nicht berücksichtigen</target>
@@ -1277,6 +1281,29 @@
             <trans-unit id="templates_email_frontendUser_juryNotify.showHeadline">
                 <source>Show registration</source>
                 <target>Nominierung ansehen</target>
+            </trans-unit>
+
+
+            <!-- Templates/Email/FrontendUser/JuryConsent.html -->
+            <trans-unit id="templates_email_frontendUser_juryConsent.headline">
+                <source>Hello %s %s,</source>
+                <target>Hallo %s %s,</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_juryConsent.text1">
+                <source>thank you for your consent. You are now officially registered as a jury member for the competition %s.</source>
+                <target>vielen Dank für Ihre Zustimmung. Sie sind nun offiziell als Jury-Mitglied für den Wettbewerb %s registriert.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_juryConsent.text2">
+                <source>You can access the protected jury area at any time via the following direct link to view and evaluate the submitted contributions:</source>
+                <target>Sie können über folgenden Direktlink jederzeit auf den geschützten Jury-Bereich zugreifen, um die eingereichten Beiträge einzusehen und zu bewerten:</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_juryConsent.showHeadline">
+                <source>Direct link to the jury area</source>
+                <target>Direktlink zum Jury-Bereich</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_juryConsent.text3">
+                <source>View nominations</source>
+                <target>Nominierungen ansehen</target>
             </trans-unit>
 
 
