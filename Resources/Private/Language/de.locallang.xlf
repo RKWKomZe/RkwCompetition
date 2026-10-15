@@ -1765,13 +1765,17 @@
                 <source>No competition selected</source>
                 <target>Kein Wettbewerb ausgewählt</target>
             </trans-unit>
+            <trans-unit id="templates_backend_show.overview">
+                <source>Overview</source>
+                <target>Überblick</target>
+            </trans-unit>
             <trans-unit id="templates_backend_show.registrationsTotal">
-                <source>Registrations total:</source>
-                <target>Anmeldungen:</target>
+                <source>Total</source>
+                <target>Insgesamt</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.finishedRegistrations">
                 <source>Finished registrations:</source>
-                <target>Abgeschlossene Anmeldungen:</target>
+                <target>Angenommene Anmeldungen:</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.refusedRegistrations">
                 <target>Abgelehnte Anmeldungen:</target>
@@ -1814,6 +1818,18 @@
             <trans-unit id="templates_backend_show.sector">
                 <source>Sector</source>
                 <target>Wettbewerbsbereich</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.shortPdf">
+                <source>Abstract</source>
+                <target>Kurzfassung</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.longPdf">
+                <source>Long description</source>
+                <target>Langfassung</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.cloudFiles">
+                <source>Files in Cloud</source>
+                <target>Cloud-Dateien</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.status">
                 <source>Status</source>

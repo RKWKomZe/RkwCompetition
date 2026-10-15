@@ -1494,8 +1494,11 @@
             <trans-unit id="templates_backend_show.noCompetitionSelected">
                 <source>No competition selected</source>
             </trans-unit>
+            <trans-unit id="templates_backend_show.overview">
+                <source>Overview</source>
+            </trans-unit>
             <trans-unit id="templates_backend_show.registrationsTotal">
-                <source>Registrations total:</source>
+                <source>Total</source>
             </trans-unit>
             <trans-unit id="templates_backend_show.finishedRegistrations">
                 <source>Finished registrations:</source>
@@ -1532,6 +1535,15 @@
             </trans-unit>
             <trans-unit id="templates_backend_show.sector">
                 <source>Sector</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.shortPdf">
+                <source>Abstract</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.longPdf">
+                <source>Long description</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.cloudFiles">
+                <source>Files in Cloud</source>
             </trans-unit>
             <trans-unit id="templates_backend_show.status">
                 <source>Status</source>

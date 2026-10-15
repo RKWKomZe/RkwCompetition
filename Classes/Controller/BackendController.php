@@ -81,6 +81,7 @@ class BackendController extends \RKW\RkwCompetition\Controller\AbstractControlle
         $this->view->assign('competition', $competition);
         $this->view->assign('registerList', $registerList);
         $this->view->assign('registerCountTotal', $registerList->count());
+        $this->view->assign('newRegisterCount', $this->registerRepository->findNewByCompetition($competition)->count());
         $this->view->assign('finishedRegisterCount', $this->registerRepository->findApprovedByCompetition($competition)->count());
         $this->view->assign('refusedRegisterCount', $this->registerRepository->findRefusedByCompetition($competition)->count());
         $this->view->assign('returnedRegisterCount', $this->registerRepository->findReturnedByCompetition($competition)->count());
