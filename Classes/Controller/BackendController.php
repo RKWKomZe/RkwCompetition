@@ -15,6 +15,7 @@ namespace RKW\RkwCompetition\Controller;
  */
 
 use Madj2k\CoreExtended\Utility\GeneralUtility;
+use RKW\RkwCompetition\Api\OwnCloud;
 use RKW\RkwCompetition\Domain\Model\BackendUser;
 use RKW\RkwCompetition\Domain\Model\Competition;
 use RKW\RkwCompetition\Domain\Model\JuryReference;
@@ -22,6 +23,7 @@ use RKW\RkwCompetition\Domain\Model\Register;
 use RKW\RkwCompetition\Domain\Repository\BackendUserRepository;
 use RKW\RkwCompetition\Service\RkwMailService;
 use RKW\RkwCompetition\Utility\RegisterUtility;
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
@@ -51,6 +53,90 @@ class BackendController extends \RKW\RkwCompetition\Controller\AbstractControlle
 
 
     /**
+     * initializeAction
+     *
+     * @return void
+     */
+    public function initializeAction(): void
+    {
+        parent::initializeAction();
+    }
+
+
+    /**
+     * Checks if a complete connection to the OwnCloud instance can be established.
+     *
+     * @return void
+     */
+    protected function checkOwnCloudConnection(): void
+    {
+        try {
+            $ownCloud = GeneralUtility::makeInstance(OwnCloud::class);
+            $usersApi = $ownCloud->getUsersApi();
+
+            if (isset($this->settings['api']['ownCloud']['baseUrl']) && (string)$this->settings['api']['ownCloud']['baseUrl'] !== '') {
+                $usersApi->apiBaseUrl = (string)$this->settings['api']['ownCloud']['baseUrl'];
+            }
+            if (isset($this->settings['api']['ownCloud']['admin']['username']) && (string)$this->settings['api']['ownCloud']['admin']['username'] !== '') {
+                $usersApi->apiAdminUsername = (string)$this->settings['api']['ownCloud']['admin']['username'];
+            }
+            if (isset($this->settings['api']['ownCloud']['admin']['password']) && (string)$this->settings['api']['ownCloud']['admin']['password'] !== '') {
+                $usersApi->apiAdminPassword = (string)$this->settings['api']['ownCloud']['admin']['password'];
+            }
+
+            $baseUrl = (string)($usersApi->apiBaseUrl ?? '');
+            if ($baseUrl === '') {
+                $this->addFlashMessage(
+                    'OwnCloud-Verbindungsfehler: Die apiBaseUrl ist nicht konfiguriert.',
+                    'OwnCloud',
+                    AbstractMessage::ERROR
+                );
+                return;
+            }
+
+            // Test API request (using Guzzle via AbstractApi, matching RegisterController)
+            $result = $usersApi->getUserList();
+            if (isset($result['status']) && $result['status'] === 'failure') {
+                $errorMsg = 'OwnCloud-Verbindungsfehler (Base URL: ' . $baseUrl . '): API-Fehler: ' . ($result['message'] ?? json_encode($result));
+                $this->addFlashMessage($errorMsg, 'OwnCloud', AbstractMessage::ERROR);
+                return;
+            }
+            if (isset($result['error'])) {
+                $errorDetails = 'OwnCloud-Verbindungsfehler (Base URL: ' . $baseUrl . '): API-Fehler: ' . $result['error'];
+                if (isset($result['http_code'])) {
+                    $errorDetails .= ' [HTTP Status: ' . $result['http_code'] . ']';
+                }
+                if (!empty($result['raw'])) {
+                    $rawSnippet = trim(strip_tags($result['raw']));
+                    if ($rawSnippet === '') {
+                        $rawSnippet = trim($result['raw']);
+                    }
+                    if (mb_strlen($rawSnippet) > 300) {
+                        $rawSnippet = mb_substr($rawSnippet, 0, 300) . '...';
+                    }
+                    $errorDetails .= ' | Response: ' . $rawSnippet;
+                }
+                $this->addFlashMessage($errorDetails, 'OwnCloud', AbstractMessage::ERROR);
+                return;
+            }
+
+            $this->addFlashMessage(
+                'Verbindung zur OwnCloud-Instanz erfolgreich hergestellt.',
+                'OwnCloud',
+                AbstractMessage::OK
+            );
+
+        } catch (\Throwable $e) {
+            $this->addFlashMessage(
+                'OwnCloud-Verbindungsfehler (Base URL: ' . ($baseUrl ?? 'unbekannt') . '): ' . $e->getMessage(),
+                'OwnCloud',
+                AbstractMessage::ERROR
+            );
+        }
+    }
+
+
+    /**
      * action list
      *
      * @return void
@@ -58,6 +144,7 @@ class BackendController extends \RKW\RkwCompetition\Controller\AbstractControlle
     public function listAction(): void
     {
         // @toDo: Es werden nur Wettbewerbe angezeigt, für die die Abgabefrist noch nicht abgelaufen ist (siehe #4198 ) UND für die der BE-User als Admin eingetragen ist
+        $this->checkOwnCloudConnection();
 
         $this->view->assign('action', 'list');
         $this->view->assign('competitionList', $this->competitionRepository->findAll());

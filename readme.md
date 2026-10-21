@@ -37,7 +37,7 @@ plugin.tx_rkwcompetition {
         }
         api {
             ownCloud {
-                baseUrl = http://ddev-RKW-Website-owncloud:8080/
+                baseUrl = http://rkw-website.ddev.site:8985/
                 admin {
                    username = admin
                    password = admin
