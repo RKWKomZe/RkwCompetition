@@ -1107,19 +1107,19 @@
                 <source>Hello %s %s,</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_upload.text1">
-                <source>thanks for your registration.</source>
+                <source>thank you for registering for the competition "%s".</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_upload.text2">
-                <source>Please upload your files.</source>
+                <source>Please complete your registration now by uploading your documents (e.g. project description and files).</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_upload.text3">
-                <source>Login here to take a look to your registration.</source>
+                <source>Log in here to upload your documents and view your details</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_upload.showHeadline">
-                <source>Show registration</source>
+                <source>General information about the competition</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_upload.changeDeleteHeadline">
-                <source>Change / Delete</source>
+                <source>Upload documents &amp; manage registration</source>
             </trans-unit>
 
             <!-- Templates/Email/FrontendUser/JuryNotify.html -->
