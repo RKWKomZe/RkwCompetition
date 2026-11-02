@@ -709,6 +709,18 @@
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.intro">
                 <source>We are delighted that you would like to take part in our competition %s. Before we can evaluate your registration, we need further information from you, such as a summary of your project description and also other materials. You can upload your project description directly here; for further materials, we would ask you to use the access to our cloud provided below. Please remember to submit your registration with all required documents by %s at the latest.</source>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.cloudHeadline">
+                <source>Access data to our cloud</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.cloudUrl">
+                <source>Url</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.cloudPassword">
+                <source>Your password</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.cloudExpired">
+                <source>The file upload via OwnCloud has been closed since %s.</source>
+            </trans-unit>
 
             <!-- Partials/Participant/Options.html -->
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.competitionShow">
@@ -1377,8 +1389,14 @@
             <trans-unit id="templates_backend_registerDetail.ownCloudLink">
                 <source>OwnCloud link</source>
             </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.ownCloudExpired">
+                <source>Expired (registration deadline: %s)</source>
+            </trans-unit>
             <trans-unit id="templates_backend_registerDetail.ownCloudPass">
                 <source>OwnCloud password</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.ownCloudPassExpired">
+                <source>– (no longer valid)</source>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.adminRefusedAt">
                 <source>Refused at:</source>

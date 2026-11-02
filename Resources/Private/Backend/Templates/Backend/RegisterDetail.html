@@ -181,19 +181,16 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th><f:translate key="templates_backend_registerDetail.cloudFiles" /></th>
+                                            <th><f:translate key="templates_backend_registerDetail.ownCloudLink" /></th>
                                             <td>
-                                                <f:variable name="cloudFiles" value="{rkw:ownCloudFilesList(register: register)}" />
-                                                <f:if condition="{cloudFiles}">
+                                                <f:if condition="<rkw:isDateWithinDeadline date='{register.competition.registerEnd}' />">
                                                     <f:then>
-                                                        <ul class="list-unstyled">
-                                                            <f:for each="{cloudFiles}" as="file">
-                                                                <li><core:icon identifier="mimetypes-other-other" /> {file}</li>
-                                                            </f:for>
-                                                        </ul>
+                                                        <a href="{register.ownCloudFolderLink}" target="_blank">{register.ownCloudFolderLink}</a>
                                                     </f:then>
                                                     <f:else>
-                                                        <f:translate key="templates_backend_registerDetail.noFile" />
+                                                        <span class="badge badge-warning">
+                                                            <f:translate key="templates_backend_registerDetail.ownCloudExpired" arguments="{0: '{register.competition.registerEnd -> f:format.date(format: \'d.m.Y H:i\')}'}" />
+                                                        </span>
                                                     </f:else>
                                                 </f:if>
                                             </td>

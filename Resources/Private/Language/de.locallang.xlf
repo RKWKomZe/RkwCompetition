@@ -735,6 +735,10 @@
                 <source>Your password</source>
                 <target>Ihr Passwort</target>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.cloudExpired">
+                <source>The file upload via OwnCloud has been closed since %s.</source>
+                <target>Der Dateiupload über OwnCloud ist seit dem %s geschlossen.</target>
+            </trans-unit>
 
             <!-- Partials/Participant/Options.html -->
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_options.competitionShow">
@@ -1615,9 +1619,17 @@
                 <source>OwnCloud link</source>
                 <target>OwnCloud Link</target>
             </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.ownCloudExpired">
+                <source>Expired (registration deadline: %s)</source>
+                <target>Abgelaufen (Anmeldeschluss: %s)</target>
+            </trans-unit>
             <trans-unit id="templates_backend_registerDetail.ownCloudPass">
                 <source>OwnCloud password</source>
                 <target>OwnCloud Passwort</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.ownCloudPassExpired">
+                <source>– (no longer valid)</source>
+                <target>– (nicht mehr gültig)</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.adminRefusedAt">
                 <source>Refused at:</source>
