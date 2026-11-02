@@ -227,13 +227,14 @@ class UpdateOwnCloudExpireDateCommand extends Command
             }
 
             // 4. Update all collected unique share IDs
+            $formattedExpireDate = (clone $newExpireDate)->modify('+1 day')->format('Y-m-d');
             foreach ($shareIdsToUpdate as $shareId => $description) {
                 $ownCloud->getShareApi()->updateShare(
                     $shareId,
                     null,
                     '',
                     false,
-                    $newExpireDate->format('Y-m-d')
+                    $formattedExpireDate
                 );
                 $io->text('Updated share ID ' . $shareId . ' for ' . $description);
                 $this->getLogger()->log(LogLevel::INFO, 'Updated share ID ' . $shareId . ' for ' . $description . ' in competition ' . $competitionUid);
