@@ -155,9 +155,10 @@ class BackendController extends \RKW\RkwCompetition\Controller\AbstractControlle
      * action show
      *
      * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
+     * @param int $filterStatus
      * @return void
      */
-    public function showAction(Competition $competition): void
+    public function showAction(Competition $competition, int $filterStatus = 0): void
     {
 
         // @toDo: Count FINISHED registrations by competition
@@ -166,12 +167,25 @@ class BackendController extends \RKW\RkwCompetition\Controller\AbstractControlle
         $registerList = $this->registerRepository->findByCompetition($competition);
 
         $this->view->assign('competition', $competition);
-        $this->view->assign('registerList', $registerList);
         $this->view->assign('registerCountTotal', $registerList->count());
         $this->view->assign('newRegisterCount', $this->registerRepository->findNewByCompetition($competition)->count());
         $this->view->assign('finishedRegisterCount', $this->registerRepository->findApprovedByCompetition($competition)->count());
         $this->view->assign('refusedRegisterCount', $this->registerRepository->findRefusedByCompetition($competition)->count());
         $this->view->assign('returnedRegisterCount', $this->registerRepository->findReturnedByCompetition($competition)->count());
+
+        $filteredRegisterList = [];
+        foreach ($registerList as $register) {
+            if ($filterStatus > 0) {
+                if (RegisterUtility::registerStatus($register) === $filterStatus) {
+                    $filteredRegisterList[] = $register;
+                }
+            } else {
+                $filteredRegisterList[] = $register;
+            }
+        }
+
+        $this->view->assign('registerList', $filteredRegisterList);
+        $this->view->assign('filterStatus', $filterStatus);
 
 
         // SPECIAL SOLUTION: Create FrontendLinks for Jury-Member

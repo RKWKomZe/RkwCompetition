@@ -1602,6 +1602,21 @@
             <trans-unit id="templates_backend_show.status.new">
                 <source>New</source>
             </trans-unit>
+            <trans-unit id="templates_backend_show.filter.all">
+                <source>All</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.filter.status">
+                <source>Status</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.filter.submit">
+                <source>Filter</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.filter.reset">
+                <source>Reset filter</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.noRegistrationsFound">
+                <source>No registrations found matching the filter criteria.</source>
+            </trans-unit>
             <trans-unit id="templates_backend_show.show">
                 <source>Show</source>
             </trans-unit>

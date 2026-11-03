@@ -1895,6 +1895,26 @@
                 <source>New</source>
                 <target>Neu</target>
             </trans-unit>
+            <trans-unit id="templates_backend_show.filter.all">
+                <source>All</source>
+                <target>Alle</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.filter.status">
+                <source>Status</source>
+                <target>Status</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.filter.submit">
+                <source>Filter</source>
+                <target>Filtern</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.filter.reset">
+                <source>Reset filter</source>
+                <target>Filter zurücksetzen</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.noRegistrationsFound">
+                <source>No registrations found matching the filter criteria.</source>
+                <target>Keine Anmeldungen für das gewählte Filterkriterium gefunden.</target>
+            </trans-unit>
             <trans-unit id="templates_backend_show.show">
                 <source>Show</source>
                 <target>Anzeigen</target>
