@@ -27,15 +27,17 @@ plugin.tx_rkwcompetition {
         registerPid = 11924
         # Jury register PID
         juryPid = 11928
+        # Conditions of participation page PID
+        conditionsOfParticipationPid = 11929
         mandatoryFields {
             # set mandatory fields for the register form
-            register = firstName, lastName
+            register = email, firstName, lastName, institution, address, zip, city, telephone, sector, contributionTitle, remark, conditionsOfParticipation
             # additional mandatory fields which only trigger if groupWork is selected
             registerGroupWork = groupWorkAuthorization, groupWorkAddPersons
         }
         api {
             ownCloud {
-                baseUrl = http://ddev-RKW-Website-owncloud:8080/
+                baseUrl = http://rkw-website.ddev.site:8985/
                 admin {
                    username = admin
                    password = admin
@@ -52,7 +54,7 @@ plugin.tx_rkwcompetition {
 2. Create a ***FrontendUserGroup*** for FrontendUser ***jury members***
 3. You will need at least ***one FrontendUser*** for usage as a ***jury member*** to create a competition
 4. Create "Sector" records ("Bereich") ***before*** creating a competition
-5. Create your first "Competition" record ("Wettbewerb")
+5. Create your first "Competition" record ("Wettbewerb") *(Note: registerStart, registerEnd, and juryAccessEnd are defined as datetime fields representing the end of the given day)*
 
 ### 1.2 Frontend Part One: Competition & Register Plugins
 
@@ -79,7 +81,7 @@ Jury members are basically normal FrontendUsers with a certain FrontendUserGroup
 
 They can be added to a ***Competition*** as a ***candidate*** ("jury_member_candidate"). They do not belong to any particular FrontendUserGroup at this time. Through a cronjob ("JuryNotifyCommand"), they will get emails with deadline information and an invitation to accept the membership.
 
-If a FrontendUser and candidate accepts the membership, the FrontendUser gets the defined FrontendUserGroup for jury members and will be added as a ***confirmed jury member*** to the ***competition***.
+If a FrontendUser and candidate accepts the membership, the FrontendUser gets the defined FrontendUserGroup for jury members and will be added as a ***confirmed jury member*** to the ***competition***. An additional notification email with a direct link is sent upon successful consent.
 
 ***@toDo: Do we need a function for admins to notify them if a jury member does not accept the invitation?***
 
@@ -89,38 +91,48 @@ If a FrontendUser and candidate accepts the membership, the FrontendUser gets th
 
 The backend module is used by BackendUsers (also called "Admins") to take a first look at the documents of the registrations.
 
-The admins have the ***task*** of ***accepting*** registrations in the first instance or ***refusing*** them with reasons. This is an important part of the extension's functionality.
+The admins have the ***task*** of ***accepting*** registrations in the first instance, ***refusing*** them with reasons, or ***returning*** them for revision. This is an important part of the extension's functionality.
 
-Hint for initial usage: It is advisable to have ***at least one registration created*** before the backend module is accessed for ***test purposes***.
+Hint for initial usage: It is advisable to have ***at least one registration created*** before the backend module is accessed for ***test purposes***. (Note: The admin section for a registration is displayed only once the application has been submitted).
 
 1. Click on "RKW Competition" inside the "Web" area
 2. A list of ***competitions*** shows up as a table. Select one by using the "show" link on the right
 3. This leads to a list of ***registrations***. You can view them by using the "show" link
 4. Now an admin can get a ***detailed overview*** of the registration including a ***file download***
-5. The admin can determine whether to ***accept*** or to ***refuse*** the registration
+5. The admin can determine whether to ***accept***, ***refuse***, or ***return*** the registration
 
 ***
 
 ## 4. Cronjobs
 
 This extension comes with a bunch of cronjobs which manage the several steps from initial registration until the assignment to the jury member:
-* rkw_competition:incompleteUserRegistration
+* `rkw_competition:incompleteUserRegistration`
   * Sends notification emails to FrontendUsers if they have not submitted their registration yet
   * Options:
     * `--rootPageUid` (int): The root page UID to use for loading TypoScript settings (optional, default: 1)
     * `--timeInterval` (int): Defines the length of one interval to send e-mails as reminder for the user to complete and submit their registration (optional, default: 86400)
-* rkw_competition:removalDeadlineWarningAdmin
+* `rkw_competition:removalDeadlineWarningAdmin`
   * Only if a data removal date is set: Send a reminder to admins before an expired competition is about to be deleted together with the documents
-* rkw_competition:juryNotify
+  * Options:
+    * `--rootPageUid` (int): The root page UID to use for loading TypoScript settings (optional, default: 1)
+    * `--daysUntilRemoval` (int): Set days to send last reminder before deletion (optional, default: 14)
+* `rkw_competition:juryNotify`
   * Sends notification emails to jury members when a registration period ends (and their work starts)
   * Sends also reminder messages to jury members who have not accepted the jury member terms yet
-* rkw_competition:closingDay
+  * Options:
+    * `--rootPageUid` (int): The root page UID to use for loading TypoScript settings (optional, default: 1)
+    * `--reminderInterval` (int): Set reminder interval in days (optional, default: 3)
+* `rkw_competition:closingDay`
   * Triggers on the closing day of the registration period of a competition
   * Sends emails to admins with a reference to the possibility of downloading all submitted documents in the backend
   * Info (success; accepted for participation) email to participants with complete and verified data
   * Info (failed; excluded from competition) email to participants with incomplete or incorrect data
-* rkw_competition:cleanup
+  * Options:
+    * `--rootPageUid` (int): The root page UID to use for loading TypoScript settings (optional, default: 1)
+* `rkw_competition:cleanup`
   * Removes competitions with their registration records (+ uploaded files) from HD
+  * Options:
+    * `--dryRun` (int): Do a dry-run without making changes (optional, default: 1)
 
 ***
 
@@ -133,7 +145,7 @@ HINT: If the tester has to do something manually that should be done automatical
 ## 5.1 Initial registration procedure (as a FrontendUser)
 1. Go to the competition page (Plugin: rkwcompetition_competition; CompetitionController->showAction)
 2. Click the link to the registration page (Plugin: rkwcompetition_register; RegisterController->newAction)
-3. Fill out the form including all mandatory fields and send it (RegisterController->createAction)
+3. Fill out the form including all mandatory fields (including acceptance of conditions of participation) and send it (RegisterController->createAction)
    1. ***TASK:*** Kick off cronjob "postmaster:send" manually
    2. ***TRIGGER:*** Opt-In email is sent to the registered email address (RkwMailService->optInRequest)
 4. Go to your email program and open the email. Choose one of the two links:
@@ -162,14 +174,20 @@ HINT: If the tester has to do something manually that should be done automatical
 ## 5.3 Admin preselection (as a BackendUser)
 1. Click on "RKW Competition" inside the "Web" area (BackendController->listAction)
 2. Select the desired competition and then the corresponding registration (BackendController->showAction)
-3. Now you can take a look at the registration and choose between two options (BackendController->registerDetailAction)
+3. Now you can take a look at the registration and choose between three options (BackendController->registerDetailAction)
    1. Refuse: Something is wrong with the registration? Type in the reason for it and submit (BackendController->refuseAction)
       1. ***TRIGGER:*** Status of registration is changed to "refused" (Field: adminRefusedAt)
       2. ***TASK:*** Kick off cronjob "postmaster:send" manually
       3. ***TRIGGER:*** Refusal email is sent to FrontendUser (RkwMailService->refusedRegisterUser)
       4. The reason for refusal is shown to the user inside the email and in the list "Mein Wettbewerb"
       5. Now the user can change things and submit the registration again
-   2. Accept: Everything looks good? Approve it! (BackendController->approveAction)
+   2. Return for revision (Zurückschicken): Minor adjustments needed? Provide a comment/reason and return it (BackendController->returnAction)
+      1. ***TRIGGER:*** Status of registration is changed to "returned" (Field: adminReturnedAt)
+      2. ***TASK:*** Kick off cronjob "postmaster:send" manually
+      3. ***TRIGGER:*** Return email is sent to FrontendUser (RkwMailService->returnedRegisterUser)
+      4. The comment is shown to the user inside the email and in "Mein Wettbewerb"
+      5. The user can adjust their data/files and submit again
+   3. Accept: Everything looks good? Approve it! (BackendController->approveAction)
       1. ***TRIGGER:*** Status of registration is changed to "approved" (Field: adminApprovedAt)
       2. ***TASK:*** Kick off cronjob "postmaster:send" manually
       3. ***TRIGGER:*** Success email is sent to FrontendUser (RkwMailService->approvedRegisterUser)
@@ -186,9 +204,39 @@ HINT: If the tester has to do something manually that should be done automatical
    3. Login with your FrontendUser (the "jury candidate") to "Mein RKW"
    4. Go to "Meine Jurytätigkeit" (@see 1.3)
    5. Click the button to agree ("Einwilligen")
-   6. The FrontendUser is now a fully qualified jury member for this competition and can view the registrations
+   6. The FrontendUser is now a fully qualified jury member for this competition and can view the registrations, and an additional notification email with a direct link is sent.
 
 Hint: To repeat the jury member process for testing purposes, you have to delete the "juryReference" record and reset the field "reminder_jury_mail_tstamp" inside the competition record.
+
+
+## 6. System E-Mails
+
+The system sends various notification and confirmation emails to participants (frontend users), jury members, and project administrators (backend users) via `RkwMailService` and Postmaster. Below is the complete overview of all emails sent by the system:
+
+### 6.1 Emails to Participants (Frontend Users)
+* **Opt-In Request** (`RkwMailService->optInRequest`): Sent upon initial registration to verify the participant's email address (Double-Opt-In).
+* **Registration Confirmation** (`RkwMailService->confirmRegisterUser`): Sent after successful opt-in / registration creation.
+* **Upload Notification** (`RkwMailService->uploadDocumentsUser`): Sent when documents are uploaded or updated.
+* **Submission Confirmation** (`RkwMailService->submitRegisterUser`): Sent when the participant submits their final competition registration.
+* **Incomplete Registration Reminder** (`RkwMailService->incompleteRegisterUser` via cronjob `rkw_competition:incompleteUserRegistration`): Reminder sent periodically to users who have started but not yet submitted their registration.
+* **Admin Approval** (`RkwMailService->approvedRegisterUser`): Success notification when an admin approves a submitted registration.
+* **Admin Refusal** (`RkwMailService->refusedRegisterUser`): Notification when a registration is refused for formal reasons (includes refusal reason).
+* **Admin Return for Revision** (`RkwMailService->returnedRegisterUser`): Notification when a registration is returned for minor adjustments (includes admin comment/reason).
+* **Deletion Notification** (`RkwMailService->deleteRegisterUser`): Notification sent if a registration is deleted.
+* **Closing Day - Success** (`RkwMailService->closingDayApprovedUser` via cronjob `rkw_competition:closingDay`): Info email sent on the closing day to participants with complete and verified data ("Jury-Sitzung demnächst. Spannung steigt!").
+* **Closing Day - Refused/Incomplete** (`RkwMailService->closingDayIncompleteUser` via cronjob `rkw_competition:closingDay`): Info email sent on the closing day to participants with incomplete or incorrect data ("Leider konnten wir Sie aus formalen Gründen nicht berücksichtigen").
+
+### 6.2 Emails to Jury Members
+* **Jury Invitation & Reminder** (`RkwMailService->juryNotifyUser` via cronjob `rkw_competition:juryNotify`): Sent when the registration period ends, notifying jury candidates about the start of jury work and reminding them to accept or decline the jury terms.
+* **Jury Consent Confirmation** (`RkwMailService->juryConsentUser`): Additional confirmation email with a direct link sent upon successful consent ("Einwilligen") as a jury member.
+
+### 6.3 Emails to Administrators (Backend Users)
+* **Admin Registration Confirmation** (`RkwMailService->confirmRegisterAdmin`): Notification sent to project admins when a new registration is confirmed.
+* **Admin Submission Notification** (`RkwMailService->submitRegisterAdmin`): Notification sent to project admins when a participant submits their registration.
+* **Admin Deletion Notification** (`RkwMailService->deleteRegisterAdmin`): Notification sent to project admins when a registration is deleted.
+* **Removal Deadline Warning** (`RkwMailService->removalOfCompetitionAdmin` via cronjob `rkw_competition:removalDeadlineWarningAdmin`): Warning sent to project admins before an expired competition is deleted, reminding them to download documents.
+* **Closing Day Admin Notification** (`RkwMailService->closingDayAdmin` via cronjob `rkw_competition:closingDay`): Notification sent to project admins on the closing day with instructions and references for downloading all submitted documents in the backend.
+* **Jury Consent Admin Notification** (`RkwMailService->juryConsentAdmin`): Notification sent to project admins when a jury member successfully completes registration and consents.
 
 
 ## Development

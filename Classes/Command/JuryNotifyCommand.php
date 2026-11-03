@@ -102,6 +102,13 @@ class JuryNotifyCommand extends Command
                 InputOption::VALUE_REQUIRED,
                 'Set reminder interval in days.',
                 3
+            )
+            ->addOption(
+                'rootPageUid',
+                'r',
+                InputOption::VALUE_OPTIONAL,
+                'The root page UID to use for loading TypoScript settings.',
+                1
             );
     }
 
@@ -132,6 +139,7 @@ class JuryNotifyCommand extends Command
         $io->newLine();
 
         $reminderInterval = $input->getOption('reminderInterval');
+        $rootPageUid = (int)$input->getOption('rootPageUid');
 
         $result = 0;
 //        try {
@@ -183,7 +191,7 @@ class JuryNotifyCommand extends Command
                         // send mails
                         /** @var RkwMailService $mailService */
                         $mailService = GeneralUtility::makeInstance(RkwMailService::class);
-                        $mailService->juryNotifyUser($juryReferenceList);
+                        $mailService->juryNotifyUser($juryReferenceList, $rootPageUid);
 
                         $io->note("\t" . 'competitionUid: ' . $competition->getUid());
 

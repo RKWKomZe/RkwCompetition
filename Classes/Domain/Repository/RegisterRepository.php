@@ -202,4 +202,28 @@ class RegisterRepository extends AbstractRepository
     }
 
 
+    /**
+     * function findNewByCompetition
+     *
+     * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @throws InvalidQueryException
+     */
+    public function findNewByCompetition(Competition $competition): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+
+        return $query->matching(
+            $query->logicalAnd(
+                $query->equals('competition', $competition),
+                $query->equals('adminApprovedAt', 0),
+                $query->equals('adminReturnedAt', 0),
+                $query->equals('adminRefusedAt', 0),
+                $query->equals('userSubmittedAt', 0)
+            )
+        )->execute();
+    }
+
+
 }

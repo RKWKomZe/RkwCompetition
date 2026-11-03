@@ -3,9 +3,37 @@
 
 <!-- PLAINTEXT -->
 <f:section name="Plaintext">
+=============================================================
+<postmaster:email.translate key="partials_email_details.competitionDetails" languageKey="{language}" extensionName="rkwCompetition" />
+=============================================================
+{register.competition.title}
+<postmaster:email.uri.action absolute="true" pageUid="{competitionPid}" action="show" controller="Competition" extensionName="rkwCompetition" pluginName="competition" additionalParams="{tx_rkwcompetition_competition: {competition: register.competition.uid}}" />
 
-	Plaintext-Area für RkwCompetition registrierung
+<f:if condition="{register.institution}">{register.institution}
+</f:if>{register.firstName} {register.lastName} <f:if condition="{frontendUser}">({frontendUser.username})</f:if>
+{register.address}
+{register.zip} {register.city}
 
+<f:if condition="{register.telephone}">
+<postmaster:email.translate key="partials_email_details.telephone" languageKey="{language}" extensionName="rkwCompetition" />: {register.telephone}
+</f:if><f:if condition="{register.sector}">
+<postmaster:email.translate key="partials_email_details.sector" languageKey="{language}" extensionName="rkwCompetition" />: {register.sector.title}
+</f:if><f:if condition="{register.contributionTitle}">
+<postmaster:email.translate key="partials_email_details.contributionTitle" languageKey="{language}" extensionName="rkwCompetition" />: {register.contributionTitle}
+</f:if><f:if condition="{register.isGroupWork}">
+<postmaster:email.translate key="partials_email_details.isGroupWork" languageKey="{language}" extensionName="rkwCompetition" />: {register.isGroupWork}
+<f:if condition="{register.isGroupWork}">
+<postmaster:email.translate key="partials_email_details.group_work_authorization" languageKey="{language}" extensionName="rkwCompetition" />: {register.groupWorkAuthorization}
+</f:if><f:if condition="{register.groupWorkAddPersons}">
+<postmaster:email.translate key="partials_email_details.groupWorkAddPersons" languageKey="{language}" extensionName="rkwCompetition" />: {register.groupWorkAddPersons}
+</f:if></f:if><f:if condition="{register.remark}">
+
+<postmaster:email.translate key="partials_email_details.registerRemarks" languageKey="{language}" extensionName="rkwCompetition" />:
+{register.remark}
+</f:if><f:if condition="{register.serverHost}">
+
+<postmaster:email.translate key="partials_email_details.registerVia" languageKey="{language}" extensionName="rkwCompetition" />: {register.serverHost}
+</f:if>
 </f:section>
 
 

@@ -632,16 +632,16 @@
                 <source>Have you thought about using the provided cloud for additional files and images?</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.ownCloudLink">
-                <source>OwnCloud-Link</source>
+                <source>RKWCloud-Link</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.ownCloudPass">
-                <source>OwnCloud-PW</source>
+                <source>RKWCloud-Password</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.ownCloudEmpty">
-                <source> Attention: Your cloud folder is still empty!</source>
+                <source> Attention: Your RKWCloud folder is still empty!</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.hint2">
-                <source>I understand that information provided and files submitted cannot be changed after submission.</source>
+                <source>I understand that information provided and files submitted cannot be changed after submission. The option to manage files in our RKWCloud will remain until end of registration.</source>
             </trans-unit>
 
             <!-- Templates/Upload/Edit.html -->
@@ -707,7 +707,19 @@
                 <source>You are welcome to add a full version of your project description.</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.intro">
-                <source>We are delighted that you would like to take part in our competition %s. Before we can evaluate your registration, we need further information from you, such as a summary of your project description and also other materials. You can upload your project description directly here; for further materials, we would ask you to use the access to our cloud provided below. Please remember to submit your registration with all required documents by %s at the latest.</source>
+                <source>We are delighted that you would like to take part in our competition %s. Before we can evaluate your registration, we need further information from you, such as a summary of your project description and also other materials. You can upload your project description directly here; for further materials, we would ask you to use the access to our RKWCloud provided below. Please remember to submit your registration with all required documents by %s at the latest.</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.cloudHeadline">
+                <source>Access data to our RKWCloud</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.cloudUrl">
+                <source>Url</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.cloudPassword">
+                <source>Your password</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.cloudExpired">
+                <source>The file upload via RKWCloud has been closed since %s.</source>
             </trans-unit>
 
             <!-- Partials/Participant/Options.html -->
@@ -741,8 +753,14 @@
 
 
             <!-- Partials/Jury/FormFields.html -->
-            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_formfields.consent">
-                <source>I agree to the declaration of confidentiality</source>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_formfields.consent.partOne">
+                <source>I agree to the </source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_formfields.consent.partTwo">
+                <source>declaration of confidentiality</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_formfields.consent.partThree">
+                <source> to</source>
             </trans-unit>
 
             <!-- Partials/Jury/Listing.html -->
@@ -799,6 +817,18 @@
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.download">
                 <source>Download</source>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.typeOfWork">
+                <source>Type of work</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.submissionDate">
+                <source>Submission date</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.zipAndCity">
+                <source>ZIP / City</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.ownCloudFolderLink">
+                <source>Project folder (RKWCloud)</source>
+            </trans-unit>
 
 
             <!-- ==================================================================================== -->
@@ -837,7 +867,10 @@
                 <source>Your registration is still incomplete</source>
             </trans-unit>
             <trans-unit id="rkwMailService.frontendUser.subject.juryNotify" approved="yes">
-                <source>Confirm your role as a jury member</source>
+                <source>Confirm your role in the jury for the competition %s</source>
+            </trans-unit>
+            <trans-unit id="rkwMailService.frontendUser.subject.juryConsent" approved="yes">
+                <source>Competition %s: Confirmation of your jury membership</source>
             </trans-unit>
             <trans-unit id="rkwMailService.frontendUser.subject.closingDayIncomplete" approved="yes">
                 <source>Closing day imcomplete</source>
@@ -862,6 +895,9 @@
             </trans-unit>
             <trans-unit id="rkwMailService.backendUser.subject.closingDay" approved="yes">
                 <source>Competition closing day</source>
+            </trans-unit>
+            <trans-unit id="rkwMailService.backendUser.subject.juryConsent" approved="yes">
+                <source>Competition %s: Jury member registration completed</source>
             </trans-unit>
 
 
@@ -1071,19 +1107,19 @@
                 <source>Hello %s %s,</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_upload.text1">
-                <source>thanks for your registration.</source>
+                <source>thank you for registering for the competition "%s".</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_upload.text2">
-                <source>Please upload your files.</source>
+                <source>Please complete your registration now by uploading your documents (e.g. project description and files).</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_upload.text3">
-                <source>Login here to take a look to your registration.</source>
+                <source>Log in here to upload your documents and view your details</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_upload.showHeadline">
-                <source>Show registration</source>
+                <source>General information about the competition</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_upload.changeDeleteHeadline">
-                <source>Change / Delete</source>
+                <source>Upload documents &amp; manage registration</source>
             </trans-unit>
 
             <!-- Templates/Email/FrontendUser/JuryNotify.html -->
@@ -1091,16 +1127,34 @@
                 <source>Hello %s %s,</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_juryNotify.text1">
-                <source>you have been selected.</source>
+                <source>You have been selected to participate as a jury member in the RKW competition %s.</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_juryNotify.text2">
-                <source>Please agree to our terms to participate.</source>
+                <source>For this, we still need your consent and confidentiality agreement.</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_juryNotify.text3">
                 <source>Login here to take a look to the competitions.</source>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_juryNotify.showHeadline">
                 <source>Show registration</source>
+            </trans-unit>
+
+
+            <!-- Templates/Email/FrontendUser/JuryConsent.html -->
+            <trans-unit id="templates_email_frontendUser_juryConsent.headline">
+                <source>Hello %s %s,</source>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_juryConsent.text1">
+                <source>thank you for your consent. You are now officially registered as a jury member for the competition %s.</source>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_juryConsent.text2">
+                <source>You can access the protected jury area at any time via the following direct link to view and evaluate the submitted contributions:</source>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_juryConsent.showHeadline">
+                <source>Direct link to the jury area</source>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_juryConsent.text3">
+                <source>View nominations</source>
             </trans-unit>
 
 
@@ -1126,7 +1180,7 @@
             <trans-unit id="templates_email_frontendUser_closingDayApproved.text2">
                 <source>Please find below the details of your registration.</source>
             </trans-unit>
-            <trans-unit id="templates_email_frontendUser_incomplete.showHeadline">
+            <trans-unit id="templates_email_frontendUser_closingDayApproved.showHeadline">
                 <source>Show registration</source>
             </trans-unit>
 
@@ -1201,6 +1255,18 @@
             </trans-unit>
             <trans-unit id="templates_email_backendUser_closingDay.text2" approved="no">
                 <source>IMPORTANT: You found downloadable content inside the TYPO3 backend module.</source>
+            </trans-unit>
+
+
+            <!-- Templates/Email/BackendUser/JuryConsent.html -->
+            <trans-unit id="templates_email_backendUser_juryConsent.headline">
+                <source>Hello %s,</source>
+            </trans-unit>
+            <trans-unit id="templates_email_backendUser_juryConsent.text1" approved="no">
+                <source>A jury member has successfully registered and consented for the competition "%s".</source>
+            </trans-unit>
+            <trans-unit id="templates_email_backendUser_juryConsent.text2" approved="no">
+                <source>Juror: %s %s (%s)</source>
             </trans-unit>
 
 
@@ -1321,10 +1387,22 @@
                 <source>Long version PDF</source>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.ownCloudLink">
-                <source>OwnCloud link</source>
+                <source>RKWCloud link</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.ownCloudExpired">
+                <source>Expired (registration deadline: %s)</source>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.ownCloudPass">
-                <source>OwnCloud password</source>
+                <source>RKWCloud password</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.ownCloudPassExpired">
+                <source>– (no longer valid)</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.registeredAt">
+                <source>Registered at:</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.userSubmittedAt">
+                <source>Submitted at:</source>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.adminRefusedAt">
                 <source>Refused at:</source>
@@ -1440,8 +1518,11 @@
             <trans-unit id="templates_backend_show.noCompetitionSelected">
                 <source>No competition selected</source>
             </trans-unit>
+            <trans-unit id="templates_backend_show.overview">
+                <source>Overview</source>
+            </trans-unit>
             <trans-unit id="templates_backend_show.registrationsTotal">
-                <source>Registrations total:</source>
+                <source>Total</source>
             </trans-unit>
             <trans-unit id="templates_backend_show.finishedRegistrations">
                 <source>Finished registrations:</source>
@@ -1478,6 +1559,15 @@
             </trans-unit>
             <trans-unit id="templates_backend_show.sector">
                 <source>Sector</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.shortPdf">
+                <source>Abstract</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.longPdf">
+                <source>Long description</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.cloudFiles">
+                <source>Files in RKWCloud</source>
             </trans-unit>
             <trans-unit id="templates_backend_show.status">
                 <source>Status</source>
@@ -1517,6 +1607,21 @@
             </trans-unit>
             <trans-unit id="templates_backend_show.status.new">
                 <source>New</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.filter.all">
+                <source>All</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.filter.status">
+                <source>Status</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.filter.submit">
+                <source>Filter</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.filter.reset">
+                <source>Reset filter</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.noRegistrationsFound">
+                <source>No registrations found matching the filter criteria.</source>
             </trans-unit>
             <trans-unit id="templates_backend_show.show">
                 <source>Show</source>

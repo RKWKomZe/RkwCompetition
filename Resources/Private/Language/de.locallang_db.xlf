@@ -159,8 +159,8 @@
                 <target>Begründung der Ablehnung</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.own_cloud_folder_link">
-                <source>OwnCloud Link</source>
-                <target>OwnCloud Link</target>
+                <source>RKWCloud Link</source>
+                <target>RKWCloud Link</target>
             </trans-unit>
 
 
@@ -225,11 +225,11 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_competition.register_start">
                 <source>Register Start</source>
-                <target>Beginn Anmeldezeitrraum</target>
+                <target>Beginn Anmeldezeitraum</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_competition.register_end">
                 <source>Register End</source>
-                <target>Ende Anmeldezeitrraum</target>
+                <target>Ende Anmeldezeitraum</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_competition.jury_access_end">
                 <source>Jury Access End</source>
@@ -320,8 +320,8 @@
                 <target>Beschreibung</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_sector.own_cloud_folder_link">
-                <source>OwnCloud Link</source>
-                <target>OwnCloud Link</target>
+                <source>RKWCloud Link</source>
+                <target>RKWCloud Link</target>
             </trans-unit>
 
             <!-- TCA -->

@@ -756,6 +756,10 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
         );
 
         // 6.2 create share (public link; without user & without group)
+        $userShareExpireDate = $newRegister->getCompetition()->getRegisterEnd() instanceof \DateTimeInterface
+            ? (clone $newRegister->getCompetition()->getRegisterEnd())->modify('+1 day')->format('Y-m-d')
+            : '';
+
         $userShare = $ownCloud->getShareApi()->createShare(
             $userFolderName,
             array_merge($folderCreatePath, [$competitionFolderName], [$userFolderName]),
@@ -764,7 +768,7 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
             true,
             OwnCloudUtility::getUserFolderSecret($newRegister),
             15,
-            $newRegister->getCompetition()->getRegisterEnd()->format('Y-m-d')
+            $userShareExpireDate
         );
 
         // @toDo: On DEV the link is wrong, because the internal Container-ID is used (ddev-RKW-Website-owncloud:8080)
@@ -775,6 +779,10 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
         // @toDo: Move following competition folder share to another place? Maybe a competition->create-Hook would be the right place
         // 6.3 create share for jury member & backendUsers to show the whole competition folder (if not already exists)
         if (! $newRegister->getCompetition()->getOwnCloudFolderLink()) {
+            $competitionShareExpireDate = $newRegister->getCompetition()->getJuryAccessEnd() instanceof \DateTimeInterface
+                ? (clone $newRegister->getCompetition()->getJuryAccessEnd())->modify('+1 day')->format('Y-m-d')
+                : '';
+
             $competitionShare = $ownCloud->getShareApi()->createShare(
                 $competitionFolderName,
                 array_merge($folderCreatePath, [$competitionFolderName]),
@@ -783,7 +791,7 @@ class RegisterController extends \RKW\RkwCompetition\Controller\AbstractControll
                 true,
                 OwnCloudUtility::getCompetitionFolderSecret($newRegister->getCompetition()),
                 15,
-                $newRegister->getCompetition()->getJuryAccessEnd()->format('Y-m-d')
+                $competitionShareExpireDate
             );
 
             // @toDo: On DEV the link is wrong, because the internal Container-ID is used (ddev-RKW-Website-owncloud:8080)

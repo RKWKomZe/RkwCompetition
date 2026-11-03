@@ -55,14 +55,16 @@
 		<f:comment><!-- Option 2: Accordion --></f:comment>
 		<div aria-label="Accordion Control Group Buttons" class="accordion mt-2">
 			<f:for each="{juryReference.competition.sectors}" as="competitionSector">
-				<f:for each="{approvedRegistrations}" as="register">
+				<f:for each="{approvedRegistrations}" as="register" iteration="iter">
 					<f:if condition="{competitionSector.uid} == {register.sector.uid}">
 						<div class="accordion__item">
 							<button class="accordion__button accordion-control" aria-expanded="false" aria-controls="accordion-content-{iter.cycle}-{register.uid}" id="accordion-item-{iter.cycle}-{register.uid}">
-							<span class="accordion__title">
-							{register.sector.title}: {register.contributionTitle}
-							<span class="accordion__icon"></span>
-						</span>
+								<svg class="icon accordion__icon">
+									<use xlink:href="#ic-circle-close" />
+								</svg>
+								<span class="accordion__title">
+									{register.sector.title}: {register.contributionTitle}
+								</span>
 							</button>
 							<div class="accordion__item-content" aria-hidden="true" id="accordion-content-{iter.cycle}-{register.uid}" role="region" aria-labelledby="accordion-item-{iter.cycle}-{register.uid}" style="display: none;">
 								<div class="accordion__item-inner">
@@ -79,7 +81,7 @@
 
 	<f:comment><!-- SECTION: registerData --></f:comment>
 	<f:section name="registerData">
-		<table>
+		<table class="responsive-table responsive-table--background">
 			<tbody>
 			<tr>
 				<td>
@@ -107,11 +109,36 @@
 			</tr>
 			<tr>
 				<td>
+					<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.submissionDate" default="Einreichungsdatum" />
+				</td>
+				<td>
+					<f:format.date format="d.m.Y H:i">{register.userSubmittedAt}</f:format.date>
+				</td>
+			</tr>
+			<tr>
+				<td>
 					<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.nameOfApplicant" />
 				</td>
 				<td>
-					{register.title}
-					{register.salutation} {register.firstName} {register.lastName}
+					<f:if condition="{register.salutation} < 99">
+						<f:switch expression="{register.salutation}">
+							<f:case value="0"><f:translate key="tx_rkwcompetition_fluid.templates_register_new.salutation.I.0" /> </f:case>
+							<f:case value="1"><f:translate key="tx_rkwcompetition_fluid.templates_register_new.salutation.I.1" /> </f:case>
+							<f:case value="2"><f:translate key="tx_rkwcompetition_fluid.templates_register_new.salutation.I.2" /> </f:case>
+						</f:switch>
+					</f:if>
+					<f:if condition="{register.title}">
+						{register.title}
+					</f:if>
+					{register.firstName} {register.lastName}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.zipAndCity" />
+				</td>
+				<td>
+					{register.zip} {register.city}
 				</td>
 			</tr>
 			<tr>
@@ -119,7 +146,14 @@
 					<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.isGroupWork" />
 				</td>
 				<td>
-					{register.isGroupWork}
+					<f:if condition="{register.isGroupWork}">
+						<f:then>
+							<f:translate key="tx_rkwcompetition_fluid.yes" />
+						</f:then>
+						<f:else>
+							<f:translate key="tx_rkwcompetition_fluid.no" />
+						</f:else>
+					</f:if>
 				</td>
 			</tr>
 			<f:if condition="{register.isGroupWork}">
@@ -202,6 +236,16 @@
 					</f:if>
 				</td>
 			</tr>
+			<f:if condition="{register.ownCloudFolderLink}">
+				<tr>
+					<td>
+						<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.ownCloudFolderLink" />
+					</td>
+					<td>
+						<f:link.typolink parameter="{register.ownCloudFolderLink}" target="_blank">{register.ownCloudFolderLink}</f:link.typolink>
+					</td>
+				</tr>
+			</f:if>
 
 			</tbody>
 		</table>

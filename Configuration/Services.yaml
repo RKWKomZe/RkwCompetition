@@ -37,4 +37,10 @@ services:
         command: 'rkw_competition:incompleteUserRegistration'
         schedulable: true
 
+  RKW\RkwCompetition\Command\UpdateOwnCloudExpireDateCommand:
+    tags:
+      - name: 'console.command'
+        command: 'rkw_competition:updateOwnCloudExpireDate'
+        schedulable: true
+
 

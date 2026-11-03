@@ -10,6 +10,8 @@
             <f:link.typolink parameter="{juryReference.competition.linkJuryDeclarationConfident}" />
         </div>
     </div>
+
+    <f:render partial="FlashMessages" arguments="{_all}" />
     <f:comment>
         <f:link.action
                 class="btn btn--secondary"
@@ -19,17 +21,6 @@
         </f:link.action>
     </f:comment>
 
-    <!-- show competition -->
-    <f:link.action
-            pageUid="{settings.competitionPid}"
-            target="_blank"
-            class="btn btn--primary"
-            controller="Competition"
-            action="show"
-            arguments="{competition : register.competition}"
-    >
-        <f:translate key="tx_rkwcompetition_fluid.partials_participant_options.competitionShow" />
-    </f:link.action>
 
     <h5>Sie erhalten nur über diesen individuellen Direktlink Zugang zum Wettbewerb, bitte gut aufheben:</h5>
     <p><strong>{juryLoginLink}</strong></p>
@@ -41,8 +32,6 @@
             {juryReference.competition.juryAddData}
         </f:format.raw>
     </p>
-
-    <f:render partial="FlashMessages" arguments="{_all}" />
 
     <f:render partial="Jury/Properties" arguments="{_all}" />
 

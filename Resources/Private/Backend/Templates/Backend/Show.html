@@ -24,32 +24,7 @@
                         <f:then>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <table class="table table-striped table-hover">
-                                        <tr>
-                                            <th><f:translate key="templates_backend_show.registrationsTotal" /></th>
-                                            <td>{registerCountTotal}</td>
-                                        </tr>
-                                        <tr>
-                                            <th><f:translate key="templates_backend_show.finishedRegistrations" /></th>
-                                            <td>{finishedRegisterCount}</td>
-                                        </tr>
-                                        <tr>
-                                            <th><f:translate key="templates_backend_show.refusedRegistrations" /></th>
-                                            <td>{refusedRegisterCount}</td>
-                                        </tr>
-                                        <tr>
-                                            <th><f:translate key="templates_backend_show.returnedRegistrations" /></th>
-                                            <td>{returnedRegisterCount}</td>
-                                        </tr>
-                                        <tr>
-                                            <th><f:translate key="templates_backend_show.regStart" /></th>
-                                            <td><f:format.date format="d.m.Y">{competition.registerStart}</f:format.date></td>
-                                        </tr>
-                                        <tr>
-                                            <th><f:translate key="templates_backend_show.regEnd" /></th>
-                                            <td><f:format.date format="d.m.Y">{competition.registerEnd}</f:format.date></td>
-                                        </tr>
-                                    </table>
+                                    <f:render section="competitionOverviewTable" arguments="{_all}" />
                                 </div>
                             </div>
 
@@ -71,15 +46,75 @@
                     </f:if>
     </f:section>
 
-
+    <f:section name="competitionOverviewTable">
+        <h3><f:translate key="templates_backend_show.overview" /></h3>
+        <table class="table table-striped table-hover">
+            <tr>
+                <td><f:translate key="templates_backend_show.regStart" /></td>
+                <td><f:format.date format="d.m.Y H:i">{competition.registerStart}</f:format.date></td>
+            </tr>
+            <tr>
+                <td><f:translate key="templates_backend_show.regEnd" /></td>
+                <td><f:format.date format="d.m.Y H:i">{competition.registerEnd}</f:format.date></td>
+            </tr>
+        </table>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th><f:translate key="templates_backend_show.registrationsTotal" /></th>
+                    <th><f:translate key="templates_backend_show.status.new" /></th>
+                    <th><f:translate key="templates_backend_show.status.approved" /></th>
+                    <th><f:translate key="templates_backend_show.status.refused" /></th>
+                    <th><f:translate key="templates_backend_show.status.returned" /></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{registerCountTotal}</td>
+                    <td>{newRegisterCount}</td>
+                    <td>{finishedRegisterCount}</td>
+                    <td>{refusedRegisterCount}</td>
+                    <td>{returnedRegisterCount}</td>
+                </tr>
+            </tbody>
+        </table>
+    </f:section>
 
     <f:section name="competitionTable">
-        <h3><f:translate key="templates_backend_show.registrations" /></h3>
+        <div class="row">
+            <div class="col-sm-6">
+                <h3><f:translate key="templates_backend_show.registrations" /></h3>
+            </div>
+            <div class="col-sm-6 text-right">
+                <f:form action="show" name="filter" arguments="{competition: competition}" class="form-inline pull-right" style="margin-top: 20px; margin-bottom: 10px;">
+                    <div class="form-group">
+                        <label for="filterStatus"><f:translate key="templates_backend_show.filter.status" />:&nbsp;</label>
+                        <f:form.select name="filterStatus" id="filterStatus" class="form-control" value="{filterStatus}" additionalAttributes="{onchange: 'this.form.submit();'}" options="{
+                            0: '{f:translate(key: \'templates_backend_show.filter.all\')}',
+                            100: '{f:translate(key: \'templates_backend_show.status.new\')}',
+                            300: '{f:translate(key: \'templates_backend_show.status.submitted\')}',
+                            400: '{f:translate(key: \'templates_backend_show.status.returned\')}',
+                            500: '{f:translate(key: \'templates_backend_show.status.approved\')}',
+                            200: '{f:translate(key: \'templates_backend_show.status.refused\')}'
+                        }" />
+                    </div>
+                    <f:form.submit class="btn btn-default" value="{f:translate(key: 'templates_backend_show.filter.submit')}" />
+                    <f:if condition="{filterStatus}">
+                        <f:link.action class="btn btn-default" action="show" arguments="{competition: competition}">
+                            <f:translate key="templates_backend_show.filter.reset" />
+                        </f:link.action>
+                    </f:if>
+                </f:form>
+            </div>
+        </div>
         <table class="table table-striped table-hover">
             <thead>
             <tr>
                 <th class="nowrap">
                     <f:translate key="templates_backend_show.id" />
+                </th>
+                <th class="nowrap">
+                    <f:translate key="templates_backend_show.status" />
                 </th>
                 <th class="nowrap">
                     <f:translate key="templates_backend_show.name" />
@@ -94,7 +129,13 @@
                     <f:translate key="templates_backend_show.sector" />
                 </th>
                 <th class="nowrap">
-                    <f:translate key="templates_backend_show.status" />
+                    <f:translate key="templates_backend_show.shortPdf" />
+                </th>
+                <th class="nowrap">
+                    <f:translate key="templates_backend_show.longPdf" />
+                </th>
+                <th class="nowrap">
+                    <f:translate key="templates_backend_show.cloudFiles" />
                 </th>
                 <th class="nowrap" style="width: 100px;">
                     <f:translate key="templates_backend_show.action" />
@@ -105,6 +146,13 @@
                 <f:for each="{registerList}" as="register">
                     <f:render section="sector" arguments="{register: register}" />
                 </f:for>
+                <f:if condition="{registerList -> f:count()} == 0">
+                    <tr>
+                        <td colspan="10" class="text-center text-muted">
+                            <em><f:translate key="templates_backend_show.noRegistrationsFound" /></em>
+                        </td>
+                    </tr>
+                </f:if>
             </tbody>
         </table>
     </f:section>
@@ -114,6 +162,23 @@
         <tr>
             <td>
                 {register.uid}
+            </td>
+            <td>
+                <f:if condition="<rkw:registerStatus register='{register}' /> == 500">
+                    <span class="badge badge-success"><f:translate key="templates_backend_show.status.approved" /></span>
+                </f:if>
+                <f:if condition="<rkw:registerStatus register='{register}' /> == 400">
+                    <span class="badge badge-warning"><f:translate key="templates_backend_show.status.returned" /></span>
+                </f:if>
+                <f:if condition="<rkw:registerStatus register='{register}' /> == 300">
+                    <span class="badge badge-info"><f:translate key="templates_backend_show.status.submitted" /></span>
+                </f:if>
+                <f:if condition="<rkw:registerStatus register='{register}' /> == 200">
+                    <span class="badge badge-danger"><f:translate key="templates_backend_show.status.refused" /></span>
+                </f:if>
+                <f:if condition="<rkw:registerStatus register='{register}' /> == 100">
+                    <span class="badge badge-default"><f:translate key="templates_backend_show.status.new" /></span>
+                </f:if>
             </td>
             <td>
                 <f:link.action action="registerDetail" arguments="{register: register}">
@@ -137,20 +202,34 @@
                 </f:if>
             </td>
             <td>
-                <f:if condition="<rkw:registerStatus register='{register}' /> == 500">
-                    <f:translate key="templates_backend_show.status.approved" />
+                <f:if condition="{register.upload.abstract.originalResource.publicUrl}">
+                    <f:then>
+                        <span class="text-success"><core:icon identifier="actions-check" /></span>
+                    </f:then>
+                    <f:else>
+                        -
+                    </f:else>
                 </f:if>
-                <f:if condition="<rkw:registerStatus register='{register}' /> == 400">
-                    <f:translate key="templates_backend_show.status.returned" />
+            </td>
+            <td>
+                <f:if condition="{register.upload.full.originalResource.publicUrl}">
+                    <f:then>
+                        <span class="text-success"><core:icon identifier="actions-check" /></span>
+                    </f:then>
+                    <f:else>
+                        -
+                    </f:else>
                 </f:if>
-                <f:if condition="<rkw:registerStatus register='{register}' /> == 300">
-                    <f:translate key="templates_backend_show.status.submitted" />
-                </f:if>
-                <f:if condition="<rkw:registerStatus register='{register}' /> == 200">
-                    <f:translate key="templates_backend_show.status.refused" />
-                </f:if>
-                <f:if condition="<rkw:registerStatus register='{register}' /> == 100">
-                    <f:translate key="templates_backend_show.status.new" />
+            </td>
+            <td>
+                <f:variable name="cloudFiles" value="{rkw:ownCloudFilesList(register: register)}" />
+                <f:if condition="{cloudFiles}">
+                    <f:then>
+                        <span class="text-success"><core:icon identifier="actions-check" /></span>
+                    </f:then>
+                    <f:else>
+                        -
+                    </f:else>
                 </f:if>
             </td>
             <td>
