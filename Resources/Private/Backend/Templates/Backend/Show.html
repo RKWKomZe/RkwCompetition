@@ -114,6 +114,9 @@
                     <f:translate key="templates_backend_show.id" />
                 </th>
                 <th class="nowrap">
+                    <f:translate key="templates_backend_show.status" />
+                </th>
+                <th class="nowrap">
                     <f:translate key="templates_backend_show.name" />
                 </th>
                 <th class="nowrap">
@@ -133,9 +136,6 @@
                 </th>
                 <th class="nowrap">
                     <f:translate key="templates_backend_show.cloudFiles" />
-                </th>
-                <th class="nowrap">
-                    <f:translate key="templates_backend_show.status" />
                 </th>
                 <th class="nowrap" style="width: 100px;">
                     <f:translate key="templates_backend_show.action" />
@@ -162,6 +162,23 @@
         <tr>
             <td>
                 {register.uid}
+            </td>
+            <td>
+                <f:if condition="<rkw:registerStatus register='{register}' /> == 500">
+                    <span class="badge badge-success"><f:translate key="templates_backend_show.status.approved" /></span>
+                </f:if>
+                <f:if condition="<rkw:registerStatus register='{register}' /> == 400">
+                    <span class="badge badge-warning"><f:translate key="templates_backend_show.status.returned" /></span>
+                </f:if>
+                <f:if condition="<rkw:registerStatus register='{register}' /> == 300">
+                    <span class="badge badge-info"><f:translate key="templates_backend_show.status.submitted" /></span>
+                </f:if>
+                <f:if condition="<rkw:registerStatus register='{register}' /> == 200">
+                    <span class="badge badge-danger"><f:translate key="templates_backend_show.status.refused" /></span>
+                </f:if>
+                <f:if condition="<rkw:registerStatus register='{register}' /> == 100">
+                    <span class="badge badge-default"><f:translate key="templates_backend_show.status.new" /></span>
+                </f:if>
             </td>
             <td>
                 <f:link.action action="registerDetail" arguments="{register: register}">
@@ -202,34 +219,6 @@
                     <f:else>
                         -
                     </f:else>
-                </f:if>
-            </td>
-            <td>
-                <f:variable name="cloudFiles" value="{rkw:ownCloudFilesList(register: register)}" />
-                <f:if condition="{cloudFiles}">
-                    <f:then>
-                        <span class="text-success"><core:icon identifier="actions-check" /></span>
-                    </f:then>
-                    <f:else>
-                        -
-                    </f:else>
-                </f:if>
-            </td>
-            <td>
-                <f:if condition="<rkw:registerStatus register='{register}' /> == 500">
-                    <f:translate key="templates_backend_show.status.approved" />
-                </f:if>
-                <f:if condition="<rkw:registerStatus register='{register}' /> == 400">
-                    <f:translate key="templates_backend_show.status.returned" />
-                </f:if>
-                <f:if condition="<rkw:registerStatus register='{register}' /> == 300">
-                    <f:translate key="templates_backend_show.status.submitted" />
-                </f:if>
-                <f:if condition="<rkw:registerStatus register='{register}' /> == 200">
-                    <f:translate key="templates_backend_show.status.refused" />
-                </f:if>
-                <f:if condition="<rkw:registerStatus register='{register}' /> == 100">
-                    <f:translate key="templates_backend_show.status.new" />
                 </f:if>
             </td>
             <td>

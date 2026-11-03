@@ -1398,6 +1398,12 @@
             <trans-unit id="templates_backend_registerDetail.ownCloudPassExpired">
                 <source>– (no longer valid)</source>
             </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.registeredAt">
+                <source>Registered at:</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.userSubmittedAt">
+                <source>Submitted at:</source>
+            </trans-unit>
             <trans-unit id="templates_backend_registerDetail.adminRefusedAt">
                 <source>Refused at:</source>
             </trans-unit>

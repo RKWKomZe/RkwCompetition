@@ -1631,6 +1631,14 @@
                 <source>– (no longer valid)</source>
                 <target>– (nicht mehr gültig)</target>
             </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.registeredAt">
+                <source>Registered at:</source>
+                <target>Registriert am:</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.userSubmittedAt">
+                <source>Submitted at:</source>
+                <target>Eingereicht am:</target>
+            </trans-unit>
             <trans-unit id="templates_backend_registerDetail.adminRefusedAt">
                 <source>Refused at:</source>
                 <target>Abgelehnt am:</target>
