@@ -181,16 +181,19 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th><f:translate key="templates_backend_registerDetail.ownCloudLink" /></th>
+                                            <th><f:translate key="templates_backend_registerDetail.cloudFiles" /></th>
                                             <td>
-                                                <f:if condition="<rkw:isDateWithinDeadline date='{register.competition.registerEnd}' />">
+                                                <f:variable name="cloudFiles" value="{rkw:ownCloudFilesList(register: register)}" />
+                                                <f:if condition="{cloudFiles}">
                                                     <f:then>
-                                                        <a href="{register.ownCloudFolderLink}" target="_blank">{register.ownCloudFolderLink}</a>
+                                                        <ul class="list-unstyled">
+                                                            <f:for each="{cloudFiles}" as="file">
+                                                                <li><core:icon identifier="mimetypes-other-other" /> {file}</li>
+                                                            </f:for>
+                                                        </ul>
                                                     </f:then>
                                                     <f:else>
-                                                        <span class="badge badge-warning">
-                                                            <f:translate key="templates_backend_registerDetail.ownCloudExpired" arguments="{0: '{register.competition.registerEnd -> f:format.date(format: \'d.m.Y H:i\')}'}" />
-                                                        </span>
+                                                        <f:translate key="templates_backend_registerDetail.noFile" />
                                                     </f:else>
                                                 </f:if>
                                             </td>
@@ -201,14 +204,35 @@
                                                 {rkw:ownCloudFolderName(register: register)}
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <th><f:translate key="templates_backend_registerDetail.ownCloudLink" /></th>
-                                            <td><a href="{register.ownCloudFolderLink}" target="_blank">{register.ownCloudFolderLink}</a></td>
-                                        </tr>
-                                        <tr>
-                                            <th><f:translate key="templates_backend_registerDetail.ownCloudPass" /></th>
-                                            <td><rkw:ownCloudUserFolderPass register='{register}' /></td>
-                                        </tr>
+                                        <f:if condition="<rkw:isDateWithinDeadline date='{register.competition.registerEnd}' />">
+                                            <f:then>
+                                                <tr>
+                                                    <th><f:translate key="templates_backend_registerDetail.ownCloudLink" /></th>
+                                                    <td>
+                                                        <a href="{register.ownCloudFolderLink}" target="_blank">{register.ownCloudFolderLink}</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th><f:translate key="templates_backend_registerDetail.ownCloudLink" /></th>
+                                                    <td><a href="{register.ownCloudFolderLink}" target="_blank">{register.ownCloudFolderLink}</a></td>
+                                                </tr>
+                                                <tr>
+                                                    <th><f:translate key="templates_backend_registerDetail.ownCloudPass" /></th>
+                                                    <td><rkw:ownCloudUserFolderPass register='{register}' /></td>
+                                                </tr>
+                                            </f:then>
+                                            <f:else>
+                                                <tr>
+                                                    <th><f:translate key="templates_backend_registerDetail.ownCloudLink" /></th>
+                                                    <td>
+                                                        <span class="badge badge-warning">
+                                                            <f:translate key="templates_backend_registerDetail.ownCloudExpired" arguments="{0: '{register.competition.registerEnd -> f:format.date(format: \'d.m.Y H:i\')}'}" />
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </f:else>
+
+                                        </f:if>
                                     </tbody>
                                 </table>
                             </fieldset>

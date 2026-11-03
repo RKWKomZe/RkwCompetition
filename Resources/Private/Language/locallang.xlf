@@ -632,16 +632,16 @@
                 <source>Have you thought about using the provided cloud for additional files and images?</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.ownCloudLink">
-                <source>OwnCloud-Link</source>
+                <source>RKWCloud-Link</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.ownCloudPass">
-                <source>OwnCloud-PW</source>
+                <source>RKWCloud-Password</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.ownCloudEmpty">
-                <source> Attention: Your cloud folder is still empty!</source>
+                <source> Attention: Your RKWCloud folder is still empty!</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.hint2">
-                <source>I understand that information provided and files submitted cannot be changed after submission. The option to manage files in our cloud will remain until end of registration.</source>
+                <source>I understand that information provided and files submitted cannot be changed after submission. The option to manage files in our RKWCloud will remain until end of registration.</source>
             </trans-unit>
 
             <!-- Templates/Upload/Edit.html -->
@@ -707,10 +707,10 @@
                 <source>You are welcome to add a full version of your project description.</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.intro">
-                <source>We are delighted that you would like to take part in our competition %s. Before we can evaluate your registration, we need further information from you, such as a summary of your project description and also other materials. You can upload your project description directly here; for further materials, we would ask you to use the access to our cloud provided below. Please remember to submit your registration with all required documents by %s at the latest.</source>
+                <source>We are delighted that you would like to take part in our competition %s. Before we can evaluate your registration, we need further information from you, such as a summary of your project description and also other materials. You can upload your project description directly here; for further materials, we would ask you to use the access to our RKWCloud provided below. Please remember to submit your registration with all required documents by %s at the latest.</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.cloudHeadline">
-                <source>Access data to our cloud</source>
+                <source>Access data to our RKWCloud</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.cloudUrl">
                 <source>Url</source>
@@ -719,7 +719,7 @@
                 <source>Your password</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.cloudExpired">
-                <source>The file upload via OwnCloud has been closed since %s.</source>
+                <source>The file upload via RKWCloud has been closed since %s.</source>
             </trans-unit>
 
             <!-- Partials/Participant/Options.html -->
@@ -827,7 +827,7 @@
                 <source>ZIP / City</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.ownCloudFolderLink">
-                <source>Project folder (OwnCloud)</source>
+                <source>Project folder (RKWCloud)</source>
             </trans-unit>
 
 
@@ -1387,13 +1387,13 @@
                 <source>Long version PDF</source>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.ownCloudLink">
-                <source>OwnCloud link</source>
+                <source>RKWCloud link</source>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.ownCloudExpired">
                 <source>Expired (registration deadline: %s)</source>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.ownCloudPass">
-                <source>OwnCloud password</source>
+                <source>RKWCloud password</source>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.ownCloudPassExpired">
                 <source>– (no longer valid)</source>
@@ -1567,7 +1567,7 @@
                 <source>Long description</source>
             </trans-unit>
             <trans-unit id="templates_backend_show.cloudFiles">
-                <source>Files in Cloud</source>
+                <source>Files in RKWCloud</source>
             </trans-unit>
             <trans-unit id="templates_backend_show.status">
                 <source>Status</source>

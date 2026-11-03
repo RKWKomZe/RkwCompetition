@@ -159,8 +159,8 @@
                 <target>Begründung der Ablehnung</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_register.own_cloud_folder_link">
-                <source>OwnCloud Link</source>
-                <target>OwnCloud Link</target>
+                <source>RKWCloud Link</source>
+                <target>RKWCloud Link</target>
             </trans-unit>
 
 
@@ -320,8 +320,8 @@
                 <target>Beschreibung</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_domain_model_sector.own_cloud_folder_link">
-                <source>OwnCloud Link</source>
-                <target>OwnCloud Link</target>
+                <source>RKWCloud Link</source>
+                <target>RKWCloud Link</target>
             </trans-unit>
 
             <!-- TCA -->
