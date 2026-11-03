@@ -894,6 +894,10 @@
                 <source>Project folder (RKWCloud)</source>
                 <target>Projektordner (RKWCloud)</target>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.cloudFiles">
+                <source>RKWCloud files</source>
+                <target>Dateien in RKWCloud</target>
+            </trans-unit>
 
 
 

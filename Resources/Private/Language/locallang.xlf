@@ -829,6 +829,9 @@
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.ownCloudFolderLink">
                 <source>Project folder (RKWCloud)</source>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.cloudFiles">
+                <source>Cloud files</source>
+            </trans-unit>
 
 
             <!-- ==================================================================================== -->

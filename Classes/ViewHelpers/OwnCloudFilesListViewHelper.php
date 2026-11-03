@@ -61,7 +61,7 @@ class OwnCloudFilesListViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\Abst
 
         /** @var OwnCloud $ownCloudApi */
         $ownCloudApi = GeneralUtility::makeInstance(OwnCloud::class);
-        $files = $ownCloudApi->getWebDavApi()->getFiles($folderPathArray);
+        $files = $ownCloudApi->getWebDavApi()->getFilesWithDetails($folderPathArray);
 
         if (empty($files)) {
             return [];
@@ -96,7 +96,11 @@ class OwnCloudFilesListViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\Abst
         $result = [];
         $expireDate = (new \DateTime('+1 day'))->format('Y-m-d');
 
-        foreach ($files as $file) {
+        foreach ($files as $fileData) {
+            $file = is_array($fileData) ? ($fileData['name'] ?? '') : $fileData;
+            $sizeInBytes = is_array($fileData) ? (int)($fileData['size'] ?? 0) : 0;
+            $sizeInMb = $sizeInBytes > 0 ? max(0.01, round($sizeInBytes / (1024 * 1024), 2)) : 0;
+
             $filePathArray = array_merge($folderPathArray, [$file]);
             $fullPath = '/' . trim(implode('/', $filePathArray), '/');
 
@@ -131,6 +135,8 @@ class OwnCloudFilesListViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\Abst
             $result[] = [
                 'name' => $file,
                 'downloadUrl' => $downloadUrl,
+                'size' => $sizeInBytes,
+                'sizeInMb' => $sizeInMb,
             ];
         }
 

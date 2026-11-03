@@ -191,16 +191,21 @@
 						<f:then>
 							<f:link.typolink
 									parameter="{register.upload.abstract.originalResource.publicUrl}"
-									class="btn btn--primary"
 									target="_blank"
-									title="Download"
+									title="{f:if(condition: register.upload.abstract.originalResource.name, then: register.upload.abstract.originalResource.name, else: '{f:translate(key: \'tx_rkwcompetition_fluid.partials_jury_properties.download\')}')}"
 									absolute="true"
 							>
-
 								<svg class="icon icon--16">
 									<use xlink:href="#ic-download"/>
 								</svg>
-								<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.download" />
+								<f:if condition="{register.upload.abstract.originalResource.name}">
+									<f:then>
+										{register.upload.abstract.originalResource.name}
+									</f:then>
+									<f:else>
+										<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.download" />
+									</f:else>
+								</f:if><f:if condition="{register.upload.abstract.originalResource.size}"> (<f:format.bytes decimals="2">{register.upload.abstract.originalResource.size}</f:format.bytes>)</f:if>
 							</f:link.typolink>
 						</f:then>
 						<f:else>
@@ -218,16 +223,21 @@
 						<f:then>
 							<f:link.typolink
 									parameter="{register.upload.full.originalResource.publicUrl}"
-									class="btn btn--primary"
 									target="_blank"
-									title="Download"
+									title="{f:if(condition: register.upload.full.originalResource.name, then: register.upload.full.originalResource.name, else: '{f:translate(key: \'tx_rkwcompetition_fluid.partials_jury_properties.download\')}')}"
 									absolute="true"
 							>
-
 								<svg class="icon icon--16">
 									<use xlink:href="#ic-download"/>
 								</svg>
-								<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.download" />
+								<f:if condition="{register.upload.full.originalResource.name}">
+									<f:then>
+										{register.upload.full.originalResource.name}
+									</f:then>
+									<f:else>
+										<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.download" />
+									</f:else>
+								</f:if><f:if condition="{register.upload.full.originalResource.size}"> (<f:format.bytes decimals="2">{register.upload.full.originalResource.size}</f:format.bytes>)</f:if>
 							</f:link.typolink>
 						</f:then>
 						<f:else>
@@ -236,17 +246,41 @@
 					</f:if>
 				</td>
 			</tr>
-			<f:if condition="{register.ownCloudFolderLink}">
-				<tr>
-					<td>
-						<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.ownCloudFolderLink" />
-					</td>
-					<td>
-						<f:link.typolink parameter="{register.ownCloudFolderLink}" target="_blank">{register.ownCloudFolderLink}</f:link.typolink>
-					</td>
-				</tr>
-			</f:if>
-
+			<tr>
+				<td>
+					<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.cloudFiles" />
+				</td>
+				<td>
+					<f:variable name="cloudFiles" value="{rkw:ownCloudFilesList(register: register)}" />
+					<f:if condition="{cloudFiles}">
+						<f:then>
+							<ul>
+								<f:for each="{cloudFiles}" as="file">
+									<li>
+										<f:if condition="{file.downloadUrl}">
+											<f:then>
+												<f:link.typolink
+														parameter="{file.downloadUrl}"
+														target="_blank"
+														title="{file.name}"
+												>
+													{file.name}<f:if condition="{file.sizeInMb}"> ({file.sizeInMb} MB)</f:if>
+												</f:link.typolink>
+											</f:then>
+											<f:else>
+												{file.name}<f:if condition="{file.sizeInMb}"> ({file.sizeInMb} MB)</f:if>
+											</f:else>
+										</f:if>
+									</li>
+								</f:for>
+							</ul>
+						</f:then>
+						<f:else>
+							<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.noFile" />
+						</f:else>
+					</f:if>
+				</td>
+			</tr>
 			</tbody>
 		</table>
 	</f:section>
