@@ -222,17 +222,6 @@
                 </f:if>
             </td>
             <td>
-                <f:variable name="cloudFiles" value="{rkw:ownCloudFilesList(register: register)}" />
-                <f:if condition="{cloudFiles}">
-                    <f:then>
-                        <span class="text-success"><core:icon identifier="actions-check" /></span>
-                    </f:then>
-                    <f:else>
-                        -
-                    </f:else>
-                </f:if>
-            </td>
-            <td>
                 <f:link.action class="btn btn-default" action="registerDetail" arguments="{register: register}">
                     <core:icon identifier="actions-view" /> <f:translate key="templates_backend_show.show" />
                 </f:link.action>

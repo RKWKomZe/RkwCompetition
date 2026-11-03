@@ -155,8 +155,8 @@
                                             <td>
                                                 <f:if condition="{register.upload.abstract.originalResource.publicUrl}">
                                                     <f:then>
-                                                        <a href="/{register.upload.abstract.originalResource.publicUrl}" class="btn btn-default" target="_blank">
-                                                            <core:icon identifier="actions-download" /> <f:translate key="templates_backend_registerDetail.download" />
+                                                        <a href="/{register.upload.abstract.originalResource.publicUrl}" class="btn btn-default btn-xs" target="_blank">
+                                                            <core:icon identifier="actions-download" /> <f:translate key="templates_backend_registerDetail.download" /><f:if condition="{register.upload.abstract.originalResource.size}"> (<f:format.bytes decimals="2">{register.upload.abstract.originalResource.size}</f:format.bytes>)</f:if>
                                                         </a>
                                                     </f:then>
                                                     <f:else>
@@ -170,8 +170,8 @@
                                             <td>
                                                 <f:if condition="{register.upload.full.originalResource.publicUrl}">
                                                     <f:then>
-                                                        <a href="/{register.upload.full.originalResource.publicUrl}" class="btn btn-default" target="_blank">
-                                                            <core:icon identifier="actions-download" /> <f:translate key="templates_backend_registerDetail.download" />
+                                                        <a href="/{register.upload.full.originalResource.publicUrl}" class="btn btn-default btn-xs" target="_blank">
+                                                            <core:icon identifier="actions-download" /> <f:translate key="templates_backend_registerDetail.download" /><f:if condition="{register.upload.full.originalResource.size}"> (<f:format.bytes decimals="2">{register.upload.full.originalResource.size}</f:format.bytes>)</f:if>
                                                         </a>
                                                     </f:then>
                                                     <f:else>
@@ -188,7 +188,18 @@
                                                     <f:then>
                                                         <ul class="list-unstyled">
                                                             <f:for each="{cloudFiles}" as="file">
-                                                                <li><core:icon identifier="mimetypes-other-other" /> {file}</li>
+                                                                <li style="margin-bottom: 5px;">
+                                                                    <f:if condition="{file.downloadUrl}">
+                                                                        <f:then>
+                                                                            <a href="{file.downloadUrl}" target="_blank" class="btn btn-default btn-xs">
+                                                                                <core:icon identifier="actions-download" /> {file.name}<f:if condition="{file.sizeInMb}"> ({file.sizeInMb} MB)</f:if>
+                                                                            </a>
+                                                                        </f:then>
+                                                                        <f:else>
+                                                                            <core:icon identifier="mimetypes-other-other" /> {file.name}<f:if condition="{file.sizeInMb}"> ({file.sizeInMb} MB)</f:if>
+                                                                        </f:else>
+                                                                    </f:if>
+                                                                </li>
                                                             </f:for>
                                                         </ul>
                                                     </f:then>
@@ -211,10 +222,6 @@
                                                     <td>
                                                         <a href="{register.ownCloudFolderLink}" target="_blank">{register.ownCloudFolderLink}</a>
                                                     </td>
-                                                </tr>
-                                                <tr>
-                                                    <th><f:translate key="templates_backend_registerDetail.ownCloudLink" /></th>
-                                                    <td><a href="{register.ownCloudFolderLink}" target="_blank">{register.ownCloudFolderLink}</a></td>
                                                 </tr>
                                                 <tr>
                                                     <th><f:translate key="templates_backend_registerDetail.ownCloudPass" /></th>

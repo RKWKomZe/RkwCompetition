@@ -126,6 +126,22 @@ class WebDavApi extends AbstractApi
      */
     public function getFiles(array $folderPath): array
     {
+        $files = $this->getFilesWithDetails($folderPath);
+
+        return array_column($files, 'name');
+    }
+
+
+    /**
+     * getFilesWithDetails
+     *
+     * Service function which is using PROPFIND. Returns a list of files with details (name, size in bytes) in the folder
+     *
+     * @param array $folderPath Folders as sequential array.
+     * @return array
+     */
+    public function getFilesWithDetails(array $folderPath): array
+    {
         $this->apiMethod = self::METHOD_PROPFIND;
         $path = self::API_PATH . implode('/', $folderPath);
         $result = $this->doApiRequest($path);
@@ -153,7 +169,11 @@ class WebDavApi extends AbstractApi
                     if ($contentLengthElements->length > 0) {
                         // It's a file! Extract filename from href
                         $filename = basename(urldecode($href));
-                        $fileList[] = $filename;
+                        $size = (int)$contentLengthElements->item(0)->textContent;
+                        $fileList[] = [
+                            'name' => $filename,
+                            'size' => $size,
+                        ];
                     }
                 }
             }
