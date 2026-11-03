@@ -11,6 +11,7 @@ use Madj2k\FeRegister\Domain\Repository\GuestUserRepository;
 use Madj2k\FeRegister\Registration\GuestUserRegistration;
 use Madj2k\FeRegister\Service\GuestUserAuthenticationService;
 use Madj2k\FeRegister\Utility\FrontendUserSessionUtility;
+use RKW\RkwCompetition\Domain\Model\Sector;
 use RKW\RkwCompetition\Domain\Repository\JuryReferenceRepository;
 use RKW\RkwCompetition\Service\RkwMailService;
 use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
@@ -113,10 +114,12 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
     /**
      * action show
      *
-     * string $userToken
+     * @param string $userToken
+     * @param int|null $sector
      * @throws AspectNotFoundException
+     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("sector")
      */
-    public function showAction(string $userToken)
+    public function showAction(string $userToken, ?int $sector = null)
     {
 
 
@@ -127,6 +130,40 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
 
         $juryReference = $this->juryReferenceRepository->findByGuestUser($guestUser)->getFirst();
 
+        $targetSectorUid = (int)$sector;
+        if ($targetSectorUid === 0 && $this->request->hasArgument('sector')) {
+            $rawSector = $this->request->getArgument('sector');
+            if ($rawSector instanceof Sector) {
+                $targetSectorUid = $rawSector->getUid();
+            } else {
+                $targetSectorUid = (int)$rawSector;
+            }
+        }
+        if ($targetSectorUid === 0) {
+            $gp = \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('tx_rkwcompetition_jury');
+            if (is_array($gp) && isset($gp['sector'])) {
+                $targetSectorUid = (int)$gp['sector'];
+            }
+        }
+
+        $selectedSector = null;
+        if ($juryReference && $juryReference->getCompetition() && $juryReference->getCompetition()->getSectors()->count() > 0) {
+            $competitionSectors = $juryReference->getCompetition()->getSectors();
+
+            if ($targetSectorUid > 0) {
+                foreach ($competitionSectors as $compSector) {
+                    if ($compSector->getUid() === $targetSectorUid) {
+                        $selectedSector = $compSector;
+                        break;
+                    }
+                }
+            }
+
+            if ($selectedSector === null) {
+                $competitionSectors->rewind();
+                $selectedSector = $competitionSectors->current();
+            }
+        }
 
         // @toDo: generate and show login link (absolute link with token)
         $juryLoginLink = $this->uriBuilder->reset()
@@ -138,11 +175,13 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
             ->setCreateAbsoluteUri(true)
             ->build();
 
+        $this->view->assign('userToken', $userToken);
+        $this->view->assign('selectedSector', $selectedSector);
         $this->view->assign('juryLoginLink', $juryLoginLink);
         $this->view->assign('juryReference', $juryReference);
         $this->view->assign(
             'approvedRegistrations',
-            $this->registerRepository->findAdminApprovedByCompetition($juryReference->getCompetition())
+            $this->registerRepository->findAdminApprovedByCompetition($juryReference->getCompetition(), $selectedSector)
         );
     }
 

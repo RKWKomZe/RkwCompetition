@@ -832,6 +832,9 @@
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.cloudFiles">
                 <source>Cloud files</source>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.noRegistrations">
+                <source>No submissions in this category.</source>
+            </trans-unit>
 
 
             <!-- ==================================================================================== -->

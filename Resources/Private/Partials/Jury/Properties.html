@@ -26,56 +26,52 @@
 
 	<f:comment><!-- SECTION: submittedApplications --></f:comment>
 	<f:section name="submittedApplications">
-		<f:comment><!-- Option 1: TabNavigation --></f:comment>
-		<f:comment>
-			<!--
-			<div class="tabs js-tabs ui-tabs ui-corner-all ui-widget ui-widget-content">
-				<ul class="tabs__nav ui-tabs-nav ui-corner-all ui-helper-reset ui-helper-clearfix ui-widget-header" role="tablist">
-
-					<f:for each="{approvedRegistrations}" as="register" iteration="iterHead">
-						<li class="tabs__nav-item ui-tabs-tab ui-corner-top ui-state-default ui-tab{f:if(condition: '{iterHead.isFirst}', then: ' ui-tabs-active ui-state-active')}" role="tab" tabindex="0" aria-controls="tab-{iterHead.cycle}" aria-labelledby="ui-id-{iterHead.cycle}" aria-selected="true" aria-expanded="true">
-							<a class="tabs__nav-link ui-tabs-anchor" data-target="#tab-{iterHead.cycle}" href="#tab-{iterHead.cycle}" role="presentation" tabindex="-1" id="ui-id-{iterHead.cycle}">
-								{iterHead.cycle}. {register.contributionTitle}
-							</a>
-						</li>
-					</f:for>
-
-				</ul>
-
-				<f:for each="{approvedRegistrations}" as="register" iteration="iterBody">
-					<div class="tabs__content ui-tabs-panel ui-corner-bottom ui-widget-content" id="tab-{iterBody.cycle}" aria-labelledby="ui-id-{iterBody.cycle}" role="tabpanel" aria-hidden="false">
-						<h2>{register.contributionTitle}</h2>
-						<f:render section="registerData" arguments="{register: register}" />
-					</div>
+		<f:if condition="{juryReference.competition.sectors}">
+			<div class="btn-list">
+				<f:for each="{juryReference.competition.sectors}" as="competitionSector">
+					<f:link.action
+							action="show"
+							arguments="{userToken: userToken, sector: competitionSector}"
+							class="btn {f:if(condition: '{selectedSector.uid} == {competitionSector.uid}', then: 'btn--primary is-active', else: 'btn--secondary')}"
+					>
+						{competitionSector.title}
+					</f:link.action>
 				</f:for>
 			</div>
-			-->
-		</f:comment>
+		</f:if>
 
-		<f:comment><!-- Option 2: Accordion --></f:comment>
-		<div aria-label="Accordion Control Group Buttons" class="accordion mt-2">
-			<f:for each="{juryReference.competition.sectors}" as="competitionSector">
-				<f:for each="{approvedRegistrations}" as="register" iteration="iter">
-					<f:if condition="{competitionSector.uid} == {register.sector.uid}">
+		<f:render section="registrationAccordion" arguments="{_all}" />
+	</f:section>
+
+
+	<f:comment><!-- SECTION: registrationAccordion --></f:comment>
+	<f:section name="registrationAccordion">
+		<f:if condition="{approvedRegistrations}">
+			<f:then>
+				<div aria-label="Accordion Control Group Buttons" class="accordion mt-2">
+					<f:for each="{approvedRegistrations}" as="register" iteration="iter">
 						<div class="accordion__item">
-							<button class="accordion__button accordion-control" aria-expanded="false" aria-controls="accordion-content-{iter.cycle}-{register.uid}" id="accordion-item-{iter.cycle}-{register.uid}">
+							<button class="accordion__button accordion-control" aria-expanded="false" aria-controls="accordion-content-{register.uid}" id="accordion-item-{register.uid}">
 								<svg class="icon accordion__icon">
 									<use xlink:href="#ic-circle-close" />
 								</svg>
 								<span class="accordion__title">
-									{register.sector.title}: {register.contributionTitle}
+									{register.contributionTitle}
 								</span>
 							</button>
-							<div class="accordion__item-content" aria-hidden="true" id="accordion-content-{iter.cycle}-{register.uid}" role="region" aria-labelledby="accordion-item-{iter.cycle}-{register.uid}" style="display: none;">
+							<div class="accordion__item-content" aria-hidden="true" id="accordion-content-{register.uid}" role="region" aria-labelledby="accordion-item-{register.uid}" style="display: none;">
 								<div class="accordion__item-inner">
 									<f:render section="registerData" arguments="{register: register}" />
 								</div>
 							</div>
 						</div>
-					</f:if>
-				</f:for>
-			</f:for>
-		</div>
+					</f:for>
+				</div>
+			</f:then>
+			<f:else>
+				<p><f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.noRegistrations" /></p>
+			</f:else>
+		</f:if>
 	</f:section>
 
 
