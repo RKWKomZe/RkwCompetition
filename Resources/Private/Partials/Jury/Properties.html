@@ -28,44 +28,50 @@
 	<f:comment><!-- SECTION: competitionOverviewTable --></f:comment>
 	<f:section name="competitionOverviewTable">
 		<f:if condition="{juryReference.competition.sectors}">
-			<table class="responsive-table responsive-table--background">
-				<thead>
-					<tr>
-						<th><f:translate key="templates_backend_show.registrationsTotal" /></th>
-						<th><f:translate key="templates_backend_show.status.approved" /></th>
-						<th><f:translate key="templates_backend_show.status.notapproved" /></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>{registerCountTotal}</td>
-						<td>{finishedRegisterCount}</td>
-						<td>{notApprovedRegisterCount}</td>
-					</tr>
-				</tbody>
-			</table>
-			<table class="responsive-table responsive-table--background">
-				<thead>
-					<tr>
-						<th><f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.sector" /></th>
-						<th><f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.sectorApprovedCount" /></th>
-					</tr>
-				</thead>
-				<tbody>
-					<f:for each="{juryReference.competition.sectors}" as="competitionSector">
-						<tr>
-							<td>{competitionSector.title}</td>
-							<td class="text-right"><rkw:registerNumber competition="{juryReference.competition}" sector="{competitionSector}" /></td>
-						</tr>
-					</f:for>
-				</tbody>
-				<tfoot>
-					<tr>
-						<td></td>
-						<td class="text-right"><strong><rkw:registerNumber competition="{juryReference.competition}" /></strong></td>
-					</tr>
-				</tfoot>
-			</table>
+			<div class="flex-container flex-container--margin flex space-between">
+				<div class="flex-item flex-basis-6">
+					<table class="responsive-table responsive-table--background">
+						<thead>
+							<tr>
+								<th><f:translate key="templates_backend_show.registrationsTotal" /></th>
+								<th><f:translate key="templates_backend_show.status.approved" /></th>
+								<th><f:translate key="templates_backend_show.status.notapproved" /></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>{registerCountTotal}</td>
+								<td>{finishedRegisterCount}</td>
+								<td>{notApprovedRegisterCount}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="flex-item flex-basis-6">
+					<table class="responsive-table responsive-table--background">
+						<thead>
+							<tr>
+								<th><f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.sector" /></th>
+								<th><f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.sectorApprovedCount" /></th>
+							</tr>
+						</thead>
+						<tbody>
+							<f:for each="{juryReference.competition.sectors}" as="competitionSector">
+								<tr>
+									<td>{competitionSector.title}</td>
+									<td class="text-right"><rkw:registerNumber competition="{juryReference.competition}" sector="{competitionSector}" /></td>
+								</tr>
+							</f:for>
+						</tbody>
+						<tfoot>
+							<tr>
+								<td></td>
+								<td class="text-right"><strong><rkw:registerNumber competition="{juryReference.competition}" /></strong></td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
 		</f:if>
 	</f:section>
 
