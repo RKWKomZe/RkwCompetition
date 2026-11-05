@@ -811,6 +811,9 @@
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.remark">
                 <source>Remark</source>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.files">
+                <source>Files</source>
+            </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.abstract">
                 <source>Abstract PDF</source>
             </trans-unit>

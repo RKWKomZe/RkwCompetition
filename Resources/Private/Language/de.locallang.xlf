@@ -864,11 +864,15 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.participatingPersons">
                 <source>Affidavit</source>
-                <target>Teilnehmende Personen</target>
+                <target>Weitere Bewerbende</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.remark">
                 <source>Remark</source>
                 <target>Anmerkung</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.files">
+                <source>Files</source>
+                <target>Dateien</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.abstract">
                 <source>Abstract</source>
