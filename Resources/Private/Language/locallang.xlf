@@ -1555,7 +1555,13 @@
                 <source>Note: Each jury member has an individual link that is linked to their e-mail address. Links of different jury members should therefore not be interchanged.</source>
             </trans-unit>
             <trans-unit id="templates_backend_show.name">
-                <source>Name</source>
+                <source>Participants</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.groupWorkAddPersons">
+                <source>Additional participants</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.telephone">
+                <source>Phone</source>
             </trans-unit>
             <trans-unit id="templates_backend_show.email">
                 <source>E-Mail</source>

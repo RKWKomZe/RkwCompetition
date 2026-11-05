@@ -123,6 +123,9 @@
                     <f:translate key="templates_backend_show.name" />
                 </th>
                 <th class="nowrap">
+                    <f:translate key="templates_backend_show.groupWorkAddPersons" />
+                </th>
+                <th class="nowrap">
                     <f:translate key="templates_backend_show.title" />
                 </th>
                 <th class="nowrap">
@@ -148,7 +151,7 @@
                 </f:for>
                 <f:if condition="{registerList -> f:count()} == 0">
                     <tr>
-                        <td colspan="10" class="text-center text-muted">
+                        <td colspan="11" class="text-center text-muted">
                             <em><f:translate key="templates_backend_show.noRegistrationsFound" /></em>
                         </td>
                     </tr>
@@ -185,8 +188,33 @@
             </td>
             <td>
                 <f:link.action action="registerDetail" arguments="{register: register}">
-                    {register.lastName}, {register.firstName} ({register.email})
+                    {register.lastName}, {register.firstName}
                 </f:link.action>
+                <f:if condition="{register.institution}">
+                    <br/>{register.institution}
+                </f:if>
+                <f:if condition="{register.address}">
+                    <br/>{register.address}
+                </f:if>
+                <f:if condition="{register.zip} || {register.city}">
+                    <br/>{register.zip} {register.city}
+                </f:if>
+                <f:if condition="{register.telephone}">
+                    <br/><f:translate key="templates_backend_show.telephone" />: {register.telephone}
+                </f:if>
+                <f:if condition="{register.email}">
+                    <br/><f:translate key="templates_backend_show.email" />: {register.email}
+                </f:if>
+            </td>
+            <td>
+                <f:if condition="{register.groupWorkAddPersons}">
+                    <f:then>
+                        <f:format.nl2br>{register.groupWorkAddPersons}</f:format.nl2br>
+                    </f:then>
+                    <f:else>
+                        -
+                    </f:else>
+                </f:if>
             </td>
             <td>
                 {register.contributionTitle}

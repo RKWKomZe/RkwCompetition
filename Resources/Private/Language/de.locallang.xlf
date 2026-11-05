@@ -1832,8 +1832,16 @@
                 <target>Hinweis: Jedes Jury-Mitglied hat einen individuellen Link, der mit dessen E-Mail Adresse verknüpft ist. Links verschiedener Jury-Mitglieder sollten daher nicht vertauscht werden.</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.name">
-                <source>Name</source>
-                <target>Name, Vorname</target>
+                <source>Participants</source>
+                <target>Teilnehmende</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.groupWorkAddPersons">
+                <source>Additional participants</source>
+                <target>Weitere Teilnehmende</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.telephone">
+                <source>Phone</source>
+                <target>Telefon</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.email">
                 <source>E-Mail</source>
