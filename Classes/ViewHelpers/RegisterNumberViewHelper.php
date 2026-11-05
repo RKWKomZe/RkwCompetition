@@ -77,6 +77,11 @@ class RegisterNumberViewHelper extends AbstractViewHelper
             return RegisterUtility::getRegistrationNumber($register, $competition);
         }
 
+        if ($competition instanceof Competition) {
+            $registerRepository = GeneralUtility::makeInstance(RegisterRepository::class);
+            return $registerRepository->findAdminApprovedByCompetition($competition)->count();
+        }
+
         return '-';
     }
 }

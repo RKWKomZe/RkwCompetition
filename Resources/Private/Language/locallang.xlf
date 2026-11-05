@@ -781,6 +781,12 @@
             </trans-unit>
 
             <!-- Partials/Jury/Properties.html -->
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.overview">
+                <source>Overview</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.sectorApprovedCount">
+                <source>Entries</source>
+            </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.title">
                 <source>Title of the paper</source>
             </trans-unit>
