@@ -495,6 +495,9 @@
             <trans-unit id="tx_rkwcompetition_fluid.templates_jury_show.directLink">
                 <source>You can only access the competition via this individual direct link, please keep it safe:</source>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_jury_show.instructions">
+                <source>Use the buttons to filter the entries by competition sector. Click on an entry to expand the accordion and view all details, information, and submitted files.</source>
+            </trans-unit>
 
             <!-- Templates/Register/DeleteQuestion.html -->
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_deletequestion.headline">

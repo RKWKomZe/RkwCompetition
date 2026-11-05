@@ -28,10 +28,16 @@
 
     <h3>{juryReference.competition.title}</h3>
 
+    <f:if condition="{juryReference.competition.juryAddData}">
+        <p>
+            <f:format.raw>
+                {juryReference.competition.juryAddData}
+            </f:format.raw>
+        </p>
+    </f:if>
+
     <p>
-        <f:format.raw>
-            {juryReference.competition.juryAddData}
-        </f:format.raw>
+        <f:translate key="tx_rkwcompetition_fluid.templates_jury_show.instructions" />
     </p>
 
     <f:render partial="Jury/Properties" arguments="{_all}" />
