@@ -57,6 +57,11 @@
 								</svg>
 								<span class="accordion__title">
 									<rkw:registerNumber register="{register}" /> {register.contributionTitle}
+									<f:if condition="{register.isGroupWork}">
+										<f:then>
+											(<f:translate key="tx_rkwcompetition_fluid.partials_jury_properties.isGroupWorkYes" />)
+										</f:then>
+									</f:if>
 								</span>
 							</button>
 							<div class="accordion__item-content" aria-hidden="true" id="accordion-content-{register.uid}" role="region" aria-labelledby="accordion-item-{register.uid}" style="display: none;">

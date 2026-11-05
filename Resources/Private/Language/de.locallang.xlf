@@ -850,6 +850,14 @@
                 <source>Is group work</source>
                 <target>Ist Gruppenarbeit</target>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.isGroupWorkYes">
+                <source>Group work</source>
+                <target>Gruppenarbeit</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.isGroupWorkNo">
+                <source>Single work</source>
+                <target>Einzelarbeit</target>
+            </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.groupWorkAuthorization">
                 <source>Group work authorization</source>
                 <target>Vertretungsbefugnis für Gruppenarbeit</target>

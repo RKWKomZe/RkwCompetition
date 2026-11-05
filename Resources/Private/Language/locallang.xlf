@@ -796,6 +796,12 @@
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.isGroupWork">
                 <source>Is group work</source>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.isGroupWorkYes">
+                <source>Group work</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.isGroupWorkNo">
+                <source>Single work</source>
+            </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.groupWorkAuthorization">
                 <source>Group work authorization</source>
             </trans-unit>
