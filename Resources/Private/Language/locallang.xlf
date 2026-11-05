@@ -492,6 +492,9 @@
             <trans-unit id="tx_rkwcompetition_fluid.templates_jury_show.policyGuidelines">
                 <source>Please consider our policy guidelines.</source>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_jury_show.directLink">
+                <source>You can only access the competition via this individual direct link, please keep it safe:</source>
+            </trans-unit>
 
             <!-- Templates/Register/DeleteQuestion.html -->
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_deletequestion.headline">
