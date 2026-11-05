@@ -62,19 +62,15 @@
             <thead>
                 <tr>
                     <th><f:translate key="templates_backend_show.registrationsTotal" /></th>
-                    <th><f:translate key="templates_backend_show.status.new" /></th>
                     <th><f:translate key="templates_backend_show.status.approved" /></th>
-                    <th><f:translate key="templates_backend_show.status.refused" /></th>
-                    <th><f:translate key="templates_backend_show.status.returned" /></th>
+                    <th><f:translate key="templates_backend_show.status.notapproved" /></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>{registerCountTotal}</td>
-                    <td>{newRegisterCount}</td>
                     <td>{finishedRegisterCount}</td>
-                    <td>{refusedRegisterCount}</td>
-                    <td>{returnedRegisterCount}</td>
+                    <td>{notApprovedRegisterCount}</td>
                 </tr>
             </tbody>
         </table>

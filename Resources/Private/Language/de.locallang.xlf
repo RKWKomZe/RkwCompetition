@@ -1923,6 +1923,10 @@
                 <source>Refused</source>
                 <target>Abgelehnt</target>
             </trans-unit>
+			<trans-unit id="templates_backend_show.status.notapproved">
+				<source>Not submitted</source>
+				<target>Nicht eingereicht</target>
+			</trans-unit>
             <trans-unit id="templates_backend_show.status.new">
                 <source>New</source>
                 <target>Neu</target>

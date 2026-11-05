@@ -1623,6 +1623,9 @@
             <trans-unit id="templates_backend_show.status.refused">
                 <source>Refused</source>
             </trans-unit>
+			<trans-unit id="templates_backend_show.status.notapproved">
+				<source>Not submitted</source>
+			</trans-unit>
             <trans-unit id="templates_backend_show.status.new">
                 <source>New</source>
             </trans-unit>
