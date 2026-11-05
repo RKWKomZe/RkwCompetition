@@ -94,8 +94,8 @@ class RegisterUtility
 
 
     /**
-     * Returns the registration number based on sector and sequence within competition
-     * e.g. 1.01 for 1st registration in 1st sector, 3.04 for 4th registration in 3rd sector
+     * Returns the registration number based on sector UID and sequence within competition
+     * e.g. 12.01 for 1st registration in sector with UID 12, 12.04 for 4th registration in sector with UID 12
      *
      * @param \RKW\RkwCompetition\Domain\Model\Register $register
      * @param \RKW\RkwCompetition\Domain\Model\Competition|null $competition
@@ -109,24 +109,7 @@ class RegisterUtility
         }
 
         $sector = $register->getSector();
-        if ($sector === null) {
-            return '-';
-        }
-
-        // Determine category index (1-based) from competition's sectors
-        $categoryIndex = 0;
-        $counter = 1;
-        if ($competition->getSectors()) {
-            foreach ($competition->getSectors() as $compSector) {
-                if ($compSector->getUid() === $sector->getUid()) {
-                    $categoryIndex = $counter;
-                    break;
-                }
-                $counter++;
-            }
-        }
-
-        if ($categoryIndex === 0) {
+        if ($sector === null || !$sector->getUid()) {
             return '-';
         }
 
@@ -160,7 +143,7 @@ class RegisterUtility
             return '-';
         }
 
-        return sprintf('%d.%02d', $categoryIndex, $contributionIndex);
+        return sprintf('%d.%02d', $sector->getUid(), $contributionIndex);
     }
 
 
