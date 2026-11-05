@@ -120,22 +120,19 @@
                     <f:translate key="templates_backend_show.name" />
                 </th>
                 <th class="nowrap">
-                    <f:translate key="templates_backend_show.email" />
-                </th>
-                <th class="nowrap">
                     <f:translate key="templates_backend_show.title" />
                 </th>
                 <th class="nowrap">
                     <f:translate key="templates_backend_show.sector" />
                 </th>
                 <th class="nowrap">
+                    <f:translate key="templates_backend_show.isGroupWork" />
+                </th>
+                <th class="nowrap">
                     <f:translate key="templates_backend_show.shortPdf" />
                 </th>
                 <th class="nowrap">
                     <f:translate key="templates_backend_show.longPdf" />
-                </th>
-                <th class="nowrap">
-                    <f:translate key="templates_backend_show.cloudFiles" />
                 </th>
                 <th class="nowrap" style="width: 100px;">
                     <f:translate key="templates_backend_show.action" />
@@ -182,11 +179,8 @@
             </td>
             <td>
                 <f:link.action action="registerDetail" arguments="{register: register}">
-                    {register.lastName}, {register.firstName}
+                    {register.lastName}, {register.firstName} ({register.email})
                 </f:link.action>
-            </td>
-            <td>
-                {register.email}
             </td>
             <td>
                 {register.contributionTitle}
@@ -202,12 +196,22 @@
                 </f:if>
             </td>
             <td>
+                <f:if condition="{register.isGroupWork}">
+                    <f:then>
+                        <span class="text-success"><core:icon identifier="actions-check" /></span>
+                    </f:then>
+                    <f:else>
+                        <span class="text-danger"><core:icon identifier="actions-close" /></span>
+                    </f:else>
+                </f:if>
+            </td>
+            <td>
                 <f:if condition="{register.upload.abstract.originalResource.publicUrl}">
                     <f:then>
                         <span class="text-success"><core:icon identifier="actions-check" /></span>
                     </f:then>
                     <f:else>
-                        -
+                        <span class="text-danger"><core:icon identifier="actions-close" /></span>
                     </f:else>
                 </f:if>
             </td>
@@ -217,7 +221,7 @@
                         <span class="text-success"><core:icon identifier="actions-check" /></span>
                     </f:then>
                     <f:else>
-                        -
+                        <span class="text-danger"><core:icon identifier="actions-close" /></span>
                     </f:else>
                 </f:if>
             </td>

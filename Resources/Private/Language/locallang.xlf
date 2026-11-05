@@ -1566,6 +1566,9 @@
             <trans-unit id="templates_backend_show.sector">
                 <source>Sector</source>
             </trans-unit>
+            <trans-unit id="templates_backend_show.isGroupWork">
+                <source>Group work</source>
+            </trans-unit>
             <trans-unit id="templates_backend_show.shortPdf">
                 <source>Abstract</source>
             </trans-unit>

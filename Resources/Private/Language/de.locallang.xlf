@@ -1847,6 +1847,10 @@
                 <source>Sector</source>
                 <target>Wettbewerbsbereich</target>
             </trans-unit>
+            <trans-unit id="templates_backend_show.isGroupWork">
+                <source>Group work</source>
+                <target>Gruppenarbeit</target>
+            </trans-unit>
             <trans-unit id="templates_backend_show.shortPdf">
                 <source>Abstract</source>
                 <target>Kurzfassung</target>
