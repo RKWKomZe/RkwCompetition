@@ -1855,6 +1855,10 @@
                 <source>Sector</source>
                 <target>Wettbewerbsbereich</target>
             </trans-unit>
+            <trans-unit id="templates_backend_show.sectorApprovedCount">
+                <source>Accepted entries in this sector</source>
+                <target>Anzahl der angenommenen Beiträge in dem Bereich</target>
+            </trans-unit>
             <trans-unit id="templates_backend_show.isGroupWork">
                 <source>Group work</source>
                 <target>Gruppenarbeit</target>

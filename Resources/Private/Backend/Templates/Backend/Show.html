@@ -74,6 +74,28 @@
                 </tr>
             </tbody>
         </table>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th><f:translate key="templates_backend_show.sector" /></th>
+                    <th><f:translate key="templates_backend_show.sectorApprovedCount" /></th>
+                </tr>
+            </thead>
+            <tbody>
+                <f:for each="{sectorOverview}" as="item">
+                    <tr>
+                        <td>{item.sector.title} ({item.sector.uid})</td>
+                        <td class="text-right">{item.count}</td>
+                    </tr>
+                </f:for>
+            </tbody>
+            <tfoot>
+                <tr style="background-color: #ededed;">
+                    <td></td>
+                    <td class="text-right"><strong>{finishedRegisterCount}</strong></td>
+                </tr>
+            </tfoot>
+        </table>
     </f:section>
 
     <f:section name="competitionTable">
