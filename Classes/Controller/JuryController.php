@@ -179,6 +179,12 @@ class JuryController extends \RKW\RkwCompetition\Controller\AbstractController
         $this->view->assign('selectedSector', $selectedSector);
         $this->view->assign('juryLoginLink', $juryLoginLink);
         $this->view->assign('juryReference', $juryReference);
+        if ($juryReference && $juryReference->getCompetition()) {
+            $competition = $juryReference->getCompetition();
+            $this->view->assign('registerCountTotal', $this->registerRepository->findByCompetition($competition)->count());
+            $this->view->assign('finishedRegisterCount', $this->registerRepository->findApprovedByCompetition($competition)->count());
+            $this->view->assign('notApprovedRegisterCount', $this->registerRepository->findNotApprovedByCompetition($competition)->count());
+        }
         $this->view->assign(
             'approvedRegistrations',
             $this->registerRepository->findAdminApprovedByCompetition($juryReference->getCompetition(), $selectedSector)

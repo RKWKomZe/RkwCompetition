@@ -62,21 +62,39 @@
             <thead>
                 <tr>
                     <th><f:translate key="templates_backend_show.registrationsTotal" /></th>
-                    <th><f:translate key="templates_backend_show.status.new" /></th>
                     <th><f:translate key="templates_backend_show.status.approved" /></th>
-                    <th><f:translate key="templates_backend_show.status.refused" /></th>
-                    <th><f:translate key="templates_backend_show.status.returned" /></th>
+                    <th><f:translate key="templates_backend_show.status.notapproved" /></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>{registerCountTotal}</td>
-                    <td>{newRegisterCount}</td>
                     <td>{finishedRegisterCount}</td>
-                    <td>{refusedRegisterCount}</td>
-                    <td>{returnedRegisterCount}</td>
+                    <td>{notApprovedRegisterCount}</td>
                 </tr>
             </tbody>
+        </table>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th><f:translate key="templates_backend_show.sector" /></th>
+                    <th><f:translate key="templates_backend_show.sectorApprovedCount" /></th>
+                </tr>
+            </thead>
+            <tbody>
+                <f:for each="{sectorOverview}" as="item">
+                    <tr>
+                        <td>{item.sector.title} ({item.sector.uid})</td>
+                        <td class="text-right">{item.count}</td>
+                    </tr>
+                </f:for>
+            </tbody>
+            <tfoot>
+                <tr style="background-color: #ededed;">
+                    <td></td>
+                    <td class="text-right"><strong>{finishedRegisterCount}</strong></td>
+                </tr>
+            </tfoot>
         </table>
     </f:section>
 
@@ -114,13 +132,16 @@
                     <f:translate key="templates_backend_show.id" />
                 </th>
                 <th class="nowrap">
+                    <f:translate key="templates_backend_show.number" />
+                </th>
+                <th class="nowrap">
                     <f:translate key="templates_backend_show.status" />
                 </th>
                 <th class="nowrap">
                     <f:translate key="templates_backend_show.name" />
                 </th>
                 <th class="nowrap">
-                    <f:translate key="templates_backend_show.email" />
+                    <f:translate key="templates_backend_show.groupWorkAddPersons" />
                 </th>
                 <th class="nowrap">
                     <f:translate key="templates_backend_show.title" />
@@ -129,13 +150,13 @@
                     <f:translate key="templates_backend_show.sector" />
                 </th>
                 <th class="nowrap">
+                    <f:translate key="templates_backend_show.isGroupWork" />
+                </th>
+                <th class="nowrap">
                     <f:translate key="templates_backend_show.shortPdf" />
                 </th>
                 <th class="nowrap">
                     <f:translate key="templates_backend_show.longPdf" />
-                </th>
-                <th class="nowrap">
-                    <f:translate key="templates_backend_show.cloudFiles" />
                 </th>
                 <th class="nowrap" style="width: 100px;">
                     <f:translate key="templates_backend_show.action" />
@@ -144,11 +165,11 @@
             </thead>
             <tbody>
                 <f:for each="{registerList}" as="register">
-                    <f:render section="sector" arguments="{register: register}" />
+                    <f:render section="sector" arguments="{register: register, competition: competition}" />
                 </f:for>
                 <f:if condition="{registerList -> f:count()} == 0">
                     <tr>
-                        <td colspan="10" class="text-center text-muted">
+                        <td colspan="11" class="text-center text-muted">
                             <em><f:translate key="templates_backend_show.noRegistrationsFound" /></em>
                         </td>
                     </tr>
@@ -162,6 +183,9 @@
         <tr>
             <td>
                 {register.uid}
+            </td>
+            <td>
+                <rkw:registerNumber register="{register}" competition="{competition}" />
             </td>
             <td>
                 <f:if condition="<rkw:registerStatus register='{register}' /> == 500">
@@ -184,9 +208,31 @@
                 <f:link.action action="registerDetail" arguments="{register: register}">
                     {register.lastName}, {register.firstName}
                 </f:link.action>
+                <f:if condition="{register.institution}">
+                    <br/>{register.institution}
+                </f:if>
+                <f:if condition="{register.address}">
+                    <br/>{register.address}
+                </f:if>
+                <f:if condition="{register.zip} || {register.city}">
+                    <br/>{register.zip} {register.city}
+                </f:if>
+                <f:if condition="{register.telephone}">
+                    <br/><f:translate key="templates_backend_show.telephone" />: {register.telephone}
+                </f:if>
+                <f:if condition="{register.email}">
+                    <br/><f:translate key="templates_backend_show.email" />: {register.email}
+                </f:if>
             </td>
             <td>
-                {register.email}
+                <f:if condition="{register.groupWorkAddPersons}">
+                    <f:then>
+                        <f:format.nl2br>{register.groupWorkAddPersons}</f:format.nl2br>
+                    </f:then>
+                    <f:else>
+                        -
+                    </f:else>
+                </f:if>
             </td>
             <td>
                 {register.contributionTitle}
@@ -194,10 +240,20 @@
             <td>
                 <f:if condition="{register.sector}">
                     <f:then>
-                        {register.sector.title}
+                        {register.sector.uid}.{register.sector.title}
                     </f:then>
                     <f:else>
                         -
+                    </f:else>
+                </f:if>
+            </td>
+            <td>
+                <f:if condition="{register.isGroupWork}">
+                    <f:then>
+                        <span class="text-success"><core:icon identifier="actions-check" /></span>
+                    </f:then>
+                    <f:else>
+                        <span class="text-danger"><core:icon identifier="actions-close" /></span>
                     </f:else>
                 </f:if>
             </td>
@@ -207,7 +263,7 @@
                         <span class="text-success"><core:icon identifier="actions-check" /></span>
                     </f:then>
                     <f:else>
-                        -
+                        <span class="text-danger"><core:icon identifier="actions-close" /></span>
                     </f:else>
                 </f:if>
             </td>
@@ -217,7 +273,7 @@
                         <span class="text-success"><core:icon identifier="actions-check" /></span>
                     </f:then>
                     <f:else>
-                        -
+                        <span class="text-danger"><core:icon identifier="actions-close" /></span>
                     </f:else>
                 </f:if>
             </td>

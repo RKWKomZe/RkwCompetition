@@ -492,6 +492,12 @@
             <trans-unit id="tx_rkwcompetition_fluid.templates_jury_show.policyGuidelines">
                 <source>Please consider our policy guidelines.</source>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_jury_show.directLink">
+                <source>You can only access the competition via this individual direct link, please keep it safe:</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_jury_show.instructions">
+                <source>Use the buttons to filter the entries by competition sector. Click on an entry to expand the accordion and view all details, information, and submitted files.</source>
+            </trans-unit>
 
             <!-- Templates/Register/DeleteQuestion.html -->
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_deletequestion.headline">
@@ -781,6 +787,12 @@
             </trans-unit>
 
             <!-- Partials/Jury/Properties.html -->
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.overview">
+                <source>Overview</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.sectorApprovedCount">
+                <source>Entries</source>
+            </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.title">
                 <source>Title of the paper</source>
             </trans-unit>
@@ -796,6 +808,12 @@
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.isGroupWork">
                 <source>Is group work</source>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.isGroupWorkYes">
+                <source>Group work</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.isGroupWorkNo">
+                <source>Single work</source>
+            </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.groupWorkAuthorization">
                 <source>Group work authorization</source>
             </trans-unit>
@@ -804,6 +822,9 @@
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.remark">
                 <source>Remark</source>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.files">
+                <source>Files</source>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.abstract">
                 <source>Abstract PDF</source>
@@ -1555,7 +1576,13 @@
                 <source>Note: Each jury member has an individual link that is linked to their e-mail address. Links of different jury members should therefore not be interchanged.</source>
             </trans-unit>
             <trans-unit id="templates_backend_show.name">
-                <source>Name</source>
+                <source>Participants</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.groupWorkAddPersons">
+                <source>Additional participants</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.telephone">
+                <source>Phone</source>
             </trans-unit>
             <trans-unit id="templates_backend_show.email">
                 <source>E-Mail</source>
@@ -1565,6 +1592,12 @@
             </trans-unit>
             <trans-unit id="templates_backend_show.sector">
                 <source>Sector</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.sectorApprovedCount">
+                <source>Accepted entries in this sector</source>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.isGroupWork">
+                <source>Group work</source>
             </trans-unit>
             <trans-unit id="templates_backend_show.shortPdf">
                 <source>Abstract</source>
@@ -1599,6 +1632,9 @@
             <trans-unit id="templates_backend_show.id">
                 <source>ID</source>
             </trans-unit>
+            <trans-unit id="templates_backend_show.number">
+                <source>No.</source>
+            </trans-unit>
             <trans-unit id="templates_backend_show.status.approved">
                 <source>Approved</source>
             </trans-unit>
@@ -1611,6 +1647,9 @@
             <trans-unit id="templates_backend_show.status.refused">
                 <source>Refused</source>
             </trans-unit>
+			<trans-unit id="templates_backend_show.status.notapproved">
+				<source>Not submitted</source>
+			</trans-unit>
             <trans-unit id="templates_backend_show.status.new">
                 <source>New</source>
             </trans-unit>
