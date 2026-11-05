@@ -1895,6 +1895,10 @@
                 <source>ID</source>
                 <target>ID</target>
             </trans-unit>
+            <trans-unit id="templates_backend_show.number">
+                <source>No.</source>
+                <target>Nr.</target>
+            </trans-unit>
             <trans-unit id="templates_backend_show.status.approved">
                 <source>Approved</source>
                 <target>Angenommen</target>

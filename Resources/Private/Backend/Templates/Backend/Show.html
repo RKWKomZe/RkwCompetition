@@ -114,6 +114,9 @@
                     <f:translate key="templates_backend_show.id" />
                 </th>
                 <th class="nowrap">
+                    <f:translate key="templates_backend_show.number" />
+                </th>
+                <th class="nowrap">
                     <f:translate key="templates_backend_show.status" />
                 </th>
                 <th class="nowrap">
@@ -141,7 +144,7 @@
             </thead>
             <tbody>
                 <f:for each="{registerList}" as="register">
-                    <f:render section="sector" arguments="{register: register}" />
+                    <f:render section="sector" arguments="{register: register, competition: competition}" />
                 </f:for>
                 <f:if condition="{registerList -> f:count()} == 0">
                     <tr>
@@ -159,6 +162,9 @@
         <tr>
             <td>
                 {register.uid}
+            </td>
+            <td>
+                <rkw:registerNumber register="{register}" competition="{competition}" />
             </td>
             <td>
                 <f:if condition="<rkw:registerStatus register='{register}' /> == 500">
