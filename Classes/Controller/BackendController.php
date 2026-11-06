@@ -72,19 +72,19 @@ class BackendController extends \RKW\RkwCompetition\Controller\AbstractControlle
     {
         try {
             $ownCloud = GeneralUtility::makeInstance(OwnCloud::class);
-            $usersApi = $ownCloud->getUsersApi();
+            $shareApi = $ownCloud->getShareApi();
 
             if (isset($this->settings['api']['ownCloud']['baseUrl']) && (string)$this->settings['api']['ownCloud']['baseUrl'] !== '') {
-                $usersApi->apiBaseUrl = (string)$this->settings['api']['ownCloud']['baseUrl'];
+                $shareApi->apiBaseUrl = (string)$this->settings['api']['ownCloud']['baseUrl'];
             }
             if (isset($this->settings['api']['ownCloud']['admin']['username']) && (string)$this->settings['api']['ownCloud']['admin']['username'] !== '') {
-                $usersApi->apiAdminUsername = (string)$this->settings['api']['ownCloud']['admin']['username'];
+                $shareApi->apiAdminUsername = (string)$this->settings['api']['ownCloud']['admin']['username'];
             }
             if (isset($this->settings['api']['ownCloud']['admin']['password']) && (string)$this->settings['api']['ownCloud']['admin']['password'] !== '') {
-                $usersApi->apiAdminPassword = (string)$this->settings['api']['ownCloud']['admin']['password'];
+                $shareApi->apiAdminPassword = (string)$this->settings['api']['ownCloud']['admin']['password'];
             }
 
-            $baseUrl = (string)($usersApi->apiBaseUrl ?? '');
+            $baseUrl = (string)($shareApi->apiBaseUrl ?? '');
             if ($baseUrl === '') {
                 $this->addFlashMessage(
                     'OwnCloud-Verbindungsfehler: Die apiBaseUrl ist nicht konfiguriert.',
@@ -94,8 +94,8 @@ class BackendController extends \RKW\RkwCompetition\Controller\AbstractControlle
                 return;
             }
 
-            // Test API request (using Guzzle via AbstractApi, matching RegisterController)
-            $result = $usersApi->getUserList();
+            // Test API request (using ShareApi via AbstractApi, does not require admin privileges)
+            $result = $shareApi->getAllShares();
             if (isset($result['status']) && $result['status'] === 'failure') {
                 $errorMsg = 'OwnCloud-Verbindungsfehler (Base URL: ' . $baseUrl . '): API-Fehler: ' . ($result['message'] ?? json_encode($result));
                 $this->addFlashMessage($errorMsg, 'OwnCloud', AbstractMessage::ERROR);
