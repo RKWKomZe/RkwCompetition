@@ -8,6 +8,7 @@ namespace RKW\RkwCompetition\Domain\Repository;
 use Madj2k\FeRegister\Domain\Model\FrontendUser;
 use RKW\RkwCompetition\Domain\Model\Competition;
 use RKW\RkwCompetition\Domain\Model\Register;
+use RKW\RkwCompetition\Domain\Model\Sector;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
@@ -164,20 +165,27 @@ class RegisterRepository extends AbstractRepository
      * function findAdminApprovedByCompetition
      *
      * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
+     * @param \RKW\RkwCompetition\Domain\Model\Sector|null $sector
      * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findAdminApprovedByCompetition(Competition $competition): QueryResultInterface
+    public function findAdminApprovedByCompetition(Competition $competition, ?Sector $sector = null): QueryResultInterface
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
 
-        return $query->matching(
-            $query->logicalAnd(
-                $query->equals('competition', $competition),
-                $query->logicalNot(
-                    $query->equals('adminApprovedAt', 0)
-                )
+        $constraints = [
+            $query->equals('competition', $competition),
+            $query->logicalNot(
+                $query->equals('adminApprovedAt', 0)
             )
+        ];
+
+        if ($sector instanceof Sector) {
+            $constraints[] = $query->equals('sector', $sector);
+        }
+
+        return $query->matching(
+            $query->logicalAnd(...$constraints)
         )->execute();
     }
 
@@ -197,6 +205,30 @@ class RegisterRepository extends AbstractRepository
             $query->logicalAnd(
                 $query->equals('competition', $competition),
                 $query->equals('user_submitted_at', 0)
+            )
+        )->execute();
+    }
+
+
+    /**
+     * function findNewByCompetition
+     *
+     * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
+     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @throws InvalidQueryException
+     */
+    public function findNewByCompetition(Competition $competition): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+
+        return $query->matching(
+            $query->logicalAnd(
+                $query->equals('competition', $competition),
+                $query->equals('adminApprovedAt', 0),
+                $query->equals('adminReturnedAt', 0),
+                $query->equals('adminRefusedAt', 0),
+                $query->equals('userSubmittedAt', 0)
             )
         )->execute();
     }

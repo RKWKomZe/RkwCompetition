@@ -1,4 +1,9 @@
 {namespace postmaster=Madj2k\Postmaster\ViewHelpers}
+{namespace rkw=RKW\RkwCompetition\ViewHelpers}
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:postmaster="http://typo3.org/ns/Madj2k/Postmaster/ViewHelpers"
+      xmlns:rkw="http://typo3.org/ns/RKW/RkwCompetition/ViewHelpers"
+      data-namespace-typo3-fluid="true">
 <f:layout name="Email/{mailType}" />
 
 
@@ -9,6 +14,13 @@
 <postmaster:email.translate key="templates_email_frontendUser_closingDayIncomplete.text1" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
 <postmaster:email.translate key="templates_email_frontendUser_closingDayIncomplete.text2" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
 
+<f:render partial="Email/Details" section="Plaintext" arguments="{register: register, frontendUser: frontendUser, language:frontendUser.txFeregisterLanguageKey, showPid: showPid, competitionPid: competitionPid, isRegistered : 1}"/>
+
+=============================================================
+<postmaster:email.translate key="templates_email_frontendUser_closingDayIncomplete.showHeadline" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
+=============================================================
+<postmaster:email.translate key="templates_email_frontendUser_incomplete.text3" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
+<postmaster:email.uri.page absolute="true" pageUid="{loginPid}" />
 </f:section>
 
 <!-- HTML -->
@@ -18,9 +30,13 @@
 		<postmaster:email.translate key="templates_email_frontendUser_closingDayIncomplete.text1" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" /><br>
 		<postmaster:email.translate key="templates_email_frontendUser_closingDayIncomplete.text2" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" />
 	</p>
+
+	<f:render partial="Email/Details" section="Html" arguments="{register:register, frontendUser: frontendUser, language:frontendUser.txFeregisterLanguageKey, showPid: showPid, competitionPid: competitionPid, isRegistered : 1}"/>
+
 	<h2><postmaster:email.translate key="templates_email_frontendUser_closingDayIncomplete.showHeadline" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" /></h2>
 	<p>
 		<a href="<postmaster:email.uri.page absolute='true' pageUid='{loginPid}' />" target="_blank"><postmaster:email.translate key="templates_email_frontendUser_incomplete.text3" languageKey="{queueRecipient.languageCode}" extensionName="rkwCompetition" /></a>
 	</p>
 
 </f:section>
+</html>

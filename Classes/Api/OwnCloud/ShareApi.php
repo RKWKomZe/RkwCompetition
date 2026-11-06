@@ -60,7 +60,7 @@ class ShareApi extends AbstractApi
      * @return array
      */
     public function getAllShares(
-        array $path = ['/'],
+        array $path = [],
         string $format = 'json',
         bool $reshares = true,
         string $sharedWithMe = '',
@@ -71,9 +71,15 @@ class ShareApi extends AbstractApi
         $this->apiMethod = self::METHOD_GET;
 
         $arguments = [
-            'path' => implode('/', $path),
             'format' => $format
         ];
+
+        if (!empty($path)) {
+            $trimmed = trim(implode('/', $path), '/');
+            if ($trimmed !== '') {
+                $arguments['path'] = '/' . $trimmed;
+            }
+        }
 
         if ($reshares) {
             $arguments['reshares'] = $reshares;
@@ -161,7 +167,7 @@ class ShareApi extends AbstractApi
 
         $arguments = [
             'name' => $name,
-            'path' => implode('/', $path),
+            'path' => '/' . trim(implode('/', $path), '/'),
             'shareType' => $shareType,
             'shareWith' => $shareWith
         ];
@@ -244,11 +250,9 @@ class ShareApi extends AbstractApi
         string $name = ''
     ): array
     {
-        $this->apiMethod = self::METHOD_GET;
+        $this->apiMethod = self::METHOD_PUT;
 
-        $arguments = [
-            'shareId' => $shareId
-        ];
+        $arguments = [];
 
         if ($permissions) {
             $arguments['permissions'] = $permissions;
@@ -267,7 +271,7 @@ class ShareApi extends AbstractApi
             $arguments['name'] = $name;
         }
 
-        return $this->doApiRequest(self::API_PATH, $arguments);
+        return $this->doApiRequest(self::API_PATH . '/' . $shareId, $arguments);
     }
 
 

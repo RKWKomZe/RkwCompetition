@@ -8,8 +8,11 @@
 				value="1"
 		/>
 		<label for="consentAsJuryMember" class="checkbox-label">
-			<f:translate key="tx_rkwcompetition_fluid.partials_jury_formfields.consent" />
-			<f:link.typolink parameter="{juryReference.competition.linkJuryDeclarationConfident}" />
+			<f:format.raw>
+				<f:translate key="tx_rkwcompetition_fluid.partials_jury_formfields.consent.partOne" />
+				<f:link.typolink parameter="{juryReference.competition.linkJuryDeclarationConfident}" target="_blank"><f:translate key="tx_rkwcompetition_fluid.partials_jury_formfields.consent.partTwo" /></f:link.typolink>
+				<f:translate key="tx_rkwcompetition_fluid.partials_jury_formfields.consent.partThree" />
+			</f:format.raw>
 		</label>
 	</div>
 

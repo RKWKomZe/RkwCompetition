@@ -425,6 +425,14 @@
                 <source>Please consider our policy guidelines.</source>
                 <target>Beachten Sie stets unsere Richtlinien zur Verschwiegenheit</target>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_jury_show.directLink">
+                <source>You can only access the competition via this individual direct link, please keep it safe:</source>
+                <target>Sie erhalten nur über diesen individuellen Direktlink Zugang zum Wettbewerb, bitte gut aufheben:</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_jury_show.instructions">
+                <source>Use the buttons to filter the entries by competition sector. Click on an entry to expand the accordion and view all details, information, and submitted files.</source>
+                <target>Über die Schaltflächen können Sie die Beiträge nach Wettbewerbsbereich filtern. Durch Klick auf einen Beitrag öffnen Sie das jeweilige Akkordeon, um alle Angaben, Details und eingereichten Dateien einzusehen.</target>
+            </trans-unit>
 
             <!-- Templates/Register/DeleteQuestion.html -->
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_deletequestion.headline">
@@ -603,24 +611,24 @@
                 <target>Langfassung der Projektbeschreibung (optional)</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.hint1">
-                <source>Have you thought about using the provided cloud for additional files and images?</source>
-                <target>Möchten Sie noch weitere Unterlagen über den bereitgestellen Cloud-Ordner einreichen?</target>
+                <source>Have you thought about using the provided RKWCloud for additional files and images?</source>
+                <target>Möchten Sie noch weitere Unterlagen über den bereitgestellten RKWCloud-Ordner einreichen?</target>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.ownCloudLink">
-                <source>OwnCloud-Link</source>
-                <target>OwnCloud-Link</target>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.RKWCloudLink">
+                <source>RKWCloud-Link</source>
+                <target>RKWCloud-Link</target>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.ownCloudPass">
-                <source>OwnCloud-PW</source>
-                <target>OwnCloud-PW</target>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.RKWCloudPass">
+                <source>RKWCloud-Password</source>
+                <target>RKWCloud-Passwort</target>
             </trans-unit>
-            <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.ownCloudEmpty">
-                <source>Attention: Your cloud folder is still empty!</source>
-                <target>Derzeit ist Ihr Cloud-Ordner noch leer!</target>
+            <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.RKWCloudEmpty">
+                <source>Attention: Your RKWCloud folder is still empty!</source>
+                <target>Derzeit ist Ihr RKWCloud-Ordner noch leer!</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.templates_register_submitquestion.hint2">
-                <source>I understand that information provided and files submitted cannot be changed after submission.</source>
-                <target>Ich habe verstanden, dass nach dem Absenden die gemachten Angaben und eingereichten Dateien nicht mehr geändert werden können.</target>
+                <source>I understand that information provided and files submitted cannot be changed after submission. The option to manage files in our RKWCloud will remain until end of registration.</source>
+                <target>Ich habe verstanden, dass nach dem Absenden die gemachten Angaben und eingereichten Dateien nicht mehr geändert werden können. Die Möglichkeit, Dateien über den RKWCloud-Zugang zu verwalten, bleibt hingegen bis zum Anmeldeschluss bestehen.</target>
             </trans-unit>
 
             <!-- Templates/Upload/Edit.html -->
@@ -717,15 +725,15 @@
                 <target>Hochladen</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.intro">
-                <source>We are delighted that you would like to take part in our competition %s. Before we can evaluate your registration, we need further information from you, such as a summary of your project description and also other materials. You can upload your project description directly here; for further materials, we would ask you to use the access to our cloud provided below. Please remember to submit your registration with all required documents by %s at the latest.</source>
+                <source>We are delighted that you would like to take part in our competition %s. Before we can evaluate your registration, we need further information from you, such as a summary of your project description and also other materials. You can upload your project description directly here; for further materials, we would ask you to use the access to our RKWCloud provided below. Please remember to submit your registration with all required documents by %s at the latest.</source>
                 <target><![CDATA[Schön, dass Sie an unserem Wettbewerb %s teilnehmen wollen.<br /><br />
                 Bevor wir Ihre Anmeldung bewerten können, benötigen wir noch weitere Informationen von Ihnen wie beispielsweise eine Kurfassung Ihrer Projektbeschreibung und gerne auch weitere Materialien.<br /><br />
-                Ihre Projektbeschreibung können Sie direkt hier hochladen, für weitere Materialien möchten wir Sie bitten, den weiter unten bereitgestellten Zugang zu unserer Cloud zu nutzen.<br /><br />
+                Ihre Projektbeschreibung können Sie direkt hier hochladen, für weitere Materialien möchten wir Sie bitten, den weiter unten bereitgestellten Zugang zu unserer RKWCloud zu nutzen.<br /><br />
                 Bitte denken Sie daran, Ihre Anmeldung mit allen erforderlichen Unterlagen bis spätestens %s bei uns einzureichen.]]></target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.cloudHeadline">
-                <source>Access data to our cloud</source>
-                <target>Zugangsdaten zu unserer Cloud</target>
+                <source>Access data to our RKWCloud</source>
+                <target>Zugangsdaten zu unserer RKWCloud</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.cloudUrl">
                 <source>Url</source>
@@ -734,6 +742,10 @@
             <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.cloudPassword">
                 <source>Your password</source>
                 <target>Ihr Passwort</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_participant_listing.cloudExpired">
+                <source>The file upload via RKWCloud has been closed since %s.</source>
+                <target>Der Dateiupload über RKWCloud ist seit dem %s geschlossen.</target>
             </trans-unit>
 
             <!-- Partials/Participant/Options.html -->
@@ -776,9 +788,17 @@
 
 
             <!-- Partials/Jury/FormFields.html -->
-            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_formfields.consent">
-                <source>I agree to the declaration of confidentiality</source>
-             			<target>Ich stimme der Verschwiegenheitserklärung zu</target>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_formfields.consent.partOne">
+                <source>I agree to the </source>
+                <target>Ich stimme der </target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_formfields.consent.partTwo">
+                <source>declaration of confidentiality</source>
+                <target>Verschwiegenheitserklärung</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_formfields.consent.partThree">
+                <source> to</source>
+                <target> zu</target>
             </trans-unit>
 
             <!-- Partials/Jury/Listing.html -->
@@ -818,6 +838,14 @@
             </trans-unit>
 
             <!-- Partials/Jury/Properties.html -->
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.overview">
+                <source>Overview</source>
+                <target>Übersicht</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.sectorApprovedCount">
+                <source>Entries</source>
+                <target>Beiträge</target>
+            </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.title">
                 <source>Title of the paper</source>
                 <target>Titel der Arbeit</target>
@@ -838,17 +866,29 @@
                 <source>Is group work</source>
                 <target>Ist Gruppenarbeit</target>
             </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.isGroupWorkYes">
+                <source>Group work</source>
+                <target>Gruppenarbeit</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.isGroupWorkNo">
+                <source>Single work</source>
+                <target>Einzelarbeit</target>
+            </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.groupWorkAuthorization">
                 <source>Group work authorization</source>
                 <target>Vertretungsbefugnis für Gruppenarbeit</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.participatingPersons">
                 <source>Affidavit</source>
-                <target>Teilnehmende Personen</target>
+                <target>Weitere Bewerbende</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.remark">
                 <source>Remark</source>
                 <target>Anmerkung</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.files">
+                <source>Files</source>
+                <target>Dateien</target>
             </trans-unit>
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.abstract">
                 <source>Abstract</source>
@@ -865,6 +905,30 @@
             <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.download">
                 <source>Download</source>
                 <target>Download</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.typeOfWork">
+                <source>Type of work</source>
+                <target>Art der Arbeit</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.submissionDate">
+                <source>Submission date</source>
+                <target>Einreichungsdatum</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.zipAndCity">
+                <source>ZIP / City</source>
+                <target>PLZ / Ort</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.ownCloudFolderLink">
+                <source>Project folder (RKWCloud)</source>
+                <target>Projektordner (RKWCloud)</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.cloudFiles">
+                <source>RKWCloud files</source>
+                <target>Dateien in RKWCloud</target>
+            </trans-unit>
+            <trans-unit id="tx_rkwcompetition_fluid.partials_jury_properties.noRegistrations">
+                <source>No submissions in this category.</source>
+                <target>Keine Beiträge in dieser Kategorie vorhanden.</target>
             </trans-unit>
 
 
@@ -914,8 +978,12 @@
                 <target>Bitte vervollständigen Sie Ihre Anmeldung</target>
             </trans-unit>
             <trans-unit id="rkwMailService.frontendUser.subject.juryNotify">
-                <source>Confirm your role as a jury member</source>
-                <target>Bestätigen Sie Ihre Rolle in der Jury</target>
+                <source>Confirm your role in the jury for the competition %s</source>
+                <target>Bestätigen Sie Ihre Rolle in der Jury zum Wettbewerb %s</target>
+            </trans-unit>
+            <trans-unit id="rkwMailService.frontendUser.subject.juryConsent">
+                <source>Competition %s: Confirmation of your jury membership</source>
+                <target>Wettbewerb %s: Bestätigung Ihrer Jury-Mitgliedschaft</target>
             </trans-unit>
             <trans-unit id="rkwMailService.frontendUser.subject.closingDayIncomplete">
                 <source>Closing day imcomplete</source>
@@ -947,6 +1015,10 @@
             <trans-unit id="rkwMailService.backendUser.subject.closingDay">
                 <source>Competition closing day</source>
                 <target>Wettbewerb: Anmeldezeitraum beendet</target>
+            </trans-unit>
+            <trans-unit id="rkwMailService.backendUser.subject.juryConsent">
+                <source>Competition %s: Jury member registration completed</source>
+                <target>Wettbewerb %s: Jurymitglied hat sich vollständig registriert</target>
             </trans-unit>
 
 
@@ -1213,24 +1285,24 @@
                 <target>Hallo %s %s,</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_upload.text1">
-                <source>thanks for your registration.</source>
-                <target>vielen Dank für Ihr Interesse an einem Wettbewerb des RKW.</target>
+                <source>thank you for registering for the competition "%s".</source>
+                <target>vielen Dank für Ihre Anmeldung zum Wettbewerb „%s“.</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_upload.text2">
-                <source>Please upload your files.</source>
-                <target>Bitte vervollständigen Sie jetzt Ihre Anmeldung durch das Hochladen entsprechender Dateien.</target>
+                <source>Please complete your registration now by uploading your documents (e.g. project description and files).</source>
+                <target>Bitte vervollständigen Sie jetzt Ihre Anmeldung, indem Sie Ihre Unterlagen (z. B. Projektbeschreibung und Dateien) hochladen.</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_upload.text3">
-                <source>Login here to take a look to your registration.</source>
-                <target>Loggen Sie sich hier ein, um Ihre Angaben im Detail anzusehen</target>
+                <source>Log in here to upload your documents and view your details</source>
+                <target>Jetzt einloggen und Unterlagen hochladen</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_upload.showHeadline">
-                <source>Show registration</source>
-                <target>Wettbewerbsregistrierung ansehen</target>
+                <source>General information about the competition</source>
+                <target>Allgemeine Informationen zum Wettbewerb finden Sie hier</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_upload.changeDeleteHeadline">
-                <source>Change / Delete</source>
-                <target>Löschen / Ändern</target>
+                <source>Upload documents &amp; manage registration</source>
+                <target>Unterlagen hochladen &amp; Anmeldung vervollständigen</target>
             </trans-unit>
 
             <!-- Templates/Email/FrontendUser/JuryNotify.html -->
@@ -1239,11 +1311,11 @@
                 <target>Hallo %s %s,</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_juryNotify.text1">
-                <source>you have been selected.</source>
-                <target>Sie wurden ausgewählt, als Jury-Mitglied an einem Wettbewerb des RKW teilzunehmen.</target>
+                <source>You have been selected to participate as a jury member in the following RKW competition:</source>
+                <target>Sie wurden ausgewählt, als Jury-Mitglied am Wettbewerb %s des RKW teilzunehmen.</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_juryNotify.text2">
-                <source>Please agree to our terms to participate.</source>
+                <source>For this, we still need your consent and confidentiality agreement.</source>
                 <target>Dafür benötigen wir jedoch noch Ihre Einverständnis- und Verschwiegenheitserklärung.</target>
             </trans-unit>
             <trans-unit id="templates_email_frontendUser_juryNotify.text3">
@@ -1253,6 +1325,29 @@
             <trans-unit id="templates_email_frontendUser_juryNotify.showHeadline">
                 <source>Show registration</source>
                 <target>Nominierung ansehen</target>
+            </trans-unit>
+
+
+            <!-- Templates/Email/FrontendUser/JuryConsent.html -->
+            <trans-unit id="templates_email_frontendUser_juryConsent.headline">
+                <source>Hello %s %s,</source>
+                <target>Hallo %s %s,</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_juryConsent.text1">
+                <source>thank you for your consent. You are now officially registered as a jury member for the competition %s.</source>
+                <target>vielen Dank für Ihre Zustimmung. Sie sind nun offiziell als Jury-Mitglied für den Wettbewerb %s registriert.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_juryConsent.text2">
+                <source>You can access the protected jury area at any time via the following direct link to view and evaluate the submitted contributions:</source>
+                <target>Sie können über folgenden Direktlink jederzeit auf den geschützten Jury-Bereich zugreifen, um die eingereichten Beiträge einzusehen und zu bewerten:</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_juryConsent.showHeadline">
+                <source>Direct link to the jury area</source>
+                <target>Direktlink zum Jury-Bereich</target>
+            </trans-unit>
+            <trans-unit id="templates_email_frontendUser_juryConsent.text3">
+                <source>View nominations</source>
+                <target>Nominierungen ansehen</target>
             </trans-unit>
 
 
@@ -1284,7 +1379,7 @@
                 <source>Please find below the details of your reservation.</source>
                 <target>Untenstehend finden Sie die Details Ihrer Anmeldung. Bei Rückfragen können Sie einfach direkt auf diese E-Mail antworten.</target>
             </trans-unit>
-            <trans-unit id="templates_email_frontendUser_incomplete.showHeadline">
+            <trans-unit id="templates_email_frontendUser_closingDayApproved.showHeadline">
                 <source>Show registration</source>
                 <target>Anmeldung ansehen</target>
             </trans-unit>
@@ -1318,7 +1413,7 @@
             </trans-unit>
             <trans-unit id="templates_email_backendUser_confirmation.text1" approved="no">
                 <source>a registration has been placed.</source>
-                <target>jemand hat sich über die Website an einen Wettbewerbs angemeldet. Sie können dem oder der Nutzenden direkt auf diese E-Mail antworten, um etwaige Fragen zu klären.</target>
+                <target>jemand hat sich über die Website für einen Wettbewerb angemeldet. Sie können dem oder der Nutzenden direkt auf diese E-Mail antworten, um etwaige Fragen zu klären.</target>
             </trans-unit>
             <trans-unit id="templates_email_backendUser_confirmation.text2" approved="no">
                 <source>IMPORTANT: The user has already received a confirmation for his reservation. He will also automatically receive a reminder-mail a few days before the event.</source>
@@ -1378,6 +1473,21 @@
             <trans-unit id="templates_email_backendUser_closingDay.text2" approved="no">
                 <source>IMPORTANT: You found downloadable content inside the TYPO3 backend module.</source>
                 <target>WICHTIG: Im zugehörigen Backend Module finden Sie nun herunterladbare Informationen zu den jeweiligen Anmeldungen.</target>
+            </trans-unit>
+
+
+            <!-- Templates/Email/BackendUser/JuryConsent.html -->
+            <trans-unit id="templates_email_backendUser_juryConsent.headline">
+                <source>Hello %s,</source>
+                <target>Hallo %s,</target>
+            </trans-unit>
+            <trans-unit id="templates_email_backendUser_juryConsent.text1">
+                <source>A jury member has successfully registered and consented for the competition "%s".</source>
+                <target>Ein Jurymitglied hat sich für den Wettbewerb "%s" erfolgreich registriert und die Teilnahme bestätigt.</target>
+            </trans-unit>
+            <trans-unit id="templates_email_backendUser_juryConsent.text2">
+                <source>Juror: %s %s (%s)</source>
+                <target>Juror/in: %s %s (%s)</target>
             </trans-unit>
 
 
@@ -1534,20 +1644,36 @@
                 <target>Langfassung</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.cloudFiles">
-                <source>Files in Cloud</source>
-                <target>Dateien im Cloud-Ordner</target>
+                <source>Files in RKWCloud</source>
+                <target>Dateien im RKWCloud-Ordner</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.cloudAdminLink">
-                <source>Cloud Folder (Name)</source>
-                <target>Cloud-Ordner (Name)</target>
+                <source>RKWCloud Folder (Name)</source>
+                <target>RKWCloud-Ordner (Name)</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.ownCloudLink">
-                <source>OwnCloud link</source>
-                <target>OwnCloud Link</target>
+                <source>RKWCloud link</source>
+                <target>RKWCloud Link</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.ownCloudExpired">
+                <source>Expired (registration deadline: %s)</source>
+                <target>Abgelaufen (Anmeldeschluss: %s)</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.ownCloudPass">
-                <source>OwnCloud password</source>
-                <target>OwnCloud Passwort</target>
+                <source>RKWCloud password</source>
+                <target>RKWCloud Passwort</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.ownCloudPassExpired">
+                <source>– (no longer valid)</source>
+                <target>– (nicht mehr gültig)</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.registeredAt">
+                <source>Registered at:</source>
+                <target>Registriert am:</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_registerDetail.userSubmittedAt">
+                <source>Submitted at:</source>
+                <target>Eingereicht am:</target>
             </trans-unit>
             <trans-unit id="templates_backend_registerDetail.adminRefusedAt">
                 <source>Refused at:</source>
@@ -1695,13 +1821,17 @@
                 <source>No competition selected</source>
                 <target>Kein Wettbewerb ausgewählt</target>
             </trans-unit>
+            <trans-unit id="templates_backend_show.overview">
+                <source>Overview</source>
+                <target>Überblick</target>
+            </trans-unit>
             <trans-unit id="templates_backend_show.registrationsTotal">
-                <source>Registrations total:</source>
-                <target>Anmeldungen:</target>
+                <source>Total</source>
+                <target>Insgesamt</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.finishedRegistrations">
                 <source>Finished registrations:</source>
-                <target>Abgeschlossene Anmeldungen:</target>
+                <target>Angenommene Anmeldungen:</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.refusedRegistrations">
                 <target>Abgelehnte Anmeldungen:</target>
@@ -1730,8 +1860,16 @@
                 <target>Hinweis: Jedes Jury-Mitglied hat einen individuellen Link, der mit dessen E-Mail Adresse verknüpft ist. Links verschiedener Jury-Mitglieder sollten daher nicht vertauscht werden.</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.name">
-                <source>Name</source>
-                <target>Name, Vorname</target>
+                <source>Participants</source>
+                <target>Teilnehmende</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.groupWorkAddPersons">
+                <source>Additional participants</source>
+                <target>Weitere Teilnehmende</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.telephone">
+                <source>Phone</source>
+                <target>Telefon</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.email">
                 <source>E-Mail</source>
@@ -1744,6 +1882,26 @@
             <trans-unit id="templates_backend_show.sector">
                 <source>Sector</source>
                 <target>Wettbewerbsbereich</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.sectorApprovedCount">
+                <source>Accepted entries in this sector</source>
+                <target>Anzahl der angenommenen Beiträge in dem Bereich</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.isGroupWork">
+                <source>Group work</source>
+                <target>Gruppenarbeit</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.shortPdf">
+                <source>Abstract</source>
+                <target>Kurzfassung</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.longPdf">
+                <source>Long description</source>
+                <target>Langfassung</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.cloudFiles">
+                <source>Files in RKWCloud</source>
+                <target>RKWCloud-Dateien</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.status">
                 <source>Status</source>
@@ -1777,6 +1935,10 @@
                 <source>ID</source>
                 <target>ID</target>
             </trans-unit>
+            <trans-unit id="templates_backend_show.number">
+                <source>No.</source>
+                <target>Nr.</target>
+            </trans-unit>
             <trans-unit id="templates_backend_show.status.approved">
                 <source>Approved</source>
                 <target>Angenommen</target>
@@ -1793,9 +1955,33 @@
                 <source>Refused</source>
                 <target>Abgelehnt</target>
             </trans-unit>
+			<trans-unit id="templates_backend_show.status.notapproved">
+				<source>Not submitted</source>
+				<target>Nicht eingereicht</target>
+			</trans-unit>
             <trans-unit id="templates_backend_show.status.new">
                 <source>New</source>
                 <target>Neu</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.filter.all">
+                <source>All</source>
+                <target>Alle</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.filter.status">
+                <source>Status</source>
+                <target>Status</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.filter.submit">
+                <source>Filter</source>
+                <target>Filtern</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.filter.reset">
+                <source>Reset filter</source>
+                <target>Filter zurücksetzen</target>
+            </trans-unit>
+            <trans-unit id="templates_backend_show.noRegistrationsFound">
+                <source>No registrations found matching the filter criteria.</source>
+                <target>Keine Anmeldungen für das gewählte Filterkriterium gefunden.</target>
             </trans-unit>
             <trans-unit id="templates_backend_show.show">
                 <source>Show</source>

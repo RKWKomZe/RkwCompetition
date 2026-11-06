@@ -177,17 +177,24 @@
                     <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.cloudHeadline"/>
                 </h4>
                 <p>
-                    <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.cloudUrl"/>:
-                    <f:link.external
-                        uri="{register.ownCloudFolderLink}"
-                        target="_blank"
-                    >
-                        {register.ownCloudFolderLink}
-                    </f:link.external>
-                    <br>
+                    <f:if condition="<rkw:isDateWithinDeadline date='{register.competition.registerEnd}' />">
+                        <f:then>
+                            <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.cloudUrl"/>:
+                            <f:link.external
+                                uri="{register.ownCloudFolderLink}"
+                                target="_blank"
+                            >
+                                {register.ownCloudFolderLink}
+                            </f:link.external>
+                            <br>
 
-                    <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.cloudPassword"/>:
-                    <rkw:ownCloudUserFolderPass register='{register}'/>
+                            <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.cloudPassword"/>:
+                            <rkw:ownCloudUserFolderPass register='{register}'/>
+                        </f:then>
+                        <f:else>
+                            <f:translate key="tx_rkwcompetition_fluid.partials_participant_listing.cloudExpired" arguments="{0: '{register.competition.registerEnd -> f:format.date(format: \'d.m.Y H:i\')}'}" />
+                        </f:else>
+                    </f:if>
                 </p>
                 <f:render partial="Participant/Options" arguments="{_all}"/>
             </f:if>

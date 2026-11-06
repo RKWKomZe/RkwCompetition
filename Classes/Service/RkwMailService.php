@@ -234,7 +234,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
                     'rkwMailService.frontendUser.subject.optIn',
                     'rkw_competition',
                     null,
-                    $frontendUser->getTxFeregisterLanguageKey()
+                    $frontendUser->getTxFeregisterLanguageKey() ?: 'de'
                 )
             );
 
@@ -348,15 +348,78 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
      */
     public function juryNotifyUser(
-        array $juryReferenceList
+        array $juryReferenceList,
+        int $rootPageUid = 1
     ) :void
     {
-        /** @var JuryReference $juryReference */
-        foreach ($juryReferenceList as $juryReference) {
+        if (!$rootPageUid) {
+            $settingsDefault = $this->getSettings();
 
-            $frontendUser = GeneralUtility::makeInstance(FrontendUser::class);
-            $frontendUser->setEmail($juryReference->getEmail());
-            $this->frontendUserMail($frontendUser, $juryReference, 'juryNotify');
+            //  get RootPageUid for the current site
+            $rootPageUid = (int)($settingsDefault['rootPageUid'] ?? 1);
+        }
+
+        try {
+            FrontendSimulatorUtility::simulateFrontendEnvironment($rootPageUid);
+
+            /** @var JuryReference $juryReference */
+            foreach ($juryReferenceList as $juryReference) {
+
+                $frontendUser = GeneralUtility::makeInstance(FrontendUser::class);
+                $frontendUser->setEmail($juryReference->getEmail());
+                $frontendUser->setTxFeregisterLanguageKey('de');
+                $this->frontendUserMail($frontendUser, $juryReference, 'juryNotify');
+            }
+        } catch (\Exception $e) {
+            GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(
+                LogLevel::ERROR,
+                $e->getMessage()
+            );
+        } finally {
+            FrontendSimulatorUtility::resetFrontendEnvironment();
+        }
+    }
+
+
+    /**
+     * Handles jury consent confirmation mails
+     *
+     * @param JuryReference $juryReference
+     * @param int $rootPageUid
+     * @return void
+     * @throws \Madj2k\Postmaster\Exception
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
+     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     */
+    public function juryConsentUser(
+        \RKW\RkwCompetition\Domain\Model\JuryReference $juryReference,
+        int $rootPageUid = 1
+    ) :void
+    {
+        if (!$rootPageUid) {
+            $settingsDefault = $this->getSettings();
+
+            //  get RootPageUid for the current site
+            $rootPageUid = (int)($settingsDefault['rootPageUid'] ?? 1);
+        }
+
+        try {
+            FrontendSimulatorUtility::simulateFrontendEnvironment($rootPageUid);
+
+            $frontendUser = $juryReference->getGuestUser();
+            if ($frontendUser instanceof \Madj2k\FeRegister\Domain\Model\FrontendUser) {
+                $frontendUser->setTxFeregisterLanguageKey('de');
+                $this->frontendUserMail($frontendUser, $juryReference, 'juryConsent');
+            }
+        } catch (\Exception $e) {
+            GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(
+                LogLevel::ERROR,
+                $e->getMessage()
+            );
+        } finally {
+            FrontendSimulatorUtility::resetFrontendEnvironment();
         }
     }
 
@@ -366,6 +429,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      *
      * @param array $registerList Register records inside an array
      * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
+     * @param int $rootPageUid
      * @return void
      * @throws \Madj2k\Postmaster\Exception
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
@@ -375,12 +439,50 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      */
     public function closingDayIncompleteUser(
         array $registerList,
-        \RKW\RkwCompetition\Domain\Model\Competition $competition
+        \RKW\RkwCompetition\Domain\Model\Competition $competition,
+        int $rootPageUid = 1
     ) :void
     {
-        /** @var Register $register */
-        foreach ($registerList as $register) {
-            $this->frontendUserMail($register->getFrontendUser(), $competition, 'closingDayIncomplete');
+        if (!$rootPageUid) {
+            $settingsDefault = $this->getSettings();
+
+            //  get RootPageUid for the current site
+            $rootPageUid = (int)($settingsDefault['rootPageUid'] ?? 1);
+        }
+
+        try {
+            FrontendSimulatorUtility::simulateFrontendEnvironment($rootPageUid);
+
+            /** @var Register $register */
+            foreach ($registerList as $register) {
+
+                try {
+                    $frontendUser = $register->getFrontendUser();
+
+                    if ($frontendUser instanceof \Madj2k\FeRegister\Domain\Model\FrontendUser) {
+                        $this->frontendUserMail($frontendUser, $register, 'closingDayIncomplete');
+                    } else {
+                        throw new \Exception(
+                            sprintf('No frontend user found for register %s', $register->getUid()),
+                            1619602353
+                        );
+                    }
+
+                } catch (\Exception $e) {
+                    GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(
+                        LogLevel::ERROR,
+                        $e->getMessage()
+                    );
+                }
+            }
+
+        } catch (\Exception $e) {
+            GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(
+                LogLevel::ERROR,
+                $e->getMessage()
+            );
+        } finally {
+            FrontendSimulatorUtility::resetFrontendEnvironment();
         }
     }
 
@@ -390,6 +492,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      *
      * @param array $registerList Register records inside an array
      * @param \RKW\RkwCompetition\Domain\Model\Competition $competition
+     * @param int $rootPageUid
      * @return void
      * @throws \Madj2k\Postmaster\Exception
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
@@ -399,12 +502,50 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      */
     public function closingDayApprovedUser(
         array $registerList,
-        \RKW\RkwCompetition\Domain\Model\Competition $competition
+        \RKW\RkwCompetition\Domain\Model\Competition $competition,
+        int $rootPageUid = 1
     ) :void
     {
-        /** @var Register $register */
-        foreach ($registerList as $register) {
-            $this->frontendUserMail($register->getFrontendUser(), $competition, 'closingDayApproved');
+        if (!$rootPageUid) {
+            $settingsDefault = $this->getSettings();
+
+            //  get RootPageUid for the current site
+            $rootPageUid = (int)($settingsDefault['rootPageUid'] ?? 1);
+        }
+
+        try {
+            FrontendSimulatorUtility::simulateFrontendEnvironment($rootPageUid);
+
+            /** @var Register $register */
+            foreach ($registerList as $register) {
+
+                try {
+                    $frontendUser = $register->getFrontendUser();
+
+                    if ($frontendUser instanceof \Madj2k\FeRegister\Domain\Model\FrontendUser) {
+                        $this->frontendUserMail($frontendUser, $register, 'closingDayApproved');
+                    } else {
+                        throw new \Exception(
+                            sprintf('No frontend user found for register %s', $register->getUid()),
+                            1619602353
+                        );
+                    }
+
+                } catch (\Exception $e) {
+                    GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(
+                        LogLevel::ERROR,
+                        $e->getMessage()
+                    );
+                }
+            }
+
+        } catch (\Exception $e) {
+            GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(
+                LogLevel::ERROR,
+                $e->getMessage()
+            );
+        } finally {
+            FrontendSimulatorUtility::resetFrontendEnvironment();
         }
     }
 
@@ -479,8 +620,8 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
                 LocalizationUtility::translate(
                     'rkwMailService.frontendUser.subject.' . $action,
                     'rkw_competition',
-                    null,
-                    $frontendUser->getTxFeregisterLanguageKey()
+                    (method_exists($entity, 'getCompetition') && $entity->getCompetition()) ? [$entity->getCompetition()->getTitle()] : null,
+                    $frontendUser->getTxFeregisterLanguageKey() ?: 'de'
                 )
             );
 
@@ -576,10 +717,28 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      */
     public function removalOfCompetitionAdmin(
         $backendUser,
-        \RKW\RkwCompetition\Domain\Model\Competition $competition
+        \RKW\RkwCompetition\Domain\Model\Competition $competition,
+        int $rootPageUid = 1
     ) :void
     {
-        $this->backendUserMail($backendUser, $competition, 'removalReminder');
+        if (!$rootPageUid) {
+            $settingsDefault = $this->getSettings();
+
+            //  get RootPageUid for the current site
+            $rootPageUid = (int)($settingsDefault['rootPageUid'] ?? 1);
+        }
+
+        try {
+            FrontendSimulatorUtility::simulateFrontendEnvironment($rootPageUid);
+            $this->backendUserMail($backendUser, $competition, 'removalReminder');
+        } catch (\Exception $e) {
+            GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(
+                LogLevel::ERROR,
+                $e->getMessage()
+            );
+        } finally {
+            FrontendSimulatorUtility::resetFrontendEnvironment();
+        }
     }
 
 
@@ -597,10 +756,68 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
      */
     public function closingDayAdmin(
         $backendUser,
-        \RKW\RkwCompetition\Domain\Model\Competition $competition
+        \RKW\RkwCompetition\Domain\Model\Competition $competition,
+        int $rootPageUid = 1
     ) :void
     {
-        $this->backendUserMail($backendUser, $competition, 'closingDay');
+        if (!$rootPageUid) {
+            $settingsDefault = $this->getSettings();
+
+            //  get RootPageUid for the current site
+            $rootPageUid = (int)($settingsDefault['rootPageUid'] ?? 1);
+        }
+
+        try {
+            FrontendSimulatorUtility::simulateFrontendEnvironment($rootPageUid);
+            $this->backendUserMail($backendUser, $competition, 'closingDay');
+        } catch (\Exception $e) {
+            GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(
+                LogLevel::ERROR,
+                $e->getMessage()
+            );
+        } finally {
+            FrontendSimulatorUtility::resetFrontendEnvironment();
+        }
+    }
+
+
+    /**
+     * Handles jury consent admin notification mails
+     *
+     * @param BackendUser|array $backendUser
+     * @param \RKW\RkwCompetition\Domain\Model\JuryReference $juryReference
+     * @param int $rootPageUid
+     * @return void
+     * @throws \Madj2k\Postmaster\Exception
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3Fluid\Fluid\View\Exception\InvalidTemplateResourceException
+     * @throws \TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException
+     */
+    public function juryConsentAdmin(
+        $backendUser,
+        \RKW\RkwCompetition\Domain\Model\JuryReference $juryReference,
+        int $rootPageUid = 1
+    ) :void
+    {
+        if (!$rootPageUid) {
+            $settingsDefault = $this->getSettings();
+
+            //  get RootPageUid for the current site
+            $rootPageUid = (int)($settingsDefault['rootPageUid'] ?? 1);
+        }
+
+        try {
+            FrontendSimulatorUtility::simulateFrontendEnvironment($rootPageUid);
+            $this->backendUserMail($backendUser, $juryReference, 'juryConsent', $juryReference->getGuestUser());
+        } catch (\Exception $e) {
+            GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(
+                LogLevel::ERROR,
+                $e->getMessage()
+            );
+        } finally {
+            FrontendSimulatorUtility::resetFrontendEnvironment();
+        }
     }
 
 
@@ -674,7 +891,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
                         'subject' => LocalizationUtility::translate(
                             'rkwMailService.backendUser.subject.' . strtolower($action),
                             'rkw_competition',
-                            ($entity instanceof Register) ? [$entity->getCompetition()->getTitle()] : null,
+                            ($entity instanceof Register || $entity instanceof JuryReference) ? [$entity->getCompetition()->getTitle()] : null,
                             $recipient->getLang()
                         ),
                     ]);
@@ -695,7 +912,7 @@ class RkwMailService implements \TYPO3\CMS\Core\SingletonInterface
                 LocalizationUtility::translate(
                     'rkwMailService.backendUser.subject.' . $action,
                     'rkw_competition',
-                    ($entity instanceof Register) ? [$entity->getCompetition()->getTitle()] : null,
+                    ($entity instanceof Register || $entity instanceof JuryReference) ? [$entity->getCompetition()->getTitle()] : null,
                     'de'
                 )
             );

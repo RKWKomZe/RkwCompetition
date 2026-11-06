@@ -173,8 +173,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
-                'size' => 7,
-                'eval' => 'date, required',
+                'eval' => 'datetime, int, required',
                 'default' => time()
             ],
         ],
@@ -184,8 +183,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
-                'size' => 7,
-                'eval' => 'date, required',
+                'eval' => 'datetime, int, required',
                 'default' => time()
             ],
         ],
@@ -195,8 +193,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
-                'size' => 7,
-                'eval' => 'date, required',
+                'eval' => 'datetime, int, required',
                 'default' => time()
             ],
         ],
@@ -229,7 +226,7 @@ return [
                 'type' => 'text',
                 'cols' => 40,
                 'rows' => 15,
-                'eval' => 'trim, required',
+                'eval' => 'trim',
                 'fieldControl'  => [
                     'fullScreenRichtext' => [
                         'disabled' => false,
